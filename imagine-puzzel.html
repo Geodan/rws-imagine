@@ -1,0 +1,322 @@
+<link rel="import"
+      href="bower_components/polymer/polymer.html">
+ <link rel="import" href="./imagine-time-slider-vertical.html">
+<script type="text/javascript" src="bower_components/interact.js/interact.min.js"></script>
+
+ 
+<dom-module id="imagine-puzzel">
+  <style>
+#speelveld {
+    background: #eeeeec;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+#bord {
+    border: solid 1px black;
+   
+    position: absolute;
+    top: 100px;
+    left: 150px;
+
+    right: 150px;
+}
+.kaartje {
+    background: url('kaartje.png') no-repeat;
+    width: 126px;
+    height: 94px;
+    z-index: 2;
+    position: absolute;
+opacity: 0.8;
+    }
+
+
+
+.dropzone {
+  background-color: #ccc;
+  border: dashed 4px transparent;
+  border-radius: 4px;
+  
+
+  transition: background-color 0.3s;
+}
+
+.drop-active {
+  border-color: #aaa;
+}
+
+.drop-target {
+  background-color: #29e;
+  border-color: #fff;
+  border-style: solid;
+}
+
+
+.drag-drop.can-drop {
+background: url('kaartje-shadow.png') no-repeat;
+  -moz-box-shadow:    0px 0px 5px 0px black;
+  -webkit-box-shadow: 0px 0px 5px 0px black;
+  box-shadow:         0px 0px 5px 0px black;
+  opacity: 1;
+}
+
+
+@-ms-keyframes wiggle{0%{-ms-transform:rotate3d(0, 0, 1, 3deg);}50%{-ms-transform:rotate3d(0, 0, 1, -3deg);}100%{-ms-transform:rotate3d(0, 0, 1, 3deg);}}
+@-moz-keyframes wiggle{0%{-moz-transform:rotate3d(0, 0, 1, 3deg));}50%{-moz-transform:rotate3d(0, 0, 1, -3deg);}100%{-moz-transform:rotate3d(0, 0, 1, 3deg);}}
+@-webkit-keyframes wiggle{0%{-webkit-transform:rotate3d(0, 0, 1, 3deg));}50%{-webkit-transform:rotate3d(0, 0, 1, -3deg);}100%{-webkit-transform:rotate3d(0, 0, 1, 3deg);}}
+@keyframes wiggle{0%{transform:rotate3d(0, 0, 1, 3deg));}50%{transform:rotate3d(0, 0, 1, -3deg);}100%{transform:rotate3d(0, 0, 1, 3deg);}}
+
+.wiggle{
+-webkit-animation: wiggle .3s 100;
+animation:wiggle .3s 100;
+box-shadow:         0px 0px 5px 0px blue !important;
+ -moz-box-shadow:    0px 0px 5px 0px blue !important;
+  -webkit-box-shadow: 0px 0px 5px 0px blue !important;
+}
+imagine-time-slider-vertical {
+    position: absolute;
+    top: 100px;
+    right: 120px;
+    height: calc(100% - 200px);
+}
+.hide {
+display:none;
+}
+#event-0{left:10%}
+#event-1{left:18%}
+#event-2{left:26%}
+#event-3{left:34%}
+#event-4{left:42%}
+#event-5{left:50%}
+#event-6{left:58%}
+#event-7{left:66%}
+#event-8{left:74%}
+#event-9{left:82%}
+#event-10{right:0}
+#event-11{right:0;top:10%}
+#event-12{right:0;top:20%}
+#event-13{right:0;top:30%}
+#event-14{right:0;top:40%}
+#event-15{right:0;top:50%}
+#event-16{right:0;top:60%}
+#event-17{right:0;top:70%}
+#event-18{right:0;top:80%}
+#event-19{right:0;top:90%}
+#event-20{left:10%;bottom:0}
+#event-21{left:18%;bottom:0}
+#event-22{left:26%;bottom:0}
+#event-23{left:34%;bottom:0}
+#event-24{left:42%;bottom:0}
+#event-25{left:50%;bottom:0}
+#event-26{left:58%;bottom:0}
+#event-27{left:66%;bottom:0}
+#event-28{left:74%;bottom:0}
+#event-29{left:82%;bottom:0}
+#event-30{left:0}
+#event-31{left:0;top:10%}
+#event-32{left:0;top:20%}
+#event-33{left:0;top:30%}
+#event-34{left:0;top:40%}
+#event-35{left:0;top:50%}
+#event-36{left:0;top:60%}
+#event-37{left:0;top:70%}
+#event-38{left:0;top:80%}
+#event-39{left:0;top:90%}
+
+
+  </style>
+  <template>
+    <!-- local DOM for your element -->
+   <div id="speelveld">
+   
+    <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}">
+    </canvas>
+    <imagine-time-slider-vertical max="300" value="0" done="{{done}}"></imagine-time-slider-vertical>
+<template  is="dom-repeat" items="{{events}}">
+<div id="{{item.event}}" class="kaartje draggable drag-drop" >{{item.event}}</div>
+</template>    
+ 
+   </div>
+  </template>
+</dom-module>
+
+<script>
+  // register a new element called proto-element
+  Polymer({
+    
+    is: "imagine-puzzel", 
+    properties: {
+    done: {
+        type: Boolean,
+        value: false,
+        
+        
+        observer:  '_doneChanged'
+      },
+      events: {
+        type: Array,
+        value: function() {
+            var e = [];
+            for(var i = 0; i<40;i++){             
+              e.push({event:'event-'+i,first:[],last:[]})
+            }
+            return e;
+        }
+      }
+      
+    },
+    behaviors: [
+      
+    ],
+ observers: [
+     
+    ],
+
+    _doneChanged: function(){
+        if(this.done) {
+        var allekaartjes  = document.getElementsByClassName('kaartje');
+         for(var i = 0; i< allekaartjes.length;i++){
+            if(!allekaartjes[i].classList.contains('can-drop'))
+            allekaartjes[i].classList.add('hide');
+        }
+        
+        var self = this;
+        interact('.draggable')
+  .draggable({enabled:false})
+  .on('down',function(e){  
+     if(e.currentTarget.classList.contains('can-drop')&&!self.first) {
+        self.first=true;
+        e.currentTarget.classList.add('first');
+        var kaartjes = document.getElementsByClassName('can-drop');
+        for(var i = 0; i< kaartjes.length;i++){
+        
+            kaartjes[i].classList.add('wiggle');
+        }
+     }
+  });
+        }
+    },
+    ready: function() {
+    this.counter = 0;
+    this.first = false;
+    var self = this;
+    var w =  (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    this.width=w-300;
+    var h =  (window.innerHeight > 0) ? window.innerHeight : screen.height;
+    this.height=h-200;
+    var angle = 0;
+    // target elements with the "draggable" class
+interact('.draggable')
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
+
+    // call this function on every dragmove event
+    onmove: dragMoveListener,
+    // call this function on every dragend event
+    onend: function (event) {
+        
+    }
+  })
+  
+  .on('up',function(e){  
+    if(e.shiftKey) return true;
+    self.first = false;
+     if(e.currentTarget.classList.contains('can-drop')) {
+        var kaartjes = document.getElementsByClassName('can-drop');
+        if(kaartjes[0].classList.contains('wiggle')&&!e.currentTarget.classList.contains('first') ){
+            var end = [parseFloat(e.currentTarget.attributes['data-x'].value) - 140,parseFloat(e.currentTarget.attributes['data-y'].value) - 20]
+            var first = document.getElementsByClassName('first');
+            var begin = [parseFloat(first[0].attributes['data-x'].value) - 36,parseFloat(first[0].attributes['data-y'].value) - 88]
+            
+            var canvas = document.getElementById('bord');
+              var context = canvas.getContext('2d');
+
+              context.beginPath();
+              context.moveTo(begin[0],begin[1]);
+              context.lineTo(end[0],end[1]);
+              context.lineWidth = 5;
+              context.strokeStyle = '#ff0000';
+              context.lineCap = 'round';
+              context.stroke();
+        }
+        for(var i = 0; i< kaartjes.length;i++){
+            
+            kaartjes[i].classList.remove('wiggle');
+            kaartjes[i].classList.remove('first')
+        }
+     }
+  })
+ 
+
+  function dragMoveListener (event) {
+    var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || event.target.offsetLeft) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || event.target.offsetTop) + event.dy;
+
+    // translate the element
+   // target.style.webkitTransform =
+    //target.style.transform =
+     // 'translate(' + x + 'px, ' + y + 'px)';// rotate('+angle+'deg)';
+target.style.left = x+'px';
+target.style.top = y+'px';
+    // update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+  // this is used later in the resizing demo
+  window.dragMoveListener = dragMoveListener;
+   interact('.dropzone').dropzone({
+  // only accept elements matching this CSS selector
+  accept: '.kaartje',
+  // Require a 75% element overlap for a drop to be possible
+  overlap: 0.75,
+
+  // listen for drop related events:
+
+  ondropactivate: function (event) {
+    // add active dropzone feedback
+    event.target.classList.add('drop-active');
+  },
+  ondragenter: function (event) {
+   if(self.counter>19) return false;
+   //TODO: betere feedback
+    var draggableElement = event.relatedTarget,
+        dropzoneElement = event.target;
+
+    // feedback the possibility of a drop
+    dropzoneElement.classList.add('drop-target');
+    draggableElement.classList.add('can-drop');
+    self.counter++;
+  },
+  ondragleave: function (event) {
+    // remove the drop feedback style
+    event.target.classList.remove('drop-target');
+    event.relatedTarget.classList.remove('can-drop');
+    self.counter--;
+  },
+  ondrop: function (event) {
+    
+  },
+  ondropdeactivate: function (event) {
+    // remove active dropzone feedback
+    event.target.classList.remove('drop-active');
+    event.target.classList.remove('drop-target');
+  }
+});
+   
+    }
+    
+  });
+</script>

@@ -1,0 +1,309 @@
+<link rel="import"
+      href="bower_components/polymer/polymer.html">
+ 
+<link rel="import" href="bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="bower_components/iron-behaviors/iron-control-state.html">
+<link rel="import" href="bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+
+ 
+<dom-module id="imagine-slider">
+  <style>
+:host {
+    display: inline-block;
+    width: 100%;
+      cursor: default;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+:host #sliderBar::shadow #activeProgress {
+  background-color: #e0e0e0;
+}
+:host(:focus) {
+  outline: none;
+}
+#imagineContainer {
+     border: solid 2px grey;
+      background-color: #e0e0e0;
+}
+#sliderContainer {
+  position: relative;
+  width: calc(100% - 80px);
+  height: 48px;
+ 
+}
+.bar-container {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+#sliderBar {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 52px;
+  width: 100%;
+  padding: 8px 0;
+  margin: -8px 0;
+}
+#sliderKnob {
+  @apply(--layout-center-justified);
+  @apply(--layout-center);
+  @apply(--layout-horizontal);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  
+}
+#sliderKnob:focus {
+  outline: none;
+}
+#sliderKnob.dragging {
+  transition: none;
+}
+#sliderKnobInner {
+  padding: 5px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: var(--paper-slider-knob-color, --google-blue-700);
+  transition-property: height, width, background-color, border, left;
+  transition-duration: 0.1s;
+  transition-timing-function: ease;
+}
+.expand:not(.pin) > #sliderKnob > #sliderKnobInner {
+  width: 100%;
+  height: 100%;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+#sliderKnob.tap {
+ transition-property:  left;
+  transition-duration: 0.1s;
+  transition-timing-function: ease;
+  }
+  
+.tap > #sliderKnob  {
+  left: 10% !important;
+  
+}
+
+
+#sliderKnobInner::before {
+  background-color: var(--paper-slider-pin-color, --google-blue-700);
+}
+
+
+
+#sliderKnobInner::before,
+#sliderKnobInner::after {
+  transition: -webkit-transform .2s ease, background-color .18s ease;
+  transition: transform .2s ease, background-color .18s ease;
+}
+
+
+
+
+  </style>
+  <template>
+    <!-- local DOM for your element -->
+    <div id="imagineContainer">
+     <div id="sliderContainer" class$="[[_getClassNames( immediateValue, min, expand, dragging, tap)]]">
+      <div class="bar-container">
+        <paper-progress id="sliderBar" aria-hidden="true" min="0" max="1" value="[[immediateValue]]"
+          on-up="_resetKnob" on-track="_onTrack"></paper-progress>
+      </div>
+
+
+      <div id="sliderKnob"  class$="[[_getClassNames( tap)]]"      on-tap="_knobtap" on-down="_knobdown" on-up="_resetKnob"
+        on-track="_onTrack"       
+        center-justified center horizontal layout>
+
+        <div id="sliderKnobInner" >{{text}}</div>
+      </div>
+    </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  // register a new element called proto-element
+  Polymer({
+    
+    is: "imagine-slider",
+    properties: {
+      immediateValue: {
+        type: Number,
+        value: 0,
+        readOnly: true
+      },
+      /**
+       * If true, the knob is expanded
+       */
+      tap: {
+        type: Boolean,
+        value: false,
+        readOnly: true
+      },
+      /**
+       * If true, the knob is expanded
+       */
+      expand: {
+        type: Boolean,
+        value: false,
+        readOnly: true
+      },
+      /**
+       * True when the user is dragging the slider.
+       */
+      dragging: {
+        type: Boolean,
+        value: false,
+        readOnly: true
+      }
+    },
+    behaviors: [
+      Polymer.IronRangeBehavior,
+      Polymer.IronControlState
+    ],
+ observers: [
+      '_updateKnob(value, min, max)',
+      '_valueChanged(value)',
+      '_immediateValueChanged(immediateValue)'
+    ],
+    _updateKnob: function(value) {
+      var ratio = this._calcRatio(value)
+      if(ratio<0.9) {
+      this._positionKnob(0)}
+      else {
+      this._positionKnob(1);
+      this._setTap(false)
+      }
+    },
+    _valueChanged: function() {
+      this.setAttribute('aria-valuenow', this.value);
+      this.fire('value-change');
+    },
+    _immediateValueChanged: function() {
+      if (this.dragging) {
+        this.fire('immediate-value-change');
+      } else {
+        this.value = this.immediateValue;
+      }     
+    },
+    _positionKnob: function(ratio) {
+      this._setImmediateValue(this._calcStep(this._calcKnobPosition(ratio)) || 0);
+      this._setRatio(this.snaps ? this._calcRatio(this.immediateValue) : ratio);
+    //TODO: animation;
+      this.$.sliderKnob.style.left = this.ratio * 100 + '%';
+    },
+    ready: function() {
+        this.text = "submit"   
+    },
+    _expandKnob: function() {
+      this._setExpand(true);
+    },   
+    _onTrack: function(e) {
+      switch (event.detail.state) {
+        case 'end':
+          this._trackEnd(event);
+          break;
+        case 'track':
+          this._trackX(event);
+          break;
+        case 'start':
+          this._trackStart(event);
+          break;
+      }
+    },   
+    _knobdown: function(event) {
+      event.detail.sourceEvent.preventDefault();
+     // this._expandKnob();
+    },
+    _knobtap: function(event) {
+        var r = this._calcRatio(this.immediateValue)
+      if(r<0.9) {
+      this._setTap(true);
+      var self = this;
+      setTimeout(function(){self._setTap(false)},250)
+      }
+    },
+    _calcKnobPosition: function(ratio) {
+      return (this.max - this.min) * ratio + this.min;
+    },
+    _resetKnob: function() {
+      this._expandJob && this._expandJob.stop();
+      this._setExpand(false);
+    },    
+    _trackStart: function(e) {
+      this._w = this.$.sliderBar.offsetWidth;
+      this._x = this.ratio * this._w;
+      this._startx = this._x || 0;
+      this._minx = - this._startx;
+      this._maxx = this._w - this._startx;
+      this.$.sliderKnob.classList.add('dragging');
+      this._setDragging(true);
+      e.preventDefault();
+    },
+    _trackX: function(e) {
+      if (!this.dragging) {
+        this._trackStart(e);
+      }
+      var x = Math.min(this._maxx, Math.max(this._minx, e.detail.dx));
+      this._x = this._startx + x;
+      this._setImmediateValue(this._calcStep(
+          this._calcKnobPosition(this._x / this._w)) || 0);
+      var s =  this.$.sliderKnob.style;
+      s.transform = s.webkitTransform = 'translate3d(' + (this.snaps ?
+          (this._calcRatio(this.immediateValue) * this._w) - this._startx : x) + 'px, 0, 0)';
+    },
+    _trackEnd: function() {
+      var s =  this.$.sliderKnob.style;
+      var r = this._calcRatio(this.immediateValue)
+      if(r<0.9) {
+      var time = Math.floor(this._x/10);
+      
+      
+      var x = this._x;
+      var i = 0;
+      var intval = setInterval(function(){
+                var trans =  x - 10*i ;
+            s.transform = s.webkitTransform = 'translate3d(' + trans + 'px, 0, 0)';
+           
+            i++;
+            
+            if(i>time) {
+                
+                clearInterval(intval)
+                s.transform = s.webkitTransform = '';
+            }
+      },1);
+     }
+      else s.transform = s.webkitTransform = '';
+      this.$.sliderKnob.classList.remove('dragging');
+      this._setDragging(false);
+      this._resetKnob();
+      this.value = this.immediateValue;
+      this.fire('change');
+    },
+    _getClassNames: function() {
+      var classes = {};
+      classes['tap'] = this.tap;
+      classes['expand'] = this.expand;
+      classes['dragging'] = this.dragging;
+      return Object.keys(classes).filter(
+        function(className) {
+          return classes[className];
+        }).join(' ');
+    }
+    
+  });
+</script>
