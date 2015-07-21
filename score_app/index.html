@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <title>Score board</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../bower_components/underscore/underscore.js"></script>
+  <script src="../bower_components/cow/dist/cow.js"></script>
+  <script src="score.js"></script>
+  <link rel="import" href="./imagine-score.html">
+  <style>
+  </style>
+  </head>
+  <body>
+  	<imagine-score id="scoreelement">
+  	</imagine-score>
+  
+  <script type="text/javascript">
+
+  var core = new Cow.core({
+    herdname: 'imagine',
+    maxage: 1000 * 60 * 60 * 24 * 30 //30 days
+  });
+  
+  core.projectStore().loaded.then(function(){
+          console.log('projectstore loaded');
+  });
+  core.projectStore().on('synced', function(){
+          console.log('projectstore synced');
+  });
+  core.projectStore().loaded.then(function(){
+          console.log('Projectstore loaded');
+  });
+  
+  //add a default socketserver
+  if (!core.socketserver('default')){
+	  core.socketservers({
+		_id: 'default', 
+		data: {protocol:'wss',ip:'websocket.geodan.nl', port:443, dir: 'imagine'}
+	  });
+  };
+  core.socketserver('default');
+  core.connect();
+  /*
+  core.socketserverStore().loaded.then(reload_serverlist);
+  core.socketserverStore().on('datachange', reload_serverlist);
+  
+  core.peerStore().loaded.then(reload_peerlist);
+  core.peerStore().on('datachange', reload_peerlist);
+  
+  core.userStore().loaded.then(reload_userlist);
+  core.userStore().on('datachange', reload_userlist);
+  */
+  core.projectStore().loaded.then(function(){
+  	var sc = document.querySelector('imagine-score')
+  	sc.projects = core.projects().filter(function(d){return !d.deleted();});
+  });
+  core.projectStore().on('datachange', function(){
+  	var sc = document.querySelector('imagine-score')
+  	sc.projects = core.projects().filter(function(d){return !d.deleted();});
+  });
+  
+  </script>
+  </body>
+  </html>

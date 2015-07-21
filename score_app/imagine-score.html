@@ -1,0 +1,51 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="imagine-projectcard.html">
+<link rel="import" href="imagine-scoreboard.html">
+
+<dom-module id="imagine-score">
+
+<style>
+.columns {
+    @apply(--layout-horizontal);
+}
+.rows {
+	@apply(--layout-vertical);
+}
+</style>
+<template>
+<paper-drawer-panel>
+<div drawer> 
+	<div class='rows'>
+		<template is='dom-repeat' items="{{projects}}">
+			<imagine-projectcard on-click='select' project='{{item}}'></imagine-projectcard>
+		</template>
+	</div>
+</div>
+<div main>
+	<imagine-scoreboard id='scoreboard'></imagine-scoreboard>
+</div>
+</template>
+</dom-module>
+<script>
+Polymer({
+		is: 'imagine-score',
+		properties:{
+			projects: {
+				type:Array,
+				value: function(){
+					return [];
+				}
+			}
+		},
+		select: function(i){
+			var project = i.model.item;
+			this.$.scoreboard.project = project;
+		},
+		ready: function(){
+		}
+});
+</script>
+ 
