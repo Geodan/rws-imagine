@@ -1,0 +1,37 @@
+
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
+<dom-module id="imagine-projectcard">
+<template>
+	<paper-item>
+	<paper-item-body two-line>
+	ID: <b>{{project._id}}</b><br>
+	Team: <span>{{project._data.team}}</span><br>
+	Scenario: <span>{{project._data.scenario}}</span><br>
+	Score: <span>{{score}}</span>
+	</paper-item-body>
+	</paper-item>
+</template>
+</dom-module>
+<script>
+Polymer({
+		is: 'imagine-projectcard',
+		properties:{
+			project: Object,
+			score: Number
+		},
+		observers:[
+			
+		],
+		ready: function(){
+			var self = this;
+			this.project.itemStore().loaded.then(function(){
+				self.score = calculatescore(self.project._id);
+			});
+			this.project.itemStore().on('datachange',function(){
+				self.score = calculatescore(self.project._id);
+			});
+		}
+});
+</script>
+ 

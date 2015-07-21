@@ -1,0 +1,540 @@
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<script src="../bower_components/d3/d3.js"></script>
+<style>
+/* Putting the d3 styling as a global outside the element, otherwise it's not picked up */
+.axis {
+  shape-rendering: crispEdges;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: gray;
+}
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+.event{
+	fill: lightgreen;
+	cursor: pointer;
+}
+
+#series1 {
+	opacity: 0;
+	fill: lightgray;
+	stroke: lightgray;
+	stroke-width: 1px;
+}
+#series1 text {
+	stroke: white;
+	fill:white;
+	dominant-baseline: central;
+	text-anchor: middle;
+}
+#series2 {
+	fill: lightgreen;
+	stroke: lightgreen;
+	stroke-width: 1px;
+}
+#series2 text {
+	stroke: none;
+	fill:white;
+	dominant-baseline: central;
+	text-anchor: middle;
+}
+#series2 line {
+	stroke-width: 4px;
+}
+
+#series2 .selected {
+	stroke: orange;
+	stroke-width: 4px;
+}
+
+.drag_line {
+	stroke-width: 2px;
+	stroke: orange;
+}
+
+.hidden {
+	display: none;
+}
+
+#basket {
+	stroke: lightgreen;
+	stroke-width: 1px;
+}
+#basket text{
+	stroke: white;
+	fill:white;
+	dominant-baseline: central;
+	text-anchor: middle;
+}
+
+.menu {
+	fill: orange;
+	stroke: orange;
+}
+
+</style>
+<dom-module id="imagine-scoreboard">
+
+<style>
+.title {
+	font-family: 'Roboto', 'Noto', sans-serif;
+}
+
+.score {
+	font-family: 'Roboto', 'Noto', sans-serif;
+	font-size: 20pt;
+}
+
+.line {
+    margin-bottom: 40px;
+    font-family: 'Roboto', 'Noto', sans-serif;
+}
+
+.line span {
+	margin-left: 24px;
+}
+
+#slider {
+	width: 100%
+}
+</style>
+
+<template>
+	<div class='title'>Scoreboard for <span>{{project._id}}</span></div>
+	<div class='score'>Score: <span>{{score}}</span></div>
+	<div class='line'><paper-button on-click="randomize">Randomize</paper-button></div>
+	<div class='line'><paper-toggle-button id="toggleAnswer" on-change="itemsChanged"></paper-toggle-button><span>Antwoorden</span></div>
+	<div class='line'><paper-slider id='slider' on-immediate-value-change='timeset'></paper-slider></div>
+	<div class='line'><span>{{showtime(curtime)}}</span></div>
+	<div id="chart"></div>
+</template>
+</dom-module>
+<script>
+(function(){
+var margin = {top: 80, right: 80, bottom: 80, left: 80},
+	width = 960  - margin.left - margin.right,
+	height = 500 - margin.top - margin.bottom;
+var radius = 20;
+var x = d3.scale.linear().range([0, width]),
+	y = d3.scale.linear().range([height, 0]),
+	xAxis = d3.svg.axis().scale(x).ticks(10).tickSize(-height).tickSubdivide(true),
+	yAxis = d3.svg.axis().scale(y).ticks(10).tickSize(-width).orient("left");
+
+
+Polymer({
+		is: 'imagine-scoreboard',
+		properties:{
+			project: {
+				type: Object,
+				observer: 'projectChanged'
+			},
+			items: {
+				type: Array,
+				observer: 'itemsChanged'
+			},
+			curtime: {
+				type: Number,
+				value: new Date().getTime()
+			}
+		},
+		observers:[
+		],
+		showtime: function(time){
+			return new Date(time).toLocaleString();
+		},
+		randomize: function(){
+			this.project.items().forEach(function(d){
+					d.data('active',Math.random() > 0.5);
+			});
+			var scale = d3.scale.ordinal();
+			var items = this.project.items().filter(function(d){return d.data('active');});
+			var arr = items.map(function(d){return d.data('id');});
+			scale.range(arr);
+			items.forEach(function(d){
+				d.data('x',Math.random()*90)
+					.data('y',Math.random()*90)
+					//.data('link','')
+					.data('link',scale(Math.round(Math.random() * 10)))
+					;
+			});
+			//itemStore().syncRecords() doesn't work
+			this.project.items().forEach(function(d){
+					d.sync();
+			});
+		},
+		toggleLinks: function(){
+			svg.selectAll('.event').on('mousedown', function(d){
+				console.log(this);
+			});
+		},
+		timeset: function(d){
+			this.curtime = this.$.slider.immediateValue;
+			this.itemsChanged();
+		},
+		itemsChanged: function(){
+			this.score = calculatescore(this.project._id,this.curtime);
+			var items = this.items;
+			var svg = this.svg;
+			var graph = this.graph;
+			var basket = this.basket;
+			
+			/* Org events */
+			var opacity = this.$.toggleAnswer.checked ? 1 : 0;
+			graph.select('#series1').transition().style('opacity',opacity);
+			
+			var activeitems_org = items.filter(function(d){return d.data('active_org');});
+			var entities_org = graph.select('#series1').selectAll('.event_org')
+				.data(activeitems_org, function(d){return d.id()});
+			var events_org = entities_org.enter().append('g').classed('event_org', true);
+			events_org.append('circle')
+				.attr('r',radius);
+			events_org.append('text')
+				.text(function(d){return d.data('id');});
+			events_org.append('line');
+			
+			entities_org.select('circle')
+				.attr('cx',function(d){return x(d.data('x_org'));})
+				.attr('cy',function(d){return y(d.data('y_org'));});
+			entities_org.select('text')
+				.attr('x',function(d){return x(d.data('x_org'));})
+				.attr('y',function(d){return y(d.data('y_org'));})
+			entities_org.exit().remove();
+			
+			//Draw orig active links
+			var defs = svg.select('#series1')
+				.append('defs')
+				.append('marker')
+				.attr('id',"Triangle1")
+				.attr('viewBox',"0 0 10 10")
+				.attr('refX',"20")
+				.attr('refY',"5")
+				.attr('markerUnits',"strokeWidth")
+				.attr('markerWidth',"15")
+				.attr('markerHeight',"10")
+				.attr('orient',"auto")
+				.append('path')
+				.attr('d',"M 0 0 L 10 5 L 0 10 z");
+				
+			var linkitems_org = activeitems_org.filter(function(d){
+					return d.data('link_org') && d.data('link_org') != '' && d.data('link_org') != d.data('id');
+			});
+			var links_org = graph.select('#series1').selectAll('.link')
+				.data(linkitems_org, function(d){return d.id()});
+			links_org.enter().append('line')
+				.classed('link',true)
+				.attr('marker-end',"url(#Triangle1)");
+			links_org
+				.attr('x1',function(d){return x(d.data('x_org'));})
+				.attr('y1',function(d){return y(d.data('y_org'));})
+				.attr('x2',function(d){
+					if (d.data('link_org')){
+						 var item = activeitems_org.filter(function(d1){
+							return d1.data('id') == d.data('link_org');
+						})[0];
+						var val = item.data('x_org');
+					} else {
+						var val = d.data('x_org');
+					}
+					return x(val);
+				})
+				.attr('y2',function(d){
+					if (d.data('link_org')){
+						 var item = activeitems_org.filter(function(d1){
+							return d1.data('id') == d.data('link_org');
+						})[0];
+						var val = item.data('y_org');
+					} else {
+						var val = d.data('y_org');
+					}
+					return y(val);
+				});
+			links_org.exit().remove();
+			
+			
+			// line displayed when dragging new nodes
+			var drag_line = graph.append("line")
+				.attr("class", "drag_line")
+				.attr("x1", 0)
+				.attr("y1", 0)
+				.attr("x2", 0)
+				.attr("y2", 0);
+			
+			
+			/* Drag behaviour */
+			
+			var drag = d3.behavior.drag()
+				.on("dragstart", dragstart)
+				.on("drag", dragmove)
+				.on("dragend", dragend);
+			
+			var self = this;
+			function dragstart(d){
+			}
+			function dragmove(d){
+			  d3.select(this).attr("transform", function(d){
+					var x = Math.max(radius, Math.min(width - radius, d3.event.x));
+					var y = Math.max(radius, Math.min(height - radius, d3.event.y));
+					return "translate(" + x + "," + y + ")";
+			  });
+			}
+			function dragend(d){
+				var loc = d3.mouse(graph[0][0]);
+				d.data('x', (loc[0]/width) * 100)
+					.data('y', ((height - loc[1])/height) * 100)
+					.data('active',true)
+					.sync();
+				self.curtime = new Date().getTime();
+				self.$.slider.max = self.curtime;
+				self.$.slider.value = self.curtime;
+			}
+			
+			var time = this.curtime;
+			/* Basket with inactive items */
+			var inactiveitems = items.filter(function(d){return !d.data(time).active;});
+			
+			var entities_inact = basket.selectAll('g').data(inactiveitems, function(d){return d.id()});
+			var events_inact = entities_inact.enter().append('g').classed('event', true)
+				.attr("transform", function(d,i){
+					return "translate(" + (i * radius * 2.1) + "," + 20 + ")";
+				}).call(drag);
+			entities_inact.exit().remove();
+			entities_inact.transition().duration(500).attr("transform", function(d,i){
+					return "translate(" + (i * radius * 2.1) + "," + 20 + ")";
+			});
+			events_inact.append('circle')
+				.attr('r',radius)
+				;
+			events_inact.append('text')
+				.text(function(d){return d.data('id');});
+
+			//Remove selected links and events on pressing delete
+			d3.select(window)
+				.on("keydown", function(){
+					if (d3.event.keyCode == 46){//delete
+						graph.selectAll('line.selected').each(function(d){
+							//undo the links
+							d.data('link','').sync();
+						});
+						graph.selectAll('.event.selected').each(function(d){
+							//deactivate
+							d.data('active',false).data('link','').sync();
+							//undo all links
+							activeitems.forEach(function(x){
+								if (d.data('id') == x.data('link')){
+									x.data('link','').sync();
+								}
+							});
+						});
+						self.itemsChanged();
+					}
+				});	
+				
+			//Draw active links
+			var defs = svg.select('#series2')
+				.append('defs')
+				.append('marker')
+				.attr('id',"Triangle2")
+				.attr('viewBox',"0 0 10 10")
+				.attr('refX',"20")
+				.attr('refY',"5")
+				.attr('markerUnits',"strokeWidth")
+				.attr('markerWidth',"7")
+				.attr('markerHeight',"4")
+				.attr('orient',"auto")
+				.append('path')
+				.attr('d',"M 0 0 L 10 5 L 0 10 z");
+			
+			var activeitems = items.filter(function(d){return d.data(time).active;});
+			var linkitems = activeitems.filter(function(d){
+					return d.data(time).link && d.data(time).link != '' && d.data(time).link != d.data('id');
+			});
+			var links = graph.select('#series2').selectAll('.link')
+				.data(linkitems, function(d){return d.id()});
+			links.enter().append('line').classed('link',true)
+				.attr('marker-end',"url(#Triangle2)")
+				.on('click',function(d){
+					var selected = !d3.select(this).classed('selected');
+					d3.select(this).classed('selected',selected);
+				});  
+
+			links
+				.attr('x1',function(d){return x(d.data(time).x);})
+				.attr('y1',function(d){return y(d.data(time).y);})
+				.attr('x2',function(d){
+					if (d.data(time).link){
+						 var item = activeitems.filter(function(d1){
+							return d1.data('id') == d.data(time).link;
+						})[0];
+						var val = item.data(time).x;
+					} else {
+						var val = d.data(time).x;
+					}
+					return x(val);
+				})
+				.attr('y2',function(d){
+					if (d.data(time).link){
+						 var item = activeitems.filter(function(d1){
+							return d1.data('id') == d.data(time).link;
+						})[0];
+						var val = item.data(time).y;
+					} else {
+						var val = d.data(time).y;
+					}
+					return y(val);
+				});
+			links.exit().remove();	
+			
+			var clickEvent = function(d){
+				//don't act while dragging
+				if (d3.event.defaultPrevented) return;
+				//start linking on shift click
+				if (d3.event.shiftKey) {
+					var linknode = this;
+					drag_line
+					  .classed('hidden',false)
+					  .attr("x1", d3.mouse(graph[0][0])[0])
+					  .attr("y1", d3.mouse(graph[0][0])[1]);
+					svg.on('mousemove',function(){
+						drag_line
+						  .attr("x2", d3.mouse(this)[0]-margin.left -2) //-2 to get it just left of the mouse cursor
+						  .attr("y2", d3.mouse(this)[1]-margin.top);
+					});
+					entities.on('click',function(d){
+						drag_line.classed('hidden',true);
+						var node1 = d3.select(linknode).data()[0];
+						var node2 = d;
+						/*Disabled, since it doesn't make sense to force links to go only from lower to higher id
+						var nodes = [node1,node2].sort(function(a,b){
+							if (a.data('id') < b.data('id'))
+								return -1;
+							else
+								return 1;
+						});
+						nodes[0].data('link',nodes[1].data('id')).sync();
+						*/
+						node1.data('link',node2.data('id')).sync();
+						svg.on('mousemove',null);
+						entities.on('click',clickEvent);
+					});
+					return;
+				}
+				
+				var selected = !d3.select(this).classed('selected');
+				d3.select(this).classed('selected',selected);
+			};
+			
+			//Draw active items
+			var activeitems = items.filter(function(d){return d.data(time).active;});
+			var entities = graph.select('#series2').selectAll('.event')
+				.data(activeitems, function(d){return d.id()});
+			var events = entities.enter().append('g').classed('event', true)
+				.attr("transform", function(d){
+					return "translate(" + x(d.data(time).x) + "," + y(d.data(time).y) + ")";
+				});
+		
+			events.on('click', clickEvent);
+			events.call(drag);
+			events.append('circle')
+				.attr('r',radius);
+			events.append('text')
+				.text(function(d){return d.data('id');});
+			
+			entities.transition().duration(500).attr("transform", function(d){
+					return "translate(" + x(d.data(time).x) + "," + y(d.data(time).y) + ")";
+			});
+			entities.exit().remove();
+		},
+		projectChanged: function(){
+			var self = this;
+			this.project.itemStore().loaded.then(function(){
+				self.items = self.project.items();
+				//Change slider values
+				var mintime = self.items.sort(function(a,b){
+					return a.updated() - b.updated();
+				})[0];
+				var maxtime = self.items.sort(function(a,b){
+					return b.updated() - a.updated();
+				})[0];
+				self.$.slider.min = mintime.updated();
+				self.$.slider.max = maxtime.updated();
+				self.curtime = maxtime.updated();
+			});
+			this.project.itemStore().on('datachange',function(){
+				self.items = self.project.items();
+				//Change slider values
+				var mintime = self.items.sort(function(a,b){
+					return a.updated() - b.updated();
+				})[0];
+				var maxtime = self.items.sort(function(a,b){
+					return b.updated() - a.updated();
+				})[0];
+				self.$.slider.min = mintime.updated();
+				self.$.slider.max = maxtime.updated();
+				self.curtime = maxtime.updated();
+				self.itemsChanged();
+			});
+			
+			
+			
+		},
+		resize: function(){ //Work in progress
+			this.svg
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom);
+			this.graph
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		},
+		attached: function(){
+			var svg = d3.select(this.$.chart).append("svg")
+			  .attr("width", width + margin.left + margin.right)
+			  .attr("height", height + margin.top + margin.bottom);
+			var graph = svg.append("g")
+			  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			svg.on('click',function(){
+				d3.select(this).selectAll('.menu').remove();
+			});
+			//Add basket
+			var basket = svg.append('g').attr('id','basket')
+				.attr('transform',"translate(" + margin.left + "," + 0 + ")")
+				.attr('width',width).attr('height',50);
+			
+			// Compute the minimum and maximum date, and the maximum price.
+			var xmax = 100; //1+ d3.max(items, function(d){return Math.max(d.data('x_org'), d.data('x'));});
+			var xmin = 0;
+			var ymin = 0;
+			var ymax = 100; //1+ d3.max(items, function(d){return Math.max(d.data('y_org'),d.data('y'));});
+			x.domain([xmin,xmax]);
+			y.domain([ymin,ymax]).nice();
+			graph.select('.y').call(yAxis);
+			graph.select('.x').call(xAxis);
+			
+				  
+			// Add the x-axis.
+			graph.append("g")
+				  .attr("class", "x axis")
+				  .attr("transform", "translate(0," + height + ")")
+				  .call(xAxis);
+			// Add the y-axis.
+			graph.append("g")
+				  .attr("class", "y axis")
+				  //.attr("transform", "translate(" + width + ",0)")
+				  .call(yAxis);
+			graph.append("g")
+				  .attr("id", "series1");
+			graph.append("g")
+				  .attr("id", "series2");
+			this.svg = svg;
+			this.graph = graph;
+			this.basket = basket;
+		}
+});
+})();//closure
+</script>
+ 
