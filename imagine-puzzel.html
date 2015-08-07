@@ -171,7 +171,7 @@ imagine-time-slider-vertical {
 
   </style>
   <template>
-    <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}"></imagine-instance>
+    <imagine-instance id="instance" team="Team A" scenario="Sprawville" score="[[score]]" kaartjes="{{kaartjes}}"></imagine-instance>
 
     <!-- local DOM for your element -->
    <div id="properties">
@@ -183,8 +183,8 @@ imagine-time-slider-vertical {
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}">
     </canvas>
     <imagine-time-slider-vertical max="300" value="{{value}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
-    <template  is="dom-repeat" items="{{events}}">
-        <div id="{{item.event}}" class="kaartje draggable drag-drop" >{{item.event}}</div>
+    <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
+        <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" >{{item._data.name}}</div>
     </template>    
    </div>
   </template>
@@ -210,16 +210,16 @@ imagine-time-slider-vertical {
         value: false,
         notify: true
     },
-    events: {
+    kaartjes: {
         type: Array,
-        value: function() {
-            var e = [];
-            for(var i = 0; i<40;i++){             
-                e.push({event:'event-'+i,first:[],last:[]})
-            }
-            return e;
-        }
+        
+        observer:  '_kaartjesChanged',
+        notify: true
       },
+    team: {
+        type: String,
+        value: 'Team A'
+    },    
       
 
     eigenschappen: {
@@ -239,7 +239,9 @@ imagine-time-slider-vertical {
     observers: [
     ],
     //Functie om een kaartje op het speelveld te leggen
-    
+    createID: function(i) {
+        return 'event-'+i;
+    },
     //Functie om een kaartje te selecteren
     selectKaartje: function(e) {
         var kaartje = e.currentTarget.id;
@@ -363,6 +365,16 @@ imagine-time-slider-vertical {
             else this.speelkaarten.push(allekaartjes[i].id)
         }         
     },    
+    _kaartjesChanged: function(){
+        if(this.beginSpel && this.kaartjes.length > 0) {
+            for(var i = 0; i<this.kaartjes.length;i++){
+                this.kaartjes[i]._data.x =null;
+                this.kaartjes[i]._data.y =null;
+                this.kaartjes[i].sync();
+          }
+          this.beginSpel = false;
+          }
+    },
     _doneChanged: function(){
         
         //Als de tijd verstreken is gaan we over op het verbinden van de kaartjes
@@ -387,6 +399,7 @@ imagine-time-slider-vertical {
         }
     },
     ready: function() {
+        this.beginSpel = true;
         this.speelkaarten = [];
         this.verbindingen = [];
         this.setje = {'begin':null,'end':null}
@@ -465,10 +478,13 @@ imagine-time-slider-vertical {
                 // remove the drop feedback style
                 event.target.classList.remove('drop-target');
                 event.relatedTarget.classList.remove('can-drop');
+                var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
+                item._data.x = null;
+                item._data.y =null;
+                item.sync();
                 self.counter--;
             },
-            ondrop: function (event) {
-                console.log(event);
+            ondrop: function (event) {                
                 //left: 150 (+110)        117        
                 //top: 115                90
                 //border: 1
@@ -479,7 +495,11 @@ imagine-time-slider-vertical {
                 //height: 27+height+27
                 var kaartjeX = (event.relatedTarget.offsetLeft -150 + 68 - 1)/event.target.width*100;
                 var kaartjeY = (event.target.height - (event.relatedTarget.offsetTop -110 + 53 - 1))/event.target.height *50+50;
-                console.log(kaartjeX + ' ' + kaartjeY)
+                var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
+                item._data.x = kaartjeX;
+                item._data.y = kaartjeY;
+                item.sync();
+                
             },
             ondropdeactivate: function (event) {
                 // remove active dropzone feedback
