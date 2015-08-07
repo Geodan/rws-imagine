@@ -7,16 +7,15 @@
   <meta charset="utf-8">
   <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="../bower_components/polymer/polymer.html">
-  <script src="../bower_components/underscore/underscore.js"></script>
-  <script src="../bower_components/cow/dist/cow.js"></script>
   <link rel="import" href="./imagine-instance.html">
   <style>
   </style>
   </head>
   <body>
   <template id="t" is="dom-bind">
-	  <span>{{team}}</span>
-	  <span>{{scenario}}</span>
+	  Team: <span>{{team}}</span><br>
+	  Scenarion: <span>{{scenario}}</span><br>
+	  Score: <span>{{score}}</span><br>
 	  <template is='dom-repeat'  items="{{kaartjes}}">
 	  	<div>[[name(item)]]</div>
 	  </template>
