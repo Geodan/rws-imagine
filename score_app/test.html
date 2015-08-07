@@ -14,17 +14,28 @@
   <body>
   <template id="t" is="dom-bind">
 	  Team: <span>{{team}}</span><br>
-	  Scenarion: <span>{{scenario}}</span><br>
+	  Scenario: <span>{{scenario}}</span><br>
 	  Score: <span>{{score}}</span><br>
 	  <template is='dom-repeat'  items="{{kaartjes}}">
-	  	<div>[[name(item)]]</div>
+	  	<div>[[item._data.name]]</div>
+	  	<div><small>
+			<span>{{item._data.x_org}}</span> - 
+			<span>{{item._data.y_org}}</span> - 
+			<span>{{item._data.active_org}}</span>
+		</small>
+	  	</div>
+	  	<div>
+	  		X:<input size="2" value="{{item._data.x::input}}" on-change="sync">
+	  		Y:<input size="2" value="{{item._data.y::input}}" on-change="sync">
+	  		<input type="checkbox" checked="{{item._data.active::change}}" on-change="sync">
+	  	</div>
 	  </template>
-	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}"></imagine-instance>
+	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}"></imagine-instance>
   </template>
   <script type="text/javascript">
   var t = document.querySelector('#t');
-  t.name = function(d){
-  	  return d.data('name');
+  t.sync = function(d){
+  	  d.model.item.sync();
   }
   t.team = 'Team A';
   t.scenario = 'Sprawville';

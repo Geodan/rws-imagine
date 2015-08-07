@@ -30,7 +30,10 @@ Polymer({
 				value: new Date().getTime(),
 				observer: '_calculateScore'
 			},
-			score: Number
+			score: {
+				type: Number,
+				notify: true
+			}
 		},
 		observers: [
 			'_projectChange(team, scenario)'
