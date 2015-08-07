@@ -1,11 +1,13 @@
 <link rel="import"
       href="bower_components/polymer/polymer.html">
  <link rel="import" href="./imagine-time-slider-vertical.html">
+   <link rel="import" href="./score_app/imagine-instance.html">
+
 <script type="text/javascript" src="bower_components/interact.js/interact.min.js"></script>
 <link rel='stylesheet' id='fonts.com-css'  href='https://fast.fonts.com/cssapi/fdd23a19-e66b-4f7a-b13d-626056555134.css?ver=165b296345e0a16cbf7f4ea4e41d8f2ff1aedcac' type='text/css' media='all' />
 
 <dom-module id="imagine-puzzel">
- <link rel='import' href='theme-sprawl.css' type='css'>
+ <link rel='import' href='theme.css' type='css'>
 <!--
 Planned:
 main: #4CC0D0
@@ -169,6 +171,8 @@ imagine-time-slider-vertical {
 
   </style>
   <template>
+    <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}"></imagine-instance>
+
     <!-- local DOM for your element -->
    <div id="properties">
        <template  is="dom-repeat" items="{{eigenschappen}}">
@@ -304,6 +308,7 @@ imagine-time-slider-vertical {
             context.lineCap = 'round';
             context.stroke();
         });
+        
         //this.stopWiebelen();
     },
     stopWiebelen: function(){
@@ -424,8 +429,7 @@ imagine-time-slider-vertical {
             var target = event.target,
                 // keep the dragged position in the data-x/data-y attributes
                 x = (parseFloat(target.getAttribute('data-x')) || event.target.offsetLeft) + event.dx,
-                y = (parseFloat(target.getAttribute('data-y')) || event.target.offsetTop) + event.dy;
-
+                y = (parseFloat(target.getAttribute('data-y')) || event.target.offsetTop) + event.dy;    
             target.style.left = x+'px';
             target.style.top = y+'px';
             // update the position attributes
@@ -464,7 +468,18 @@ imagine-time-slider-vertical {
                 self.counter--;
             },
             ondrop: function (event) {
-            
+                console.log(event);
+                //left: 150 (+110)        117        
+                //top: 115                90
+                //border: 1
+                //event.target.offsetLeft
+                //event.target.offsetTop
+                
+                //width: 39+width+39
+                //height: 27+height+27
+                var kaartjeX = (event.relatedTarget.offsetLeft -150 + 68 - 1)/event.target.width*100;
+                var kaartjeY = (event.target.height - (event.relatedTarget.offsetTop -110 + 53 - 1))/event.target.height *50+50;
+                console.log(kaartjeX + ' ' + kaartjeY)
             },
             ondropdeactivate: function (event) {
                 // remove active dropzone feedback
