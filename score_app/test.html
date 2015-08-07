@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <title>Score board</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <script src="../bower_components/underscore/underscore.js"></script>
+  <script src="../bower_components/cow/dist/cow.js"></script>
+  <link rel="import" href="./imagine-instance.html">
+  <style>
+  </style>
+  </head>
+  <body>
+  <template id="t" is="dom-bind">
+	  <span>{{team}}</span>
+	  <span>{{scenario}}</span>
+	  <template is='dom-repeat'  items="{{kaartjes}}">
+	  	<div>[[name(item)]]</div>
+	  </template>
+	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}"></imagine-instance>
+  </template>
+  <script type="text/javascript">
+  var t = document.querySelector('#t');
+  t.name = function(d){
+  	  return d.data('name');
+  }
+  t.team = 'Team A';
+  t.scenario = 'Sprawville';
+  // The dom-change event signifies when the template has stamped its DOM.
+  t.addEventListener('dom-change', function() {
+	  
+  });
+	  
+  </script>
+  </body>
+  </html>
