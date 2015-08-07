@@ -7,25 +7,35 @@
   <meta charset="utf-8">
   <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="../bower_components/polymer/polymer.html">
-  <script src="../bower_components/underscore/underscore.js"></script>
-  <script src="../bower_components/cow/dist/cow.js"></script>
   <link rel="import" href="./imagine-instance.html">
   <style>
   </style>
   </head>
   <body>
   <template id="t" is="dom-bind">
-	  <span>{{team}}</span>
-	  <span>{{scenario}}</span>
+	  Team: <span>{{team}}</span><br>
+	  Scenario: <span>{{scenario}}</span><br>
+	  Score: <span>{{score}}</span><br>
 	  <template is='dom-repeat'  items="{{kaartjes}}">
-	  	<div>[[name(item)]]</div>
+	  	<div>[[item._data.name]]</div>
+	  	<div><small>
+			<span>{{item._data.x_org}}</span> - 
+			<span>{{item._data.y_org}}</span> - 
+			<span>{{item._data.active_org}}</span>
+		</small>
+	  	</div>
+	  	<div>
+	  		X:<input size="2" value="{{item._data.x::input}}" on-change="sync">
+	  		Y:<input size="2" value="{{item._data.y::input}}" on-change="sync">
+	  		<input type="checkbox" checked="{{item._data.active::change}}" on-change="sync">
+	  	</div>
 	  </template>
-	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}"></imagine-instance>
+	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}"></imagine-instance>
   </template>
   <script type="text/javascript">
   var t = document.querySelector('#t');
-  t.name = function(d){
-  	  return d.data('name');
+  t.sync = function(d){
+  	  d.model.item.sync();
   }
   t.team = 'Team A';
   t.scenario = 'Sprawville';

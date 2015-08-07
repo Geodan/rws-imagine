@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-
+<script src="../bower_components/underscore/underscore.js"></script>
+<script src="../bower_components/cow/dist/cow.js"></script>
 <dom-module id="imagine-instance">
 <template>
 </template>
@@ -29,7 +30,10 @@ Polymer({
 				value: new Date().getTime(),
 				observer: '_calculateScore'
 			},
-			score: Number
+			score: {
+				type: Number,
+				notify: true
+			}
 		},
 		observers: [
 			'_projectChange(team, scenario)'
