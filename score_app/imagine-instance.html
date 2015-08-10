@@ -173,7 +173,8 @@ Polymer({
 				});
 				items.forEach(function(d,i){
 					var itemscore = 0;
-					if (d.data(time) && d.data(time).y >=50){
+					//if (d.data(time) && d.data(time).y >=50){
+					if (d.data().y >=50){
 						itemscore = itemscore + eventfactor(d);
 			
 						//var dx = d.data('x_org') - d.data(time).x;
@@ -184,9 +185,9 @@ Polymer({
 						//score = score + Math.exp(-Math.PI * Math.pow(dy/deltacutoff,2)) * deltafactor;
 						itemscore = itemscore + deltay(d);
 						
-						if (d.data('link_org') && d.data('link_org') == d.data(time).link){
-							itemscore = itemscore + 1*linkfactor;
-						}
+						//if (d.data('link_org') && d.data('link_org') == d.data(time).link){
+						//	itemscore = itemscore + 1*linkfactor;
+						//}
 						itemscore = Math.round(itemscore);
 						score = score + itemscore;
 						d.data('score',itemscore);
