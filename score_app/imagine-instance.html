@@ -40,7 +40,8 @@ Polymer({
 			score: {
 				type: Number,
 				notify: true
-			}
+			},
+			reset: Boolean
 		},
 		observers: [
 			'_projectChange(team, scenario)'
@@ -135,19 +136,23 @@ Polymer({
 			
 		},
 		/*
-		reset() - Set all verbindingen to deleted and coordinates of kaartjes to null
+		_reset() - Set all verbindingen to deleted and coordinates of kaartjes to null
 		*/
-		reset: function(){
-			this._project.items().filter(function(d){
-				return !d.deleted() && d.data('type')=='verbinding';
-			}).forEach(function(d){
-				d.deleted(true);
-			});
-			this._project.items().filter(function(d){
-				return !d.deleted() && d.data('type')=='kaartje';
-			}).forEach(function(d){
-				d.data('x','').data('y','').sync();
-			});
+		_reset: function(){
+			var self = this;
+			
+				this._project.items().filter(function(d){
+					return !d.deleted() && d.data('type')=='verbinding';
+				}).forEach(function(d){
+					d.deleted(true);
+				});
+				this._project.items().filter(function(d){
+					return !d.deleted() && d.data('type')=='kaartje';
+				}).forEach(function(d){
+					d.data('x','').data('y','');
+				});
+				this._project.itemStore().sync();
+			
 		},
 		_projectChange: function(){
 			var self = this;
@@ -160,7 +165,7 @@ Polymer({
 					return !d.deleted() && d.data('team') == self.team && d.data('scenario') == self.scenario;
 				});
 				if (projects.length > 1){
-					console.warn('More than one project having team ' + this.team + ' or scenario ' + this.scenario);
+					console.warn('More than one project having team ' + this.team + ' and scenario ' + this.scenario);
 					return;
 				}
 				else if (projects.length < 1){
@@ -169,6 +174,12 @@ Polymer({
 				}
 				else {
 					this._project = projects[0];
+					this._project.itemStore().on('synced',function(){
+						if (self.reset){
+							self._reset();
+							self.reset = false;
+						}
+					});
 					this._project.itemStore().on('datachange',function(){
 						self._calculateScore();
 						self.kaartjes = self._project.items().filter(function(d){
@@ -193,6 +204,9 @@ Polymer({
 						
 					});
 				}
+			}
+			else {
+				console.warn('No team or scenario set');
 			}
 			
 			
@@ -290,10 +304,6 @@ Polymer({
 			};
 			core.socketserver('default');
 			core.connect();
-			
-			core.projectStore().on('datachange', function(){
-				
-			});
 		}
 });
 </script>
