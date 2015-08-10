@@ -471,17 +471,28 @@ imagine-time-slider-vertical {
                 // feedback the possibility of a drop
                 dropzoneElement.classList.add('drop-target');
                 draggableElement.classList.add('can-drop');
-                self.counter++;
+               
             },
             ondragleave: function (event) {
+                if(event.relatedTarget.classList.contains('dropped')) {
+                    //formally dropped item
+                     event.relatedTarget.classList.remove('dropped');
+                     self.counter--;
+                     console.log('leave ',self.counter)
+                     var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
+                     item.data('x','').data('y','').sync();
+                }
                 // remove the drop feedback style
                 event.target.classList.remove('drop-target');
                 event.relatedTarget.classList.remove('can-drop');
-                var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
-                item.data('x','').data('y','').sync();
-                self.counter--;
+               
+               
             },
-            ondrop: function (event) {                
+            ondrop: function (event) {   
+                if(self.counter>19&&!event.relatedTarget.classList.contains('dropped')) return false;
+                event.relatedTarget.classList.add('dropped');
+                self.counter++;
+                console.log('dropped ',self.counter)            
                 //left: 150 (+110)        117        
                 //top: 115                90
                 //border: 1
