@@ -127,7 +127,7 @@ Polymer({
 		deleteLink() - Set a certain link deleted
 		*/
 		deleteLink: function(fromid, toid){
-			this._verbindingen.filter(function(d){
+			this.verbindingen.filter(function(d){
 				return d.data('vanid') == fromid && d.data('naarid') == toid;
 			}).forEach(function(d){
 				d.deleted(true).sync();
