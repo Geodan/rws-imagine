@@ -171,13 +171,13 @@ imagine-time-slider-vertical {
 
   </style>
   <template>
-    <imagine-instance id="instance" team="Team A" scenario="Sprawville" score="[[score]]" kaartjes="{{kaartjes}}"></imagine-instance>
+    <imagine-instance id="instance" team="Team A" scenario="Sprawville" score="[[score]]" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}"></imagine-instance>
 
     <!-- local DOM for your element -->
    <div id="properties">
        <template  is="dom-repeat" items="{{eigenschappen}}">
         <div id="{{item.id}}" class$="{{item.visible}}" ></div>
-       </template>   
+       </template>
     </div> 
    <div id="speelveld">       
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}">
@@ -211,11 +211,15 @@ imagine-time-slider-vertical {
         notify: true
     },
     kaartjes: {
-        type: Array,
-        
+        type: Array,        
         observer:  '_kaartjesChanged',
         notify: true
       },
+    verbindingen: {
+        type: Array,
+        value: [],        
+        notify: false
+    },
     team: {
         type: String,
         value: 'Team A'
@@ -250,8 +254,10 @@ imagine-time-slider-vertical {
             var kaartjes = document.getElementsByClassName('can-drop');
             for(var i = 0; i< kaartjes.length;i++){        
                 kaartjes[i].classList.add('wiggle');
-                e.currentTarget.classList.add('first');
+                
+                
             }
+            e.currentTarget.classList.remove('wiggle');
         }
         else if (this.setje.end === null) {
             this.setje.end = kaartje;
@@ -259,6 +265,7 @@ imagine-time-slider-vertical {
             var self = this;
             var item = null;
             this.verbindingen.forEach(function(e,i){
+                //check if the verbinding already exists
                 if(e.begin == self.setje.begin && e.end ==self.setje.end) {
                     nieuw =false;
                     item = i;
@@ -266,6 +273,7 @@ imagine-time-slider-vertical {
             });
             if(nieuw===!null) {
                 //add setje to the list
+                if(this.verbindingen.length > 9) return false;
                 this.verbindingen.push({'begin':this.setje.begin,'end':kaartje})
             }
             else {
@@ -289,6 +297,7 @@ imagine-time-slider-vertical {
         var context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
         var cityMain = this.style.main;
+        console.log(this.verbindingen);
         this.verbindingen.forEach(function(e,i) {
             var b = document.getElementById(e.begin);
             var end = document.getElementById(e.end);
@@ -300,8 +309,8 @@ imagine-time-slider-vertical {
             context.lineWidth = 5;            
             context.strokeStyle = 'white';
             context.lineCap = 'round';
-             context.stroke();
-              context.beginPath();
+            context.stroke();
+            context.beginPath();
             context.moveTo(beginPoint[0],beginPoint[1]);
             context.lineTo(endPoint[0],endPoint[1]);
             context.lineWidth = 1;            
@@ -377,7 +386,7 @@ imagine-time-slider-vertical {
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
         
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
-        this.verbindingen = []; //Array with the connected cards (empty at start)
+        
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
         this.done= false; //boolean to alert that the slider reached the end of its run
         this.counter = 0; //the number of active kaartjes                     
@@ -452,7 +461,7 @@ imagine-time-slider-vertical {
                     //formerly dropped item, remove drom the counter
                      event.relatedTarget.classList.remove('dropped');
                      self.counter--;
-                     
+                     console.log('down: '+self.counter);
                      //Set the X&Y to '' and sync
                      var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
                      item.data('x','').data('y','').sync();
@@ -466,11 +475,11 @@ imagine-time-slider-vertical {
                 if(self.counter>19&&!event.relatedTarget.classList.contains('dropped')) {
                     return false;
                 }
-                
+                if(!event.relatedTarget.classList.contains('dropped')) self.counter++;
                 //Mark the kaartje as dropped and increase the counter
                 event.relatedTarget.classList.add('dropped');
-                self.counter++;
                 
+                console.log('up: '+self.counter);
                 //calculate the X and Y score
                 var kaartjeX = Math.round((event.relatedTarget.offsetLeft -150 + 68 - 1)/event.target.width*100);
                 var kaartjeY = Math.round((event.target.height - (event.relatedTarget.offsetTop -110 + 53 - 1))/event.target.height *50+50);
