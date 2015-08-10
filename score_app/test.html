@@ -18,25 +18,28 @@
 	  Score: <span>{{score}}</span><br>
 	  <template is='dom-repeat'  items="{{kaartjes}}">
 	  	<div>[[item._data.name]]</div>
-	  	<div><small>
-			<span>{{item._data.x_org}}</span> - 
-			<span>{{item._data.y_org}}</span> - 
-			<span>{{item._data.active_org}}</span>
-		</small>
-	  	</div>
-	  	<div>
-	  		X:<input size="2" value="{{item._data.x::input}}" on-change="sync"><span>{{item._data.x}}</span>
-	  		Y:<input size="2" value="{{item._data.y::input}}" on-change="sync">
-	  		<!--<input type="checkbox" checked="{{item._data.active::change}}" on-change="sync">-->
+	  	<table>
+	  	<tr>
+	  		<th></th><th>Original</th><th>Answer</th>
+	  	</tr>
+	  	<tr>
+	  		<td>X</td>
+	  		<td>{{item._data.x_org}}</td>
+	  		<td>{{item._data.x}}</td>
+		</tr>
+		<tr>
+			<td>Y</td>
+	  		<td>{{item._data.y_org}}</td>
+	  		<td>{{item._data.y}}</td>
+	  	</tr>
+	  	</table>
+	  	score:<span>{{item._data.score}}</span>
 	  	</div>
 	  </template>
 	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}"></imagine-instance>
   </template>
   <script type="text/javascript">
   var t = document.querySelector('#t');
-  t.sync = function(d){
-  	  d.model.item.sync();
-  }
   t.team = 'Team A';
   t.scenario = 'Sprawville';
   // The dom-change event signifies when the template has stamped its DOM.
