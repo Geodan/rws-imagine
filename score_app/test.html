@@ -16,6 +16,12 @@
 	  Team: <span>{{team}}</span><br>
 	  Scenario: <span>{{scenario}}</span><br>
 	  Score: <span>{{score}}</span><br>
+	  <h3>Verbindingen</h3>
+	  <template is='dom-repeat'  items="{{verbindingen}}">
+	  	<div>{{item._data.vanid}}</div>
+	  	<div>{{item._data.naarid}}</div>
+	  </template>
+	  <h3>Kaartjes</h3>
 	  <template is='dom-repeat'  items="{{kaartjes}}">
 	  	<div>[[item._data.name]]</div>
 	  	<table>
