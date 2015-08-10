@@ -23,6 +23,13 @@ Polymer({
 				},
 				notify: true
 			},
+			verbindingen_org: {
+				type: Array,
+				value: function(){
+					return [];
+				},
+				notify: true
+			},
 			team: String,
 			scenario:  String,
 			time: {
@@ -61,12 +68,27 @@ Polymer({
 					active: false
 				}).sync();
 			}
-			this.kaartjes = this._project.items().filter(function(d){
-				return !d.deleted() && d.data('type')=='kaartje';
-			});
-			this.verbindingen = this._project.items().filter(function(d){
-				return !d.deleted() && d.data('type')=='verbinding';
-			});
+			
+		},
+		_generateLinks: function(){
+			function random(){
+				return Math.round(Math.random()*(active.length-1));
+			}
+			var active = this.kaartjes.filter(function(d){return d.data('y') > 50;});
+			for (var i = 0;i<active.length;i++){
+				var eventA = active[random()];
+				var eventB = active[random()];
+				if(eventA != eventB){
+					var id = new Date().getTime().toString();
+					var item = this._project.items({_id: id+i});
+					item.data({
+						id:'vo'+i,
+						type: 'verbinding_org',
+						van: eventA.id(),
+						naar:eventB.id()
+					}).sync();
+				}
+			}
 		},
 		/*
 		createProject() - Create a new project based on the already given team and scenario
@@ -94,7 +116,24 @@ Polymer({
 				console.warn('No project to delete');
 			}
 		},
-		
+		/*
+		createLink() - Create a new link item between to events 
+		*/
+		createLink: function(fromid, toid){
+			var item = this._project.items({});
+			item.data('type','verbinding').data('vanid',fromid).data('naarid',toid).sync();
+		},
+		/*
+		deleteLink() - Set a certain link deleted
+		*/
+		deleteLink: function(fromid, toid){
+			this.verbindingen.filter(function(d){
+				return d.data('vanid') == fromid && d.data('naarid') == toid;
+			}).forEach(function(d){
+				d.deleted(true).sync();
+			});
+			
+		},
 		_projectChange: function(){
 			var self = this;
 			if (!this._core){
@@ -124,6 +163,10 @@ Polymer({
 							self.set('kaartjes.'+i+'._data.x',d.data('x'));
 							self.set('kaartjes.'+i+'._data.y',d.data('y'));
 						});
+						self.verbindingen_org = self._project.items().filter(function(d){
+							return !d.deleted() && d.data('type')=='verbinding_org';
+						});
+						
 					
 						self.verbindingen = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='verbinding';
@@ -174,7 +217,7 @@ Polymer({
 				items.forEach(function(d,i){
 					var itemscore = 0;
 					//if (d.data(time) && d.data(time).y >=50){
-					if (d.data().y >=50){
+					if (d.data('y') >=50){
 						itemscore = itemscore + eventfactor(d);
 			
 						//var dx = d.data('x_org') - d.data(time).x;
@@ -185,16 +228,19 @@ Polymer({
 						//score = score + Math.exp(-Math.PI * Math.pow(dy/deltacutoff,2)) * deltafactor;
 						itemscore = itemscore + deltay(d);
 						
-						//if (d.data('link_org') && d.data('link_org') == d.data(time).link){
-						//	itemscore = itemscore + 1*linkfactor;
-						//}
 						itemscore = Math.round(itemscore);
 						score = score + itemscore;
 						d.data('score',itemscore);
 						self.set('kaartjes.'+i+'._data.score',itemscore);
-						console.log(score);
 					}
 				});
+				var items = this._project.items().filter(function(d){
+					return !d.deleted() && d.data('type')=='verbinding';
+				});
+				items.forEach(function(d,i){
+					
+				});
+				
 				this.score = Math.round(score);
 			}
 			else {
