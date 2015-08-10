@@ -368,10 +368,9 @@ imagine-time-slider-vertical {
     _kaartjesChanged: function(){
         if(this.beginSpel && this.kaartjes.length > 0) {
             for(var i = 0; i<this.kaartjes.length;i++){
-                this.kaartjes[i]._data.x =null;
-                this.kaartjes[i]._data.y =null;
-                this.kaartjes[i].sync();
+                this.kaartjes[i].data('x',null).data('y',null).sync();
           }
+          console.log('reset kaartjes')
           this.beginSpel = false;
           }
     },
@@ -495,10 +494,11 @@ imagine-time-slider-vertical {
                 //height: 27+height+27
                 var kaartjeX = (event.relatedTarget.offsetLeft -150 + 68 - 1)/event.target.width*100;
                 var kaartjeY = (event.target.height - (event.relatedTarget.offsetTop -110 + 53 - 1))/event.target.height *50+50;
+                
+                //TODO: is dit niet buggy??
                 var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
-                item._data.x = kaartjeX;
-                item._data.y = kaartjeY;
-                item.sync();
+                item.data('x',kaartjeX).data('y',kaartjeY).sync();
+               
                 
             },
             ondropdeactivate: function (event) {
