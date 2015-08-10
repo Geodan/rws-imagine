@@ -182,7 +182,7 @@ imagine-time-slider-vertical {
    <div id="speelveld">       
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}">
     </canvas>
-    <imagine-time-slider-vertical max="300" value="{{value}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
+    <imagine-time-slider-vertical max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
         <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" >{{item._data.name}}</div>
     </template>    
@@ -201,7 +201,7 @@ imagine-time-slider-vertical {
         observer:  '_doneChanged',
         notify: true
     },
-    value: {
+    sliderValue: {
         type: Number,
         value: 0
     },
@@ -319,66 +319,39 @@ imagine-time-slider-vertical {
         for(var i = 0; i< kaartjes.length;i++){            
             kaartjes[i].classList.remove('wiggle');
             kaartjes[i].classList.remove('first')
-        }
-            
-                
-               /* self.first = false;
-                if(e.currentTarget.classList.contains('can-drop')) {
-                    var kaartjes = document.getElementsByClassName('can-drop');
-                    console.log('can-drop',e);
-                    if(kaartjes[0].classList.contains('wiggle')&&!e.currentTarget.classList.contains('first') ){
-                        var end = [parseFloat(e.currentTarget.attributes['data-x'].value) - 140,parseFloat(e.currentTarget.attributes['data-y'].value) - 20]
-                        var first = document.getElementsByClassName('first');
-                        var begin = [parseFloat(first[0].attributes['data-x'].value) - 36,parseFloat(first[0].attributes['data-y'].value) - 88]
-                    
-                        var canvas = document.getElementById('bord');
-                        var context = canvas.getContext('2d');
-
-                        context.beginPath();
-                        context.moveTo(begin[0],begin[1]);
-                        context.lineTo(end[0],end[1]);
-                        context.lineWidth = 5;
-                        context.strokeStyle = '#ff0000';
-                        context.lineCap = 'round';
-                        context.stroke();
-                    }
-                    for(var i = 0; i< kaartjes.length;i++){
-                    
-                        kaartjes[i].classList.remove('wiggle');
-                        kaartjes[i].classList.remove('first')
-                    }
-                }*/
+        }            
     },
     //Functie om alles te resetten en naar het scorebord te gaan
     
     
     
     //hulpfunctie om de overige kaartjes te verwijderen    
-    _removeUnused: function() {
-        //
-        this.verbinden =true;
+    _removeUnused: function() {        
+        this.verbinden =true; //Kaartjes-ronde is over, now we start verbinden
         this.speelkaarten = [];
         var allekaartjes  = document.getElementsByClassName('kaartje');
-        //verwijder de kaartjes die niet op het speelbord liggen
+        //verwijder de kaartjes die niet op het speelbord liggen        
         for(var i = 0; i< allekaartjes.length;i++){
             if(!allekaartjes[i].classList.contains('dropped'))
                 allekaartjes[i].classList.add('hide');
             else this.speelkaarten.push(allekaartjes[i].id)
         }         
     },    
+    
     _kaartjesChanged: function(){
+        //Make sure that the kaartjes are all reset to their initial position
         if(this.beginSpel && this.kaartjes.length > 0) {
             for(var i = 0; i<this.kaartjes.length;i++){
                 this.kaartjes[i].data('x','').data('y','').sync();
-          }
-          console.log('reset kaartjes')
-          this.beginSpel = false;
-          }
+            }          
+            this.beginSpel = false; //The game has started
+        }
     },
-    _doneChanged: function(){
-        
-        //Als de tijd verstreken is gaan we over op het verbinden van de kaartjes
-        if(this.done&& !this.verbinden) {            
+    
+    //Function called when the slider reaches the end
+    _doneChanged: function(){        
+        //Als de tijd verstreken is gaan we over op:
+        if(this.done&& !this.verbinden) { // het verbinden van de kaartjes
             this._removeUnused();
           
             var self = this;
@@ -390,31 +363,47 @@ imagine-time-slider-vertical {
                 .on('down',function(e){    
                     self.selectKaartje(e);
                    
-                });
-            this.value = 0;
+                });            
+            this.sliderValue = 0; //Set the slider to 0
         }
-        else if(this.done&&this.verbinden) {
+        else if(this.done&&this.verbinden) { // scorebord
+            //TODO: hier moet het scorebord komen
             this.verbinden = false;
             show3D();
         }
     },
     ready: function() {        
         this.beginSpel = true;  //boolean to make sure that we have started a new game
+        this.verbinden = false; //boolean to state whether or not we're aan het verbinden
+        
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
         this.verbindingen = []; //Array with the connected cards (empty at start)
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
-        this.done= false; //
-        this.counter = 0;        
-        this.first = false;
-        this.verbinden = false;
-        this.value=0;
+        this.done= false; //boolean to alert that the slider reached the end of its run
+        this.counter = 0; //the number of active kaartjes                     
+        this.sliderValue=0;
         this.zindex = 1;
+        
         var self = this;
         var w =  (window.innerWidth > 0) ? window.innerWidth : screen.width;
         this.width=w-460;
         var h =  (window.innerHeight > 0) ? window.innerHeight : screen.height;
         this.height=h-230;
-        var angle = 0;
+        
+        function dragMoveListener (event) {
+            var target = event.target,
+                // keep the dragged position in the data-x/data-y attributes
+                x = (parseFloat(target.getAttribute('data-x')) || event.target.offsetLeft) + event.dx,
+                y = (parseFloat(target.getAttribute('data-y')) || event.target.offsetTop) + event.dy;    
+            target.style.left = x+'px';
+            target.style.top = y+'px';
+            // update the position attributes
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        }
+
+        window.dragMoveListener = dragMoveListener;
+        
         // target elements with the "draggable" class
         interact('.draggable')
             .draggable({
@@ -437,22 +426,8 @@ imagine-time-slider-vertical {
                 if(e.shiftKey) return true;
                 else self.stopWiebelen();
            
-            })
-   
-        function dragMoveListener (event) {
-            var target = event.target,
-                // keep the dragged position in the data-x/data-y attributes
-                x = (parseFloat(target.getAttribute('data-x')) || event.target.offsetLeft) + event.dx,
-                y = (parseFloat(target.getAttribute('data-y')) || event.target.offsetTop) + event.dy;    
-            target.style.left = x+'px';
-            target.style.top = y+'px';
-            // update the position attributes
-            target.setAttribute('data-x', x);
-            target.setAttribute('data-y', y);
-        }
-
-        window.dragMoveListener = dragMoveListener;
-        
+            });
+        // Magic foobar to handle the dropping of kaartjes
         interact('.dropzone').dropzone({
             // only accept elements matching this CSS selector
             accept: '.kaartje',
@@ -505,8 +480,6 @@ imagine-time-slider-vertical {
                 
                 //Set the X&Y score per kaartje and sync using cow.
                 item.data('x',kaartjeX).data('y',kaartjeY).sync();
-               
-                
             },
             ondropdeactivate: function (event) {
                 //Canvas isn't a droptarget anymore; clean up
