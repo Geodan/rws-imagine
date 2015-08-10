@@ -351,16 +351,17 @@ imagine-time-slider-vertical {
     },
     //Functie om alles te resetten en naar het scorebord te gaan
     
-    //hulpfunctie om lijntjes te tekenen
+    
     
     //hulpfunctie om de overige kaartjes te verwijderen    
     _removeUnused: function() {
+        //
         this.verbinden =true;
         this.speelkaarten = [];
         var allekaartjes  = document.getElementsByClassName('kaartje');
         //verwijder de kaartjes die niet op het speelbord liggen
         for(var i = 0; i< allekaartjes.length;i++){
-            if(!allekaartjes[i].classList.contains('can-drop'))
+            if(!allekaartjes[i].classList.contains('dropped'))
                 allekaartjes[i].classList.add('hide');
             else this.speelkaarten.push(allekaartjes[i].id)
         }         
@@ -397,16 +398,17 @@ imagine-time-slider-vertical {
             show3D();
         }
     },
-    ready: function() {
-        this.beginSpel = true;
-        this.speelkaarten = [];
-        this.verbindingen = [];
-        this.setje = {'begin':null,'end':null}
-        this.done= false;
+    ready: function() {        
+        this.beginSpel = true;  //boolean to make sure that we have started a new game
+        this.speelkaarten = []; //Array with the chosen cards (empty at start)
+        this.verbindingen = []; //Array with the connected cards (empty at start)
+        this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
+        this.done= false; //
         this.counter = 0;        
         this.first = false;
         this.verbinden = false;
         this.value=0;
+        this.zindex = 1;
         var self = this;
         var w =  (window.innerWidth > 0) ? window.innerWidth : screen.width;
         this.width=w-460;
@@ -425,12 +427,12 @@ imagine-time-slider-vertical {
                     elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
                 },
                 // call this function on every dragmove event
-                onmove: dragMoveListener,
-                // call this function on every dragend event
-                onend: function (event) {
-                }
-            })  
-            .on('up',function(e){
+                onmove: dragMoveListener               
+            }) 
+            .on('down',function(e) {
+              e.target.style.zIndex = self.zindex++
+            })
+            .on('up',function(e){              
                 //truukje om te zorgen dat je zonder multitouch wel kan werken
                 if(e.shiftKey) return true;
                 else self.stopWiebelen();
@@ -449,8 +451,8 @@ imagine-time-slider-vertical {
             target.setAttribute('data-y', y);
         }
 
-          
         window.dragMoveListener = dragMoveListener;
+        
         interact('.dropzone').dropzone({
             // only accept elements matching this CSS selector
             accept: '.kaartje',
@@ -461,57 +463,53 @@ imagine-time-slider-vertical {
                 // add active dropzone feedback
                 event.target.classList.add('drop-active');
             },
-            ondragenter: function (event) {
-                //TODO: return kaartje naar originele plek
+            ondragenter: function (event) {                
                 if(self.counter>19) return false;
-                //TODO: betere feedback
+                
                 var draggableElement = event.relatedTarget,
                     dropzoneElement = event.target;
-
                 // feedback the possibility of a drop
                 dropzoneElement.classList.add('drop-target');
                 draggableElement.classList.add('can-drop');
-               
             },
             ondragleave: function (event) {
                 if(event.relatedTarget.classList.contains('dropped')) {
-                    //formally dropped item
+                    //formerly dropped item, remove drom the counter
                      event.relatedTarget.classList.remove('dropped');
                      self.counter--;
-                     console.log('leave ',self.counter)
+                     
+                     //Set the X&Y to '' and sync
                      var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
                      item.data('x','').data('y','').sync();
                 }
                 // remove the drop feedback style
                 event.target.classList.remove('drop-target');
                 event.relatedTarget.classList.remove('can-drop');
-               
-               
             },
             ondrop: function (event) {   
-                if(self.counter>19&&!event.relatedTarget.classList.contains('dropped')) return false;
+                //We're at 20 kaartjes, no more are allowed (unless it is a currently dropepd one)
+                if(self.counter>19&&!event.relatedTarget.classList.contains('dropped')) {
+                    return false;
+                }
+                
+                //Mark the kaartje as dropped and increase the counter
                 event.relatedTarget.classList.add('dropped');
                 self.counter++;
-                console.log('dropped ',self.counter)            
-                //left: 150 (+110)        117        
-                //top: 115                90
-                //border: 1
-                //event.target.offsetLeft
-                //event.target.offsetTop
                 
-                //width: 39+width+39
-                //height: 27+height+27
+                //calculate the X and Y score
                 var kaartjeX = (event.relatedTarget.offsetLeft -150 + 68 - 1)/event.target.width*100;
                 var kaartjeY = (event.target.height - (event.relatedTarget.offsetTop -110 + 53 - 1))/event.target.height *50+50;
                 
-                //TODO: is dit niet buggy??
+                //TODO: is dit niet buggy?? 
                 var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
+                
+                //Set the X&Y score per kaartje and sync using cow.
                 item.data('x',kaartjeX).data('y',kaartjeY).sync();
                
                 
             },
             ondropdeactivate: function (event) {
-                // remove active dropzone feedback
+                //Canvas isn't a droptarget anymore; clean up
                 event.target.classList.remove('drop-active');
                 event.target.classList.remove('drop-target');
             }
