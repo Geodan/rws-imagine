@@ -25,9 +25,9 @@
 		</small>
 	  	</div>
 	  	<div>
-	  		X:<input size="2" value="{{item._data.x::input}}" on-change="sync">
+	  		X:<input size="2" value="{{item._data.x::input}}" on-change="sync"><span>{{item._data.x}}</span>
 	  		Y:<input size="2" value="{{item._data.y::input}}" on-change="sync">
-	  		<input type="checkbox" checked="{{item._data.active::change}}" on-change="sync">
+	  		<!--<input type="checkbox" checked="{{item._data.active::change}}" on-change="sync">-->
 	  	</div>
 	  </template>
 	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}"></imagine-instance>

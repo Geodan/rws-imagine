@@ -58,7 +58,7 @@ Polymer({
 					y_org: y,
 					x: null,
 					y: null,
-					active: null
+					active: false
 				}).sync();
 			}
 			this.kaartjes = this._project.items().filter(function(d){
@@ -117,24 +117,44 @@ Polymer({
 					this._project = projects[0];
 					this._project.itemStore().on('datachange',function(){
 						self._calculateScore();
-					});
+						self.kaartjes = self._project.items().filter(function(d){
+							return !d.deleted() && d.data('type')=='kaartje';
+						});
+						self.kaartjes.forEach(function(d,i){
+							self.set('kaartjes.'+i+'._data.x',d.data('x'));
+							self.set('kaartjes.'+i+'._data.y',d.data('y'));
+						});
 					
+						self.verbindingen = self._project.items().filter(function(d){
+							return !d.deleted() && d.data('type')=='verbinding';
+						});
+						self.verbindingen.forEach(function(d,i){
+							//TODO
+						});
+						
+					});
+					/*Obsolete
 					this._project.itemStore().loaded.then(function(){
 						self.kaartjes = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='kaartje';
 						});
+						self.verbindingen = self._project.items().filter(function(d){
+							return !d.deleted() && d.data('type')=='verbinding';
+						});
 					});
-					this._project.itemStore().on('sycned',function(){
+					this._project.itemStore().on('synced',function(){
 						self.kaartjes = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='kaartje';
 						});
+						self.verbindingen = self._project.items().filter(function(d){
+							return !d.deleted() && d.data('type')=='verbinding';
+						});
 					});
+					*/
 				}
 			}
 			
-			this.verbindingen = this._project.items().filter(function(d){
-				return !d.deleted() && d.data('type')=='verbinding';
-			});
+			
 		},
 		_calculateScore: function(){
 			var time = this.time;
@@ -169,7 +189,7 @@ Polymer({
 					return !d.deleted() && d.data('type')=='kaartje';
 				});
 				items.forEach(function(d){
-					if (d.data(time) && d.data(time).active){
+					if (d.data(time) && d.data(time).y >=50){
 						score = score + eventfactor(d);
 			
 						//var dx = d.data('x_org') - d.data(time).x;
@@ -198,6 +218,7 @@ Polymer({
 				herdname: 'imagine',
 				maxage: 1000 * 60 * 60 * 24 * 30 //30 days
 			});
+			window.core = core; //for debug
 			this._core = core;
 			core.projectStore().loaded.then(function(){
 				  console.log('projectstore loaded');
