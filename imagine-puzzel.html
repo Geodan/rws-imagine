@@ -497,8 +497,8 @@ imagine-time-slider-vertical {
                 self.counter++;
                 
                 //calculate the X and Y score
-                var kaartjeX = (event.relatedTarget.offsetLeft -150 + 68 - 1)/event.target.width*100;
-                var kaartjeY = (event.target.height - (event.relatedTarget.offsetTop -110 + 53 - 1))/event.target.height *50+50;
+                var kaartjeX = Math.round((event.relatedTarget.offsetLeft -150 + 68 - 1)/event.target.width*100);
+                var kaartjeY = Math.round((event.target.height - (event.relatedTarget.offsetTop -110 + 53 - 1))/event.target.height *50+50);
                 
                 //TODO: is dit niet buggy?? 
                 var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
