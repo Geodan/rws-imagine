@@ -134,6 +134,21 @@ Polymer({
 			});
 			
 		},
+		/*
+		reset() - Set all verbindingen to deleted and coordinates of kaartjes to null
+		*/
+		reset: function(){
+			this._project.items().filter(function(d){
+				return !d.deleted() && d.data('type')=='verbinding';
+			}).forEach(function(d){
+				d.deleted(true);
+			});
+			this._project.items().filter(function(d){
+				return !d.deleted() && d.data('type')=='kaartje';
+			}).forEach(function(d){
+				d.data('x','').data('y','').sync();
+			});
+		},
 		_projectChange: function(){
 			var self = this;
 			if (!this._core){
@@ -172,7 +187,8 @@ Polymer({
 							return !d.deleted() && d.data('type')=='verbinding';
 						});
 						self.verbindingen.forEach(function(d,i){
-							//TODO
+							self.set('verbindingen.'+i+'._data.vanid',d.data('vanid'));
+							self.set('verbindingen.'+i+'._data.naarid',d.data('naarid'));
 						});
 						
 					});
