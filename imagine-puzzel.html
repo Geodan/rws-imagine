@@ -368,7 +368,7 @@ imagine-time-slider-vertical {
     _kaartjesChanged: function(){
         if(this.beginSpel && this.kaartjes.length > 0) {
             for(var i = 0; i<this.kaartjes.length;i++){
-                this.kaartjes[i].data('x',null).data('y',null).sync();
+                this.kaartjes[i].data('x','').data('y','').sync();
           }
           console.log('reset kaartjes')
           this.beginSpel = false;
@@ -478,9 +478,7 @@ imagine-time-slider-vertical {
                 event.target.classList.remove('drop-target');
                 event.relatedTarget.classList.remove('can-drop');
                 var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
-                item._data.x = null;
-                item._data.y =null;
-                item.sync();
+                item.data('x','').data('y','').sync();
                 self.counter--;
             },
             ondrop: function (event) {                
