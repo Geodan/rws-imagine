@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <script src="../bower_components/underscore/underscore.js"></script>
-<script src="../bower_components/cow/dist/cow.js"></script>
+<script src="../libs/cow.js"></script>
 <dom-module id="imagine-instance">
 <template>
 </template>
@@ -58,7 +58,7 @@ Polymer({
 					y_org: y,
 					x: null,
 					y: null,
-					active: null
+					active: false
 				}).sync();
 			}
 			this.kaartjes = this._project.items().filter(function(d){
@@ -117,26 +117,29 @@ Polymer({
 					this._project = projects[0];
 					this._project.itemStore().on('datachange',function(){
 						self._calculateScore();
-					});
+						self.kaartjes = self._project.items().filter(function(d){
+							return !d.deleted() && d.data('type')=='kaartje';
+						});
+						self.kaartjes.forEach(function(d,i){
+							self.set('kaartjes.'+i+'._data.x',d.data('x'));
+							self.set('kaartjes.'+i+'._data.y',d.data('y'));
+						});
 					
-					this._project.itemStore().loaded.then(function(){
-						self.kaartjes = self._project.items().filter(function(d){
-							return !d.deleted() && d.data('type')=='kaartje';
+						self.verbindingen = self._project.items().filter(function(d){
+							return !d.deleted() && d.data('type')=='verbinding';
 						});
-					});
-					this._project.itemStore().on('sycned',function(){
-						self.kaartjes = self._project.items().filter(function(d){
-							return !d.deleted() && d.data('type')=='kaartje';
+						self.verbindingen.forEach(function(d,i){
+							//TODO
 						});
+						
 					});
 				}
 			}
 			
-			this.verbindingen = this._project.items().filter(function(d){
-				return !d.deleted() && d.data('type')=='verbinding';
-			});
+			
 		},
 		_calculateScore: function(){
+			var self = this;
 			var time = this.time;
 			if (this._project){
 				var score = 0;
@@ -168,21 +171,27 @@ Polymer({
 				var items = this._project.items().filter(function(d){
 					return !d.deleted() && d.data('type')=='kaartje';
 				});
-				items.forEach(function(d){
-					if (d.data(time) && d.data(time).active){
-						score = score + eventfactor(d);
+				items.forEach(function(d,i){
+					var itemscore = 0;
+					if (d.data(time) && d.data(time).y >=50){
+						itemscore = itemscore + eventfactor(d);
 			
 						//var dx = d.data('x_org') - d.data(time).x;
 						//score = score + Math.exp(-Math.PI * Math.pow(dx/deltacutoff,2)) * deltafactor;
-						score = score + deltax(d);
+						itemscore = itemscore + deltax(d);
 						
 						//var dy = d.data('y_org') - d.data(time).y;
 						//score = score + Math.exp(-Math.PI * Math.pow(dy/deltacutoff,2)) * deltafactor;
-						score = score + deltay(d);
+						itemscore = itemscore + deltay(d);
 						
 						if (d.data('link_org') && d.data('link_org') == d.data(time).link){
-							score = score + 1*linkfactor;
+							itemscore = itemscore + 1*linkfactor;
 						}
+						itemscore = Math.round(itemscore);
+						score = score + itemscore;
+						d.data('score',itemscore);
+						self.set('kaartjes.'+i+'._data.score',itemscore);
+						console.log(score);
 					}
 				});
 				this.score = Math.round(score);
@@ -198,6 +207,7 @@ Polymer({
 				herdname: 'imagine',
 				maxage: 1000 * 60 * 60 * 24 * 30 //30 days
 			});
+			window.core = core; //for debug
 			this._core = core;
 			core.projectStore().loaded.then(function(){
 				  console.log('projectstore loaded');
