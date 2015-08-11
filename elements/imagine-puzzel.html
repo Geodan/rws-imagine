@@ -5,7 +5,7 @@
 <script type="text/javascript" src="../bower_components/interact.js/interact.min.js"></script>
 <link rel='stylesheet' id='fonts.com-css'  href='https://fast.fonts.com/cssapi/fdd23a19-e66b-4f7a-b13d-626056555134.css?ver=165b296345e0a16cbf7f4ea4e41d8f2ff1aedcac' type='text/css' media='all' />
 
-<dom-module id="imagine-puzzel">
+<dom-module id="imagine-puzzel"  class="communicity">
  <link rel='import' href='../style/theme.css' type='css'>
 <!--
 Planned:
@@ -353,9 +353,7 @@ imagine-time-slider-vertical {
     _kaartjesChanged: function(){
         //Make sure that the kaartjes are all reset to their initial position
         if(this.beginSpel && this.kaartjes.length > 0) {
-            for(var i = 0; i<this.kaartjes.length;i++){
-                this.kaartjes[i].data('x','').data('y','').sync();
-            }          
+                   
             this.beginSpel = false; //The game has started
         }
     },
