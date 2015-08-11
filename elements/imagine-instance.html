@@ -184,7 +184,7 @@ Polymer({
 							self.reset = false;
 						}
 					});
-					this._project.itemStore().on('datachange',function(){
+					function reload(){
 						self._calculateScore();
 						self.kaartjes = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='kaartje';
@@ -204,7 +204,10 @@ Polymer({
 							self.set('verbindingen.'+i+'._data.vanid',d.data('vanid'));
 							self.set('verbindingen.'+i+'._data.naarid',d.data('naarid'));
 						});
-						
+					}
+					reload();
+					this._project.itemStore().on('datachange',function(){
+						reload();
 					});
 				}
 			}
@@ -275,7 +278,6 @@ Polymer({
 				items.forEach(function(d,i){
 					
 				});
-				console.log('score for ',this.team, this.scenario, this.score);
 				this.score = Math.round(score);
 			}
 			else {

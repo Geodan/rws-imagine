@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="./bower_components/polymer/polymer.html">
+  <link rel="import" href="./bower_components/iron-selector/iron-selector.html">
   <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-instance.html">
   <style>
@@ -14,7 +15,26 @@
   </head>
   <body>
   
+  
+  
   <template id="main" is="dom-bind">
+	  <iron-selector attr-for-selected="name" selected="{{team}}">
+		<div name="Team A">Team A</div>
+		<div name="Team B">Team B</div>
+		<div name="Team C">Team C</div>
+		<div name="Team D">Team D</div>
+	  </iron-selector>
+	  
+	  <iron-selector attr-for-selected="name" selected="{{scenario}}">
+		<div name="sprawlville">Sprawlville</div>
+		<div name="communicity">Communicity</div>
+		<div name="renewabad">Renewabad</div>
+		<div name="planopolis">Planopolis</div>
+	  </iron-selector>
+	  <br>
+	  
+	  
+  
 	  Team: <span>{{team}}</span><br>
 	  Scenario: <span>{{scenario}}</span><br>
 	  Score: <span>{{score}}</span><br>
@@ -55,8 +75,8 @@
   </template>
   <script type="text/javascript">
   var main = document.querySelector('#main');
-  main.team = 'Team A';
-  main.scenario = 'Sprawville';
+  
+  
   main.cowconfig ={
   	key: 'imagine',
   	protocol:'wss',
