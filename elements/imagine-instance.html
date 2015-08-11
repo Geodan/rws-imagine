@@ -184,7 +184,8 @@ Polymer({
 						self._calculateScore();
 						self.kaartjes = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='kaartje';
-						}).forEach(function(d,i){
+						})
+						self.kaartjes.forEach(function(d,i){
 							self.set('kaartjes.'+i+'._data.x',d.data('x'));
 							self.set('kaartjes.'+i+'._data.y',d.data('y'));
 						});
@@ -194,7 +195,8 @@ Polymer({
 					
 						self.verbindingen = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='verbinding';
-						}).forEach(function(d,i){
+						})
+						self.verbindingen.forEach(function(d,i){
 							self.set('verbindingen.'+i+'._data.vanid',d.data('vanid'));
 							self.set('verbindingen.'+i+'._data.naarid',d.data('naarid'));
 						});
