@@ -7,12 +7,14 @@
   <meta charset="utf-8">
   <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="./bower_components/polymer/polymer.html">
+  <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-instance.html">
   <style>
   </style>
   </head>
   <body>
-  <template id="t" is="dom-bind">
+  
+  <template id="main" is="dom-bind">
 	  Team: <span>{{team}}</span><br>
 	  Scenario: <span>{{scenario}}</span><br>
 	  Score: <span>{{score}}</span><br>
@@ -48,14 +50,22 @@
 	  	</div>
 	  	<br>
 	  </template>
-	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
+	  <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>  
+	  <imagine-instance id="instance" core="{{cow}}" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
   </template>
   <script type="text/javascript">
-  var t = document.querySelector('#t');
-  t.team = 'Team A';
-  t.scenario = 'Sprawville';
+  var main = document.querySelector('#main');
+  main.team = 'Team A';
+  main.scenario = 'Sprawville';
+  main.cowconfig ={
+  	key: 'imagine',
+  	protocol:'wss',
+	url:'websocket.geodan.nl', 
+	port:443,
+	dir: 'imagine'
+  };
   // The dom-change event signifies when the template has stamped its DOM.
-  t.addEventListener('dom-change', function() {
+  main.addEventListener('dom-change', function() {
 	  
   });
 	  
