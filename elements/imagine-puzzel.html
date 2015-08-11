@@ -2,7 +2,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="./imagine-time-slider-vertical.html">
 <link rel="import" href="./imagine-instance.html">
-
+  <link rel="import" href="./gm-cow-core.html">
+  
 <script type="text/javascript" src="../bower_components/interact.js/interact.min.js"></script>
 <link rel='stylesheet' id='fonts.com-css' href='https://fast.fonts.com/cssapi/fdd23a19-e66b-4f7a-b13d-626056555134.css?ver=165b296345e0a16cbf7f4ea4e41d8f2ff1aedcac' type='text/css' media='all' />
 
@@ -181,7 +182,8 @@ background: #625c5e;
 
   </style>
   <template>
-    <imagine-instance id="instance" team="Team A" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
+  <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
+    <imagine-instance id="instance"  core="{{cow}}" team="Team A" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
 
     <!-- local DOM for your element -->
    <div id="properties">
@@ -432,7 +434,13 @@ instance.deleteLink(this.setje.begin,this.setje.end);
         }
     },
     ready: function() {
-
+        this.cowconfig ={
+            key: 'imagine',
+            protocol:'wss',
+            url:'websocket.geodan.nl', 
+            port:443,
+            dir: 'imagine'
+          };
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
 
