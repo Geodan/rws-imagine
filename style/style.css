@@ -1,0 +1,12 @@
+html, body, imagine-puzzel {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  background: url('style/main-background.png');
+}
+imagine-puzzel {
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
