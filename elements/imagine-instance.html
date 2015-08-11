@@ -1,6 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<script src="../bower_components/underscore/underscore.js"></script>
-<script src="../bower_components/cow/dist/cow.js"></script>
+
 <dom-module id="imagine-instance">
 <template>
 </template>
@@ -41,7 +40,11 @@ Polymer({
 				type: Number,
 				notify: true
 			},
-			reset: Boolean
+			reset: Boolean,
+			core: {
+				type: Object,
+				observer: '_cowChanged'
+			}
 		},
 		observers: [
 			'_projectChange(team, scenario)'
@@ -96,11 +99,12 @@ Polymer({
 		*/
 		createProject: function(){
 			if (this.team && this.scenario){
-				var newproject = this._core.projects({});
-				this._core.project(newproject.id());//set as current project
+				var newproject = this.core.projects({});
+				this.core.project(newproject.id());//set as current project
 				newproject.data({team:this.team,scenario:this.scenario}).sync();
 				this._project = newproject;
 				this._generateEvents();
+				this._generateLinks();
 			}
 			else {
 				console.warn('No team or scenario specified');
@@ -156,12 +160,12 @@ Polymer({
 		},
 		_projectChange: function(){
 			var self = this;
-			if (!this._core){
+			if (!this.core){
 				console.warn('No COW core ready');
 				return;
 			}
 			else if (this.team && this.scenario){
-				var projects = this._core.projects().filter(function(d){
+				var projects = this.core.projects().filter(function(d){
 					return !d.deleted() && d.data('team') == self.team && d.data('scenario') == self.scenario;
 				});
 				if (projects.length > 1){
@@ -271,22 +275,37 @@ Polymer({
 				items.forEach(function(d,i){
 					
 				});
-				
+				console.log('score for ',this.team, this.scenario, this.score);
 				this.score = Math.round(score);
 			}
 			else {
 				console.warn('No project selected');
 			}
 		},
-		
+		_cowChanged: function(){
+			var self = this;
+			if (this.core){
+				window.core = this.core; //for debug
+				var core = this.core;
+				core.projectStore().loaded.then(function(){
+					  console.log('projectstore loaded');
+					  
+				});
+				core.projectStore().on('synced', function(){
+					console.log('projectstore synced');
+					self._projectChange(); //start selection of project
+				});
+			}
+		},
 		ready: function(){
 			var self = this;
+			/*
 			var core = new Cow.core({
 				herdname: 'imagine',
 				maxage: 1000 * 60 * 60 * 24 * 30 //30 days
 			});
 			window.core = core; //for debug
-			this._core = core;
+			this.core = core;
 			core.projectStore().loaded.then(function(){
 				  console.log('projectstore loaded');
 				  
@@ -305,6 +324,7 @@ Polymer({
 			};
 			core.socketserver('default');
 			core.connect();
+			*/
 		}
 });
 </script>
