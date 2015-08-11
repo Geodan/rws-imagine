@@ -10,27 +10,39 @@
   <link rel="import" href="./bower_components/iron-selector/iron-selector.html">
   <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-instance.html">
-  <style>
-  </style>
+  
   </head>
   <body>
   
   
   
   <template id="main" is="dom-bind">
+  <style>
+  .button {
+  	  max-width: 200px;
+  	  background-color: steelBlue;
+  	  margin: 5px;
+  	  padding: 5px;
+  	  cursor: pointer;
+  }
+  </style>
+  	<div>
 	  <iron-selector attr-for-selected="name" selected="{{team}}">
-		<div name="Team A">Team A</div>
-		<div name="Team B">Team B</div>
-		<div name="Team C">Team C</div>
-		<div name="Team D">Team D</div>
+		<span class='button' name="Team A">Team A</span>
+		<span class='button' name="Team B">Team B</span>
+		<span class='button' name="Team C">Team C</span>
+		<span class='button' name="Team D">Team D</span>
 	  </iron-selector>
-	  
+	</div>
+	<br>
+	<div>
 	  <iron-selector attr-for-selected="name" selected="{{scenario}}">
-		<div name="sprawlville">Sprawlville</div>
-		<div name="communicity">Communicity</div>
-		<div name="renewabad">Renewabad</div>
-		<div name="planopolis">Planopolis</div>
+		<span class='button' name="sprawlville">Sprawlville</span>
+		<span class='button' name="communicity">Communicity</span>
+		<span class='button' name="renewabad">Renewabad</span>
+		<span class='button' name="planopolis">Planopolis</span>
 	  </iron-selector>
+	</div>
 	  <br>
 	  
 	  
@@ -53,17 +65,16 @@
 	  	<div>[[item._data.name]]</div>
 	  	<table>
 	  	<tr>
-	  		<th></th><th>Original</th><th>Answer</th>
+	  		<th></th><th></th>
 	  	</tr>
 	  	<tr>
-	  		<td>X</td>
-	  		<td>{{item._data.x_org}}</td>
-	  		<td>{{item._data.x}}</td>
+	  		<td>delta X</td>
+	  		<td>{{deltaX(item)}}</td>
+	  		
 		</tr>
 		<tr>
-			<td>Y</td>
-	  		<td>{{item._data.y_org}}</td>
-	  		<td>{{item._data.y}}</td>
+			<td>delta Y</td>
+	  		<td>{{deltaY(item)}}</td>
 	  	</tr>
 	  	</table>
 	  	score:<span>{{item._data.score}}</span>
@@ -75,7 +86,12 @@
   </template>
   <script type="text/javascript">
   var main = document.querySelector('#main');
-  
+  main.deltaX = function(item){
+  	  return item._data.x ? Math.round(Math.abs(item._data.x_org -  item._data.x)): '';   
+  }
+  main.deltaY = function(item){
+  	  return item._data.x ? Math.round(Math.abs(item._data.y_org -  item._data.y)): '';   
+  }
   
   main.cowconfig ={
   	key: 'imagine',
