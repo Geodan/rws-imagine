@@ -101,6 +101,7 @@ Polymer({
 				newproject.data({team:this.team,scenario:this.scenario}).sync();
 				this._project = newproject;
 				this._generateEvents();
+				this._generateLinks();
 			}
 			else {
 				console.warn('No team or scenario specified');
