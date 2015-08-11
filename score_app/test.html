@@ -16,10 +16,13 @@
 	  Team: <span>{{team}}</span><br>
 	  Scenario: <span>{{scenario}}</span><br>
 	  Score: <span>{{score}}</span><br>
+	  <h3>Verbindingen nodig</h3>
+	  <template is='dom-repeat'  items="{{verbindingen_org}}">
+	  	<span>{{item._data.van}}</span> -> <span>{{item._data.naar}}</span><br>
+	  </template>
 	  <h3>Verbindingen</h3>
 	  <template is='dom-repeat'  items="{{verbindingen}}">
-	  	<div>{{item._data.vanid}}</div>
-	  	<div>{{item._data.naarid}}</div>
+	  	<span>{{item._data.vanid}}</span> -> <span>{{item._data.naarid}}</span><br>
 	  </template>
 	  <h3>Kaartjes</h3>
 	  <template is='dom-repeat'  items="{{kaartjes}}">
@@ -43,7 +46,7 @@
 	  	</div>
 	  	<br>
 	  </template>
-	  <imagine-instance id="instance" reset=true team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}"></imagine-instance>
+	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
   </template>
   <script type="text/javascript">
   var t = document.querySelector('#t');

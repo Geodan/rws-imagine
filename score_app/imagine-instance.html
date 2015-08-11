@@ -85,8 +85,8 @@ Polymer({
 					item.data({
 						id:'vo'+i,
 						type: 'verbinding_org',
-						van: eventA.id(),
-						naar:eventB.id()
+						vanid: eventA.id(),
+						naarid:eventB.id()
 					}).sync();
 				}
 			}
@@ -184,20 +184,17 @@ Polymer({
 						self._calculateScore();
 						self.kaartjes = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='kaartje';
-						});
-						self.kaartjes.forEach(function(d,i){
+						}).forEach(function(d,i){
 							self.set('kaartjes.'+i+'._data.x',d.data('x'));
 							self.set('kaartjes.'+i+'._data.y',d.data('y'));
 						});
 						self.verbindingen_org = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='verbinding_org';
 						});
-						
 					
 						self.verbindingen = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='verbinding';
-						});
-						self.verbindingen.forEach(function(d,i){
+						}).forEach(function(d,i){
 							self.set('verbindingen.'+i+'._data.vanid',d.data('vanid'));
 							self.set('verbindingen.'+i+'._data.naarid',d.data('naarid'));
 						});
@@ -219,12 +216,14 @@ Polymer({
 				var eventfactor = function(d){
 					return 5 - (100-d.data('y_org'))/10;
 				};
+				//Calculate score for x axis
 				var deltax = function(d){
 					if (d.data('y_org') > 50 && d.data('x') > 0 && d.data('x_org') > 0){
 						return 5 - Math.abs((d.data('x')-d.data('x_org'))/20);
 					}
 					return 0;
 				};
+				//Calculate score for y axis
 				var deltay = function(d){
 					//only calculate when an x value is present
 					if (d.data('x') > 0 && d.data('x_org') > 0){
@@ -238,9 +237,9 @@ Polymer({
 					}
 					return 0;
 				};
-				var deltafactor = 2;
-				var deltacutoff = 40;
-				var linkfactor = 1;
+				//OBS var deltafactor = 2;
+				//OBS var deltacutoff = 40;
+				//OBS var linkfactor = 1;
 				var items = this._project.items().filter(function(d){
 					return !d.deleted() && d.data('type')=='kaartje';
 				});
