@@ -6,11 +6,26 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>   
+      <link rel="import" href="../../bower_components/polymer/polymer.html">
     <link rel="import" href="../../elements/imagine-puzzel.html">
     <link href='../../style/style.css' rel='stylesheet'>
 </head>
 
 <body >
-    <imagine-puzzel scenario="planopolis" teams="['Team B','Team A','Team D','Team C']"></imagine-puzzel>
+<template id="main" is="dom-bind">
+    <imagine-puzzel scenario="planopolis" team="{{team}}"></imagine-puzzel>
+</template>   
+    <script>
+    var  teams = ['Team B','Team A','Team D','Team C'];
+    var teamNr = 0;
+    if(window.location.hash) {
+        var hash = window.location.hash.split('#')[1];
+        if(parseInt(hash)&&hash <4 && hash > 0) {
+            teamNr = hash;
+        }
+    }
+     var main = document.querySelector('#main');
+     main.team = teams[teamNr];
+    </script>
 </body>
 </html>

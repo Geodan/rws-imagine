@@ -336,7 +336,7 @@ e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
                 //add setje to the list
                 if(this.verbindingen.length > 9) return false;
                 this.verbindingen.push({'begin':this.setje.begin.id,'end':this.setje.end.id})
-                instance.createLink(this.setje.begin.id,kaartje.id);
+                instance.createLink(this.setje.begin.id,this.setje.end.id);
             }
             else {
                 //remove item from the list
