@@ -183,7 +183,7 @@ background: #625c5e;
   </style>
   <template>
   <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
-    <imagine-instance id="instance"  core="{{cow}}" team="Team A" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
+    <imagine-instance id="instance"  core="{{cow}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
 
     <!-- local DOM for your element -->
    <div id="properties">
@@ -299,8 +299,8 @@ e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
     //Functie om een kaartje te selecteren
     selectKaartje: function(e) {
         //TODO: check de volgorde van de link en klap evt om
-        var kaartje = e.currentTarget.id;
-        if(this.setje.begin === null || this.setje.begin === kaartje) {
+        var kaartje = {id:e.currentTarget.id,x:e.currentTarget.attributes['data-x'].value}
+        if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
             this.setje.begin = kaartje;
             var kaartjes = document.getElementsByClassName('can-drop');
             for(var i = 0; i< kaartjes.length;i++){
@@ -310,15 +310,24 @@ e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
             }
             e.currentTarget.classList.remove('wiggle');
         }
-        else if (this.setje.end === null) {
-            this.setje.end = kaartje;
+        else if (this.setje.end === null) {   
+            //SWAP!
+            
+            if(kaartje.x < this.setje.begin.x) {
+                this.setje.end = {id:this.setje.begin.id,x:this.setje.begin.x};
+                this.setje.begin = kaartje;
+            }        
+            else {
+                this.setje.end = kaartje;
+            }
+            
             var nieuw = true;
             var self = this;
             var item = null;
             var instance = document.getElementById('instance');
             this.verbindingen.forEach(function(e,i){
                 //check if the verbinding already exists
-                if(e.begin == self.setje.begin && e.end ==self.setje.end) {
+                if(e.begin == self.setje.begin.id && e.end ==self.setje.end.id) {
                     nieuw =false;
                     item = i;
                 }
@@ -326,13 +335,13 @@ e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
             if(nieuw===!null) {
                 //add setje to the list
                 if(this.verbindingen.length > 9) return false;
-this.verbindingen.push({'begin':this.setje.begin,'end':kaartje})
-                instance.createLink(this.setje.begin,kaartje);
+                this.verbindingen.push({'begin':this.setje.begin.id,'end':this.setje.end.id})
+                instance.createLink(this.setje.begin.id,kaartje.id);
             }
             else {
                 //remove item from the list
                 this.verbindingen.splice(item,1);
-instance.deleteLink(this.setje.begin,this.setje.end);
+                instance.deleteLink(this.setje.begin.id,this.setje.end.id);
             }
             this.drawVerbindingen();
             this.setje = {'begin':null,'end':null};
