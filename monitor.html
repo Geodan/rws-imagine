@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <title>Score board</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="./bower_components/polymer/polymer.html">
+  <link rel="import" href="./elements/imagine-instance.html">
+  <style>
+  </style>
+  </head>
+  <body>
+  <template id="t" is="dom-bind">
+	  Team: <span>{{team}}</span><br>
+	  Scenario: <span>{{scenario}}</span><br>
+	  Score: <span>{{score}}</span><br>
+	  <h3>Verbindingen nodig</h3>
+	  <template is='dom-repeat'  items="{{verbindingen_org}}">
+	  	<span>{{item._data.van}}</span> -> <span>{{item._data.naar}}</span><br>
+	  </template>
+	  <h3>Verbindingen</h3>
+	  <template is='dom-repeat'  items="{{verbindingen}}">
+	  	<span>{{item._data.vanid}}</span> -> <span>{{item._data.naarid}}</span><br>
+	  </template>
+	  <h3>Kaartjes</h3>
+	  <template is='dom-repeat'  items="{{kaartjes}}">
+	  	<div>[[item._data.name]]</div>
+	  	<table>
+	  	<tr>
+	  		<th></th><th>Original</th><th>Answer</th>
+	  	</tr>
+	  	<tr>
+	  		<td>X</td>
+	  		<td>{{item._data.x_org}}</td>
+	  		<td>{{item._data.x}}</td>
+		</tr>
+		<tr>
+			<td>Y</td>
+	  		<td>{{item._data.y_org}}</td>
+	  		<td>{{item._data.y}}</td>
+	  	</tr>
+	  	</table>
+	  	score:<span>{{item._data.score}}</span>
+	  	</div>
+	  	<br>
+	  </template>
+	  <imagine-instance id="instance" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
+  </template>
+  <script type="text/javascript">
+  var t = document.querySelector('#t');
+  t.team = 'Team A';
+  t.scenario = 'Sprawville';
+  // The dom-change event signifies when the template has stamped its DOM.
+  t.addEventListener('dom-change', function() {
+	  
+  });
+	  
+  </script>
+  </body>
+  </html>
