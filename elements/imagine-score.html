@@ -71,7 +71,7 @@ background:#4CC0D0;
   <div id="scoreHeader"><div class="content">SCORES</div></div>
   <div id="scoreScherm">
   <template is='dom-repeat'  items="{{instances}}">
-  <imagine-instance id="instance"  core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}" progress={{progress}}></imagine-instance>
+  <imagine-instance id="instance"  core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}"></imagine-instance>
     <!-- local DOM for your element -->
   <div class="score"><span>{{item.team}}</span> <span>{{item.score}}</span></div>
   </template>
@@ -118,7 +118,6 @@ background:#4CC0D0;
             port:443,
             dir: 'imagine'
           };
-        this.progress= 3;
         var hash = window.location.hash.split('#')[1];
         if(parseInt(hash)&&hash <3 && hash >= 0) {
             hash++
@@ -149,7 +148,6 @@ background:#4CC0D0;
     },
     
     nextPlayer: function() {
-         this.progress= 0;
         var url = window.location.origin + window.location.pathname + '#'+this.hash;
         window.location.href = url;
         window.location.reload();
