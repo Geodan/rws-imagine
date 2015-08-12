@@ -165,9 +165,15 @@ Polymer({
 				this._calculateScore();
 		},
 		setProgress: function(val){
-			if (this._project){
-				this._project.data('progress',val).sync();
-			}
+			var self = this;
+			this.core.projectStore().loaded.then(function(){
+				if (self._project){
+					self._project.data('progress',val).sync();
+				}
+				else {
+					console.warn('Can\'t set progress (no project set)'); 
+				}
+			});
 		},
 		_projectChange: function(){
 			var self = this;
