@@ -1,10 +1,10 @@
-html, body, imagine-puzzel {
+html, body, imagine-puzzel, imagine-score {
   margin: 0px;
   padding: 0px;
   overflow: hidden;
   background: url('main-background.png');
 }
-imagine-puzzel {
+imagine-puzzel, imagine-score {
     top: 0px;
     bottom: 0px;
     left: 0px;

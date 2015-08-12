@@ -11,8 +11,19 @@
     font-size: 50px
 }
 
+#scoreHeader {
+    height: 30%;
+    background:#3A3335;
+    
+}
+imagine-score, .imagine-score {
+    font-family: "Avenir LT W01 65 Medium", sans-serif;
+  }
+  
   </style>
   <template>
+  <div id="scoreHeader">SCORES</div>
+  <div id="scoreScherm"></div>
   <template is='dom-repeat'  items="{{instances}}">
   <imagine-instance id="instance"  core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}" ></imagine-instance>
     <!-- local DOM for your element -->
