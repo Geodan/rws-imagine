@@ -1,0 +1,80 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="./imagine-instance.html">
+  <link rel="import" href="./gm-cow-core.html">
+
+ 
+<dom-module id="imagine-score">
+  <style>
+.score {
+    padding: 50%;
+    font-size: 50px
+}
+
+  </style>
+  <template>
+  
+  <imagine-instance id="instance"  core="{{core}}" team="[[team]]" scenario="[[scenario]]" score="{{score}}" ></imagine-instance>
+    <!-- local DOM for your element -->
+  <span class="score">{{score}}</span>
+  <button on-click="nextPlayer">{{nextTeam}}</button>
+  </template>
+</dom-module>
+
+<script>
+  // register a new element called proto-element
+  Polymer({
+    
+    is: "imagine-score",
+    properties: {
+        team: {
+            type: String        
+        },
+        teams: {
+            type: Array        
+        },
+        scenario: {
+            type: String
+        },
+        score: {
+            type: Number
+            },
+        core: {
+            type: Object
+        }
+        
+    },    
+    behaviors: [
+     
+    ],
+ observers: [
+     
+    ],
+    
+    ready: function() {
+         this.cowconfig ={
+            key: 'imagine',
+            protocol:'wss',
+            url:'websocket.geodan.nl', 
+            port:443,
+            dir: 'imagine'
+          };
+        var hash = window.location.hash.split('#')[1];
+        if(parseInt(hash)&&hash <3 && hash >= 0) {
+            hash++
+        }
+        else if(hash == 3) hash = 0;
+        else hash = 1;
+        this.hash = hash;
+        this.nextTeam = this.teams[hash];
+    },
+    
+    nextPlayer: function() {
+        
+        var url = window.location.origin + window.location.pathname + '#'+this.hash;
+        window.location.href = url;
+        window.location.reload();
+    }
+    
+  });
+</script>
