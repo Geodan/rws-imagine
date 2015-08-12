@@ -221,7 +221,7 @@ Polymer({
 						reload();
 					});
 					
-					this.core.projectStore().on('datachangeXX',function(){
+					this.core.projectStore().on('datachange',function(){
 						self.progress = self._project.data('progress');
 					});
 					
