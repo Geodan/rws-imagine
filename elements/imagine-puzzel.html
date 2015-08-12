@@ -169,7 +169,7 @@ background: #625c5e;
   </style>
   <template>
   
-    <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true progress="{{progress}}" ></imagine-instance>
+    <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
     
     <!-- local DOM for your element -->
    <div id="properties">
@@ -386,9 +386,10 @@ background: #625c5e;
 
     //Function called when the slider reaches the end
     _doneChanged: function(){
+        var instance = document.getElementById('instance');
         //Als de tijd verstreken is gaan we over op:
         if(this.done&& !this.verbinden) { // het verbinden van de kaartjes
-            this.progress= 2;
+            instance.setProgress(2);
             this._removeUnused();
 
             var self = this;
@@ -406,7 +407,7 @@ background: #625c5e;
         else if(this.done&&this.verbinden) { // scorebord
             //TODO: hier moet het scorebord komen
             this.verbinden = false;
-            this.progress= 2;
+            instance.setProgress(3);
             this.showScore()
             
         }
@@ -416,8 +417,7 @@ background: #625c5e;
         document.getElementById('puzzelscore').style.display = 'block';
        
     },
-    ready: function() {
-        this.progress= 1;
+    ready: function() {        
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
 
@@ -532,6 +532,11 @@ if(!event.relatedTarget.classList.contains('dropped')) self.counter++;
                 event.target.classList.remove('drop-target');
             }
         });
+    },
+    attached: function() {
+
+        var instance = document.getElementById('instance');
+        instance.setProgress(1);
     }
   });
 </script>
