@@ -2,32 +2,18 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="./imagine-time-slider-vertical.html">
 <link rel="import" href="./imagine-instance.html">
-  <link rel="import" href="./gm-cow-core.html">
+
   
 <script type="text/javascript" src="../bower_components/interact.js/interact.min.js"></script>
 <link rel='stylesheet' id='fonts.com-css' href='https://fast.fonts.com/cssapi/fdd23a19-e66b-4f7a-b13d-626056555134.css?ver=165b296345e0a16cbf7f4ea4e41d8f2ff1aedcac' type='text/css' media='all' />
 
 <dom-module id="imagine-puzzel">
  <link rel='import' href='../style/theme.css' type='css'>
-<!--
-Planned:
-main: #4CC0D0
-mild: #BAE3EA
-
-Communi:
-main: #FFD979
-mild: #FFF1C9
-
-Sprawl:
-main: #E6215B
-mild: #D7989B
-
-Renew:
-main: #3ABBA0
-mild: #AEDAC0
--->
   <style>
-
+.background{
+float: left;
+padding: 10px;
+}
 imagine-puzzel, .imagine-puzzel {
     font-family: "Avenir LT W01 65 Medium", sans-serif;
   }
@@ -182,9 +168,9 @@ background: #625c5e;
 
   </style>
   <template>
-  <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
-    <imagine-instance id="instance"  core="{{cow}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
-
+  
+    <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
+    
     <!-- local DOM for your element -->
    <div id="properties">
        <template  is="dom-repeat" items="{{eigenschappen}}">
@@ -192,13 +178,14 @@ background: #625c5e;
        </template>
     </div>
    <div id="speelveld">
-    <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}">
-    </canvas>
+   <span class="background">{{team}}</span><span class="background">{{scenario}}</span>
+    <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}"></canvas>
     <imagine-time-slider-vertical max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
         <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" >{{item._data.name}}</div>
     </template>
    </div>
+   
   </template>
 </dom-module>
 
@@ -206,31 +193,9 @@ background: #625c5e;
   // register a new element called proto-element
   Polymer({
     is: "imagine-puzzel",
-    properties: {
-    done: {
-        type: Boolean,
-        value: false,
-        observer:  '_doneChanged',
-        notify: true
-    },
-    sliderValue: {
-        type: Number,
-        value: 0
-    },
-    start: {
-        type: Boolean,
-        value: false,
-        notify: true
-    },
-    kaartjes: {
-        type: Array,
-        observer:  '_kaartjesChanged',
-        notify: true
-      },
-    verbindingen: {
-        type: Array,
-        value: [],
-        notify: false
+    properties: { 
+    core: {
+        type: Object,
     },
     team: {
         type: String,
@@ -241,13 +206,12 @@ background: #625c5e;
         observer:  '_scenarioChanged',
         value: 'Sprawville'
     },
-
     eigenschappen: {
         type: Array,
         value: function() {
             var e = [];
             for(var i = 0; i<10;i++){
-e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
+                e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
             }
             return e;
         }
@@ -257,6 +221,8 @@ e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
     behaviors: [
     ],
     observers: [
+        '_doneChanged(done)',
+        '_kaartjesChanged(kaartjes)'
     ],
     //Functie om een kaartje op het speelveld te leggen
     createID: function(i) {
@@ -360,7 +326,7 @@ e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
         var context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
         var cityMain = this.style.main;
-        console.log(this.verbindingen);
+        
         this.verbindingen.forEach(function(e,i) {
             var b = document.getElementById(e.begin);
             var end = document.getElementById(e.end);
@@ -439,17 +405,16 @@ e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
         else if(this.done&&this.verbinden) { // scorebord
             //TODO: hier moet het scorebord komen
             this.verbinden = false;
-            show3D();
+            this.showScore()
         }
     },
+    showScore: function() {
+        document.getElementById('puzzelgame').style.display = 'none';
+        document.getElementById('puzzelscore').style.display = 'block';
+       
+    },
     ready: function() {
-        this.cowconfig ={
-            key: 'imagine',
-            protocol:'wss',
-            url:'websocket.geodan.nl', 
-            port:443,
-            dir: 'imagine'
-          };
+        
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
 
@@ -529,7 +494,7 @@ if(event.relatedTarget.classList.contains('dropped')) {
                     //formerly dropped item, remove drom the counter
 event.relatedTarget.classList.remove('dropped');
                      self.counter--;
-                     console.log('down: '+self.counter);
+                     
                      //Set the X&Y to '' and sync
                      var item = self.kaartjes[event.relatedTarget.id.split('-')[1]];
                      item.data('x','').data('y','').sync();
@@ -547,7 +512,7 @@ if(!event.relatedTarget.classList.contains('dropped')) self.counter++;
                 //Mark the kaartje as dropped and increase the counter
                 event.relatedTarget.classList.add('dropped');
 
-                console.log('up: '+self.counter);
+                
                 //calculate the X and Y score
                 var kaartjeX = Math.round((event.relatedTarget.offsetLeft -150 + 68 - 1)/event.target.width*100);
                 var kaartjeY = Math.round((event.target.height - (event.relatedTarget.offsetTop -110 + 53 - 1))/event.target.height *50+50);

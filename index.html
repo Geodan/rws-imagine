@@ -8,12 +8,17 @@
     <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>   
       <link rel="import" href="./bower_components/polymer/polymer.html">
     <link rel="import" href="./elements/imagine-puzzel.html">
+    <link rel="import" href="./elements/imagine-score.html">
+      <link rel="import" href="./elements/gm-cow-core.html">
     <link href='./style/style.css' rel='stylesheet'>
 </head>
 
 <body >
 <template id="main" is="dom-bind">
-    <imagine-puzzel scenario="communicity" team="{{team}}"></imagine-puzzel>
+    <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
+    <imagine-3d></imagine-3d>
+    <imagine-puzzel id="puzzelgame" core="{{cow}}" scenario="communicity" team="{{team}}"></imagine-puzzel>
+    <imagine-score id="puzzelscore" core="{{cow}}" scenario="communicity" team="{{team}}" teams="{{teams}}"></imagine-score>
 </template>   
     <script>
     var  teams = ['Team A','Team D','Team C','Team B'];
@@ -26,6 +31,14 @@
     }
      var main = document.querySelector('#main');
      main.team = teams[teamNr];
+     main.teams = teams;
+     main.cowconfig ={
+            key: 'imagine',
+            protocol:'wss',
+            url:'websocket.geodan.nl', 
+            port:443,
+            dir: 'imagine'
+          };
     </script>
 </body>
 </html>
