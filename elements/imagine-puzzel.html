@@ -265,7 +265,7 @@ background: #625c5e;
     //Functie om een kaartje te selecteren
     selectKaartje: function(e) {
         //TODO: check de volgorde van de link en klap evt om
-        var kaartje = {id:e.currentTarget.id,x:e.currentTarget.attributes['data-x'].value}
+        var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
             this.setje.begin = kaartje;
             var kaartjes = document.getElementsByClassName('can-drop');
@@ -328,8 +328,8 @@ background: #625c5e;
         var cityMain = this.style.main;
         
         this.verbindingen.forEach(function(e,i) {
-            var b = document.getElementById(e.begin);
-            var end = document.getElementById(e.end);
+            var b = document.getElementById('event-'+e.begin);
+            var end = document.getElementById('event-'+e.end);
             var endPoint = [parseFloat(end.attributes['data-x'].value) - 133,parseFloat(end.attributes['data-y'].value) - 30]
             var beginPoint = [parseFloat(b.attributes['data-x'].value) - 35,parseFloat(b.attributes['data-y'].value) - 98]
             context.beginPath();
