@@ -169,7 +169,7 @@ background: #625c5e;
   </style>
   <template>
   
-    <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
+    <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true progress="{{progress}}" ></imagine-instance>
     
     <!-- local DOM for your element -->
    <div id="properties">
@@ -265,7 +265,7 @@ background: #625c5e;
     //Functie om een kaartje te selecteren
     selectKaartje: function(e) {
         //TODO: check de volgorde van de link en klap evt om
-        var kaartje = {id:e.currentTarget.id,x:e.currentTarget.attributes['data-x'].value}
+        var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
             this.setje.begin = kaartje;
             var kaartjes = document.getElementsByClassName('can-drop');
@@ -328,8 +328,8 @@ background: #625c5e;
         var cityMain = this.style.main;
         
         this.verbindingen.forEach(function(e,i) {
-            var b = document.getElementById(e.begin);
-            var end = document.getElementById(e.end);
+            var b = document.getElementById('event-'+e.begin);
+            var end = document.getElementById('event-'+e.end);
             var endPoint = [parseFloat(end.attributes['data-x'].value) - 133,parseFloat(end.attributes['data-y'].value) - 30]
             var beginPoint = [parseFloat(b.attributes['data-x'].value) - 35,parseFloat(b.attributes['data-y'].value) - 98]
             context.beginPath();
@@ -388,6 +388,7 @@ background: #625c5e;
     _doneChanged: function(){
         //Als de tijd verstreken is gaan we over op:
         if(this.done&& !this.verbinden) { // het verbinden van de kaartjes
+            this.progress= 2;
             this._removeUnused();
 
             var self = this;
@@ -405,7 +406,9 @@ background: #625c5e;
         else if(this.done&&this.verbinden) { // scorebord
             //TODO: hier moet het scorebord komen
             this.verbinden = false;
+            this.progress= 2;
             this.showScore()
+            
         }
     },
     showScore: function() {
@@ -414,12 +417,12 @@ background: #625c5e;
        
     },
     ready: function() {
-        
+        this.progress= 1;
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
 
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
-
+        this.verbindingen =[];
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
         this.done= false; //boolean to alert that the slider reached the end of its run
         this.counter = 0; //the number of active kaartjes
