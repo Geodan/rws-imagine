@@ -73,7 +73,7 @@ background:#4CC0D0;
   <template is='dom-repeat'  items="{{instances}}">
   <imagine-instance id="instance"  core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}"></imagine-instance>
     <!-- local DOM for your element -->
-  <div class="score"><span>{{item.team}}</span> <span>{{item.score}}</span></div>
+  <div class="score"><div>{{item.team}}</div> <div>score:<span>{{item.score}}</span></div><div>stemmen:<span>{{calcVotes(item.score)}}</span></div></div>
   </template>
   </div>
   <div class="nextplayer" on-click="nextPlayer">{{nextTeam}}</div>
@@ -109,7 +109,9 @@ background:#4CC0D0;
  observers: [
      
     ],
-    
+    calcVotes: function(score){
+        return Math.round(score*.75);
+    },
     ready: function() {
          this.cowconfig ={
             key: 'imagine',
