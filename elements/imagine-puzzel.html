@@ -169,7 +169,7 @@ background: #625c5e;
   </style>
   <template>
   
-    <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
+    <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true progress="{{progress}}" ></imagine-instance>
     
     <!-- local DOM for your element -->
    <div id="properties">
@@ -388,6 +388,7 @@ background: #625c5e;
     _doneChanged: function(){
         //Als de tijd verstreken is gaan we over op:
         if(this.done&& !this.verbinden) { // het verbinden van de kaartjes
+            this.progress= 2;
             this._removeUnused();
 
             var self = this;
@@ -405,7 +406,9 @@ background: #625c5e;
         else if(this.done&&this.verbinden) { // scorebord
             //TODO: hier moet het scorebord komen
             this.verbinden = false;
+            this.progress= 2;
             this.showScore()
+            
         }
     },
     showScore: function() {
@@ -414,7 +417,7 @@ background: #625c5e;
        
     },
     ready: function() {
-        
+        this.progress= 1;
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
 
