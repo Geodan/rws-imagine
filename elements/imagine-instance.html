@@ -11,8 +11,7 @@ Polymer({
 			progress: {
 				type: Number,
 				value: 0,
-				notify: true,
-				observer: '_progressChanged'
+				notify: true
 			},
 			kaartjes: {
 				type:Array,
@@ -165,9 +164,9 @@ Polymer({
 				});
 				this._calculateScore();
 		},
-		_progressChanged: function(){
+		setProgress: function(val){
 			if (this._project){
-				this._project.data('progress',this.progress).sync();
+				this._project.data('progress',val).sync();
 			}
 		},
 		_projectChange: function(){
@@ -222,8 +221,8 @@ Polymer({
 						reload();
 					});
 					
-					this.core.projectStore().on('datachanged',function(){
-							self.progress = self._project.data('progress');
+					this.core.projectStore().on('datachangeXX',function(){
+						self.progress = self._project.data('progress');
 					});
 					
 				}
