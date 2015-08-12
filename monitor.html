@@ -8,48 +8,57 @@
   <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="./bower_components/polymer/polymer.html">
   <link rel="import" href="./bower_components/iron-selector/iron-selector.html">
+  <link rel="import" href="./bower_components/paper-button/paper-button.html">
+  <link rel="import" href="./bower_components/paper-card/paper-card.html">
+  <link rel="import" href="./bower_components/paper-badge/paper-badge.html">
   <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-instance.html">
   
-  </head>
+  </head>      
   <body>
   
   
   
   <template id="main" is="dom-bind">
   <style>
-  .button {
-  	  max-width: 200px;
-  	  background-color: steelBlue;
-  	  margin: 5px;
-  	  padding: 5px;
-  	  cursor: pointer;
+  .teambutton {
+  	  color: white;
+  	  background: lightGreen;
   }
+  
+  
+  .scenbutton {
+  	  color: white;
+  	  background: steelBlue;
+  }
+  .iron-selected {
+      background: orange;
+    }
+  .card-content {
+  	  background: lightGray;
+  }
+  
   </style>
   	<div>
 	  <iron-selector attr-for-selected="name" selected="{{team}}">
-		<span class='button' name="Team A">Team A</span>
-		<span class='button' name="Team B">Team B</span>
-		<span class='button' name="Team C">Team C</span>
-		<span class='button' name="Team D">Team D</span>
+		<paper-button class='teambutton' name="Team A">Team A</paper-button>
+		<paper-button class='teambutton' name="Team B">Team B</paper-button>
+		<paper-button class='teambutton' name="Team C">Team C</paper-button>
+		<paper-button class='teambutton' name="Team D">Team D</paper-button>
 	  </iron-selector>
 	</div>
 	<br>
 	<div>
 	  <iron-selector attr-for-selected="name" selected="{{scenario}}">
-		<span class='button' name="sprawlville">Sprawlville</span>
-		<span class='button' name="communicity">Communicity</span>
-		<span class='button' name="renewabad">Renewabad</span>
-		<span class='button' name="planopolis">Planopolis</span>
+		<paper-button class='scenbutton' name="sprawlville">Sprawlville</paper-button>
+		<paper-button class='scenbutton' name="communicity">Communicity</paper-button>
+		<paper-button class='scenbutton' name="renewabad">Renewabad</paper-button>
+		<paper-button class='scenbutton' name="planopolis">Planopolis</paper-button>
 	  </iron-selector>
 	</div>
 	  <br>
 	  
-	  
-  
-	  Team: <span>{{team}}</span><br>
-	  Scenario: <span>{{scenario}}</span><br>
-	  Score: <span>{{score}}</span><br>
+	  Totaalscore: <span>{{score}}</span><br>
 	  <!--
 	  <h3>Verbindingen nodig</h3>
 	  <template is='dom-repeat'  items="{{verbindingen_org}}">
@@ -61,36 +70,35 @@
 	  	<span>{{item._data.vanid}}</span> -> <span>{{item._data.naarid}}</span><br>
 	  </template>
 	  <h3>Kaartjes</h3>
-	  <template is='dom-repeat'  items="{{kaartjes}}">
-	  	<div>[[item._data.name]]</div>
-	  	<table>
-	  	<tr>
-	  		<th></th><th></th>
-	  	</tr>
-	  	<tr>
-	  		<td>delta X</td>
-	  		<td>{{deltaX(item)}}</td>
-	  		
-		</tr>
-		<tr>
-			<td>delta Y</td>
-	  		<td>{{deltaY(item)}}</td>
-	  	</tr>
-	  	</table>
-	  	score:<span>{{item._data.score}}</span>
-	  	</div>
-	  	<br>
+	  <template is='dom-repeat'  items="{{kaartjes}}" filter='hasScore' sort='byScore' observe="_data">
+	  	<paper-card heading="[[item._data.name]]">
+		  <div class="card-content">
+		  	<div></div>
+			<div secondary>
+				Eventscore <span>[[item._data.eventscore]]</span><br>
+				X-score<span>[[item._data.xscore]]</span><br>
+				Y-score <span>[[item._data.yscore]]</span><br>
+				<paper-badge label="[[item._data.totalscore]]"></paper-badge>
+			</div>
+		  </div>
+		  <!--
+		  <div class="card-actions">
+			<paper-button>Some action</paper-button>
+		  </div>
+		  -->
+		</paper-card>
 	  </template>
 	  <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>  
 	  <imagine-instance id="instance" core="{{cow}}" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
   </template>
   <script type="text/javascript">
   var main = document.querySelector('#main');
-  main.deltaX = function(item){
-  	  return item._data.x ? Math.round(Math.abs(item._data.x_org -  item._data.x)): '';   
+  main.hasScore = function(d){
+  	  console.log(d._data.totalscore);
+  	  return d._data.totalscore;
   }
-  main.deltaY = function(item){
-  	  return item._data.x ? Math.round(Math.abs(item._data.y_org -  item._data.y)): '';   
+  main.byScore = function(a,b){
+  	  return b._data.totalscore - a._data.totalscore;
   }
   
   main.cowconfig ={
