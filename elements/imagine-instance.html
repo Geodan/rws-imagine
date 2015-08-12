@@ -185,7 +185,6 @@ Polymer({
 						}
 					});
 					function reload(){
-						self._calculateScore();
 						self.kaartjes = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='kaartje';
 						})
@@ -204,6 +203,7 @@ Polymer({
 							self.set('verbindingen.'+i+'._data.vanid',d.data('vanid'));
 							self.set('verbindingen.'+i+'._data.naarid',d.data('naarid'));
 						});
+						self._calculateScore();
 					}
 					reload();
 					this._project.itemStore().on('datachange',function(){
@@ -256,27 +256,33 @@ Polymer({
 					var itemscore = 0;
 					//if (d.data(time) && d.data(time).y >=50){
 					if (d.data('y') >=50){
-						itemscore = itemscore + eventfactor(d);
-			
+						var eventscore = Math.round(eventfactor(d));
+						self.set('kaartjes.'+i+'._data.eventscore',eventscore);
+						
 						//var dx = d.data('x_org') - d.data(time).x;
 						//score = score + Math.exp(-Math.PI * Math.pow(dx/deltacutoff,2)) * deltafactor;
-						itemscore = itemscore + deltax(d);
+						var xscore = Math.round(deltax(d));
+						self.set('kaartjes.'+i+'._data.xscore',xscore);
 						
 						//var dy = d.data('y_org') - d.data(time).y;
 						//score = score + Math.exp(-Math.PI * Math.pow(dy/deltacutoff,2)) * deltafactor;
-						itemscore = itemscore + deltay(d);
+						var yscore = Math.round(deltay(d));
+						self.set('kaartjes.'+i+'._data.yscore',yscore);
 						
-						itemscore = Math.round(itemscore);
-						score = score + itemscore;
-						d.data('score',itemscore);
-						self.set('kaartjes.'+i+'._data.score',itemscore);
+						totalscore = Math.round(eventscore + xscore + yscore);
+						score = score + totalscore;
+						d.data('score',totalscore);
+						self.set('kaartjes.'+i+'._data.totalscore',totalscore);
+					}
+					else {
+						//self.set('kaartjes.'+i+'._data.totalscore',0);
 					}
 				});
 				var items = this._project.items().filter(function(d){
 					return !d.deleted() && d.data('type')=='verbinding';
 				});
 				items.forEach(function(d,i){
-					
+					//TODO: calculate score voor verbinding
 				});
 				this.score = Math.round(score);
 			}
