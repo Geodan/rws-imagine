@@ -13,10 +13,11 @@
 
   </style>
   <template>
-  
-  <imagine-instance id="instance"  core="{{core}}" team="[[team]]" scenario="[[scenario]]" score="{{score}}" ></imagine-instance>
+  <template is='dom-repeat'  items="{{instances}}">
+  <imagine-instance id="instance"  core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}" ></imagine-instance>
     <!-- local DOM for your element -->
-  <span class="score">{{score}}</span>
+  <span class="score"><span>{{item.team}}</span> <span>{{item.score}}</span>
+  </template>
   <button on-click="nextPlayer">{{nextTeam}}</button>
   </template>
 </dom-module>
@@ -67,6 +68,25 @@
         else hash = 1;
         this.hash = hash;
         this.nextTeam = this.teams[hash];
+         this.instances = [
+            {team:this.teams[0]},
+            {team:this.teams[1]},
+            {team:this.teams[2]},
+            {team:this.teams[3]}
+        
+        ]
+        switch(hash){
+            case 1:
+              this.instances.splice(1,3)
+              break;
+            case 2:
+              this.instances.splice(2,2)
+              break;
+            case 3:
+              this.instances.splice(3,1)
+              break;
+        }
+       
     },
     
     nextPlayer: function() {

@@ -10,7 +10,10 @@
 <dom-module id="imagine-puzzel">
  <link rel='import' href='../style/theme.css' type='css'>
   <style>
-
+.background{
+float: left;
+padding: 10px;
+}
 imagine-puzzel, .imagine-puzzel {
     font-family: "Avenir LT W01 65 Medium", sans-serif;
   }
@@ -167,7 +170,7 @@ background: #625c5e;
   <template>
   
     <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
-    <div id="game">
+    
     <!-- local DOM for your element -->
    <div id="properties">
        <template  is="dom-repeat" items="{{eigenschappen}}">
@@ -175,16 +178,14 @@ background: #625c5e;
        </template>
     </div>
    <div id="speelveld">
-    <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}">
-    </canvas>
+   <span class="background">{{team}}</span><span class="background">{{scenario}}</span>
+    <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}"></canvas>
     <imagine-time-slider-vertical max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
         <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" >{{item._data.name}}</div>
     </template>
    </div>
-   </div>
-   <div id="score">
-   </div>
+   
   </template>
 </dom-module>
 
