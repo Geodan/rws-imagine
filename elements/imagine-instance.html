@@ -8,6 +8,11 @@
 Polymer({
 		is: 'imagine-instance',
 		properties:{
+			progress: {
+				type: Number,
+				value: 0,
+				notify: true
+			},
 			kaartjes: {
 				type:Array,
 				value: function(){
@@ -153,10 +158,11 @@ Polymer({
 				this._project.items().filter(function(d){
 					return !d.deleted() && d.data('type')=='kaartje';
 				}).forEach(function(d){
-					d.data('x','').data('y','');
+					if (d.data('y') >0 || d.data('x') >0){
+						d.data('x','').data('y','').sync();
+					}
 				});
-				this._project.itemStore().sync();
-			
+				this._calculateScore();
 		},
 		_projectChange: function(){
 			var self = this;
@@ -275,7 +281,7 @@ Polymer({
 						self.set('kaartjes.'+i+'._data.totalscore',totalscore);
 					}
 					else {
-						//self.set('kaartjes.'+i+'._data.totalscore',0);
+						self.set('kaartjes.'+i+'._data.totalscore',0);
 					}
 				});
 				var items = this._project.items().filter(function(d){

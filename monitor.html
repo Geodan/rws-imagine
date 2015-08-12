@@ -39,6 +39,21 @@
   }
   
   </style>
+  
+  <template is='dom-repeat' items="{{teams}}" as="team">
+  	<span>{{team.name}}</span>
+  	<template is='dom-repeat' items="{{team.scenarios}}" as="scenario">
+  		<imagine-instance id="instance" core="{{cow}}" team="{{team.name}}" scenario="{{scenario.name}}" score="{{scenario.score}}"></imagine-instance>
+		<paper-card class='{{isSelected}}' on-click="selectProject">
+			<div class="card-content">
+				<span>{{scenario.name}}</span><br>
+				<span>{{scenario.score}}</span>
+			</div>
+		</paper-card>
+  	</template>
+  	<br>
+  </template>
+  <!--
   	<div>
 	  <iron-selector attr-for-selected="name" selected="{{team}}">
 		<paper-button class='teambutton' name="Team A">Team A</paper-button>
@@ -56,7 +71,7 @@
 		<paper-button class='scenbutton' name="planopolis">Planopolis</paper-button>
 	  </iron-selector>
 	</div>
-	  <br>
+	-->
 	  
 	  Totaalscore: <span>{{score}}</span><br>
 	  <!--
@@ -92,14 +107,35 @@
 	  <imagine-instance id="instance" core="{{cow}}" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
   </template>
   <script type="text/javascript">
+  
+  
   var main = document.querySelector('#main');
   main.hasScore = function(d){
-  	  console.log(d._data.totalscore);
   	  return d._data.totalscore;
   }
   main.byScore = function(a,b){
   	  return b._data.totalscore - a._data.totalscore;
   }
+  main.selectProject = function(d){
+  	  main.team = d.model.team.name;
+  	  main.scenario = d.model.scenario.name;
+  }
+  main.isSelected = function(d){
+  	  console.log(d);
+  }
+  main.teams = [{
+  	name:'Team A',
+    scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+  },{
+  	name: 'Team B',
+  	scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+  },{
+    name:'Team C',
+  	scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+  },{
+  	name:'Team D',
+  	scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+  }];
   
   main.cowconfig ={
   	key: 'imagine',
