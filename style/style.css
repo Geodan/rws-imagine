@@ -4,9 +4,13 @@ html, body, imagine-puzzel, imagine-score {
   overflow: hidden;
   background: url('main-background.png');
 }
-imagine-puzzel, imagine-score {
+imagine-puzzel, imagine-score, body {
     top: 0px;
     bottom: 0px;
     left: 0px;
     right: 0px;
+    position: absolute;
+}
+imagine-score {
+    display: none;
 }

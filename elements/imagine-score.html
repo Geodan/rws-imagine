@@ -7,29 +7,76 @@
 <dom-module id="imagine-score">
   <style>
 .score {
-    padding: 50%;
-    font-size: 50px
+    width: 20%;
+    height: 50%;
+    font-size: 50px;
+    border:rgba(58,51,53,200) solid 1px;
+    margin: 5px;
+    align-self: center;
 }
 
 #scoreHeader {
     height: 30%;
-    background:#3A3335;
+    background:rgba(58,51,53,200);
+    color: white;
+    font-size: 30px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+#scoreScherm {
+    position: absolute;
+    top: 30%;
+    bottom: 120px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+.content {
     
+    padding: 50px;
 }
 imagine-score, .imagine-score {
     font-family: "Avenir LT W01 65 Medium", sans-serif;
   }
-  
+.nextplayer {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 3.2;
+    -moz-box-shadow:    2px 2px 5px 0px #3A3335;
+  -webkit-box-shadow: 2px 2px 5px 0px #3A3335;
+  box-shadow:         2px 2px 5px 0px #3A3335;
+}
+:host[scenario=communicity] .nextplayer{
+background:#FFD979;
+}
+:host[scenario=sprawlville] .nextplayer {
+background:#E6215B;
+}
+:host[scenario=renewabad] .nextplayer {
+background:#3ABBA0;
+}
+:host[scenario=planopolis] .nextplayer {
+background:#4CC0D0;
+}
   </style>
   <template>
-  <div id="scoreHeader">SCORES</div>
-  <div id="scoreScherm"></div>
+  <div id="scoreHeader"><div class="content">SCORES</div></div>
+  <div id="scoreScherm">
   <template is='dom-repeat'  items="{{instances}}">
   <imagine-instance id="instance"  core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}" ></imagine-instance>
     <!-- local DOM for your element -->
-  <span class="score"><span>{{item.team}}</span> <span>{{item.score}}</span>
+  <div class="score"><span>{{item.team}}</span> <span>{{item.score}}</span></div>
   </template>
-  <button on-click="nextPlayer">{{nextTeam}}</button>
+  </div>
+  <div class="nextplayer" on-click="nextPlayer">{{nextTeam}}</div>
   </template>
 </dom-module>
 
