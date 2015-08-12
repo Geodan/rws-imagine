@@ -10,6 +10,7 @@
   <link rel="import" href="./bower_components/iron-selector/iron-selector.html">
   <link rel="import" href="./bower_components/paper-button/paper-button.html">
   <link rel="import" href="./bower_components/paper-card/paper-card.html">
+  <link rel="import" href="./bower_components/paper-progress/paper-progress.html">
   <link rel="import" href="./bower_components/paper-badge/paper-badge.html">
   <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-instance.html">
@@ -25,8 +26,7 @@
   	  color: white;
   	  background: lightGreen;
   }
-  
-  
+
   .scenbutton {
   	  color: white;
   	  background: steelBlue;
@@ -34,8 +34,13 @@
   .iron-selected {
       background: orange;
     }
+    
+   .scencard {
+   	    
+   }
   .card-content {
   	  background: lightGray;
+  	  width: 200px;
   }
   
   </style>
@@ -43,11 +48,11 @@
   <template is='dom-repeat' items="{{teams}}" as="team">
   	<span>{{team.name}}</span>
   	<template is='dom-repeat' items="{{team.scenarios}}" as="scenario">
-  		<imagine-instance id="instance" core="{{cow}}" team="{{team.name}}" scenario="{{scenario.name}}" score="{{scenario.score}}"></imagine-instance>
-		<paper-card class='{{isSelected}}' on-click="selectProject">
+  		<imagine-instance id="instance" core="{{cow}}" team="{{team.name}}" scenario="{{scenario.name}}" score="{{scenario.score}}" progress="{{scenario.progress}}"></imagine-instance>
+		<paper-card class='scencard' heading='{{scenario.name}}' on-click='selectProject'>
 			<div class="card-content">
-				<span>{{scenario.name}}</span><br>
 				<span>{{scenario.score}}</span>
+				<paper-progress value="{{scenario.progress}}" min=0 max=3 step=1></paper-progress>
 			</div>
 		</paper-card>
   	</template>
@@ -111,7 +116,7 @@
   
   var main = document.querySelector('#main');
   main.hasScore = function(d){
-  	  return d._data.totalscore;
+  	  return d._data.y > 50;
   }
   main.byScore = function(a,b){
   	  return b._data.totalscore - a._data.totalscore;
@@ -119,9 +124,6 @@
   main.selectProject = function(d){
   	  main.team = d.model.team.name;
   	  main.scenario = d.model.scenario.name;
-  }
-  main.isSelected = function(d){
-  	  console.log(d);
   }
   main.teams = [{
   	name:'Team A',

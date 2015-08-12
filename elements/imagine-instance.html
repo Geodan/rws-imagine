@@ -11,7 +11,8 @@ Polymer({
 			progress: {
 				type: Number,
 				value: 0,
-				notify: true
+				notify: true,
+				observer: '_progressChanged'
 			},
 			kaartjes: {
 				type:Array,
@@ -164,6 +165,11 @@ Polymer({
 				});
 				this._calculateScore();
 		},
+		_progressChanged: function(){
+			if (this._project){
+				this._project.data('progress',this.progress).sync();
+			}
+		},
 		_projectChange: function(){
 			var self = this;
 			if (!this.core){
@@ -215,6 +221,11 @@ Polymer({
 					this._project.itemStore().on('datachange',function(){
 						reload();
 					});
+					
+					this.core.projectStore().on('datachanged',function(){
+							self.progress = self._project.data('progress');
+					});
+					
 				}
 			}
 			else {
@@ -303,7 +314,6 @@ Polymer({
 				var core = this.core;
 				core.projectStore().loaded.then(function(){
 					  console.log('projectstore loaded');
-					  
 				});
 				core.projectStore().on('synced', function(){
 					console.log('projectstore synced');
