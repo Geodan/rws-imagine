@@ -1,6 +1,7 @@
 <link rel="import"
       href="../bower_components/polymer/polymer.html">
   <link rel="import" href="./imagine-instance.html">
+  <link rel="import" href="./imagine-score-thingy.html">
   <link rel="import" href="./gm-cow-core.html">
 
  
@@ -76,148 +77,10 @@ background:#4CC0D0;
   <div id="scoreHeader"><div class="content">SCORES</div></div>
   <div id="scoreScherm">
   <template is='dom-repeat'  items="{{instances}}">
-  <imagine-instance id="instance"  core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}"></imagine-instance>
-    <!-- local DOM for your element -->
-  <div class="score">
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   version="1.1"
-   width="306.93222"
-   height="361.83258"
-   viewBox="0 0 306.93222 361.83259"
-   id="svg2">
-  <defs
-     id="defs4" />
-  <metadata
-     id="metadata7">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     transform="translate(-88.567774,-571.0296)"
-     id="layer1">
-     <path
-       d="m 350,592.3622 -108.93224,-10e-6 c -82.84269,0 -149.99999,67.1573 -149.99999,150 0,82.84272 67.1573,150 149.99999,150 42.79121,0 81.3974,-17.91817 108.72491,-46.66084"
-       id="path4148"
-       style="color:#000000;fill:#000000;fill-opacity:0;stroke:#e6215b;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-    <path
-       d="m 134.99998,742.3622 c 0,57.98991 47.01011,105.00002 105.00002,105.00002"
-       id="path3772"
-       style="opacity:0.9;color:#000000;fill:none;stroke:#e6215b;stroke-width:32;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-    <path
-       d="m 350,742.3622 c 0,60.75133 -49.24868,110 -110,110 -60.75132,0 -110,-49.24867 -110,-110 0,-60.75132 49.24868,-110 110,-110 32.3793,0 80,0 110,0 0,30 0,81.62798 0,110 z"
-       id="path4143"
-       style="opacity:0.9;color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-     <path
-       d="m 350,602.3622 c -46.66666,0 -63.33335,-2e-5 -110.00001,-2e-5 C 162.68014,602.36218 100,665.04232 100,742.36217 c 0,77.31987 62.68014,140 139.99999,140 44.67104,0 84.45552,-20.92184 110.08916,-53.50125"
-       id="path4146"
-       style="opacity:0.5;color:#000000;fill:none;stroke:#3a3335;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-    <text
-       x="341.90695"
-       y="658.73212"
-       id="text2994"
-       xml:space="preserve"
-       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:end;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:end;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><tspan
-         x="341.90695"
-         y="658.73212"
-         id="tspan2996">{{item.team}}</tspan></text>
-    <path
-       d="m 265.4375,1.4873526 a 5,5 0 1 1 -10,0 5,5 0 1 1 10,0 z"
-       transform="translate(89.562504,590.87485)"
-       id="path3766"
-       style="color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-    <text
-       x="351.16623"
-       y="583.51788"
-       id="text3768"
-       xml:space="preserve"
-       style="font-size:15px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:end;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:end;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><tspan
-         x="351.16623"
-         y="583.51788"
-         id="tspan3770">{{punten(item.score)}}</tspan></text>
-    <g
-       id="text3774"
-       style="font-size:15px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers">
-      <path
-         d="m 148.47611,775.40814 0,0 c 0.43989,-0.178 0.73604,-0.501 0.88846,-0.969 0.1524,-0.468 0.13105,-0.99374 -0.064,-1.57721 -0.24623,-0.73629 -0.57601,-1.26058 -0.98934,-1.57286 -0.41335,-0.31228 -0.8724,-0.38402 -1.37714,-0.21523 -0.33342,0.1115 -0.56947,0.32172 -0.70813,0.63067 -0.14023,0.30432 -0.18847,0.71432 -0.14473,1.23 l 0.18734,2.13065 c 0.0843,0.99121 -0.007,1.75794 -0.27341,2.30017 -0.26816,0.53759 -0.74722,0.92176 -1.4372,1.1525 -0.9632,0.32209 -1.82835,0.24456 -2.59544,-0.23259 -0.7671,-0.47716 -1.34499,-1.2969 -1.73367,-2.45921 -0.38249,-1.1438 -0.42472,-2.11306 -0.12671,-2.90777 0.29802,-0.79472 0.93629,-1.40718 1.91483,-1.83737 l 0,0 0.45062,1.34755 0,0 c -0.6452,0.24149 -1.0602,0.60938 -1.24501,1.10367 -0.18482,0.49428 -0.1456,1.13504 0.11765,1.92227 0.25396,0.75944 0.61232,1.29219 1.07507,1.59825 0.46274,0.30605 0.99048,0.35997 1.58322,0.16176 0.34267,-0.1146 0.58719,-0.33795 0.73357,-0.67007 0.14791,-0.32749 0.19689,-0.77377 0.14694,-1.33886 l -0.18734,-2.13065 c -0.0858,-0.94953 0.005,-1.68537 0.27349,-2.20753 0.26353,-0.5206 0.73566,-0.89473 1.41639,-1.12236 0.88447,-0.29577 1.68594,-0.20081 2.40441,0.28488 0.71846,0.4857 1.26971,1.30276 1.65375,2.45119 0.35151,1.05117 0.39869,1.94284 0.14155,2.67498 -0.25717,0.73214 -0.80712,1.27001 -1.64985,1.61361 l 0,0 z"
-         id="path3785" />
-      <path
-         d="m 142.46534,781.4497 9.47119,-4.13495 0,0 0.28133,0.64439 0,0 1.22202,2.79907 c 0.43566,0.99791 0.53814,1.88554 0.30745,2.6629 -0.23071,0.77736 -0.7667,1.34968 -1.60798,1.71698 -0.85919,0.3751 -1.65673,0.38497 -2.39261,0.0296 -0.73589,-0.35537 -1.32166,-1.03201 -1.75732,-2.02992 l -0.93777,-2.14797 0,0 -4.02072,1.75538 0,0 -0.28133,-0.64439 -0.28426,-0.6511 z m 5.6603,-0.92877 0,0 0.93776,2.14797 c 0.26374,0.60411 0.61382,1.00937 1.05025,1.21576 0.43641,0.20639 0.91864,0.19433 1.44669,-0.0362 0.51908,-0.22663 0.84905,-0.56916 0.98991,-1.02757 0.14083,-0.45842 0.0794,-0.98969 -0.18435,-1.5938 l -0.93776,-2.14797 0,0 z"
-         id="path3787" />
-      <path
-         d="m 146.11754,789.56714 9.06787,-4.95734 0,0 0.33728,0.61695 0,0 1.63722,2.99477 c 0.50123,0.91686 0.688,1.74964 0.56032,2.49836 -0.1277,0.74872 -0.55357,1.321 -1.27762,1.71684 -0.7412,0.4052 -1.47515,0.44195 -2.20184,0.11024 -0.34659,-0.15555 -0.67416,-0.38828 -0.98269,-0.69817 l 0,0 c 0.17538,0.43277 0.23319,0.78792 0.17346,1.06544 -0.0791,0.40496 -0.44092,0.84761 -1.08539,1.32794 -0.50625,0.37691 -0.92914,0.70271 -1.26868,0.97738 l -0.3598,0.28852 c -0.24804,0.20794 -0.43688,0.37656 -0.56652,0.50587 -0.12965,0.1293 -0.23066,0.24991 -0.30303,0.36183 l -0.35836,-0.65551 -0.36188,-0.66194 c 0.19971,-0.21491 0.45375,-0.45257 0.76214,-0.71298 0.30839,-0.26042 0.73886,-0.60288 1.29143,-1.02739 l 0.34755,-0.26512 c 0.45911,-0.35117 0.72132,-0.70876 0.78664,-1.07279 0.0653,-0.36404 -0.0484,-0.81383 -0.34119,-1.34937 l -1.11725,-2.04364 0,0 -4.06158,2.22043 0,0 -0.33728,-0.61695 -0.3408,-0.62337 z m 5.76791,-1.54225 0,0 1.18048,2.15932 c 0.33259,0.60838 0.71234,1.01291 1.13925,1.21358 0.4269,0.20067 0.86314,0.17921 1.30872,-0.0644 0.5441,-0.29746 0.84165,-0.68968 0.89263,-1.17664 0.051,-0.48697 -0.13903,-1.12462 -0.56999,-1.91294 l -1.0013,-1.83157 0,0 z"
-         id="path3789" />
-      <path
-         d="m 150.38597,797.34267 10.92575,-2.32656 0.43786,0.64111 0.43786,0.64112 -6.14235,9.33041 0,0 -0.43373,-0.63507 -0.43373,-0.63506 0,0 1.63919,-2.37896 0,0 -2.74282,-4.01603 0,0 -2.80405,0.67336 0,0 -0.44199,-0.64716 -0.44199,-0.64716 z m 10.26697,-0.9276 -5.35512,1.26263 0,0 2.23474,3.27209 0,0 3.12038,-4.53472 0,0 z"
-         id="path3791" />
-      <path
-         d="m 158.56252,808.76679 5.73702,-9.11983 0,0 0.48921,0.55489 0.4892,0.55489 0,0 -5.0357,7.62275 0,0 0,0 8.17921,-4.05718 0.49405,0.56039 0.49889,0.56588 -4.95892,7.88703 0,0 0,0 8.25258,-4.15115 0,0 0.46015,0.52193 0.46498,0.52742 0,0 -9.77175,4.54337 -0.49405,-0.56039 -0.4989,-0.56587 4.893,-7.82892 0,0 0,0 -8.21572,4.06006 -0.4892,-0.55488 z"
-         id="path3793" />
-      <path
-         d="m 167.26302,818.13573 0,0 6.9646,-7.63515 0,0 0.51948,0.47385 0.52488,0.47878 0,0 -6.17486,6.76937 0,0 3.60384,3.28733 0,0 -0.39488,0.4329 -0.39487,0.43289 0,0 z"
-         id="path3795" />
-      <path
-         d="m 175.52998,819.64918 2.77253,2.23241 -0.61093,0.75874 -2.77252,-2.23241 z"
-         id="path3797" />
-      <path
-         d="m 182.32822,817.5994 0,0 0.62733,0.43205 0.63337,0.4362 0,0 -2.30635,9.31461 0,0 0,0 7.8438,-5.50097 0,0 0.62734,0.43205 0.63337,0.4362 0,0 -9.23968,6.18486 -0.65147,-0.44866 -0.65146,-0.44867 z"
-         id="path3799" />
-      <path
-         d="m 186.20609,832.55696 5.24248,-8.90604 0,0 0.60594,0.35668 0.61225,0.3604 0,0 -5.24248,8.90604 0,0 -0.60594,-0.35668 -0.61225,-0.3604 z"
-         id="path3801" />
-      <path
-         d="m 189.74558,834.61731 0,0 4.71593,-9.19573 0,0 0.62565,0.32086 0.63216,0.3242 0,0 -4.18116,8.15298 0,0 4.34043,2.22594 0,0 -0.26738,0.52137 -0.26738,0.52138 0,0 z"
-         id="path3803" />
-      <path
-         d="m 196.9343,838.19099 0,0 3.99628,-9.53053 0,0 0.64843,0.27189 0.65518,0.27473 0,0 -3.54313,8.44982 0,0 4.49847,1.88627 0,0 -0.22658,0.54035 -0.22658,0.54036 0,0 z"
-         id="path3805" />
-      <path
-         d="m 204.40868,841.22073 0,0 3.22507,-9.81836 0,0 5.98426,1.96568 0,0 -0.18285,0.55667 -0.18285,0.55668 0,0 -4.64128,-1.52454 0,0 -1.01712,3.0965 0,0 4.46036,1.46511 -0.18286,0.55668 -0.18285,0.55668 0,0 -4.46036,-1.46512 0,0 -1.11083,3.38181 0,0 4.76653,1.56568 0,0 -0.18286,0.55667 -0.18285,0.55668 0,0 z"
-         id="path3807" />
-    </g>
-    <g
-       transform="translate(8.214286,5.0000001)"
-       id="g3835">
-      <path
-         d="m 164.96169,626.12482 c 11.02453,-0.68339 20.51568,7.69975 21.19907,18.72429 0.6834,11.02453 -7.69976,20.51569 -18.72429,21.19908 -11.02454,0.68339 -20.51568,-7.69977 -21.19908,-18.7243 -0.36423,-5.87587 -0.89992,-14.51759 -1.23739,-19.96168 5.44409,-0.33747 14.81302,-0.91823 19.96169,-1.23739 z"
-         id="path4143-1"
-         style="color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-      <text
-         x="165"
-         y="645.93359"
-         id="text3827"
-         xml:space="preserve"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><tspan
-           x="165"
-           y="645.93359"
-           id="tspan3829">{{calcVotes(item.score)}}</tspan></text>
-      <text
-         x="166.78572"
-         y="655.2193"
-         id="text3831"
-         xml:space="preserve"
-         style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><tspan
-           x="166.78572"
-           y="655.2193"
-           id="tspan3833">stemmen</tspan></text>
-    </g>
-  </g>
-</svg>
 
+  	<imagine-instance core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}"></imagine-instance>
+  	<imagine-score-thingy score="{{item.score}}" team="[[item.team]]" scenario="[[scenario]]"></imagine-score-thingy>
 
-
-</div>
   </template>
   </div>
   <div class="nextplayer" on-click="nextPlayer">{{nextTeam}}</div>
@@ -227,7 +90,6 @@ background:#4CC0D0;
 <script>
   // register a new element called proto-element
   Polymer({
-    
     is: "imagine-score",
     properties: {
         team: {
@@ -240,7 +102,8 @@ background:#4CC0D0;
             type: String
         },
         score: {
-            type: Number
+            type: Number,
+            observer: '_scoreChanged'
             },
         core: {
             type: Object
@@ -250,15 +113,9 @@ background:#4CC0D0;
     behaviors: [
      
     ],
- observers: [
-     
+    observers: [
+    	
     ],
-    punten: function(score) {
-        return score + ' punten';
-    },
-    calcVotes: function(score){
-        return Math.max(Math.round(score*.75),0);
-    },
     ready: function() {
          this.cowconfig ={
             key: 'imagine',
@@ -293,7 +150,11 @@ background:#4CC0D0;
               this.instances.splice(3,1)
               break;
         }
+        
        
+    },
+    attached: function(){
+    	
     },
     
     nextPlayer: function() {
