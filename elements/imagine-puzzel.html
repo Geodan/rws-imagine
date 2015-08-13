@@ -10,6 +10,14 @@
 <dom-module id="imagine-puzzel">
  <link rel='import' href='../style/theme.css' type='css'>
   <style>
+  *{ 
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
   .stamped {
     background: url('../style/stamp.png') no-repeat;
     background-position-x: center;
@@ -185,14 +193,14 @@ background: #625c5e;
     <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
     
     <!-- local DOM for your element -->
-   <div id="properties">
+   <div id="properties" oncontextmenu="return false">
        <template  is="dom-repeat" items="{{eigenschappen}}">
         <div id="{{item.id}}" class$="{{item.visible}}" ></div>
        </template>
     </div>
-   <div id="speelveld">
+   <div id="speelveld"oncontextmenu="return false">
    <span class="background">{{team}}</span><span class="background">{{scenario}}</span>
-    <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}"></canvas>
+    <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}" oncontextmenu="return false"></canvas>
     <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
         <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" ><span class="kaartjeText">{{item._data.name}}</span></div>
