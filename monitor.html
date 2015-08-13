@@ -53,10 +53,22 @@
   <template is='dom-repeat' items="{{teams}}" as="team">
   	<span>{{team.name}}</span>
   	<template is='dom-repeat' items="{{team.scenarios}}" as="scenario">
-  		<imagine-instance id="instance" core="{{cow}}" team="{{team.name}}" scenario="{{scenario.name}}" score="{{scenario.score}}" progress="{{scenario.progress}}"></imagine-instance>
+  		<imagine-instance id="instance" 
+  			core="{{cow}}" 
+  			team="{{team.name}}" 
+  			scenario="{{scenario.name}}" 
+  			score="{{scenario.score}}" 
+  			eventscore="{{scenario.eventscore}}"
+  			xscore="{{scenario.xscore}}"
+  			yscore="{{scenario.yscore}}"
+  			progress="{{scenario.progress}}"></imagine-instance>
 		<paper-card class='scencard' heading='{{scenario.name}}' on-click='selectProject'>
 			<div class="card-content">
-				<span>{{scenario.score}}</span>
+				Juiste event: <span>[[scenario.eventscore]]</span><br>
+				Juiste tijd: <span>[[scenario.xscore]]</span><br>
+				Juiste kans:<span>[[scenario.yscore]]</span><br>
+				Juiste links:<span>[[scenario.linkscore]]</span><br>
+				Totaalscore: <span>[[scenario.score]]</span>
 				<paper-progress value="{{scenario.progress}}" min=0 max=3 step=1></paper-progress>
 			</div>
 		</paper-card>
@@ -77,7 +89,7 @@
 	  </template>
 	  -->
 	  <h3>Verbindingen</h3>
-	  <template is='dom-repeat'  items="{{verbindingen}}">
+	  <template is='dom-repeat'  items="{{verbindingen}}" filter='isCorrect' observe="_data">
 	  	<span>{{item._data.vanid}}</span> -> <span>{{item._data.naarid}}</span><br>
 	  </template>
 	  <h3>Kaartjes</h3>
@@ -112,6 +124,9 @@
   main.hasScore = function(d){
   	  return d._data.y > 50;
   }
+  main.isCorrect = function(d){
+  	  return d._data.correct;
+  }
   main.byScore = function(a,b){
   	  return b._data.totalscore - a._data.totalscore;
   }
@@ -120,9 +135,18 @@
   	  main.scenario = d.model.scenario.name;
   	  main.hidden = false;
   }
+  main.eventscore = function(d){
+  	  if (d && d.length > 0){
+  	  	var returnvalue = 0;
+		d.forEach(function(x) {
+			  returnvalue + x._data.eventscore;
+		});
+		return returnvalue;
+	  }
+  }
   main.regenerate = function(){
   	  var instance = document.querySelector('#maininstance');
-  	  if (confirm('Alle kaartjes worden opnieuw gemaakt. Zeker weten?')) {
+  	  if (confirm('Alle kaartjes voor ' + main.team + ' ' + main.scenario + ' worden opnieuw gemaakt. Zeker weten?')) {
 			instance._generateEvents('./data/' + main.scenario + '.tsv');
 			instance._generateLinks('./data/' + main.scenario + '_links.tsv');
 	  } else {
