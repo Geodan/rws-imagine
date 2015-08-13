@@ -1,10 +1,11 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-
+<script src='../bower_components/d3/d3.min.js'></script>
 <dom-module id="imagine-instance">
 <template>
 </template>
 </dom-module>
 <script>
+
 Polymer({
 		is: 'imagine-instance',
 		properties:{
@@ -54,50 +55,43 @@ Polymer({
 		observers: [
 			'_projectChange(team, scenario)'
 		],
-		_generateEvents: function(){
-			//FIXME: to be replace with a real events list instead of a random one
-			function random(){
-				return Math.random()*100;
-			}
-			for (var i = 0; i < 40; i++){
-				var id = new Date().getTime().toString();
-				var item = this._project.items({_id: id+i});
-				var x = random();
-				var y = random();
-				
-				item.data({
-					id: i,
-					type: 'kaartje',
-					name: 'Lorem ipsum',
-					active_org: y<50?false:true,
-					x_org: Math.round(x),
-					y_org: Math.round(y),
-					x: null,
-					y: null,
-					active: false
-				}).sync();
-			}
-			
-		},
-		_generateLinks: function(){
-			function random(){
-				return Math.round(Math.random()*(active.length-1));
-			}
-			var active = this.kaartjes.filter(function(d){return d.data('y') > 50;});
-			for (var i = 0;i<active.length;i++){
-				var eventA = active[random()];
-				var eventB = active[random()];
-				if(eventA != eventB){
-					var id = new Date().getTime().toString();
-					var item = this._project.items({_id: id+i});
+		_generateEvents: function(filename){
+			var self = this;
+			//First remove all existing events
+			this._project.items()
+				.filter(function(d){return !d.deleted()})
+				.forEach(function(d){
+						d.deleted(true).sync();
+				});
+			d3.tsv(filename, function(events){
+				events.forEach(function(d){
+					var id = new Date().getTime().toString() + d.id;
+					var item = self._project.items({_id: id});
 					item.data({
-						id:'vo'+i,
-						type: 'verbinding_org',
-						vanid: eventA.id(),
-						naarid:eventB.id()
+						id: d.id,
+						type: 'kaartje',
+						name: d.name,
+						x_org: d.x,
+						y_org: d.y,
+						x: null,
+						y: null,
 					}).sync();
-				}
-			}
+				});
+			});
+		},
+		_generateLinks: function(filename){
+			var self = this;
+			d3.tsv(filename, function(events){
+				events.forEach(function(d,i){
+					var id = new Date().getTime().toString() + i;
+					var item = self._project.items({_id: id});
+					item.data({
+						type: 'verbinding_org',
+						vanid: d.from,
+						naarid: d.to
+					}).sync();
+				});
+			});
 		},
 		/*
 		createProject() - Create a new project based on the already given team and scenario

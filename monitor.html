@@ -43,6 +43,11 @@
   	  width: 200px;
   }
   
+  #regenerate {
+  	  background: red;
+  	  
+  }
+  
   </style>
   
   <template is='dom-repeat' items="{{teams}}" as="team">
@@ -58,27 +63,13 @@
   	</template>
   	<br>
   </template>
-  <!--
-  	<div>
-	  <iron-selector attr-for-selected="name" selected="{{team}}">
-		<paper-button class='teambutton' name="Team A">Team A</paper-button>
-		<paper-button class='teambutton' name="Team B">Team B</paper-button>
-		<paper-button class='teambutton' name="Team C">Team C</paper-button>
-		<paper-button class='teambutton' name="Team D">Team D</paper-button>
-	  </iron-selector>
-	</div>
-	<br>
-	<div>
-	  <iron-selector attr-for-selected="name" selected="{{scenario}}">
-		<paper-button class='scenbutton' name="sprawlville">Sprawlville</paper-button>
-		<paper-button class='scenbutton' name="communicity">Communicity</paper-button>
-		<paper-button class='scenbutton' name="renewabad">Renewabad</paper-button>
-		<paper-button class='scenbutton' name="planopolis">Planopolis</paper-button>
-	  </iron-selector>
-	</div>
-	-->
-	  
-	  Totaalscore: <span>{{score}}</span><br>
+  <hr>
+  <div hidden$="{{hidden}}">
+  
+  	Team: <span>{{team}}</span><br>
+  	Scenario: <span>{{scenario}}</span><br>
+	Totaalscore: <span>{{score}}</span><br>
+	<paper-button id='regenerate' on-click="regenerate">Nieuwe kaartjes</paper-button><br>
 	  <!--
 	  <h3>Verbindingen nodig</h3>
 	  <template is='dom-repeat'  items="{{verbindingen_org}}">
@@ -108,13 +99,16 @@
 		  -->
 		</paper-card>
 	  </template>
+	</div>
 	  <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>  
-	  <imagine-instance id="instance" core="{{cow}}" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
+	  <imagine-instance id="maininstance" core="{{cow}}" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
+	
   </template>
   <script type="text/javascript">
   
   
   var main = document.querySelector('#main');
+  main.hidden = true;
   main.hasScore = function(d){
   	  return d._data.y > 50;
   }
@@ -124,6 +118,16 @@
   main.selectProject = function(d){
   	  main.team = d.model.team.name;
   	  main.scenario = d.model.scenario.name;
+  	  main.hidden = false;
+  }
+  main.regenerate = function(){
+  	  var instance = document.querySelector('#maininstance');
+  	  if (confirm('Alle kaartjes worden opnieuw gemaakt. Zeker weten?')) {
+			instance._generateEvents('./data/' + main.scenario + '.tsv');
+			instance._generateLinks('./data/' + main.scenario + '_links.tsv');
+	  } else {
+	  	  //cancelled
+	  }
   }
   main.teams = [{
   	name:'Team A',
