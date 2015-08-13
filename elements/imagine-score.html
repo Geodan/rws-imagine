@@ -12,7 +12,7 @@
     width: 20%;
     height: 50%;
     font-size: 50px;
-    border:rgba(58,51,53,200) solid 1px;
+    
     margin: 5px;
     align-self: center;
 }
@@ -78,7 +78,87 @@ background:#4CC0D0;
   <template is='dom-repeat'  items="{{instances}}">
   <imagine-instance id="instance"  core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}"></imagine-instance>
     <!-- local DOM for your element -->
-  <div class="score"><div>{{item.team}}</div> <div>score:<span>{{item.score}}</span></div><div>stemmen:<span>{{calcVotes(item.score)}}</span></div></div>
+  <div class="score">
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   width="268.93222"
+   height="323.83258"
+   viewBox="0 0 268.93222 323.83259"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-88.567775,-571.0296)"
+     id="layer1">
+    <path
+       d="m 349.79267,845.70135 c -27.32751,28.74267 -65.9337,46.66084 -108.72491,46.66084 -82.84269,0 -149.99999,-67.15728 -149.99999,-150 0,-82.8427 67.1573,-150 149.99999,-150 L 350,592.3622"
+       id="path4148"
+       style="color:#000000;fill:#000000;fill-opacity:0;stroke:#e6215b;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <path
+       d="m 134.99998,742.3622 c 0,57.98991 47.01011,105.00002 105.00002,105.00002"
+       id="path3772"
+       style="opacity:0.9;color:#000000;fill:none;stroke:#e6215b;stroke-width:32;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <path
+       d="m 350,742.3622 c 0,60.75133 -49.24868,110 -110,110 -60.75132,0 -110,-49.24867 -110,-110 0,-60.75132 49.24868,-110 110,-110 32.3793,0 80,0 110,0 0,30 0,81.62798 0,110 z"
+       id="path4143"
+       style="opacity:0.9;color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <path
+       d="m 350.08915,828.86092 c -25.63364,32.57941 -65.41812,53.50125 -110.08916,53.50125 -77.31985,0 -139.99999,-62.68013 -139.99999,-140 0,-77.31985 62.68014,-139.99999 139.99999,-139.99999 46.66666,0 63.33335,2e-5 110.00001,2e-5"
+       id="path4146"
+       style="opacity:0.5;color:#000000;fill:none;stroke:#3a3335;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <text
+       x="341.90695"
+       y="658.73212"
+       id="text2994"
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:end;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:end;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><tspan
+         x="341.90695"
+         y="658.73212"
+         id="tspan2996">{{item.team}}</tspan></text>
+    <path
+       d="m 265.4375,1.4873526 a 5,5 0 1 1 -10,0 5,5 0 1 1 10,0 z"
+       transform="translate(89.562504,590.87485)"
+       id="path3766"
+       style="color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <text
+       x="351.16623"
+       y="583.51788"
+       id="text3768"
+       xml:space="preserve"
+       style="font-size:15px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:end;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:end;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><tspan
+         x="351.16623"
+         y="583.51788"
+         id="tspan3770">{{punten(item.score)}}</tspan></text>
+    <text
+       id="text3774"
+       xml:space="preserve"
+       style="font-size:15px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><textPath
+         xlink:href="#path3772"
+         id="textPath3781"><tspan
+   id="tspan3776">{{item.scenario}}</tspan></textPath></text>
+  </g>
+</svg>
+
+
+</div>
   </template>
   </div>
   <div class="nextplayer" on-click="nextPlayer">{{nextTeam}}</div>
@@ -114,6 +194,9 @@ background:#4CC0D0;
  observers: [
      
     ],
+    punten: function(score) {
+        return score + ' punten';
+    },
     calcVotes: function(score){
         return Math.max(Math.round(score*.75),0);
     },
@@ -134,10 +217,10 @@ background:#4CC0D0;
         this.hash = hash;
         this.nextTeam = this.teams[hash];
          this.instances = [
-            {team:this.teams[0]},
-            {team:this.teams[1]},
-            {team:this.teams[2]},
-            {team:this.teams[3]}
+            {team:this.teams[0], scenario: this.scenario},
+            {team:this.teams[1], scenario: this.scenario},
+            {team:this.teams[2], scenario: this.scenario},
+            {team:this.teams[3], scenario: this.scenario}
         
         ]
         switch(hash){
