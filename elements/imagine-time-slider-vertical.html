@@ -295,7 +295,8 @@
         if(e) {            
             this.value = 0;
             var self = this;
-            this.interval = setInterval(function(){      
+            this.interval = setInterval(function(){    
+                if(!self.dragging)
                 self.increment()
             },1000)
         }
@@ -396,6 +397,7 @@
       this._setDragging(true);
     },
     _trackY: function(event) {
+    if(event.detail.dy<0) return false;
       var y = Math.min(this._maxy, Math.max(this._miny, event.detail.dy));
       this._y = this._starty + y;
       this._setImmediateValue(this._calcStep(
