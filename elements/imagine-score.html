@@ -25,6 +25,9 @@
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+        background-image: url(../style/logo.png);
+    background-repeat: no-repeat;
+    background-position-x: center;
 }
 #scoreScherm {
     position: absolute;
@@ -112,7 +115,7 @@ background:#4CC0D0;
      
     ],
     calcVotes: function(score){
-        return Math.round(score*.75);
+        return Math.max(Math.round(score*.75),0);
     },
     ready: function() {
          this.cowconfig ={
