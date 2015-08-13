@@ -42,6 +42,18 @@ Polymer({
 				value: new Date().getTime(),
 				observer: '_calculateScore'
 			},
+			eventscore: {
+				type: Number,
+				notify: true
+			},
+			xscore: {
+				type: Number,
+				notify: true
+			},
+			yscore: {
+				type: Number,
+				notify: true
+			},
 			score: {
 				type: Number,
 				notify: true
@@ -63,7 +75,7 @@ Polymer({
 				.forEach(function(d){
 						d.deleted(true).sync();
 				});
-			d3.tsv(filename, function(events){
+			d3.tsv(filename + '?'+ new Date().getTime(), function(events){
 				events.forEach(function(d){
 					var id = new Date().getTime().toString() + d.id;
 					var item = self._project.items({_id: id});
@@ -237,7 +249,11 @@ Polymer({
 			var self = this;
 			var time = this.time;
 			if (this._project){
-				var score = 0;
+				var totalscore = 0;
+				var totaleventscore = 0;
+				var totalxscore = 0;
+				var totalyscore = 0;
+				var totallinkscore = 0;
 				var eventfactor = function(d){
 					return 5 - (100-d.data('y_org'))/10;
 				};
@@ -264,7 +280,7 @@ Polymer({
 				};
 				//OBS var deltafactor = 2;
 				//OBS var deltacutoff = 40;
-				//OBS var linkfactor = 1;
+				var linkfactor = 3;
 				var items = this._project.items().filter(function(d){
 					return !d.deleted() && d.data('type')=='kaartje';
 				});
@@ -273,34 +289,49 @@ Polymer({
 					//if (d.data(time) && d.data(time).y >=50){
 					if (d.data('y') >=50){
 						var eventscore = Math.round(eventfactor(d));
+						totaleventscore = totaleventscore + eventscore;
 						self.set('kaartjes.'+i+'._data.eventscore',eventscore);
 						
 						//var dx = d.data('x_org') - d.data(time).x;
 						//score = score + Math.exp(-Math.PI * Math.pow(dx/deltacutoff,2)) * deltafactor;
 						var xscore = Math.round(deltax(d));
+						totalxscore = totalxscore + xscore;
 						self.set('kaartjes.'+i+'._data.xscore',xscore);
 						
 						//var dy = d.data('y_org') - d.data(time).y;
 						//score = score + Math.exp(-Math.PI * Math.pow(dy/deltacutoff,2)) * deltafactor;
 						var yscore = Math.round(deltay(d));
+						totalyscore = totalyscore + yscore;
 						self.set('kaartjes.'+i+'._data.yscore',yscore);
-						
-						totalscore = Math.round(eventscore + xscore + yscore);
-						score = score + totalscore;
-						d.data('score',totalscore);
-						self.set('kaartjes.'+i+'._data.totalscore',totalscore);
 					}
 					else {
 						self.set('kaartjes.'+i+'._data.totalscore',0);
 					}
 				});
-				var items = this._project.items().filter(function(d){
+				var verbindingen = this._project.items().filter(function(d){
 					return !d.deleted() && d.data('type')=='verbinding';
 				});
-				items.forEach(function(d,i){
-					//TODO: calculate score voor verbinding
+				var verbindingen_org = this._project.items().filter(function(d){
+					return !d.deleted() && d.data('type')=='verbinding_org';
 				});
-				this.score = Math.round(score);
+				verbindingen.forEach(function(d,i){
+					var correct = verbindingen_org.filter(function(x){
+							return x._data.vanid == d._data.vanid && x._data.naarid == d._data.naarid;
+					});
+					if (correct.length > 0){
+						totallinkscore = totallinkscore + linkfactor;
+						d.data('correct',true);
+						self.set('verbindingen.'+i+'._data.correct',true);
+					}
+						
+				});
+				
+				totalscore = Math.round(totaleventscore + totalxscore + totalyscore + totallinkscore);
+				this.eventscore = totaleventscore;
+				this.xscore = totalxscore;
+				this.yscore = totalyscore;
+				this.linkscore = totallinkscore;
+				this.score = Math.round(totalscore);
 			}
 			else {
 				console.warn('No project selected');
@@ -321,33 +352,6 @@ Polymer({
 			}
 		},
 		ready: function(){
-			var self = this;
-			/*
-			var core = new Cow.core({
-				herdname: 'imagine',
-				maxage: 1000 * 60 * 60 * 24 * 30 //30 days
-			});
-			window.core = core; //for debug
-			this.core = core;
-			core.projectStore().loaded.then(function(){
-				  console.log('projectstore loaded');
-				  
-			});
-			core.projectStore().on('synced', function(){
-				console.log('projectstore synced');
-				self._projectChange(); //start selection of project
-			});
-			
-			//add a default socketserver
-			if (!core.socketserver('default')){
-			  core.socketservers({
-				_id: 'default', 
-				data: {protocol:'wss',ip:'websocket.geodan.nl', port:443, dir: 'imagine'}
-			  });
-			};
-			core.socketserver('default');
-			core.connect();
-			*/
 		}
 });
 </script>
