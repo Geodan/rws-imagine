@@ -257,6 +257,10 @@
       start: {
         type: Boolean,
         value: false        
+      },
+      text: {
+        type: String,
+        value: 'VERBIND'
       }
     },
     observers: [
@@ -275,7 +279,7 @@
         this._updateInputValue();
       }, 1);
   
-      this.text="VERBIND"      
+        
     },
     /**
      * Increases value by `step` but not above `max`.

@@ -10,6 +10,19 @@
 <dom-module id="imagine-puzzel">
  <link rel='import' href='../style/theme.css' type='css'>
   <style>
+  .stamped {
+    background: url('../style/stamp.png') no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+  }
+  .kaartjeText {
+      position: inherit;
+    top: 10px;
+    left: 5px;
+    bottom: 10px;
+    right: 5px;
+}
+  }
 .background{
 float: left;
 padding: 10px;
@@ -180,9 +193,9 @@ background: #625c5e;
    <div id="speelveld">
    <span class="background">{{team}}</span><span class="background">{{scenario}}</span>
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}"></canvas>
-    <imagine-time-slider-vertical max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
+    <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
-        <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" >{{item._data.name}}</div>
+        <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" ><span class="kaartjeText">{{item._data.name}}</span></div>
     </template>
    </div>
    
@@ -384,12 +397,23 @@ background: #625c5e;
             this.beginSpel = false; //The game has started
         }
     },
-
+    stampKaartje: function(e) {
+        var stamped = e.target.classList.contains('stamped');
+        if(stamped) {e.target.classList.remove('stamped')
+        this.stamps--
+        }
+        else if(this.stamps < 5) {
+        
+        e.target.classList.add('stamped');
+        this.stamps++
+        }
+    },
     //Function called when the slider reaches the end
     _doneChanged: function(){
         var instance = document.getElementById('instance');
         //Als de tijd verstreken is gaan we over op:
         if(this.done&& !this.verbinden) { // het verbinden van de kaartjes
+            this.text = "INDIENEN";
             instance.setProgress(2);
             this._removeUnused();
 
@@ -401,8 +425,8 @@ background: #625c5e;
                 //of een ander kaartje wordt aangeraakt
                 //TODO: firefox registreerd de on down pas bij up
                 .on('down',function(e){
-                    
-                    self.selectKaartje(e);
+                    if(e.ctrlKey) self.stampKaartje(e);
+                    else self.selectKaartje(e);
 
                 });
             this.sliderValue = 0; //Set the slider to 0
@@ -420,10 +444,12 @@ background: #625c5e;
         document.getElementById('puzzelscore').style.display = 'block';
        
     },
-    ready: function() {        
+    ready: function() {    
+        this.stamps = 0;
+        this.text = "VERBINDEN"
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
-        this.start = true;
+        this.start = false;
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
         this.verbindingen =[];
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
@@ -431,7 +457,7 @@ background: #625c5e;
         this.counter = 0; //the number of active kaartjes
         this.sliderValue=0;
         this.zindex = 1;
-
+        
         var self = this;
         var w =  (window.innerWidth > 0) ? window.innerWidth : screen.width;
         this.width=w-460;
