@@ -77,8 +77,10 @@ background:#4CC0D0;
   <div id="scoreHeader"><div class="content">SCORES</div></div>
   <div id="scoreScherm">
   <template is='dom-repeat'  items="{{instances}}">
+
   	<imagine-instance core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}"></imagine-instance>
   	<imagine-score-thingy score="{{item.score}}" team="[[item.team]]" scenario="[[scenario]]"></imagine-score-thingy>
+
   </template>
   </div>
   <div class="nextplayer" on-click="nextPlayer">{{nextTeam}}</div>
