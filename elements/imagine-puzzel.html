@@ -406,11 +406,8 @@ background: #625c5e;
         }
     },
     stampKaartje: function(e) {
-        var stamped = e.target.classList.contains('stamped');
-        if(stamped) {e.target.classList.remove('stamped')
-        this.stamps--
-        }
-        else if(this.stamps < 5) {
+        
+        if(this.stamps < 5) {
         
         e.target.classList.add('stamped');
         this.stamps++
