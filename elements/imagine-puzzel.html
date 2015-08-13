@@ -45,7 +45,7 @@ imagine-puzzel, .imagine-puzzel {
     opacity: 0.8;
     text-align: center;
     valign: middle;
-    line-height: 90px;
+    font-size: 10px;
 }
 
 
@@ -264,6 +264,7 @@ background: #625c5e;
     },
     //Functie om een kaartje te selecteren
     selectKaartje: function(e) {
+        console.log('jay');
         //TODO: check de volgorde van de link en klap evt om
         var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
@@ -279,7 +280,7 @@ background: #625c5e;
         else if (this.setje.end === null) {   
             //SWAP!
             
-            if(kaartje.x < this.setje.begin.x) {
+            if(parseInt(kaartje.x) < parseInt(this.setje.begin.x)) {
                 this.setje.end = {id:this.setje.begin.id,x:this.setje.begin.x};
                 this.setje.begin = kaartje;
             }        
@@ -398,7 +399,9 @@ background: #625c5e;
                 //Als het eerste kaartje wordt aangeraakt, gaan ze allemaal wiebelen tot dat
                 //of hij weer wordt losgelaten
                 //of een ander kaartje wordt aangeraakt
+                //TODO: firefox registreerd de on down pas bij up
                 .on('down',function(e){
+                    
                     self.selectKaartje(e);
 
                 });
@@ -420,7 +423,7 @@ background: #625c5e;
     ready: function() {        
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
-
+        this.start = true;
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
         this.verbindingen =[];
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
@@ -468,6 +471,7 @@ background: #625c5e;
             })
             .on('up',function(e){
                 //truukje om te zorgen dat je zonder multitouch wel kan werken
+                
                 if(e.shiftKey) return true;
                 else self.stopWiebelen();
 
@@ -493,9 +497,9 @@ background: #625c5e;
                 draggableElement.classList.add('can-drop');
             },
             ondragleave: function (event) {
-if(event.relatedTarget.classList.contains('dropped')) {
+                    if(event.relatedTarget.classList.contains('dropped')) {
                     //formerly dropped item, remove drom the counter
-event.relatedTarget.classList.remove('dropped');
+                    event.relatedTarget.classList.remove('dropped');
                      self.counter--;
                      
                      //Set the X&Y to '' and sync
@@ -508,10 +512,10 @@ event.relatedTarget.classList.remove('dropped');
             },
             ondrop: function (event) {
                 //We're at 20 kaartjes, no more are allowed (unless it is a currently dropepd one)
-if(self.counter>19&&!event.relatedTarget.classList.contains('dropped')) {
+                if(self.counter>19&&!event.relatedTarget.classList.contains('dropped')) {
                     return false;
                 }
-if(!event.relatedTarget.classList.contains('dropped')) self.counter++;
+                if(!event.relatedTarget.classList.contains('dropped')) self.counter++;
                 //Mark the kaartje as dropped and increase the counter
                 event.relatedTarget.classList.add('dropped');
 
@@ -532,11 +536,6 @@ if(!event.relatedTarget.classList.contains('dropped')) self.counter++;
                 event.target.classList.remove('drop-target');
             }
         });
-    },
-    attached: function() {
-
-        var instance = document.getElementById('instance');
-        instance.setProgress(1);
     }
   });
 </script>
