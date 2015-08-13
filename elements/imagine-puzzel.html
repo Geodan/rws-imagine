@@ -10,6 +10,14 @@
 <dom-module id="imagine-puzzel">
  <link rel='import' href='../style/theme.css' type='css'>
   <style>
+  .kaartjeText {
+      position: inherit;
+    top: 10px;
+    left: 5px;
+    bottom: 10px;
+    right: 5px;
+}
+  }
 .background{
 float: left;
 padding: 10px;
@@ -182,7 +190,7 @@ background: #625c5e;
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}"></canvas>
     <imagine-time-slider-vertical max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
-        <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" >{{item._data.name}}</div>
+        <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" ><span class="kaartjeText">{{item._data.name}}</span></div>
     </template>
    </div>
    
@@ -423,7 +431,7 @@ background: #625c5e;
     ready: function() {        
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
-        this.start = true;
+        this.start = false;
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
         this.verbindingen =[];
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
