@@ -181,7 +181,8 @@ background:#4CC0D0;
             type: String
         },
         score: {
-            type: Number
+            type: Number,
+            observer: '_scoreChanged'
             },
         core: {
             type: Object
@@ -191,9 +192,33 @@ background:#4CC0D0;
     behaviors: [
      
     ],
- observers: [
-     
+    observers: [
+    	
     ],
+    _scoreChanged: function(){
+    	var svg = d3.select('svg');
+    	var path = svg.select('#path4148')
+    	var circle = svg.append("circle")
+			.attr("r", 13)
+			.attr("transform", "translate(" + points[0] + ")");
+    	function transition() {
+		  circle.transition()
+			  .duration(10000)
+			  .attrTween("transform", translateAlong(path.node()));
+			  //.each("end", transition);
+		}
+		
+		// Returns an attrTween for translating along the specified path element.
+		function translateAlong(path) {
+		  var l = path.getTotalLength();
+		  return function(d, i, a) {
+			return function(t) {
+			  var p = path.getPointAtLength(t * l);
+			  return "translate(" + p.x + "," + p.y + ")";
+			};
+		  };
+		}
+    },
     punten: function(score) {
         return score + ' punten';
     },
