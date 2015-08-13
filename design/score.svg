@@ -7,43 +7,14 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 744.09448819 1052.3622047"
-   id="svg2"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="score.svg">
+   width="268.93222"
+   height="323.83258"
+   viewBox="0 0 268.93222 323.83259"
+   id="svg2">
   <defs
      id="defs4" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="47.114461"
-     inkscape:cy="148.04788"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="true"
-     inkscape:object-nodes="true"
-     inkscape:snap-to-guides="false"
-     inkscape:snap-intersection-paths="false"
-     inkscape:snap-smooth-nodes="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1148"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1">
-    <inkscape:grid
-       type="xygrid"
-       id="grid4139" />
-  </sodipodi:namedview>
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -57,26 +28,53 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Laag 1"
-     inkscape:groupmode="layer"
+     transform="translate(-88.567775,-571.0296)"
      id="layer1">
     <path
-       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.25;fill:#fcfcfc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
+       d="m 349.79267,845.70135 c -27.32751,28.74267 -65.9337,46.66084 -108.72491,46.66084 -82.84269,0 -149.99999,-67.15728 -149.99999,-150 0,-82.8427 67.1573,-150 149.99999,-150 L 350,592.3622"
+       id="path4148"
+       style="color:#000000;fill:#000000;fill-opacity:0;stroke:#e6215b;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <path
+       d="m 134.99998,742.3622 c 0,57.98991 47.01011,105.00002 105.00002,105.00002"
+       id="path3772"
+       style="opacity:0.9;color:#000000;fill:none;stroke:#e6215b;stroke-width:32;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <path
        d="m 350,742.3622 c 0,60.75133 -49.24868,110 -110,110 -60.75132,0 -110,-49.24867 -110,-110 0,-60.75132 49.24868,-110 110,-110 32.3793,0 80,0 110,0 0,30 0,81.62798 0,110 z"
        id="path4143"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="sssscs" />
+       style="opacity:0.9;color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <path
-       sodipodi:nodetypes="csscc"
-       inkscape:connector-curvature="0"
-       id="path4146"
        d="m 350.08915,828.86092 c -25.63364,32.57941 -65.41812,53.50125 -110.08916,53.50125 -77.31985,0 -139.99999,-62.68013 -139.99999,-140 0,-77.31985 62.68014,-139.99999 139.99999,-139.99999 46.66666,0 63.33335,2e-5 110.00001,2e-5"
-       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.25;fill:#fcfcfc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate" />
+       id="path4146"
+       style="opacity:0.5;color:#000000;fill:none;stroke:#3a3335;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <text
+       x="341.90695"
+       y="658.73212"
+       id="text2994"
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:end;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:end;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><tspan
+         x="341.90695"
+         y="658.73212"
+         id="tspan2996">TEAM A</tspan></text>
     <path
-       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.25;fill:#fcfcfc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
-       d="m 349.79267,845.70135 c -27.32751,28.74267 -65.9337,46.66084 -108.72491,46.66084 -82.84269,0 -149.999989,-67.15728 -149.999989,-150 0,-82.8427 67.157299,-150 149.999989,-150 L 350,592.3622"
-       id="path4148"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="csscc" />
+       d="m 265.4375,1.4873526 a 5,5 0 1 1 -10,0 5,5 0 1 1 10,0 z"
+       transform="translate(89.562504,590.87485)"
+       id="path3766"
+       style="color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <text
+       x="351.16623"
+       y="583.51788"
+       id="text3768"
+       xml:space="preserve"
+       style="font-size:15px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:end;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:end;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><tspan
+         x="351.16623"
+         y="583.51788"
+         id="tspan3770">198 punten</tspan></text>
+    <text
+       id="text3774"
+       xml:space="preserve"
+       style="font-size:15px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:center;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:middle;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Univers;-inkscape-font-specification:Univers"><textPath
+         xlink:href="#path3772"
+         id="textPath3781"><tspan
+   id="tspan3776">SPRAWL-VILLE</tspan></textPath></text>
   </g>
 </svg>
