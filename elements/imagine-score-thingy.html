@@ -4,73 +4,44 @@
 <dom-module id="imagine-score-thingy">
   <style>
   
-
+/*
 .score {
     width: 20%;
     height: 50%;
     font-size: 50px;
-    
     margin: 5px;
     align-self: center;
 }
+*/
 
-#scoreHeader {
-    height: 30%;
-    background:rgba(58,51,53,200);
-    color: white;
-    font-size: 30px;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-        background-image: url(../style/logo.png);
-    background-repeat: no-repeat;
-    background-position-x: center;
+#path4148 {
+  fill: none;
+  stroke: #e6215b;
+  stroke-width: 3px;
+  color:#000000;
+  fill:#000000;
+  fill-opacity:0;
+  stroke:#e6215b;
+  stroke-width:1;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-miterlimit:4;
+  stroke-opacity:1;
 }
-#scoreScherm {
-    position: absolute;
-    top: 30%;
-    bottom: 120px;
-    left: 10px;
-    right: 10px;
-    display: flex;
-    justify-content: center;
-    flex-direction: row-reverse;
-}
-.content {
-    
-    padding: 50px;
-}
-imagine-score, .imagine-score {
-    font-family: "Avenir LT W01 65 Medium", sans-serif;
-  }
-.nextplayer {
-    width: 150px;
-    height: 100px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 30px;
-    text-align: center;
-    line-height: 3.2;
-    -moz-box-shadow:    2px 2px 5px 0px #3A3335;
-  -webkit-box-shadow: 2px 2px 5px 0px #3A3335;
-  box-shadow:         2px 2px 5px 0px #3A3335;
-}
-:host[scenario=communicity] .nextplayer{
-background:#FFD979;
-}
-:host[scenario=sprawlville] .nextplayer {
-background:#E6215B;
-}
-:host[scenario=renewabad] .nextplayer {
-background:#3ABBA0;
-}
-:host[scenario=planopolis] .nextplayer {
-background:#4CC0D0;
+#path4146 {
+  opacity:0.5;
+  color:#000000;
+  fill:none;
+  stroke:#3a3335;
+  stroke-width:4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-miterlimit:4;
+  stroke-opacity:1;
 }
   </style>
   <template>
-  <div class="score">
+  
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -100,9 +71,9 @@ background:#4CC0D0;
      transform="translate(-88.567774,-571.0296)"
      id="layer1">
     <path
-       d="m 349.79267,845.70135 c -27.32751,28.74267 -65.9337,46.66084 -108.72491,46.66084 -82.84269,0 -149.99999,-67.15728 -149.99999,-150 0,-82.8427 67.1573,-150 149.99999,-150 L 350,592.3622"
+       d="m 350,592.3622 -108.93224,-10e-6 c -82.84269,0 -149.99999,67.1573 -149.99999,150 0,82.84272 67.1573,150 149.99999,150 42.79121,0 81.3974,-17.91817 108.72491,-46.66084"
        id="path4148"
-       style="color:#000000;fill:#000000;fill-opacity:0;stroke:#e6215b;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+       />
     <path
        d="m 134.99998,742.3622 c 0,57.98991 47.01011,105.00002 105.00002,105.00002"
        id="path3772"
@@ -112,9 +83,10 @@ background:#4CC0D0;
        id="path4143"
        style="opacity:0.9;color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <path
-       d="m 350.08915,828.86092 c -25.63364,32.57941 -65.41812,53.50125 -110.08916,53.50125 -77.31985,0 -139.99999,-62.68013 -139.99999,-140 0,-77.31985 62.68014,-139.99999 139.99999,-139.99999 46.66666,0 63.33335,2e-5 110.00001,2e-5"
        id="path4146"
-       style="opacity:0.5;color:#000000;fill:none;stroke:#3a3335;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+       d="m 350.08915,828.86092 c -25.63364,32.57941 -65.41812,53.50125 -110.08916,53.50125 -77.31985,0 -139.99999,-62.68013 -139.99999,-140 0,-77.31985 62.68014,-139.99999 139.99999,-139.99999 46.66666,0 63.33335,2e-5 110.00001,2e-5"
+       />
+     
     <text
        x="341.90695"
        y="658.73212"
@@ -124,11 +96,12 @@ background:#4CC0D0;
          x="341.90695"
          y="658.73212"
          id="tspan2996">{{team}}</tspan></text>
-    <path
+    <!--<path
        d="m 265.4375,1.4873526 a 5,5 0 1 1 -10,0 5,5 0 1 1 10,0 z"
        transform="translate(89.562504,590.87485)"
        id="path3766"
        style="color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    -->
     <text
        x="351.16623"
        y="583.51788"
@@ -203,8 +176,16 @@ background:#4CC0D0;
            id="tspan3833">stemmen</tspan></text>
     </g>
   </g>
+   <circle
+     	r="12"
+     	cx=0
+     	cy=0
+     	transform="translate(89.562504,590.87485)"
+     	id="path3766"
+     	style="color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    
 </svg>
-</div>
+
   </template>
 </dom-module>
 
@@ -237,33 +218,69 @@ background:#4CC0D0;
     _scoreChanged: function(){
     	var self = this;
     	
-    	var svg = d3.select(this.$.svg);
-    	var path = svg.select('#path4148');
-    	var obj = svg.select('#g3835');
+    	//Move the 'stemmen' to correct position
     	function transition() {
 		  obj.transition()
-			  .duration(10000)
+			  .duration(7500)
 			  .attrTween("transform", translateAlong(path.node()));
 			  //.each("end", transition);
 		}
 		
-		// Returns an attrTween for translating along the specified path element.
 		function translateAlong(path) {
-		  var l = path.getTotalLength();
 		  return function(d, i, a) {
 			return function(t) {
-			  //TODO: get the distance on the path
-			  var maxscore = 300;
-			  var myscore = self.score;
-			  var perc = (myscore/maxscore) / 100;
-			  var dist = perc * l;
-			  var p = path.getPointAtLength(t * l);
+			  var p = path.getPointAtLength(t * dist);
 			  //God knows why this 60 x 60 translate is needed
 			  return "translate(" + (p.x - 88 - 60) + "," + (p.y - 571 - 60) + ")";
 			};
 		  };
 		}
+		var svg = d3.select(this.$.svg);
+    	var path = svg.select('#path4146');
+    	var l = path.node().getTotalLength();
+    	var maxscore = 300;
+		var myscore = self.score;
+		var perc = (myscore/maxscore) > 0 ? (myscore/maxscore):0;
+		console.log(perc);
+		var dist = perc * l;
+    	var obj = svg.select('#g3835');
 		transition();
+		
+		
+		//Move the 'punten' line to correct position
+		function transition_punten(path) {
+		  path.transition()
+			  .duration(7500)
+			  .attrTween("stroke-dasharray", tweenDash)
+			  //.each("end", function() { d3.select(this).call(transition); });
+		}
+		
+		function tweenDash() {
+		  var l = this.getTotalLength(),
+			  i = d3.interpolateString("0," + l, l*perc + "," + l);
+		  return function(t) { return i(t); };
+		}
+		
+		svg.select('#path4148')
+			.call(transition_punten);
+		
+		//Move the 'stemmen' line to correct position
+		function transition_stemmen(path) {
+		  path.transition()
+			  .duration(7500)
+			  .attrTween("stroke-dasharray", tweenDash_stemmen)
+			  //.each("end", function() { d3.select(this).call(transition); });
+		}
+		
+		function tweenDash_stemmen() {
+		  var l = this.getTotalLength(),
+			  i = d3.interpolateString("0," + l, l*perc + "," + l);
+		  return function(t) { return i(t); };
+		}
+		
+		svg.select('#path4146')
+			.call(transition_stemmen);
+		
     },
     punten: function(score) {
         return score + ' punten';
@@ -272,6 +289,9 @@ background:#4CC0D0;
         return Math.max(Math.round(score*.75),0);
     },
     ready: function() {
+    	var self = this;
+    	window.setTimeout(function(){
+    		this._scoreChanged;},1000);
     }
   });
 </script>

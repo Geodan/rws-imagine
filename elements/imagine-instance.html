@@ -201,6 +201,7 @@ Polymer({
 				}
 				else {
 					this._project = projects[0];
+					this.progress = this._project.data('progress');
 					this._project.itemStore().on('synced',function(){
 						if (self.reset){
 							self._reset();
@@ -236,7 +237,6 @@ Polymer({
 					this.core.projectStore().on('datachange',function(){
 						self.progress = self._project.data('progress');
 					});
-					
 				}
 			}
 			else {
