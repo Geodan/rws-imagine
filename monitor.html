@@ -42,7 +42,6 @@
   	  background: lightGray;
   	  width: 200px;
   }
-  
   #regenerate {
   	  background: red;
   	  
@@ -69,7 +68,7 @@
 				Juiste kans:<span>[[scenario.yscore]]</span><br>
 				Juiste links:<span>[[scenario.linkscore]]</span><br>
 				Totaalscore: <span>[[scenario.score]]</span>
-				<paper-progress value="{{scenario.progress}}" min=0 max=3 step=1></paper-progress>
+				<paper-progress value="[[scenario.progress]]" min=0 max=3 step=1></paper-progress>
 			</div>
 		</paper-card>
   	</template>
@@ -94,10 +93,11 @@
 	  </template>
 	  <h3>Kaartjes</h3>
 	  <template is='dom-repeat'  items="{{kaartjes}}" filter='hasScore' sort='byScore' observe="_data">
-	  	<paper-card heading="[[item._data.name]]">
+	  	<paper-card heading="[[item._data.totalscore]]">
 		  <div class="card-content">
 		  	<div></div>
 			<div secondary>
+				<small>[[item._data.name]]</small><br>
 				Eventscore <span>[[item._data.eventscore]]</span><br>
 				X-score<span>[[item._data.xscore]]</span><br>
 				Y-score <span>[[item._data.yscore]]</span><br>
