@@ -1,0 +1,82 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="./imagine-instance.html">
+
+<dom-module id="imagine-cardslist">
+  <style>
+   
+  </style>
+  <template>
+    <div hidden$="{{hidden}}">
+  	Team: <span>{{team}}</span><br>
+  	Scenario: <span>{{scenario}}</span><br>
+	Totaalscore: <span>{{score}}</span><br>
+	<paper-button id='regenerate' on-click="regenerate">Nieuwe kaartjes</paper-button><br>
+	  <!--
+	  <h3>Verbindingen nodig</h3>
+	  <template is='dom-repeat'  items="{{verbindingen_org}}">
+	  	<span>{{item._data.van}}</span> -> <span>{{item._data.naar}}</span><br>
+	  </template>
+	  -->
+	  <h3>Verbindingen</h3>
+	  <template is='dom-repeat'  items="{{verbindingen}}" filter='isCorrect' observe="_data">
+	  	<span>{{item._data.vanid}}</span> -> <span>{{item._data.naarid}}</span><br>
+	  </template>
+	  <h3>Kaartjes</h3>
+	  <template is='dom-repeat'  items="{{kaartjes}}" filter='hasScore' sort='byScore' observe="_data">
+	  	<paper-card heading="[[item._data.totalscore]]">
+		  <div class="card-content">
+		  	<div></div>
+			<div secondary>
+				<small>[[item._data.name]]</small><br>
+				Eventscore <span>[[item._data.eventscore]]</span><br>
+				X-score<span>[[item._data.xscore]]</span><br>
+				Y-score <span>[[item._data.yscore]]</span><br>
+			</div>
+		  </div>
+		</paper-card>
+	  </template>
+	</div>
+  </template>
+</dom-module>
+
+<script>
+  // register a new element called proto-element
+  Polymer({
+    
+    is: "imagine-cardslist",
+    properties: {
+    	hidden: true
+    },    
+    behaviors: [
+     
+    ],
+    observers: [
+    	
+    ],
+    
+    hasScore: function(d){
+  	  return d._data.y > 50;
+  	},
+  	isCorrect: function(d){
+  	  return d._data.correct;
+  	},
+  	byScore: function(a,b){
+  	  return b._data.totalscore - a._data.totalscore;
+  	},
+  	eventscore: function(d){
+  	  if (d && d.length > 0){
+  	  	var returnvalue = 0;
+		d.forEach(function(x) {
+			  returnvalue + x._data.eventscore;
+		});
+		return returnvalue;
+	  }
+	},
+    ready: function() {
+    	var self = this;
+    }
+  });
+</script>

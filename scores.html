@@ -22,16 +22,21 @@
   <template id="main" is="dom-bind">
   <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
   <style>
-  .row {
-  	  display: block;
+  
+  .column {
+  	  display: inline-block;
+  	  min-width: 400px;
   }
   </style>
-  
+  <div class='row'>
+  <template is='dom-repeat' items="{{teams.0.scenarios}}">
+  	<span class='column'>{{item.name}}</span>
+  </template>
+  </div>	
   <template is='dom-repeat' items="{{teams}}" as="team">
   	<div class='row'>
-  	<span>{{team.name}}</span>
   	<template is='dom-repeat' items="{{team.scenarios}}" as="scenario">
-  	<span>
+  	<span class='column'>
   		<imagine-instance id="instance" 
   			core="{{cow}}" 
   			team="{{team.name}}" 

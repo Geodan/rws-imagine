@@ -75,6 +75,7 @@ Polymer({
 				.forEach(function(d){
 						d.deleted(true).sync();
 				});
+			this._project.data('progress',0).sync();
 			d3.tsv(filename + '?'+ new Date().getTime(), function(events){
 				events.forEach(function(d){
 					var id = new Date().getTime().toString() + d.id;
