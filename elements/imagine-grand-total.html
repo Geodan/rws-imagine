@@ -1,0 +1,88 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="./imagine-instance.html">
+  <link rel="import" href="./imagine-score-thingy.html">
+  <link rel="import" href="./gm-cow-core.html">
+
+ 
+<dom-module id="imagine-grand-total">
+  <style>
+  
+.column {
+  	  display: inline-block;
+  	  min-width: 400px;
+  }
+  </style>
+  <template>
+  <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
+  
+  <div class='row'>
+  <template is='dom-repeat' items="{{teams.0.scenarios}}">
+  	<span class='column'>{{item.name}}</span>
+  </template>
+  </div>	
+  <template is='dom-repeat' items="{{teams}}" as="team">
+  	<span class='column'>
+  	<template is='dom-repeat' items="{{team.scenarios}}" as="scenario">
+  		<imagine-instance id="instance" 
+  			core="{{cow}}" 
+  			team="{{team.name}}" 
+  			scenario="{{scenario.name}}" 
+  			score="{{scenario.score}}" 
+  			eventscore="{{scenario.eventscore}}"
+  			xscore="{{scenario.xscore}}"
+  			yscore="{{scenario.yscore}}"
+  			progress="{{scenario.progress}}"></imagine-instance>
+	</template>
+  	<imagine-score-thingy score="[[team.totalScore]]" team="[[team.name]]" scenario="Grand total"></imagine-score-thingy>
+  	</span>
+  </template>
+  </template>
+</dom-module>
+
+<script>
+  // register a new element called proto-element
+  Polymer({
+    is: "imagine-grand-total",
+    properties: {
+    
+        
+    },    
+    behaviors: [
+     
+    ],
+    observers: [
+    	
+    ],
+    ready: function() {
+      this.teams = [{
+		name:'Team A',
+		totalScore: 0,
+		scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+	  },{
+		name: 'Team B',
+		totalScore: 0,
+		scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+	  },{
+		name:'Team C',
+		totalScore: 0,
+		scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+	  },{
+		name:'Team D',
+		totalScore: 0,
+		scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+	  }];
+	  this.cowconfig ={
+		key: 'imagine',
+		protocol:'wss',
+		url:'websocket.geodan.nl', 
+		port:443,
+		dir: 'imagine'
+	  };
+	  
+    },
+    attached: function(){
+    	
+    }   
+  });
+</script>
