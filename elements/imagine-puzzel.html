@@ -285,7 +285,6 @@ background: #625c5e;
     },
     //Functie om een kaartje te selecteren
     selectKaartje: function(e) {
-        console.log('jay');
         //TODO: check de volgorde van de link en klap evt om
         var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
@@ -301,7 +300,7 @@ background: #625c5e;
         else if (this.setje.end === null) {   
             //SWAP!
             
-            if(parseInt(kaartje.x) < parseInt(this.setje.begin.x)) {
+            if(parseInt(kaartje.id) < parseInt(this.setje.begin.id)) {
                 this.setje.end = {id:this.setje.begin.id,x:this.setje.begin.x};
                 this.setje.begin = kaartje;
             }        
@@ -350,10 +349,22 @@ background: #625c5e;
         var cityMain = this.style.main;
         
         this.verbindingen.forEach(function(e,i) {
-            var b = document.getElementById('event-'+e.begin);
-            var end = document.getElementById('event-'+e.end);
-            var endPoint = [parseFloat(end.attributes['data-x'].value) - 133,parseFloat(end.attributes['data-y'].value) - 30]
-            var beginPoint = [parseFloat(b.attributes['data-x'].value) - 35,parseFloat(b.attributes['data-y'].value) - 98]
+			//TODO: volgorde kaartjes bepalen
+			var b = document.getElementById('event-'+e.begin);
+			var end = document.getElementById('event-'+e.end);
+        
+			if(parseFloat(end.attributes['data-x'].value) < parseFloat(b.attributes['data-x'].value)) {
+				console.log('omdraaien')
+                var endPoint = [parseFloat(b.attributes['data-x'].value) - 133,parseFloat(b.attributes['data-y'].value) - 30]
+				var beginPoint = [parseFloat(end.attributes['data-x'].value) - 35,parseFloat(end.attributes['data-y'].value) - 98]
+            
+            
+			}        
+            else {
+				var endPoint = [parseFloat(end.attributes['data-x'].value) - 133,parseFloat(end.attributes['data-y'].value) - 30]
+                var beginPoint = [parseFloat(b.attributes['data-x'].value) - 35,parseFloat(b.attributes['data-y'].value) - 98]
+            
+            }
             context.beginPath();
             context.moveTo(beginPoint[0],beginPoint[1]);
             context.lineTo(endPoint[0],endPoint[1]);
