@@ -91,7 +91,7 @@
 </style>
 
 <template>
-	<div class='line'><paper-toggle-button id="toggleAnswer" on-change="itemsChanged"></paper-toggle-button><span>Antwoorden</span></div>
+	<div class='line'><paper-toggle-button id="toggleAnswer" on-change="redraw"></paper-toggle-button><span>Antwoorden</span></div>
 	<div class='line'><paper-slider id='slider' on-immediate-value-change='timeset' on-change='timeset'></paper-slider></div>
 	<div class='line'><span>{{showtime(curtime)}}</span></div>
 	<div id="chart"></div>
@@ -114,11 +114,11 @@ Polymer({
 		properties:{
 			verbindingen: {
 				type: Array,
-				observer: 'itemsChanged'
+				observer: 'redraw'
 			},
 			verbindingen_org: {
 				type: Array,
-				observer: 'itemsChanged'
+				observer: 'redraw'
 			},
 			kaartjes: {
 				type: Array,
@@ -136,9 +136,24 @@ Polymer({
 		},
 		timeset: function(d){
 			this.curtime = this.$.slider.immediateValue;
-			this.itemsChanged();
+			this.redraw();
 		},
 		itemsChanged: function(){
+		//Change slider values
+			if (this.kaartjes.length > 0){
+				var mintime = this.kaartjes.sort(function(a,b){
+					return a.updated() - b.updated();
+				})[0];
+				var maxtime = this.kaartjes.sort(function(a,b){
+					return b.updated() - a.updated();
+				})[0];
+				this.$.slider.min = mintime.updated();
+				this.$.slider.max = maxtime.updated();
+				this.curtime = maxtime.updated();
+			}
+			this.redraw();
+		},
+		redraw: function(){
 			if (this.graph){
 			var items = this.kaartjes;
 			var svg = this.svg;
@@ -194,12 +209,12 @@ Polymer({
 			links_org.enter().append('line')
 				.classed('link',true);
 				//.attr('marker-end',"url(#Triangle1)");
-				/*
+			
 			links_org
 				.attr('x1',function(d){
 					return x(getEvent( d.data('vanid') ).data('x_org') );
 				})
-				.attr('y1',
+				.attr('y1',function(d){
 					return x(getEvent( d.data('vanid') ).data('y_org') );
 				})
 				.attr('x2',function(d){
@@ -209,13 +224,14 @@ Polymer({
 					return x(getEvent( d.data('naarid') ).data('y_org') );
 				});
 			links_org.exit().remove();
-			*/
+			
 			
 			var time = this.curtime;
 			/* Basket with inactive items */
 			var inactiveitems = items
 				.filter(function(d){
-					return !d.data(time).y > 50;})
+					return !d.data(time) || !d.data(time).y > 50;
+				})
 				.sort(function(a,b){
 						if (a.id() < b.id()){
 						return -1;
@@ -293,7 +309,7 @@ Polymer({
 			links.exit().remove();	
 			*/
 			//Draw active items
-			var activeitems = items.filter(function(d){return d.data(time).y > 50;});
+			var activeitems = items.filter(function(d){return d.data(time) && d.data(time).y > 50;});
 			var entities = graph.select('#series2').selectAll('.event')
 				.data(activeitems, function(d){return d.id()});
 			var events = entities.enter().append('g').classed('event', true)
@@ -313,36 +329,6 @@ Polymer({
 			}
 		},
 		projectChanged: function(){
-			var self = this;
-			this.project.itemStore().loaded.then(function(){
-				self.items = self.project.items();
-				//Change slider values
-				var mintime = self.items.sort(function(a,b){
-					return a.updated() - b.updated();
-				})[0];
-				var maxtime = self.items.sort(function(a,b){
-					return b.updated() - a.updated();
-				})[0];
-				self.$.slider.min = mintime.updated();
-				self.$.slider.max = maxtime.updated();
-				self.curtime = maxtime.updated();
-			});
-			this.project.itemStore().on('datachange',function(){
-				self.items = self.project.items();
-				//Change slider values
-				var mintime = self.items.sort(function(a,b){
-					return a.updated() - b.updated();
-				})[0];
-				var maxtime = self.items.sort(function(a,b){
-					return b.updated() - a.updated();
-				})[0];
-				self.$.slider.min = mintime.updated();
-				self.$.slider.max = maxtime.updated();
-				self.curtime = maxtime.updated();
-				self.itemsChanged();
-			});
-			
-			
 			
 		},
 		resize: function(){ //Work in progress
@@ -392,6 +378,8 @@ Polymer({
 			this.svg = svg;
 			this.graph = graph;
 			this.basket = basket;
+			
+			this.projectChanged();
 		}
 });
 })();//closure

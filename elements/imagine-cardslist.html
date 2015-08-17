@@ -6,14 +6,15 @@
 
 <dom-module id="imagine-cardslist">
   <style>
-   
+   .flups {
+   	   width: 300px;
+   }
   </style>
   <template>
     <div hidden$="{{hidden}}">
   	Team: <span>{{team}}</span><br>
   	Scenario: <span>{{scenario}}</span><br>
 	Totaalscore: <span>{{score}}</span><br>
-	<paper-button id='regenerate' on-click="regenerate">Nieuwe kaartjes</paper-button><br>
 	  <!--
 	  <h3>Verbindingen nodig</h3>
 	  <template is='dom-repeat'  items="{{verbindingen_org}}">
@@ -27,7 +28,7 @@
 	  <h3>Kaartjes</h3>
 	  <template is='dom-repeat'  items="{{kaartjes}}" filter='hasScore' sort='byScore' observe="_data">
 	  	<paper-card heading="[[item._data.totalscore]]">
-		  <div class="card-content">
+		  <div class="card-content flups">
 		  	<div></div>
 			<div secondary>
 				<small>[[item._data.name]]</small><br>
