@@ -6,7 +6,7 @@
 
 <dom-module id="imagine-cardslist">
   <style>
-   .flups {
+   .card-content {
    	   width: 300px;
    }
   </style>
@@ -14,7 +14,7 @@
     <div hidden$="{{hidden}}">
   	Team: <span>{{team}}</span><br>
   	Scenario: <span>{{scenario}}</span><br>
-	Totaalscore: <span>{{score}}</span><br>
+	
 	  <!--
 	  <h3>Verbindingen nodig</h3>
 	  <template is='dom-repeat'  items="{{verbindingen_org}}">
@@ -28,13 +28,14 @@
 	  <h3>Kaartjes</h3>
 	  <template is='dom-repeat'  items="{{kaartjes}}" filter='hasScore' sort='byScore' observe="_data">
 	  	<paper-card heading="[[item._data.totalscore]]">
-		  <div class="card-content flups">
+		  <div class="card-content">
 		  	<div></div>
 			<div secondary>
 				<small>[[item._data.name]]</small><br>
 				Eventscore <span>[[item._data.eventscore]]</span><br>
-				X-score<span>[[item._data.xscore]]</span><br>
+				X-score <span>[[item._data.xscore]]</span><br>
 				Y-score <span>[[item._data.yscore]]</span><br>
+				totaal <span><b>[[item._data.totalscore]]</b></span>
 			</div>
 		  </div>
 		</paper-card>
@@ -67,6 +68,7 @@
   	byScore: function(a,b){
   	  return b._data.totalscore - a._data.totalscore;
   	},
+  	/*
   	eventscore: function(d){
   	  if (d && d.length > 0){
   	  	var returnvalue = 0;
@@ -75,7 +77,7 @@
 		});
 		return returnvalue;
 	  }
-	},
+	},*/
     ready: function() {
     	var self = this;
     }

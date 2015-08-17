@@ -119,11 +119,10 @@ Polymer({
 		properties:{
 			verbindingen: {
 				type: Array,
-				observer: 'redraw'
+				observer: 'itemsChanged'
 			},
 			verbindingen_org: {
 				type: Array,
-				observer: 'redraw'
 			},
 			kaartjes: {
 				type: Array,
@@ -146,10 +145,12 @@ Polymer({
 		itemsChanged: function(){
 		//Change slider values
 			if (this.kaartjes.length > 0){
-				var mintime = this.kaartjes.sort(function(a,b){
+				//Yuckie way of getting all cow items together again
+				var allitems = this.kaartjes.concat(this.verbindingen);
+				var mintime = allitems.sort(function(a,b){
 					return a.updated() - b.updated();
 				})[0];
-				var maxtime = this.kaartjes.sort(function(a,b){
+				var maxtime = allitems.sort(function(a,b){
 					return b.updated() - a.updated();
 				})[0];
 				this.$.slider.min = mintime.updated();
@@ -219,7 +220,7 @@ Polymer({
 			/* Basket with inactive items */
 			var inactiveitems = this.kaartjes
 				.filter(function(d){
-					return !d.data(time) || !d.data(time).y > 50;
+					return d.data(time) && d.data(time).y <= 50;
 				})
 				.sort(function(a,b){
 						if (a.id() < b.id()){
