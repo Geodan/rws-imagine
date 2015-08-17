@@ -33,6 +33,9 @@
 	dominant-baseline: central;
 	text-anchor: middle;
 }
+#series1 .link {
+	stroke-width: 2px;
+}
 #series2 {
 	fill: lightgreen;
 	stroke: lightgreen;
@@ -45,7 +48,7 @@
 	text-anchor: middle;
 }
 #series2 line {
-	stroke-width: 4px;
+	stroke-width: 2px;
 }
 
 .hidden {
@@ -88,6 +91,8 @@
 #slider {
 	width: 100%
 }
+
+
 </style>
 
 <template>
@@ -154,8 +159,8 @@ Polymer({
 			this.redraw();
 		},
 		redraw: function(){
+			var self = this;
 			if (this.graph){
-			var items = this.kaartjes;
 			var svg = this.svg;
 			var graph = this.graph;
 			var basket = this.basket;
@@ -164,7 +169,7 @@ Polymer({
 			var opacity = this.$.toggleAnswer.checked ? 1 : 0;
 			graph.select('#series1').transition().style('opacity',opacity);
 			
-			var activeitems_org = items.filter(function(d){return d.data('y_org') > 50;});
+			var activeitems_org = this.kaartjes.filter(function(d){return d.data('y_org') > 50;});
 			var entities_org = graph.select('#series1').selectAll('.event_org')
 				.data(activeitems_org, function(d){return d.id()});
 			var events_org = entities_org.enter().append('g').classed('event_org', true);
@@ -183,52 +188,36 @@ Polymer({
 			entities_org.exit().remove();
 			
 			//Draw orig active links
-			var defs = svg.select('#series1')
-				.append('defs')
-				.append('marker')
-				.attr('id',"Triangle1")
-				.attr('viewBox',"0 0 10 10")
-				.attr('refX',"20")
-				.attr('refY',"5")
-				.attr('markerUnits',"strokeWidth")
-				.attr('markerWidth',"15")
-				.attr('markerHeight',"10")
-				.attr('orient',"auto")
-				.append('path')
-				.attr('d',"M 0 0 L 10 5 L 0 10 z");
-			
 			function getEvent(id){
-				activeitems_org.filter(function(d){
+				return self.kaartjes.filter(function(d){
 					return d.data('id') == id;
-				});
-				return activeitems_org[0]; 
+				})[0];
 			}
 			
 			var links_org = graph.select('#series1').selectAll('.link')
-				.data(this.verbindingen_org);
+				.data(this.verbindingen_org, function(d){return d.id()});
 			links_org.enter().append('line')
 				.classed('link',true);
-				//.attr('marker-end',"url(#Triangle1)");
 			
 			links_org
 				.attr('x1',function(d){
 					return x(getEvent( d.data('vanid') ).data('x_org') );
 				})
 				.attr('y1',function(d){
-					return x(getEvent( d.data('vanid') ).data('y_org') );
+					return y(getEvent( d.data('vanid') ).data('y_org') );
 				})
 				.attr('x2',function(d){
 					return x(getEvent( d.data('naarid') ).data('x_org') );
 				})
 				.attr('y2',function(d){
-					return x(getEvent( d.data('naarid') ).data('y_org') );
+					return y(getEvent( d.data('naarid') ).data('y_org') );
 				});
 			links_org.exit().remove();
 			
 			
 			var time = this.curtime;
 			/* Basket with inactive items */
-			var inactiveitems = items
+			var inactiveitems = this.kaartjes
 				.filter(function(d){
 					return !d.data(time) || !d.data(time).y > 50;
 				})
@@ -256,60 +245,31 @@ Polymer({
 				;
 			events_inact.append('text')
 				.text(function(d){return d.data('id');});
-			/*				
+							
 			//Draw active links
-			var defs = svg.select('#series2')
-				.append('defs')
-				.append('marker')
-				.attr('id',"Triangle2")
-				.attr('viewBox',"0 0 10 10")
-				.attr('refX',"20")
-				.attr('refY',"5")
-				.attr('markerUnits',"strokeWidth")
-				.attr('markerWidth',"7")
-				.attr('markerHeight',"4")
-				.attr('orient',"auto")
-				.append('path')
-				.attr('d',"M 0 0 L 10 5 L 0 10 z");
-			
-			var activeitems = items.filter(function(d){return d.data(time).active;});
-			var linkitems = activeitems.filter(function(d){
-					return d.data(time).link && d.data(time).link != '' && d.data(time).link != d.data('id');
+			var active_links = this.verbindingen.filter(function(d){
+					return d.data(time)	;
 			});
 			var links = graph.select('#series2').selectAll('.link')
-				.data(linkitems, function(d){return d.id()});
+				.data(active_links, function(d){return d.id()});
 			links.enter().append('line').classed('link',true);
-				//.attr('marker-end',"url(#Triangle2)")
-
 			links
-				.attr('x1',function(d){return x(d.data(time).x);})
-				.attr('y1',function(d){return y(d.data(time).y);})
+				.attr('x1',function(d){
+					return x(getEvent( d.data('vanid') ).data('x') );
+				})
+				.attr('y1',function(d){
+					return y(getEvent( d.data('vanid') ).data('y') );
+				})
 				.attr('x2',function(d){
-					if (d.data(time).link){
-						 var item = activeitems.filter(function(d1){
-							return d1.data('id') == d.data(time).link;
-						})[0];
-						var val = item.data(time).x;
-					} else {
-						var val = d.data(time).x;
-					}
-					return x(val);
+					return x(getEvent( d.data('naarid') ).data('x') );
 				})
 				.attr('y2',function(d){
-					if (d.data(time).link){
-						 var item = activeitems.filter(function(d1){
-							return d1.data('id') == d.data(time).link;
-						})[0];
-						var val = item.data(time).y;
-					} else {
-						var val = d.data(time).y;
-					}
-					return y(val);
+					return y(getEvent( d.data('naarid') ).data('y') );
 				});
 			links.exit().remove();	
-			*/
+			
 			//Draw active items
-			var activeitems = items.filter(function(d){return d.data(time) && d.data(time).y > 50;});
+			var activeitems = this.kaartjes.filter(function(d){return d.data(time) && d.data(time).y > 50;});
 			var entities = graph.select('#series2').selectAll('.event')
 				.data(activeitems, function(d){return d.id()});
 			var events = entities.enter().append('g').classed('event', true)
@@ -326,6 +286,9 @@ Polymer({
 					return "translate(" + x(d.data(time).x) + "," + y(d.data(time).y) + ")";
 			});
 			entities.exit().remove();
+			
+			
+			
 			}
 		},
 		projectChanged: function(){
