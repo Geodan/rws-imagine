@@ -304,6 +304,8 @@ Polymer({
 						var yscore = Math.round(deltay(d));
 						totalyscore = totalyscore + yscore;
 						self.set('kaartjes.'+i+'._data.yscore',yscore);
+						
+						self.set('kaartjes.'+i+'._data.totalscore',eventscore + xscore + yscore);
 					}
 					else {
 						self.set('kaartjes.'+i+'._data.totalscore',0);
