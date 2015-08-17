@@ -285,6 +285,7 @@ background: #625c5e;
     },
     //Functie om een kaartje te selecteren
     selectKaartje: function(e) {
+        console.log(this.verbindingen);
         //TODO: check de volgorde van de link en klap evt om
         var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
