@@ -7,152 +7,35 @@
   <meta charset="utf-8">
   <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="./bower_components/polymer/polymer.html">
+  <link rel="import" href="./bower_components/iron-icons/iron-icons.html">
   <link rel="import" href="./bower_components/iron-selector/iron-selector.html">
   <link rel="import" href="./bower_components/paper-button/paper-button.html">
+  <link rel="import" href="./bower_components/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="./bower_components/paper-card/paper-card.html">
   <link rel="import" href="./bower_components/paper-progress/paper-progress.html">
   <link rel="import" href="./bower_components/paper-badge/paper-badge.html">
   <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-instance.html">
-  
+  <link rel="import" href="./elements/imagine-projectcard.html">
   </head>      
   <body>
   
-  
-  
   <template id="main" is="dom-bind">
   <style>
-  .teambutton {
-  	  color: white;
-  	  background: lightGreen;
-  }
-
-  .scenbutton {
-  	  color: white;
-  	  background: steelBlue;
-  }
-  .iron-selected {
-      background: orange;
-    }
-    
-   .scencard {
-   	    
-   }
-  .card-content {
-  	  background: lightGray;
-  	  width: 200px;
-  }
-  #regenerate {
-  	  background: red;
-  	  
-  }
-  
   </style>
-  
   <template is='dom-repeat' items="{{teams}}" as="team">
   	<span>{{team.name}}</span>
   	<template is='dom-repeat' items="{{team.scenarios}}" as="scenario">
-  		<imagine-instance id="instance" 
-  			core="{{cow}}" 
-  			team="{{team.name}}" 
-  			scenario="{{scenario.name}}" 
-  			score="{{scenario.score}}" 
-  			eventscore="{{scenario.eventscore}}"
-  			xscore="{{scenario.xscore}}"
-  			yscore="{{scenario.yscore}}"
-  			progress="{{scenario.progress}}"></imagine-instance>
-		<paper-card class='scencard' heading='{{scenario.name}}' on-click='selectProject'>
-			<div class="card-content">
-				Juiste event: <span>[[scenario.eventscore]]</span><br>
-				Juiste tijd: <span>[[scenario.xscore]]</span><br>
-				Juiste kans:<span>[[scenario.yscore]]</span><br>
-				Juiste links:<span>[[scenario.linkscore]]</span><br>
-				Totaalscore: <span>[[scenario.score]]</span>
-				<paper-progress value="[[scenario.progress]]" min=0 max=3 step=1></paper-progress>
-			</div>
-		</paper-card>
+  		<imagine-projectcard cow="{{cow}}" team="{{team}}" scenario="{{scenario}}"></imagine-projectcard>
   	</template>
   	<br>
   </template>
-  <hr>
-  <div hidden$="{{hidden}}">
-  
-  	Team: <span>{{team}}</span><br>
-  	Scenario: <span>{{scenario}}</span><br>
-	Totaalscore: <span>{{score}}</span><br>
-	<paper-button id='regenerate' on-click="regenerate">Nieuwe kaartjes</paper-button><br>
-	  <!--
-	  <h3>Verbindingen nodig</h3>
-	  <template is='dom-repeat'  items="{{verbindingen_org}}">
-	  	<span>{{item._data.van}}</span> -> <span>{{item._data.naar}}</span><br>
-	  </template>
-	  -->
-	  <h3>Verbindingen</h3>
-	  <template is='dom-repeat'  items="{{verbindingen}}" filter='isCorrect' observe="_data">
-	  	<span>{{item._data.vanid}}</span> -> <span>{{item._data.naarid}}</span><br>
-	  </template>
-	  <h3>Kaartjes</h3>
-	  <template is='dom-repeat'  items="{{kaartjes}}" filter='hasScore' sort='byScore' observe="_data">
-	  	<paper-card heading="[[item._data.totalscore]]">
-		  <div class="card-content">
-		  	<div></div>
-			<div secondary>
-				<small>[[item._data.name]]</small><br>
-				Eventscore <span>[[item._data.eventscore]]</span><br>
-				X-score<span>[[item._data.xscore]]</span><br>
-				Y-score <span>[[item._data.yscore]]</span><br>
-				<paper-badge label="[[item._data.totalscore]]"></paper-badge>
-			</div>
-		  </div>
-		  <!--
-		  <div class="card-actions">
-			<paper-button>Some action</paper-button>
-		  </div>
-		  -->
-		</paper-card>
-	  </template>
-	</div>
-	  <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>  
-	  <imagine-instance id="maininstance" core="{{cow}}" team="{{team}}" scenario="{{scenario}}" score="{{score}}" kaartjes="{{kaartjes}}" verbindingen="{{verbindingen}}" verbindingen_org="{{verbindingen_org}}"></imagine-instance>
-	
+  <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>  
   </template>
   <script type="text/javascript">
   
   
   var main = document.querySelector('#main');
-  main.hidden = true;
-  main.hasScore = function(d){
-  	  return d._data.y > 50;
-  }
-  main.isCorrect = function(d){
-  	  return d._data.correct;
-  }
-  main.byScore = function(a,b){
-  	  return b._data.totalscore - a._data.totalscore;
-  }
-  main.selectProject = function(d){
-  	  main.team = d.model.team.name;
-  	  main.scenario = d.model.scenario.name;
-  	  main.hidden = false;
-  }
-  main.eventscore = function(d){
-  	  if (d && d.length > 0){
-  	  	var returnvalue = 0;
-		d.forEach(function(x) {
-			  returnvalue + x._data.eventscore;
-		});
-		return returnvalue;
-	  }
-  }
-  main.regenerate = function(){
-  	  var instance = document.querySelector('#maininstance');
-  	  if (confirm('Alle kaartjes voor ' + main.team + ' ' + main.scenario + ' worden opnieuw gemaakt. Zeker weten?')) {
-			instance._generateEvents('./data/' + main.scenario + '.tsv');
-			instance._generateLinks('./data/' + main.scenario + '_links.tsv');
-	  } else {
-	  	  //cancelled
-	  }
-  }
   main.teams = [{
   	name:'Team A',
     scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
