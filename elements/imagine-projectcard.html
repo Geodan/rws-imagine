@@ -1,0 +1,130 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-styles/typography.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="./imagine-instance.html">
+<link rel="import" href="./imagine-reviewboard.html">
+<link rel="import" href="./imagine-cardslist.html">
+<dom-module id="imagine-projectcard">
+  <style>
+   .card-content {
+  	  background: lightGray;
+  	  width: 200px;
+  }
+   paper-icon-button.orange {
+        color: var(--paper-orange-500);
+      }   
+  paper-dialog { 
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 10px;
+    margin: 0;        
+  }
+  </style>
+  <template>
+    <imagine-instance id="instance" 
+  			core="{{cow}}" 
+  			team="{{team.name}}" 
+  			scenario="{{scenario.name}}" 
+  			score="{{scenario.score}}" 
+  			eventscore="{{scenario.eventscore}}"
+  			xscore="{{scenario.xscore}}"
+  			yscore="{{scenario.yscore}}"
+  			progress="{{scenario.progress}}"
+  			kaartjes="{{kaartjes}}" 
+  			verbindingen="{{verbindingen}}"
+  			verbindingen_org="{{verbindingen_org}}"
+  			></imagine-instance>
+  	
+  	<paper-dialog id="dial1">
+  	  <h2>Header</h2>
+	  <paper-dialog-scrollable class="flex paper-font-body1">
+		<imagine-cardslist
+			team="{{team.name}}"
+			scenario="{{scenario.name}}"
+			score="{{score}}"
+			kaartjes="{{kaartjes}}" 
+  			verbindingen="{{verbindingen}}"
+		></imagine-cardslist>
+	  </paper-dialog-scrollable>
+	  <div class="buttons">
+		<paper-button dialog-confirm>Sluit</paper-button>
+	  </div>
+  	</paper-dialog>
+  			
+    <paper-dialog id="dial2">
+	  <h2>Header</h2>
+	  <paper-dialog-scrollable>
+		<imagine-reviewboard 
+			kaartjes="{{kaartjes}}" 
+			verbindingen="{{verbindingen}}"
+			verbindingen_org="{{verbindingen_org}}"></imagine-reviewboard>
+	  </paper-dialog-scrollable>
+	  <div class="buttons">
+		<paper-button dialog-confirm>Sluit</paper-button>
+	  </div>
+	</paper-dialog>		
+  			
+  			
+    <paper-card class='scencard' heading='{{scenario.name}}' >
+		<div class="card-content">
+			Juiste event: <span>[[scenario.eventscore]]</span><br>
+			Juiste tijd: <span>[[scenario.xscore]]</span><br>
+			Juiste kans:<span>[[scenario.yscore]]</span><br>
+			Juiste links:<span>[[scenario.linkscore]]</span><br>
+			Totaalscore: <span>[[scenario.score]]</span>
+			<paper-progress value="[[scenario.progress]]" min=0 max=3 step=1></paper-progress>
+		</div>
+		<div class="card-actions">
+			<paper-icon-button icon="refresh" class='orange' on-click='regenerate'></paper-icon-button>
+			<paper-icon-button icon="view-module" on-click='viewCards'></paper-icon-button>
+			<paper-icon-button icon="history" on-click='viewHistory'></paper-icon-button>
+		</div>
+	</paper-card>
+  </template>
+</dom-module>
+
+<script>
+  // register a new element called proto-element
+  Polymer({
+    
+    is: "imagine-projectcard",
+    properties: {
+    	cow: {
+    		type: Object
+    	},
+        scenario: {
+            type: Object
+        }
+    },    
+    behaviors: [
+     
+    ],
+    observers: [
+    	
+    ],
+    regenerate: function(){
+		var instance = this.$.instance;
+		if (confirm('Alle kaartjes voor ' + this.team.name + ' ' + this.scenario.name + ' worden opnieuw gemaakt. Zeker weten?')) {
+			instance._generateEvents('./data/' + this.scenario.name + '.tsv');
+			instance._generateLinks('./data/' + this.scenario.name + '_links.tsv');
+		} else {
+		  //cancelled
+		}
+	},
+	viewCards: function(){
+		this.$.dial1.open();
+	},
+	viewHistory: function(){
+		this.$.dial2.open();
+	},
+    ready: function() {
+    	var self = this;
+    }
+  });
+</script>
