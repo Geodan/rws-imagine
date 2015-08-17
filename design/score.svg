@@ -30,13 +30,13 @@
      transform="translate(-88.567774,-571.0296)"
      id="layer1">
     <path
-       d="m 350.08915,828.86092 c -25.63364,32.57941 -65.41812,53.50125 -110.08916,53.50125 -77.31985,0 -139.99999,-62.68013 -139.99999,-140 0,-77.31985 62.68014,-139.99999 139.99999,-139.99999 46.66666,0 63.33335,2e-5 110.00001,2e-5"
+       d="m 350,602.3622 c -46.66666,0 -63.33335,-2e-5 -110.00001,-2e-5 C 162.68014,602.36218 100,665.04232 100,742.36217 c 0,77.31987 62.68014,140 139.99999,140 44.67104,0 84.45552,-20.92184 110.08916,-53.50125"
        id="path4146"
        style="opacity:0.5;color:#000000;fill:none;stroke:#3a3335;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <path
        d="m 349.79267,845.70135 c -27.32751,28.74267 -65.9337,46.66084 -108.72491,46.66084 -82.84269,0 -149.99999,-67.15728 -149.99999,-150 0,-82.8427 67.1573,-150 149.99999,-150 L 350,592.3622"
        id="path4148"
-       style="color:#000000;fill:#000000;fill-opacity:0;stroke:#e6215b;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+       style="color:#000000;fill:#000000;fill-opacity:0;stroke:#e6215b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <path
        d="m 134.99998,742.3622 c 0,57.98991 47.01011,105.00002 105.00002,105.00002"
        id="path3772"
@@ -54,6 +54,11 @@
          x="341.90695"
          y="658.73212"
          id="tspan2996">TEAM A</tspan></text>
+    <path
+       d="m 265.4375,1.4873526 a 5,5 0 1 1 -10,0 5,5 0 1 1 10,0 z"
+       transform="translate(-155.43751,678.73199)"
+       id="path3766"
+       style="color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <text
        x="351.16623"
        y="583.51788"

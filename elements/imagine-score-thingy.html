@@ -14,15 +14,29 @@
 }
 */
 
-#path4148 {
+#path4148b {
   fill: none;
-  stroke: #e6215b;
+  stroke: var(--imagine-score-main-color);
   stroke-width: 3px;
   color:#000000;
   fill:#000000;
   fill-opacity:0;
   stroke:#e6215b;
   stroke-width:1;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-miterlimit:4;
+  stroke-opacity:0.4;
+}
+#path4148 {
+  fill: none;
+  stroke: var(--imagine-score-main-color);
+  stroke-width: 3px;
+  color:#000000;
+  fill:#000000;
+  fill-opacity:0;
+  stroke:#e6215b;
+  stroke-width:2;
   stroke-linecap:round;
   stroke-linejoin:round;
   stroke-miterlimit:4;
@@ -38,6 +52,17 @@
   stroke-linejoin:round;
   stroke-miterlimit:4;
   stroke-opacity:1;
+}
+#path4146b {
+  opacity:0.5;
+  color:#000000;
+  fill:none;
+  stroke:#3a3335;
+  stroke-width:1;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-miterlimit:4;
+  stroke-opacity:0.4;
 }
   </style>
   <template>
@@ -75,6 +100,10 @@
        id="path4148"
        />
     <path
+       d="m 350,592.3622 -108.93224,-10e-6 c -82.84269,0 -149.99999,67.1573 -149.99999,150 0,82.84272 67.1573,150 149.99999,150 42.79121,0 81.3974,-17.91817 108.72491,-46.66084"
+       id="path4148b"
+       />
+    <path
        d="m 134.99998,742.3622 c 0,57.98991 47.01011,105.00002 105.00002,105.00002"
        id="path3772"
        style="opacity:0.9;color:#000000;fill:none;stroke:#e6215b;stroke-width:32;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
@@ -84,7 +113,10 @@
        style="opacity:0.9;color:#000000;fill:#3a3335;fill-opacity:1;fill-rule:nonzero;stroke:#3a3335;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <path
        id="path4146"
-       d="m 350.08915,828.86092 c -25.63364,32.57941 -65.41812,53.50125 -110.08916,53.50125 -77.31985,0 -139.99999,-62.68013 -139.99999,-140 0,-77.31985 62.68014,-139.99999 139.99999,-139.99999 46.66666,0 63.33335,2e-5 110.00001,2e-5"
+       d="m 350,602.3622 c -46.66666,0 -63.33335,-2e-5 -110.00001,-2e-5 C 162.68014,602.36218 100,665.04232 100,742.36217 c 0,77.31987 62.68014,140 139.99999,140 44.67104,0 84.45552,-20.92184 110.08916,-53.50125"
+       /><path
+       id="path4146b"
+       d="m 350,602.3622 c -46.66666,0 -63.33335,-2e-5 -110.00001,-2e-5 C 162.68014,602.36218 100,665.04232 100,742.36217 c 0,77.31987 62.68014,140 139.99999,140 44.67104,0 84.45552,-20.92184 110.08916,-53.50125"
        />
      
     <text
@@ -216,9 +248,6 @@
     observers: [
     	
     ],
-    calcVotes: function(score){
-        return Math.max(Math.round(score*.75),0);
-    },
     _scoreChanged: function(){
     	var self = this;
     	
@@ -242,13 +271,13 @@
 		var svg = d3.select(this.$.svg);
     	var path = svg.select('#path4146');
     	var l = path.node().getTotalLength();
-    	var maxscore = 300;
+    	var maxscore = 100;
 		var myscore = self.score;
-		var perc = (myscore/maxscore) > 0 ? (myscore/maxscore):0;
+		var perc = (myscore*0.75/maxscore) > 0 ? (myscore*0.75/maxscore):0;
 		var dist = perc * l;
     	var obj = svg.select('#g3835');
 		transition();
-		
+		var perclong = (myscore/maxscore) > 0 ? (myscore/maxscore):0;
 		
 		//Move the 'punten' line to correct position
 		function transition_punten(path) {
@@ -260,7 +289,7 @@
 		
 		function tweenDash() {
 		  var l = this.getTotalLength(),
-			  i = d3.interpolateString("0," + l, l*perc + "," + l);
+			  i = d3.interpolateString("0," + l, l*perclong + "," + l);
 		  return function(t) { return i(t); };
 		}
 		
@@ -276,7 +305,7 @@
 		}
 		
 		function tweenDash_stemmen() {
-		  var l = this.getTotalLength(),
+		  var l = this.getTotalLength(),//*0.75,
 			  i = d3.interpolateString("0," + l, l*perc + "," + l);
 		  return function(t) { return i(t); };
 		}
