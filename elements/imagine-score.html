@@ -32,7 +32,7 @@
 }
 #scoreScherm {
     position: absolute;
-    top: 30%;
+    top: 40%;
     bottom: 120px;
     left: 10px;
     right: 10px;
@@ -84,6 +84,8 @@ background:#4CC0D0;
 :host[scenario=planopolis]  imagine-score-thingy {
 --imagine-score-main-color:#4CC0D0;
 }
+
+
   </style>
   <template>
   <div id="scoreHeader"><div class="content">SCORES</div></div>
@@ -91,7 +93,7 @@ background:#4CC0D0;
   <template is='dom-repeat'  items="{{instances}}">
 
   	<imagine-instance core="{{core}}" team="[[item.team]]" scenario="[[scenario]]" score="{{item.score}}"></imagine-instance>
-  	<imagine-score-thingy score="{{item.score}}" team="[[item.team]]" scenario="[[scenario]]"></imagine-score-thingy>
+  	<imagine-score-thingy class="[[scenario]]" score="{{item.score}}" team="[[item.team]]" scenario="[[scenario]]"></imagine-score-thingy>
 
   </template>
   </div>
