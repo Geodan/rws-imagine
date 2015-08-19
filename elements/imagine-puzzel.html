@@ -109,12 +109,12 @@ animation:wiggle .3s 100;
 imagine-time-slider-vertical {
     position: absolute;
     top: 115px;
-    right: 180px;
+    right: 210px;
     height: calc(100% - 230px);
 
-    -moz-box-shadow:    2px 4px 5px 0px #3A3335;
+  /*  -moz-box-shadow:    2px 4px 5px 0px #3A3335;
   -webkit-box-shadow: 2px 4px 5px 0px #3A3335;
-  box-shadow:         2px 4px 5px 0px #3A3335;
+  box-shadow:         2px 4px 5px 0px #3A3335;*/
 }
 .hide {
 display:none;
@@ -199,7 +199,7 @@ background: #625c5e;
        </template>
     </div>
    <div id="speelveld"oncontextmenu="return false">
-   <span class="background">{{team}}</span><span class="background">{{scenario}}</span>
+  
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}" oncontextmenu="return false"></canvas>
     <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
@@ -466,7 +466,7 @@ background: #625c5e;
         this.text = "VERBINDEN"
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
-        this.start = false;
+        this.start = true;
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
         this.verbindingen =[];
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)

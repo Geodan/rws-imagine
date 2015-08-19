@@ -48,29 +48,29 @@ imagine-score, .imagine-score {
     font-family: "Avenir LT W01 65 Medium", sans-serif;
   }
 .nextplayer {
-    width: 150px;
-    height: 100px;
+   
     position: absolute;
     bottom: 10px;
-    right: 10px;
+    right: 50px;
     font-size: 30px;
     text-align: center;
     line-height: 3.2;
-    -moz-box-shadow:    2px 2px 5px 0px #3A3335;
-  -webkit-box-shadow: 2px 2px 5px 0px #3A3335;
-  box-shadow:         2px 2px 5px 0px #3A3335;
+   
 }
-:host[scenario=communicity] .nextplayer{
-background:#FFD979;
+.nextplayer{
+transform: scale(1.5,1.5)
 }
-:host[scenario=sprawlville] .nextplayer {
-background:#E6215B;
+:host[scenario=communicity] #nextKnop{
+fill:#FFD979;
 }
-:host[scenario=renewabad] .nextplayer {
-background:#3ABBA0;
+:host[scenario=sprawlville] #nextKnop {
+fill:#E6215B;
 }
-:host[scenario=planopolis] .nextplayer {
-background:#4CC0D0;
+:host[scenario=renewabad] #nextKnop {
+fill:#3ABBA0;
+}
+:host[scenario=planopolis] #nextKnop {
+fill:#4CC0D0;
 }
 :host[scenario=communicity] imagine-score-thingy{
 --imagine-score-main-color:#FFD979;
@@ -100,7 +100,115 @@ imagine-score-thingy:nth-last-child(2) {
 
   </template>
   </div>
-  <div class="nextplayer" on-click="nextPlayer">{{nextTeam}}</div>
+  <div class="nextplayer" on-click="nextPlayer"><svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   width="125"
+   height="57"
+   id="svg3021">
+  <defs
+     id="defs3023">
+    <clipPath
+       id="SVGID_2_">
+      <use
+         id="use21"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="744.09448"
+         height="1052.3622"
+         xlink:href="#SVGID_1_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_2_-7">
+      <rect
+         width="7.5"
+         height="13"
+         x="1125"
+         y="726.40002"
+         id="use21-4" />
+    </clipPath>
+    <clipPath
+       id="SVGID_2_-1">
+      <rect
+         width="7.5"
+         height="13"
+         x="1125"
+         y="726.40002"
+         id="use21-1" />
+    </clipPath>
+  </defs>
+  <metadata
+     id="metadata3026">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(4,-999.3622)"
+     id="layer1">
+    <g
+       transform="translate(-1032,295.3622)"
+       id="g5">
+      <image
+         xlink:href="data:image/png;base64,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"
+         width="189"
+         height="121"
+         transform="translate(996,672)"
+         id="image7"
+         style="overflow:visible" />
+    </g>
+    <path
+       d="m 117,1024.9622 v -21.6 h -11 l 0,0 H 94.099999 c -0.2,0 -0.4,0 -0.599999,0 h -81 c -0.2,0 -0.400001,0 -0.6,0 H 9.9999995 v 0.2 C 5,1004.5622 0,1009.4622 0,1015.3622 v 13.3 c 0,0.5 0,1 0,1.5 v 22.2 H 9.9999995 19 106 v -0.3 c 6.1,-0.5 11,-5.7 11,-12 v -13.3 c 0,-0.6 0,-1.2 0,-1.8 z"
+       id="nextKnop"/>
+    <g
+       transform="translate(-1030.9999,296.36216)"
+       id="g15"
+       style="fill:#eeeeec">
+      <defs
+         id="defs17">
+        <rect
+           width="7.5"
+           height="13"
+           x="1125"
+           y="726.40002"
+           id="SVGID_1_" />
+      </defs>
+      <clipPath
+         id="clipPath3052">
+        <use
+           id="use3054"
+           style="overflow:visible"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622"
+           xlink:href="#SVGID_1_" />
+      </clipPath>
+      <path
+         d="m 1126.2,726.6 c -0.3,-0.3 -0.7,-0.2 -1,0 -0.3,0.3 -0.2,0.7 0,1 l 5.6,5.3 -5.6,5.3 c -0.3,0.3 -0.3,0.7 0,1 0.1,0.1 0.3,0.2 0.5,0.2 0.2,0 0.3,-0.1 0.5,-0.2 l 6.1,-5.8 c 0.1,-0.1 0.2,-0.3 0.2,-0.5 0,-0.2 -0.1,-0.4 -0.2,-0.5 l -6.1,-5.8 z"
+         clip-path="url(#SVGID_2_)"
+         id="path23"
+         style="fill:#eeeeec" />
+    </g>
+    <text
+       x="15.394509"
+       y="1036.105"
+       id="text27-1"
+       style="font-size:18px;fill:#eeeeec">{{nextTeam}}</text>
+  </g>
+</svg></div>
   </template>
 </dom-module>
 
