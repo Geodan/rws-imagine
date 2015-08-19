@@ -84,9 +84,15 @@ fill:#4CC0D0;
 :host[scenario=planopolis]  imagine-score-thingy {
 --imagine-score-main-color:#4CC0D0;
 }
+
 imagine-score-thingy:nth-last-child(2) {
-    transform: scale(1.2,1.2)
-    
+    transform: scale(1.2,1.2);
+    animation: pulse-end 5s infinite ease-in-out;
+}
+  @keyframes pulse-end {
+  0%   { transform:scale(1.2,1.2) }
+  50%   { transform:scale(1.25,1.25) }
+  100%   { transform:scale(1.2,1.2) }
 }
 
   </style>
