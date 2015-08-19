@@ -47,11 +47,11 @@ imagine-puzzel, .imagine-puzzel {
     bottom: 0px;
 }
 #bord {
-    border: solid 1px #3A3335;
+    
     position: absolute;
     top: 115px;
     left: 150px;
-    right: 170px;
+    right: 260px;
     background-image: url('../style/background.png');
 -moz-box-shadow:    2px 2px 5px 0px #3A3335;
   -webkit-box-shadow: 2px 2px 5px 0px #3A3335;
@@ -109,7 +109,7 @@ animation:wiggle .3s 100;
 imagine-time-slider-vertical {
     position: absolute;
     top: 115px;
-    right: 150px;
+    right: 180px;
     height: calc(100% - 230px);
 
     -moz-box-shadow:    2px 4px 5px 0px #3A3335;
@@ -477,9 +477,9 @@ background: #625c5e;
         
         var self = this;
         var w =  (window.innerWidth > 0) ? window.innerWidth : screen.width;
-        this.width=w-460;
+        this.width=w-550;
         var h =  (window.innerHeight > 0) ? window.innerHeight : screen.height;
-        this.height=h-230;
+        this.height=h-235;
 
         function dragMoveListener (event) {
             var target = event.target,
