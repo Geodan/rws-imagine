@@ -28,9 +28,9 @@
   .kaartjeText {
       position: inherit;
     top: 10px;
-    left: 5px;
+    left: 15px;
     bottom: 10px;
-    right: 5px;
+    right: 15px;
         align-items: center;
     display: flex;
 }
@@ -62,9 +62,9 @@ imagine-puzzel, .imagine-puzzel {
   box-shadow:         2px 2px 5px 0px #3A3335;
     }
 .kaartje {
-    background: url('../style/kaartje-neutraal.png') no-repeat;
-    width: 136px;
-    height: 105px;
+    background: url('../style/nkaartje-neutraal.png') no-repeat;
+    width: 151px;
+    height: 120px;
     z-index: 2;
     position: absolute;
     opacity: 0.8;
@@ -260,28 +260,28 @@ background: #625c5e;
                 this.customStyle['--imagine-puzzel-main'] = '#E6215B';
                 this.customStyle['--paper-slider-knob-color'] = '#E6215B';
                 this.customStyle['--imagine-puzzel-mild'] = '#f599a3';
-                this.customStyle['--imagine-puzzel-kaartje']= "url('./style/kaartje-sprawl.png')";
+                this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-sprawl.png')";
                 this.updateStyles();
                 break;
             case 'communicity':
                 this.customStyle['--imagine-puzzel-main'] = '#FFD979';
                 this.customStyle['--paper-slider-knob-color'] = '#FFD979';
                 this.customStyle['--imagine-puzzel-mild'] = '#FFF1C9';
-                this.customStyle['--imagine-puzzel-kaartje']= "url('./style/kaartje-communi.png')";
+                this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-communi.png')";
                 this.updateStyles();
                 break;
             case 'renewabad':
                 this.customStyle['--imagine-puzzel-main'] = "#3ABBA0";
                 this.customStyle['--paper-slider-knob-color'] = '#3ABBA0';
                 this.customStyle['--imagine-puzzel-mild'] = "#AEDAC0";
-                this.customStyle['--imagine-puzzel-kaartje']= "url('./style/kaartje-renew.png')";
+                this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-renew.png')";
                 this.updateStyles();
                 break;
             case 'planopolis':
                 this.customStyle['--imagine-puzzel-main'] = "#4CC0D0";
                 this.customStyle['--paper-slider-knob-color'] = '#4CC0D0';
                 this.customStyle['--imagine-puzzel-mild'] = "#BAE3EA";
-                this.customStyle['--imagine-puzzel-kaartje']= "url('./style/kaartje-plan.png')";
+                this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-plan.png')";
                 this.updateStyles();
                 break;
 
@@ -357,8 +357,19 @@ background: #625c5e;
 			//TODO: volgorde kaartjes bepalen
 			var b = document.getElementById('event-'+e.begin);
 			var end = document.getElementById('event-'+e.end);
-        
-			if(parseFloat(end.attributes['data-x'].value) < parseFloat(b.attributes['data-x'].value)) {
+        	if(parseFloat(end.attributes['data-x'].value) < parseFloat(b.attributes['data-x'].value)) {
+				console.log('omdraaien')
+                var endPoint = [parseFloat(b.attributes['data-x'].value) - 140,parseFloat(b.attributes['data-y'].value) - 105]
+				var beginPoint = [parseFloat(end.attributes['data-x'].value) - 17,parseFloat(end.attributes['data-y'].value) - 17]
+            
+            
+			}        
+            else {
+				var endPoint = [parseFloat(end.attributes['data-x'].value) - 140,parseFloat(end.attributes['data-y'].value) - 105]
+                var beginPoint = [parseFloat(b.attributes['data-x'].value) - 17,parseFloat(b.attributes['data-y'].value) - 17]
+            
+            }
+			/*if(parseFloat(end.attributes['data-x'].value) < parseFloat(b.attributes['data-x'].value)) {
 				console.log('omdraaien')
                 var endPoint = [parseFloat(b.attributes['data-x'].value) - 133,parseFloat(b.attributes['data-y'].value) - 30]
 				var beginPoint = [parseFloat(end.attributes['data-x'].value) - 35,parseFloat(end.attributes['data-y'].value) - 98]
@@ -369,7 +380,7 @@ background: #625c5e;
 				var endPoint = [parseFloat(end.attributes['data-x'].value) - 133,parseFloat(end.attributes['data-y'].value) - 30]
                 var beginPoint = [parseFloat(b.attributes['data-x'].value) - 35,parseFloat(b.attributes['data-y'].value) - 98]
             
-            }
+            }*/
             context.beginPath();
             context.moveTo(beginPoint[0],beginPoint[1]);
             context.lineTo(endPoint[0],endPoint[1]);
@@ -470,7 +481,7 @@ background: #625c5e;
         this.text = "VERBINDEN"
         this.beginSpel = true;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
-        this.start = true;
+        this.start = false;
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
         this.verbindingen =[];
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
