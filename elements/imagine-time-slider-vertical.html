@@ -20,6 +20,10 @@
     user-select: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+#lipje {
+fill: var(--paper-slider-knob-color, --google-blue-700);
+stroke:   var(--paper-slider-knob-color, --google-blue-700);
+}
 :host #sliderBar::shadow #activeProgress , :host #sliderBar::shadow  #progressContainer.paper-progress{
   background-color: rgba(0,0,0,0);
 }
@@ -27,13 +31,14 @@
   outline: none;
 }
 #imagineContainer {
-    border: solid 1px #3A3335;
+    border: solid 2px var(--paper-slider-knob-color);
+    border-radius: 20px;
     background-color: #fcfcfc;
     transition-property:  background, border;
     transition-duration: 30s;
      transition-timing-function: cubic-bezier(0,1,0,1);
      height: 100%;
-
+box-shadow: 1px 1px 5px 0px #3A3335
 }
  #imagineContainer.urgent {
      border: solid 1px #4CC0D0;
@@ -45,8 +50,8 @@
 #sliderContainer {
   position: relative;
   width: 48px;
-  height: calc(100% - 126px);
-   background: linear-gradient(to bottom, rgba(252,252,252,1) 0%,rgba(252,252,252,1) 80%,rgba(252,252,252,0) 100%); 
+  height: calc(100% - 66px);
+  /* background: linear-gradient(to bottom, rgba(252,252,252,1) 0%,rgba(252,252,252,1) 80%,rgba(252,252,252,0) 100%); */
    
 }
 .bar-container {
@@ -71,14 +76,15 @@
   @apply(--layout-center);
   @apply(--layout-horizontal);
   position: absolute;
-  left: -36px;
+  right: -24px;
   text-align: center;
-  width: 120px;
-  margin-top: 42px;
+  width: 35px;
+  height: 76px;
+  margin-top:16px;
   transform: rotate(90deg);
-  -moz-box-shadow:    1px 1px 2px 0px #3A3335;
+/*  -moz-box-shadow:    1px 1px 2px 0px #3A3335;
   -webkit-box-shadow:  1px 1px 2px 0px #3A3335;
-  box-shadow:         1px 1px 2px 0px #3A3335;
+  box-shadow:         1px 1px 2px 0px #3A3335;*/
 }
 #sliderKnob:focus {
   outline: none;
@@ -87,15 +93,15 @@
   transition: none;
 }
 #sliderKnobInner {
-  padding: 10px;
+  
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  background-color: var(--paper-slider-knob-color, --google-blue-700);
+
   transition-property: height, width, background-color, border, left;
   transition-duration: 0.1s;
   transition-timing-function: ease;
-  height: 40px;
-  width: 120px;
+  height: 76px;
+  width: 35px;
   text-align: center;
 }
 .expand:not(.pin) > #sliderKnob > #sliderKnobInner {
@@ -104,9 +110,7 @@
  transition-property:  margin;
   transition-duration: 0.1s;
   transition-timing-function: ease;
-  -moz-box-shadow:    2px 2px 5px 0px #3A3335;
-  -webkit-box-shadow:  2px 2px 5px 0px #3A3335;
-  box-shadow:         2px 2px 5px 0px #3A3335;
+  transform: scale(1.1,1.1);
 }
 #sliderKnob.tap {
  transition-property:  left;
@@ -128,9 +132,15 @@
   transition: transform .2s ease, background-color .18s ease;
 }
 
-
-
-
+#sliderTrack {
+    background: black;
+    position: absolute;
+    bottom:-58px;
+    width: 32px;
+    margin-left: 8px;
+    border-radius: 9px;
+    margin-top: 53px;
+}
   </style>
   <template>
   <audio id="clock" src="clock.mp3"></audio>
@@ -141,13 +151,56 @@
         <paper-progress id="sliderBar" aria-hidden="true" min="[[min]]" max="[[max]]"value="[[immediateValue]]"
           on-up="_resetKnob" on-track="_onTrack" done="[[done]]"></paper-progress>
       </div>
-
+        <div id="sliderTrack">
+        </div>
 
       <div id="sliderKnob"   on-down="_knobdown" on-up="_resetKnob"
         on-track="_onTrack"       
         center-justified center horizontal layout>
 
-        <div id="sliderKnobInner" >{{text}}</div>
+        <div id="sliderKnobInner" >
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="34.455166"
+   height="75.129036"
+   id="svg3003">
+  <defs
+     id="defs3005" />
+  <metadata
+     id="metadata3008">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-9.7411123,-989.67494)"
+     id="layer1">
+    <path
+       d="m 28.525,1063.0623 15.048731,-13.2177 0,-59.64563 -32.116117,0 0,59.33343 z"
+       id="path3808"
+       style="opacity:0.5;fill:#2e3436;stroke:#2e3436;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
+    <path
+       d="m 28.525,1063.0623 13.932614,-13.2177 0,-58.60136 -31.133929,0 0,58.28916 z"
+       id="path3790"
+       style="opacity:0.5;fill:#2e3436;stroke:#2e3436;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
+    <path
+       d="m 28.525,1063.0623 13.175,-13.7228 0,-57.55961 -31,0 0,58.13131 z"
+       id="lipje"
+       style="stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
+  </g>
+</svg>
+</div>
       </div>
     </div>
     </div>
@@ -336,6 +389,7 @@
       var ratio = this._calcRatio(this.value)
       if(ratio>0.9) {       
         this._setUrgent(true);
+        console.log(ratio);
         if(ratio===1) {
         this._setUrgent(false);
          this._setDone(true);
@@ -370,6 +424,7 @@
       this._setImmediateValue(this._calcStep(this._calcKnobPosition(ratio)) || 0);
       this._setRatio(this.snaps ? this._calcRatio(this.immediateValue) : ratio);
       this.$.sliderKnob.style.top = this.ratio * 100 + '%';
+      this.$.sliderTrack.style.top = this.ratio * 100 + '%';
     },
     _inputChange: function() {
       this.value = this.$$('#input').value;
@@ -396,13 +451,13 @@
       this._y = this.ratio * this._h;
       this._starty = this._y || 0;
       this._miny = - this._starty;
-      this._maxy = this._h - this._starty;
+      this._maxy = this._h - this._starty-16;
       this.$.sliderKnob.classList.add('dragging');
       this._setDragging(true);
     },
     _trackY: function(event) {
     if(event.detail.dy<0) return false;
-      var y = Math.min(this._maxy, Math.max(this._miny, event.detail.dy));
+      var y = Math.min(this._maxy+16, Math.max(this._miny, event.detail.dy));
       this._y = this._starty + y;
       this._setImmediateValue(this._calcStep(
           this._calcKnobPosition(this._y / this._h)) || 0);
@@ -420,7 +475,7 @@
       this.fire('change');
     },
     _knobdown: function(event) {
-      event.detail.sourceEvent.preventDefault();
+      //event.detail.sourceEvent.preventDefault();
       this._expandKnob();
     },
     _bardown: function(event) {
