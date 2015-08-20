@@ -102,7 +102,7 @@ imagine-score-thingy:nth-last-child(2) {
 }
   </style>
   <template>
-  <div id="scoreHeader"><div class="content">SCORES<span class="right">RWS IMAGINE</span></div></div>
+  <div id="scoreHeader"><div class="content">{{date}}<span class="right">RWS IMAGINE!</span></div></div>
   <div id="scoreScherm">
   <template is='dom-repeat'  items="{{instances}}">
 
@@ -253,6 +253,12 @@ imagine-score-thingy:nth-last-child(2) {
     	
     ],
     ready: function() {
+    var monthNames = ["JANUARI", "FEBRUARI", "MAART", "APRIL", "MEI", "JUNI",
+  "JULI", "AUGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"
+];
+
+        var d =new Date();
+        this.date = d.getDate() + ' '+monthNames[d.getMonth()];
          this.cowconfig ={
             key: 'imagine',
             protocol:'wss',
