@@ -94,10 +94,15 @@ imagine-score-thingy:nth-last-child(2) {
   50%   { transform:scale(1.25,1.25) }
   100%   { transform:scale(1.2,1.2) }
 }
-
+.right {
+    position: absolute;
+    right: 40px;
+    font-size: 200%;
+    text-align: right;
+}
   </style>
   <template>
-  <div id="scoreHeader"><div class="content">SCORES</div></div>
+  <div id="scoreHeader"><div class="content">SCORES<span class="right">RWS IMAGINE</span></div></div>
   <div id="scoreScherm">
   <template is='dom-repeat'  items="{{instances}}">
 
