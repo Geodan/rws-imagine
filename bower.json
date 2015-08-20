@@ -20,6 +20,7 @@
     "interact.js": "~1.2.4",
     "cow": "~2.2.0",
     "underscore": "~1.8.3",
-    "d3": "~3.5.6"
+    "d3": "~3.5.6",
+    "paper-dialog": "PolymerElements/paper-dialog#~1.0.1"
   }
 }

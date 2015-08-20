@@ -1,5 +1,6 @@
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="./imagine-time-slider-vertical.html">
 <link rel="import" href="./imagine-instance.html">
 
@@ -199,18 +200,19 @@ background: #625c5e;
     <!-- local DOM for your element -->
    <div id="properties" oncontextmenu="return false">
        <template  is="dom-repeat" items="{{eigenschappen}}">
-        <div id="{{item.id}}" class$="{{item.visible}}" ></div>
+        <div id="{{item.id}}" class$="{{item.visible}}" on-down="eigenschapDown" on-up="eigenschapUp"></div>
        </template>
     </div>
-   <div id="speelveld"oncontextmenu="return false">
+   <div id="speelveld" oncontextmenu="return false">
   
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}" oncontextmenu="return false"></canvas>
     <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
         <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" ><span class="kaartjeText">{{item._data.name}}</span></div>
     </template>
+    
    </div>
-   
+   <paper-dialog id="eigenschapScherm"><p></p></paper-dialog>
   </template>
 </dom-module>
 
@@ -234,10 +236,22 @@ background: #625c5e;
     eigenschappen: {
         type: Array,
         value: function() {
-            var e = [];
-            for(var i = 0; i<10;i++){
-                e.push({id:'property-'+i,visible:Math.round(Math.random())?'found':'lost'})
-            }
+            var e = [{id:'property-0',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'Er is sprake van fossiele, dure brandstof, e een centraal bestuur',textSprawlville:'Er is sprake van fossiele, goedkope brandstof en een de-centraal bestuur',textRenewabad:'Er is sprake van alternatieve dure brandstof en een centraal bestuur',textCommunicity:'Er is sprake van alternatieve goedkope brandstof en een de-centraal bestuur '},
+{id:'property-1',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.',textSprawlville:'Stadscentrum kent een normaal gebleven omvang. Daaromheen vindt men een keur aan grote, onderling verschillende leefgebieden, gescheiden door rommelige, vaak onafgamaakte tussengebieden.',textRenewabad:'Hier bestaat nauwelijks een stadscentrum. Eerder vindt men er een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen (polycentrisch).  ',textCommunicity:'Hier bestaat nauwelijks een stadscentrum, doch slechts rondtrekkende, mobiele centra (markten).  Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen voedselvoorziening, energie voorziening (soms kernenergie) en karakter.   '},
+{id:'property-2',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'Het landschap wordt gekenmerkt door twee soorten wegen: de oudere, goed onderhouden wegen en de nieuwere, smallere wegen , waarop zich zelf rijdende voertuigen in kolonnes bewegen, gestuurd door sensoren in de wegkant. ',textSprawlville:'Het landschap wordt gekenmerkt door vele soorten wegen, van smal tot zeer breed, gericht op zelfbestuurde voertuigen die dagelijks vele uren in de file staan. Grote parkeertorens houden auto\'s zoveel mogelijk langs de rand van de stad. Alleen electrisch komt nog in de binnenstad.',textRenewabad:'Het landschap wordt gekenmerkt door smalle, nieuwe wegen voor electrische auto\'s en bovengrondse fietstunnels, waarin de fietser de wind altijd mee heeft. Drukte en files bestaan hier niet meer door slim rekeningrijden per tijdzone.',textCommunicity:'Het landschap wordt gekenmerkt door versmalde, oude wegen met kastuinbouw langs de wegrand waar eerst nog asfalt lag. Wegen worden bevolkt door een bonte  stoet soorten voertuigen op biomassa of andere alternatieve brandstoffen. Files worden voorkomen door eigen on-board sensors.  '},
+{id:'property-3',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'Het treinnen-netwerk is intact gebleven, maar de intensiteit is sterk toegenomen. ',textSprawlville:'Het treinnen-netwerk is intact gebleven, zonder veel wijzigingen.  ',textRenewabad:'Het treinnen-netwerk is sterk gegoeid. Er bestaan gedeelde rails systemen voor Ultra HSL, HSL, Intercity, boemel, metro en tram. ',textCommunicity:'Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk afgenomen. Veel verkeer tussen  leefgebieden is niet meer nodig. '},
+{id:'property-4',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'In de stad vinden we een fijnmazig netwerk van autobanen, fietspaden en wandelroutes. Vernieuwd en goed onderhouden. De zelfrijdende auto\'s zorgen ervoor dat er nawelijks file ontstaat.',textSprawlville:'In de stad vinden we een grofmazig, maar uitgebreid netwerk van betonnen autobanen, fly-overs, particuliere tolroutes, fietspaden en stroken. Onderhoud daaraan maakt de files dagelijks nog erger dan anders. ',textRenewabad:'In de leefgebieden vinden we een fijnmazig netwerk van lanes en andere big data gestuurde, persoonlijke mobiliteits-voorzieningen zoals smalle wegen (autorijden in de gemeenschap is not done), brede wandel- en fietspaden, e-bike tracees, lopende banden en airpods.',textCommunicity:'In de leefgebieden vinden we oudere betonnen straten en stroken. Het onderhoud daarvan is matig en verschilt per leefgebied. In de winter strooit niemand.  '},
+{id:'property-5',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'De ringwegen zijn er nog wel, maar zijn thans ondertunneld, met een naadloze aansluiting op distributiecentra aan de rand van de stad.',textSprawlville:'De ringwegen zijn er nog en zijn breder en drukker dan ooit. Het verkeer de stad-in en het verkeer de stad-uit strijden om schaarse time/space slots.',textRenewabad:'De ringwegen zijn hier afgebroken en langzaam helemaal verdwenen.',textCommunicity:'De ringwegen zijn hier langzaam in onbruik geraakt en door andere aktiviteiten  - vaak voedsel- en handelsgerelateerd - overgenomen. '},
+{id:'property-6',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'De havenfunctie is gegroeid en kent tal van distributiecentra aan de kade met veel bulkvaart (graan e.d.).',textSprawlville:'De havenfunctie is gegroeid en kent veel tankopslag voor de drukke tankvaart (vloetbaar, chemisch).',textRenewabad:'De havenfunctie is niet gegroeid en is ook  veranderd. Tankopslag is verdwenen ten gunste van solar energy centres.',textCommunicity:'De havenfunctie is verkleind ten gunste van bewoning en recreatie op het water. Elke leefgemeeschap heeft aanlegsteigers voor handel via water. '},
+{id:'property-7',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'Fijnmazige dstributie-centra bevoorraden de leefgebieden volgens het last mile principe. ',textSprawlville:'Vrachtwagens en bestelauto\'s kruisen door alle woongebieden. ',textRenewabad:'Fijnmazige distributie-regels, gegenereerd uit big data verbinden kanalen en vaarten in de stad, via drones door de lucht en via buizen ondergronds of bots bovengronds.',textCommunicity:'Er is nauwelijks distributie nodig, Men is zelfvoorzienend. '},
+{id:'property-8',visible:Math.round(Math.random())?'found':'lost',textPlanopolis:'Het OV is sterk uitgebreid en rijdt hoogfrequent door de hele stad',textSprawlville:'Het OV is niet uitgebreid terwijl de stad wel groeit, met achtergebleven gebieden als gevolg.',textRenewabad:'Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd.',textCommunicity:'Er is nauwelijks gebruik van het OV. Daarom is dit sterk ingekrompen. '},
+{id:'property-9'
+,visible:Math.round(Math.random())?'found':'lost'
+,textPlanopolis:'Er rijden standaard auto\'s, vaak klein, zelfrijdend en veel electrisch.'
+,textSprawlville:'Er rijden standaard auto\'s, groot en klein, electrisch, hybride, status-auto\'s en werkauto\'s.'
+,textRenewabad:'Er rijden weinig auto\'s en degenen die er rijden zijn groen, gedeeld en intelligent.'
+,textCommunicity:'Er rijden veel soorten gemotoriseerd vervoer op alternatieve, goedkope brandstoffen. Soms ook vliegend. '}
+]
             return e;
         }
       }
@@ -253,6 +267,35 @@ background: #625c5e;
     createID: function(i) {
         return 'event-'+i;
     },
+    eigenschapDown: function(e) {
+        if(e.target.classList.contains('found')){
+        var text = '';
+        switch(this.scenario) {
+            case 'communicity':
+            text = e.model.item.textCommunicity;
+            break;
+            case 'sprawlville':
+            text = e.model.item.textSprawlville;
+            break;
+            case 'renewabad':
+            text = e.model.item.textRenewabad;
+            break;
+            case 'planopolis':
+            text = e.model.item.textPlanopolis;
+            break;
+            
+        }
+        
+        var el = document.getElementById('eigenschapScherm');
+        el.childNodes[1].innerHTML = text;
+        el.open();
+        }
+    },
+    eigenschapUp: function(e) {
+        var el = document.getElementById('eigenschapScherm');
+        el.close();
+    },
+    
     _scenarioChanged: function(){
         var s = this.scenario.toLowerCase();
         switch(s) {
