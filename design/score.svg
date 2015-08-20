@@ -7,6 +7,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    version="1.1"
    width="361.52136"
    height="419.83258"
@@ -18,6 +19,291 @@
        d="m 134.99998,742.3622 c 0,57.98991 47.01011,105.00002 105.00002,105.00002"
        id="path3772-4"
        style="opacity:0.9;color:#000000;fill:none;stroke:#e6215b;stroke-width:32;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <clipPath
+       id="SVGID_38_">
+      <use
+         id="use273"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_37_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_40_">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="405.20001"
+         y="321.60001"
+         id="use311" />
+    </clipPath>
+    <clipPath
+       id="clipPath3577">
+      <use
+         id="use3579"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_37_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_42_">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="405.20001"
+         y="374.5"
+         id="use323" />
+    </clipPath>
+    <clipPath
+       id="clipPath3583">
+      <use
+         id="use3585"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_37_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_44_">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="458"
+         y="321.60001"
+         id="use335" />
+    </clipPath>
+    <clipPath
+       id="clipPath3589">
+      <use
+         id="use3591"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_37_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_46_">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="458"
+         y="374.5"
+         id="use347" />
+    </clipPath>
+    <clipPath
+       id="SVGID_38_-9">
+      <use
+         id="use273-4"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_37_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_40_-8">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="405.20001"
+         y="321.60001"
+         id="use311-8" />
+    </clipPath>
+    <clipPath
+       id="clipPath3577-2">
+      <use
+         id="use3579-4"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_37_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_42_-5">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="405.20001"
+         y="374.5"
+         id="use323-5" />
+    </clipPath>
+    <clipPath
+       id="clipPath3583-1">
+      <use
+         id="use3585-7"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_37_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_44_-1">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="458"
+         y="321.60001"
+         id="use335-1" />
+    </clipPath>
+    <clipPath
+       id="clipPath3589-5">
+      <use
+         id="use3591-2"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_37_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_46_-7">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="458"
+         y="374.5"
+         id="use347-6" />
+    </clipPath>
+    <clipPath
+       id="SVGID_40_-86">
+      <use
+         id="use311-5"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_39_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_42_-0">
+      <use
+         id="use323-2"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_41_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_44_-8">
+      <use
+         id="use335-6"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_43_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_46_-0">
+      <use
+         id="use347-2"
+         style="overflow:visible"
+         x="0"
+         y="0"
+         width="1280"
+         height="800"
+         xlink:href="#SVGID_45_" />
+    </clipPath>
+    <clipPath
+       id="SVGID_2_">
+      <rect
+         width="95"
+         height="95"
+         x="873"
+         y="257"
+         id="use15" />
+    </clipPath>
+    <clipPath
+       id="SVGID_4_">
+      <rect
+         width="95"
+         height="95"
+         x="873"
+         y="257"
+         id="use23" />
+    </clipPath>
+    <clipPath
+       id="SVGID_6_">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="864"
+         y="250"
+         id="use33" />
+    </clipPath>
+    <clipPath
+       id="clipPath3834">
+      <rect
+         width="95"
+         height="95"
+         x="873"
+         y="257"
+         id="use3836" />
+    </clipPath>
+    <clipPath
+       id="SVGID_8_">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="864"
+         y="302.89999"
+         id="use45" />
+    </clipPath>
+    <clipPath
+       id="clipPath3840">
+      <rect
+         width="95"
+         height="95"
+         x="873"
+         y="257"
+         id="use3842" />
+    </clipPath>
+    <clipPath
+       id="SVGID_10_">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="916.90002"
+         y="250"
+         id="use57" />
+    </clipPath>
+    <clipPath
+       id="clipPath3846">
+      <rect
+         width="95"
+         height="95"
+         x="873"
+         y="257"
+         id="use3848" />
+    </clipPath>
+    <clipPath
+       id="SVGID_12_">
+      <rect
+         width="60.099998"
+         height="50.099998"
+         x="916.90002"
+         y="302.89999"
+         id="use69" />
+    </clipPath>
   </defs>
   <metadata
      id="metadata7">
@@ -248,5 +534,60 @@
          x="349.32916"
          y="702.31183"
          id="tspan4180">punten:</tspan></text>
+    <g
+       transform="translate(40.567768,523.0296)"
+       id="g3789">
+      <path
+         d="m 415.70001,330.10001 39.1,0 0,39.09999 -39.1,0 z"
+         clip-path="url(#SVGID_40_-86)"
+         id="rect313"
+         style="opacity:0.93000034;fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round" />
+      <path
+         d="m 415.70001,383 39.1,0 0,39.1 -39.1,0 z"
+         clip-path="url(#SVGID_42_-0)"
+         id="rect325"
+         style="opacity:0.93000034;fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round" />
+      <path
+         d="m 468.5,330.10001 39.1,0 0,39.09999 -39.1,0 z"
+         clip-path="url(#SVGID_44_-8)"
+         id="rect337"
+         style="opacity:0.93000034;fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round" />
+      <path
+         d="m 468.5,383 39.1,0 0,39.1 -39.1,0 z"
+         clip-path="url(#SVGID_46_-0)"
+         id="rect349"
+         style="opacity:0.93000034;fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round" />
+    </g>
+    <g
+       id="g4851">
+      <rect
+         width="41.015625"
+         height="41.015625"
+         x="192.49219"
+         y="694.85437"
+         id="rect4773"
+         style="color:#000000;fill:none;stroke:#eeeeec;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         width="41.015625"
+         height="41.015625"
+         x="246.49219"
+         y="694.85437"
+         id="rect4805"
+         style="color:#000000;fill:none;stroke:#eeeeec;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         width="41.015625"
+         height="41.015625"
+         x="246.49219"
+         y="748.85437"
+         id="rect4807"
+         style="color:#000000;fill:none;stroke:#eeeeec;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         width="41.015625"
+         height="41.015625"
+         x="192.49219"
+         y="748.85437"
+         id="rect4809"
+         style="color:#000000;fill:none;stroke:#eeeeec;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
   </g>
 </svg>
