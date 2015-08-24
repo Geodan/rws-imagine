@@ -13,7 +13,7 @@
   <style>
 paper-dialog {
   max-width: 50%;
-      
+  z-index: 100000;    
 }
 
   *{ 
@@ -68,7 +68,7 @@ imagine-puzzel, .imagine-puzzel {
 .kaartje {
     background: url('../style/nkaartje-neutraal.png') no-repeat;
     width: 151px;
-    height: 120px;
+    height: 116px;
     z-index: 2;
     position: absolute;
     opacity: 0.8;
@@ -83,15 +83,15 @@ imagine-puzzel, .imagine-puzzel {
   background: #b0adae;
   border: dashed 4px transparent;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: background-color 0.1s;
 }
 
 
 
 .drop-target {
   background-color: var(--imagine-puzzel-mild);
-  border-color: #fff;
-  border-style: solid;
+  //border-color: #fff;
+  //border-style: solid;
 }
 
 
@@ -194,7 +194,22 @@ background: #625c5e;
 :host[scenario=planopolis] imagine-time-slider-vertical {
 --paper-slider-knob-color:#4CC0D0;
 }
-
+.ict {
+     background: url('../style/nkaartje-1.png') no-repeat;
+     
+}
+.leefbaar {
+     background: url('../style/nkaartje-2.png') no-repeat;
+     color: #183866;
+}
+.mobi {
+     background: url('../style/nkaartje-3.png') no-repeat;
+     color: #856c00;
+}
+.s{
+     background: url('../style/nkaartje-4.png') no-repeat;
+     color: #285102;
+}
   </style>
   <template>
   
@@ -210,8 +225,8 @@ background: #625c5e;
   
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}" oncontextmenu="return false"></canvas>
     <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
-    <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
-        <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" ><span class="kaartjeText">{{item._data.name}}</span></div>
+    <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}" as="item">
+        <div id="{{createID(item._data.id)}}" class$="[[createClass(item._data.id)]]"><span  class="kaartjeText">{{item._data.name}}</span></div>
     </template>
     
    </div>
@@ -265,6 +280,23 @@ background: #625c5e;
     //Functie om een kaartje op het speelveld te leggen
     createID: function(i) {
         return 'event-'+i;
+    },
+    createClass: function(id) {
+        var classe ="";
+        if(id <10) {
+            classe="ict";
+        }
+        else if (id <20) {
+            classe="mobi";
+        }
+        else if (id <30) {
+            classe="leefbaar";
+        }
+        else {
+            classe="s";
+        }
+        return "kaartje draggable drag-drop " + classe;
+    
     },
     eigenschapDown: function(e) {
         if(e.target.classList.contains('found')){
@@ -567,7 +599,8 @@ background: #625c5e;
                 onmove: dragMoveListener
             })
             .on('down',function(e) {
-              e.target.style.zIndex = self.zindex++
+              e.target.parentElement.style.zIndex = self.zindex++
+              console.log(self.zindex);
             })
             .on('up',function(e){
                 //truukje om te zorgen dat je zonder multitouch wel kan werken
