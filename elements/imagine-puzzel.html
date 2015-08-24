@@ -212,7 +212,11 @@ background: #625c5e;
 }
   </style>
   <template>
-  
+    <audio id="soundcom" src="Communicity.mp3"></audio>
+    <audio id="soundplan" src="Plannedopolis.mp3"></audio>
+    <audio id="soundrenew" src="Renewabad.mp3"></audio>
+    <audio id="soundsprawl" src="Sprawlville.mp3"></audio>
+            
     <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
     
     <!-- local DOM for your element -->
@@ -331,6 +335,7 @@ background: #625c5e;
         var s = this.scenario.toLowerCase();
         switch(s) {
             case 'sprawlville':
+               
                 this.customStyle['--imagine-puzzel-main'] = '#E6215B';
                 this.customStyle['--paper-slider-knob-color'] = '#E6215B';
                 this.customStyle['--imagine-puzzel-mild'] = '#f599a3';
@@ -550,7 +555,29 @@ background: #625c5e;
         document.getElementById('puzzelscore').style.display = 'block';
        
     },
+    attached: function() {
+     var s = this.scenario.toLowerCase();
+        switch(s) {
+            case 'sprawlville':
+                document.getElementById('soundsprawl').play()
+               
+                break;
+            case 'communicity':
+               document.getElementById('soundcom').play()
+                break;
+            case 'renewabad':
+               document.getElementById('soundrenew').play()
+                break;
+            case 'planopolis':
+               document.getElementById('soundplan').play()
+                break;
+
+        }
+              
+      },
+    
     ready: function() {    
+   
         this.stamps = 0;
         this.text = "VERBINDEN"
         this.beginSpel = true;  //boolean to make sure that we have started a new game
