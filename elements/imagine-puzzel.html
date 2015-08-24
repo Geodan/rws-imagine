@@ -544,6 +544,23 @@ background: #625c5e;
         }
         else if(this.done&&this.verbinden) { // scorebord
             //TODO: hier moet het scorebord komen
+             var s = this.scenario.toLowerCase();
+            switch(s) {
+                case 'sprawlville':
+                    document.getElementById('soundsprawl').pause()
+                   
+                    break;
+                case 'communicity':
+                   document.getElementById('soundcom').pause()
+                    break;
+                case 'renewabad':
+                   document.getElementById('soundrenew').pause()
+                    break;
+                case 'planopolis':
+                   document.getElementById('soundplan').pause()
+                    break;
+
+            }
             this.verbinden = false;
             instance.setProgress(3);
             this.showScore()
