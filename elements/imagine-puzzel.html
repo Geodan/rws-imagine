@@ -147,16 +147,16 @@ display:none;
 #event-17{right:0;top:70%}
 #event-18{right:0;top:80%}
 #event-19{right:0;top:90%}
-#event-20{left:10%;bottom:0}
-#event-21{left:18%;bottom:0}
-#event-22{left:26%;bottom:0}
-#event-23{left:34%;bottom:0}
-#event-24{left:42%;bottom:0}
-#event-25{left:50%;bottom:0}
-#event-26{left:58%;bottom:0}
-#event-27{left:66%;bottom:0}
-#event-28{left:74%;bottom:0}
-#event-29{left:82%;bottom:0}
+#event-29{left:10%;bottom:0}
+#event-28{left:18%;bottom:0}
+#event-27{left:26%;bottom:0}
+#event-26{left:34%;bottom:0}
+#event-25{left:42%;bottom:0}
+#event-24{left:50%;bottom:0}
+#event-23{left:58%;bottom:0}
+#event-22{left:66%;bottom:0}
+#event-21{left:74%;bottom:0}
+#event-20{left:82%;bottom:0}
 #event-30{left:0}
 #event-31{left:0;top:10%}
 #event-32{left:0;top:20%}
@@ -283,17 +283,17 @@ background: #625c5e;
     },
     createClass: function(id) {
         var classe ="";
-        if(id <10) {
+        if(id <9) {
+            classe="s"; //bestuur
+        }
+        else if (id <17) {
             classe="ict";
         }
-        else if (id <20) {
-            classe="mobi";
-        }
-        else if (id <30) {
+        else if (id <29) {
             classe="leefbaar";
         }
         else {
-            classe="s";
+            classe="mobi";
         }
         return "kaartje draggable drag-drop " + classe;
     
