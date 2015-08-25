@@ -17,7 +17,7 @@
 <body oncontextmenu="return false">
 <template id="main" is="dom-bind">
     <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
-    <imagine-3d begin="{{begin}}"></imagine-3d>
+    <imagine-3d></imagine-3d>
     <imagine-puzzel begin="{{begin}}" id="puzzelgame" core="{{cow}}" scenario="communicity" team="{{team}}"></imagine-puzzel>
     <imagine-score id="puzzelscore" core="{{cow}}" scenario="communicity" team="{{team}}" teams="{{teams}}"></imagine-score>
 </template>   
@@ -26,7 +26,7 @@
     var teamNr = 0;
     if(window.location.hash) {
         var hash = window.location.hash.split('#')[1];
-        if(parseInt(hash)&&hash <4 && hash > 0) {
+        if(parseInt(hash)&&hash <4 && hash > 0) {            
             teamNr = hash;
         }
     }

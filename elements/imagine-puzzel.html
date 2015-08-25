@@ -11,121 +11,98 @@
 <dom-module id="imagine-puzzel">
  <link rel='import' href='../style/theme.css' type='css'>
   <style>
-paper-dialog {
-  max-width: 50%;
-  z-index: 100000;    
-}
-
-  *{ 
-  -webkit-touch-callout: none;
+*{ 
+    -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    }
-  .stamped {
-    background: url('../style/stamp.png') no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-  }
-  .kaartjeText {
-      position: inherit;
-    top: 10px;
-    left: 15px;
-    bottom: 10px;
-    right: 15px;
-        align-items: center;
-    display: flex;
-}
-  
-.background{
-float: left;
-padding: 10px;
 }
 imagine-puzzel, .imagine-puzzel {
     font-family: "Avenir LT W01 65 Medium", sans-serif;
-  }
-#speelveld {
-
-    position: absolute;
-    top: 0px;
-    left: 110px;
-    right: 0px;
-    bottom: 0px;
 }
-#bord {
-    
-    position: absolute;
-    top: 115px;
-    left: 150px;
-    right: 260px;
-    background-image: url('../style/background.png');
--moz-box-shadow:    2px 2px 5px 0px #3A3335;
-  -webkit-box-shadow: 2px 2px 5px 0px #3A3335;
-  box-shadow:         2px 2px 5px 0px #3A3335;
-    }
-.kaartje {
-    background: url('../style/nkaartje-neutraal.png') no-repeat;
-    width: 151px;
-    height: 116px;
-    z-index: 2;
-    position: absolute;
-    opacity: 0.8;
-    text-align: center;
-    valign: middle;
-    font-size: 10px;
-}
-
-
-
-.dropzone {
-  background: #b0adae;
-  border: dashed 4px transparent;
-  border-radius: 4px;
-  transition: background-color 0.1s;
-}
-
-
-
-.drop-target {
-  background-color: var(--imagine-puzzel-mild);
-  //border-color: #fff;
-  //border-style: solid;
-}
-
-
-.drag-drop.can-drop {
-background-image: var(--imagine-puzzel-kaartje);
-
-  opacity: 1;
-  color: #fcfcfc;
-  font-family: "Avenir LT W01 85 Heavy", sans-serif;
-}
-
-
-@-ms-keyframes wiggle{0%{-ms-transform:rotate3d(0, 0, 1, 3deg);}50%{-ms-transform:rotate3d(0, 0, 1, -3deg);}100%{-ms-transform:rotate3d(0, 0, 1, 3deg);}}
-@-moz-keyframes wiggle{0%{-moz-transform:rotate3d(0, 0, 1, 3deg));}50%{-moz-transform:rotate3d(0, 0, 1, -3deg);}100%{-moz-transform:rotate3d(0, 0, 1, 3deg);}}
-@-webkit-keyframes wiggle{0%{-webkit-transform:rotate3d(0, 0, 1, 3deg));}50%{-webkit-transform:rotate3d(0, 0, 1, -3deg);}100%{-webkit-transform:rotate3d(0, 0, 1, 3deg);}}
-@keyframes wiggle{0%{transform:rotate3d(0, 0, 1, 3deg));}50%{transform:rotate3d(0, 0, 1, -3deg);}100%{transform:rotate3d(0, 0, 1, 3deg);}}
-
-.wiggle{
--webkit-animation: wiggle .3s 100;
-animation:wiggle .3s 100;
-
+paper-dialog {
+    max-width: 50%;
+    z-index: 100000;    
 }
 imagine-time-slider-vertical {
     position: absolute;
     top: 115px;
     right: 210px;
     height: calc(100% - 240px);
+}
 
-  /*  -moz-box-shadow:    2px 4px 5px 0px #3A3335;
-  -webkit-box-shadow: 2px 4px 5px 0px #3A3335;
-  box-shadow:         2px 4px 5px 0px #3A3335;*/
+/*
+    Kleur van de slider afh van scenario
+*/
+:host[scenario=communicity] imagine-time-slider-vertical{
+    --paper-slider-knob-color:#FFD979;
+}
+:host[scenario=sprawlville] imagine-time-slider-vertical {
+    --paper-slider-knob-color:#E6215B;
+}
+:host[scenario=renewabad] imagine-time-slider-vertical {
+    --paper-slider-knob-color:#3ABBA0;
+}
+:host[scenario=planopolis] imagine-time-slider-vertical {
+    --paper-slider-knob-color:#4CC0D0;
+}
+#speelveld {
+    position: absolute;
+    top: 0px;
+    left: 110px;
+    right: 0px;
+    bottom: 0px;
+}
+#bord {    
+    position: absolute;
+    top: 115px;
+    left: 150px;
+    right: 260px;
+    background-image: url('../style/background.png');
+    -moz-box-shadow:    2px 2px 5px 0px #3A3335;
+    -webkit-box-shadow: 2px 2px 5px 0px #3A3335;
+    box-shadow:         2px 2px 5px 0px #3A3335;
+}
+   
+.dropzone {
+    background: #b0adae;
+    border: solid 4px transparent;
+    border-radius: 4px;
+    transition: background-color 0.1s;
+}
+.drop-target {
+    background-color: var(--imagine-puzzel-mild); 
+}
+
+@-ms-keyframes wiggle{
+    0%{-ms-transform:rotate3d(0, 0, 1, 3deg);}
+    50%{-ms-transform:rotate3d(0, 0, 1, -3deg);}
+    100%{-ms-transform:rotate3d(0, 0, 1, 3deg);}
+    }
+@-moz-keyframes wiggle{
+    0%{-moz-transform:rotate3d(0, 0, 1, 3deg));}
+    50%{-moz-transform:rotate3d(0, 0, 1, -3deg);}
+    100%{-moz-transform:rotate3d(0, 0, 1, 3deg);}
+    }
+@-webkit-keyframes wiggle{
+    0%{-webkit-transform:rotate3d(0, 0, 1, 3deg));}
+    50%{-webkit-transform:rotate3d(0, 0, 1, -3deg);}
+    100%{-webkit-transform:rotate3d(0, 0, 1, 3deg);}
+    }
+@keyframes wiggle{
+    0%{transform:rotate3d(0, 0, 1, 3deg));}
+    50%{transform:rotate3d(0, 0, 1, -3deg);}
+    100%{transform:rotate3d(0, 0, 1, 3deg);}
+    }
+
+.wiggle{
+    -webkit-animation: wiggle .3s 100;
+    animation:wiggle .3s 100;
 }
 .hide {
-display:none;
+    display:none;
 }
 #event-0{left:10%}
 #event-1{left:18%}
@@ -175,28 +152,49 @@ display:none;
     margin: 5.5px;
     border: solid 1px #3a3335;
 }
-
 #properties div.found {
-background: var(--imagine-puzzel-mild)
+    background: var(--imagine-puzzel-mild)
 }
 #properties div.lost {
-background: #625c5e;
+    background: #625c5e;
 }
-:host[scenario=communicity] imagine-time-slider-vertical{
---paper-slider-knob-color:#FFD979;
+.drag-drop.can-drop {
+    background-image: var(--imagine-puzzel-kaartje);
+    opacity: 1;
+    color: #fcfcfc;
+    font-family: "Avenir LT W01 85 Heavy", sans-serif;
 }
-:host[scenario=sprawlville] imagine-time-slider-vertical {
---paper-slider-knob-color:#E6215B;
+.stamped {
+    background: url('../style/stamp.png') no-repeat;
+    background-position-x: center;
+    background-position-y: center;
 }
-:host[scenario=renewabad] imagine-time-slider-vertical {
---paper-slider-knob-color:#3ABBA0;
+.kaartjeText {
+    position: inherit;
+    top: 10px;
+    left: 15px;
+    bottom: 10px;
+    right: 15px;
+    align-items: center;
+    display: flex;
 }
-:host[scenario=planopolis] imagine-time-slider-vertical {
---paper-slider-knob-color:#4CC0D0;
+.kaartje {
+    background: url('../style/nkaartje-neutraal.png') no-repeat;
+    width: 151px;
+    height: 116px;
+    z-index: 2;
+    position: absolute;
+    opacity: 0.8;
+    text-align: center;
+    valign: middle;
+    font-size: 10px;
 }
-.s {
+
+/*
+    Kaartjes categorieen
+*/
+.bestuur {
      background: url('../style/nkaartje-1.png') no-repeat;
-     
 }
 .ict {
      background: url('../style/nkaartje-2.png') no-repeat;
@@ -216,13 +214,10 @@ background: #625c5e;
     <audio id="soundplan" src="Plannedopolis.mp3" loop></audio>
     <audio id="soundrenew" src="Renewabad.mp3" loop></audio>
     <audio id="soundsprawl" src="Sprawlville.mp3" loop></audio>
-            
     <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
-    
-    <!-- local DOM for your element -->
    <div id="properties" oncontextmenu="return false">
        <template  is="dom-repeat" items="{{eigenschappen}}">
-        <div id="{{item.id}}" class$="{{item.visible}}" on-down="eigenschapDown" on-up="eigenschapUp"></div>
+        <div id="{{item.id}}" class$="{{item.visible}}" on-down="_eigenschapDown" on-up="_eigenschapUp"></div>
        </template>
     </div>
    <div id="speelveld" oncontextmenu="return false">
@@ -284,8 +279,6 @@ background: #625c5e;
       }
 
     },
-    behaviors: [
-    ],
     observers: [
         '_doneChanged(done)',
         '_kaartjesChanged(kaartjes)'
@@ -294,6 +287,7 @@ background: #625c5e;
     createID: function(i) {
         return 'event-'+i;
     },
+    //Toggle items in de kenmerkenlijst, wordt aangestuurd door de aapie
     _kenmerkChanged: function(){
         var id = this.kenmerk;   
         if(id==-1) return false;
@@ -308,10 +302,11 @@ background: #625c5e;
         }
 
     },
+    //categorieen aanmaken voor kaartjes
     createClass: function(id) {
         var classe ="";
         if(id <9) {
-            classe="s"; //bestuur
+            classe="bestuur"; //bestuur
         }
         else if (id <17) {
             classe="ict";
@@ -325,40 +320,37 @@ background: #625c5e;
         return "kaartje draggable drag-drop " + classe;
     
     },
-    eigenschapDown: function(e) {
+    //
+    _eigenschapDown: function(e) {
         if(e.target.classList.contains('found')){
-        var text = '';
-        switch(this.scenario) {
-            case 'communicity':
-            text = e.model.item.textCommunicity;
-            break;
-            case 'sprawlville':
-            text = e.model.item.textSprawlville;
-            break;
-            case 'renewabad':
-            text = e.model.item.textRenewabad;
-            break;
-            case 'planopolis':
-            text = e.model.item.textPlanopolis;
-            break;
-            
-        }
-        
-        var el = document.getElementById('eigenschapScherm');
-        el.childNodes[1].innerHTML = text;
-        el.open();
+            var text = '';
+            switch(this.scenario) {
+                case 'communicity':
+                text = e.model.item.textCommunicity;
+                break;
+                case 'sprawlville':
+                text = e.model.item.textSprawlville;
+                break;
+                case 'renewabad':
+                text = e.model.item.textRenewabad;
+                break;
+                case 'planopolis':
+                text = e.model.item.textPlanopolis;
+                break;            
+            }
+            var el = document.getElementById('eigenschapScherm');
+            el.childNodes[1].innerHTML = text;
+            el.open();
         }
     },
-    eigenschapUp: function(e) {
+    _eigenschapUp: function(e) {
         var el = document.getElementById('eigenschapScherm');
         el.close();
     },
-    
     _scenarioChanged: function(){
         var s = this.scenario.toLowerCase();
         switch(s) {
             case 'sprawlville':
-               
                 this.customStyle['--imagine-puzzel-main'] = '#E6215B';
                 this.customStyle['--paper-slider-knob-color'] = '#E6215B';
                 this.customStyle['--imagine-puzzel-mild'] = '#f599a3';
@@ -386,26 +378,30 @@ background: #625c5e;
                 this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-plan.png')";
                 this.updateStyles();
                 break;
-
         }
     },
     //Functie om een kaartje te selecteren
     selectKaartje: function(e) {        
         //TODO: check de volgorde van de link en klap evt om
         var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
+        console.log(this.setje);
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
+            console.log('begin');
             this.setje.begin = kaartje;
             var kaartjes = document.getElementsByClassName('can-drop');
+            console.log(kaartjes);
+            if(this.verbindingen.length < 10) {
             for(var i = 0; i< kaartjes.length;i++){
+            
                 kaartjes[i].classList.add('wiggle');
 
-
+            }
             }
             e.currentTarget.classList.remove('wiggle');
         }
         else if (this.setje.end === null) {   
             //SWAP!
-            
+            console.log('end');
             if(parseInt(kaartje.id) < parseInt(this.setje.begin.id)) {
                 this.setje.end = {id:this.setje.begin.id,x:this.setje.begin.x};
                 this.setje.begin = kaartje;
@@ -509,10 +505,6 @@ background: #625c5e;
             kaartjes[i].classList.remove('first')
         }
     },
-    //Functie om alles te resetten en naar het scorebord te gaan
-
-
-
     //hulpfunctie om de overige kaartjes te verwijderen
     _removeUnused: function() {
         this.verbinden =true; //Kaartjes-ronde is over, now we start verbinden
@@ -525,20 +517,19 @@ background: #625c5e;
             else this.speelkaarten.push(allekaartjes[i].id)
         }
     },
-
+    //Make sure that the kaartjes are all reset to their initial position
     _kaartjesChanged: function(){
-        //Make sure that the kaartjes are all reset to their initial position
+        
         if(this.beginSpel && this.kaartjes.length > 0) {
 
             this.beginSpel = false; //The game has started
         }
     },
+    //RWS logo op het kaartje zetten
     stampKaartje: function(e) {
-        
         if(this.stamps < 5) {
-        
-        e.target.classList.add('stamped');
-        this.stamps++
+            e.target.classList.add('stamped');
+            this.stamps++
         }
     },
     //Function called when the slider reaches the end
@@ -549,7 +540,6 @@ background: #625c5e;
             this.text = "INDIENEN";
             instance.setProgress(2);
             this._removeUnused();
-
             var self = this;
             interact('.draggable')
                 .draggable({enabled:false})
@@ -558,6 +548,8 @@ background: #625c5e;
                 //of een ander kaartje wordt aangeraakt
                 //TODO: firefox registreerd de on down pas bij up
                 .on('down',function(e){
+                    e.preventDefault();
+                    console.log(e.changedTouches);
                     if(e.ctrlKey) self.stampKaartje(e);
                     else self.selectKaartje(e);
 
@@ -595,7 +587,7 @@ background: #625c5e;
        
     },
     _beginSpel: function() {
-
+    
      var s = this.scenario.toLowerCase();
       if(this.begin) {
           this.beginSpel = true;
@@ -676,7 +668,7 @@ background: #625c5e;
             })*/
             .on('up',function(e){
                 //truukje om te zorgen dat je zonder multitouch wel kan werken
-                
+                self.selectKaartje(e);
                 if(e.shiftKey) return true;
                 else self.stopWiebelen();
 

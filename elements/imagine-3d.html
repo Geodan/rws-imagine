@@ -7,7 +7,7 @@
    
 
 <script>
-
+//Global functions to be called from within unity, so called aapie
 function SayHelloToBrowser()
 {
     $('#firstScreen').slideUp();
@@ -32,7 +32,7 @@ function setKenmerk(id) {
  <div class="3DView" id="firstScreen">
         <div id="unityPlayer">
            
-        </div>
+        </div>        
     </div>
   </template>
 </dom-module>
@@ -41,31 +41,6 @@ function setKenmerk(id) {
   // register a new element called proto-element
   Polymer({
     is: "imagine-3d",
-    properties: {
-
-        kenmerken: {
-            type: Array        
-        },
-        begin: {
-            type: Boolean,
-            value: false,
-            observer: '_beginSpel'
-        }
-        
-    },    
-    behaviors: [
-     
-    ],
-    observers: [
-    	
-    ],
-    _beginSpel: function() {
-    
-    },
-    ready: function() {
-    
-       
-    },
     attached: function(){
     	var width = 1920, height = 1080;
         width = window.innerWidth;
@@ -85,6 +60,14 @@ function setKenmerk(id) {
         }
         var u = new UnityObject2(config);
         u.initPlugin(jQuery("#unityPlayer")[0], "3d.unity3d");
+        u.observeProgress(function (progress) {
+                switch(progress.pluginStatus) {
+                    case "unsupported":
+                        //No 3D support, just move on to 2D
+                        SayHelloToBrowser();
+                    break;
+                }
+        });
     }
     
   });
