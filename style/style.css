@@ -14,8 +14,12 @@ imagine-puzzel, imagine-score, body {
     right: 0px;
     position: absolute;
 }
-imagine-score {
+imagine-score{
     display: none;
+}
+imagine-puzzel {
+    top: 2000px;
+    transition: top 0.4s;
 }
 *{
 -webkit-touch-callout: none;
@@ -24,4 +28,8 @@ imagine-score {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    }
+    
+    imagine-3d {
+        z-index: 1000000;
     }

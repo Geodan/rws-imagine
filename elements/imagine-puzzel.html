@@ -212,10 +212,10 @@ background: #625c5e;
 }
   </style>
   <template>
-    <audio id="soundcom" src="Communicity.mp3"></audio>
-    <audio id="soundplan" src="Plannedopolis.mp3"></audio>
-    <audio id="soundrenew" src="Renewabad.mp3"></audio>
-    <audio id="soundsprawl" src="Sprawlville.mp3"></audio>
+    <audio id="soundcom" src="Communicity.mp3" loop></audio>
+    <audio id="soundplan" src="Plannedopolis.mp3" loop></audio>
+    <audio id="soundrenew" src="Renewabad.mp3" loop></audio>
+    <audio id="soundsprawl" src="Sprawlville.mp3" loop></audio>
             
     <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
     
@@ -255,19 +255,28 @@ background: #625c5e;
         observer:  '_scenarioChanged',
         value: 'Sprawville'
     },
+    begin: {
+        type: Boolean,
+        value: false,
+        observer: '_beginSpel'
+    },
+    kenmerk: {
+        type: Number,
+        observer: '_kenmerkChanged'
+    },
     eigenschappen: {
         type: Array,
         value: function() {
-            var e = [{id:"property-	0	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Er is sprake van fossiele, dure brandstof en  een centraal bestuur	 ",textSprawlville:"	Er is sprake van fossiele, goedkope brandstof en een decentraal bestuur	 ",textRenewabad:"	Er is sprake van alternatieve dure brandstof en een centraal bestuur	 ",textCommunicity:"	Er is sprake van alternatieve, goedkope brandstof en een decentraal bestuur	 "},
-{id:"property-	1	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.	 ",textSprawlville:"	Stadscentrum kent een normaal gebleven omvang. Daaromheen vindt men een keur aan grote, onderling verschillende leefgebieden, gescheiden door rommelige, vaak onafgemaakte tussengebieden.	 ",textRenewabad:"	Hier bestaat nauwelijks een stadscentrum. Eerder vindt men er een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen (polycentrisch).  	 ",textCommunicity:"	Hier bestaat nauwelijks een stadscentrum, doch slechts rondtrekkende, mobiele centra (markten).  Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen voedselvoorziening, energie voorziening (soms kernenergie) en karakter.  	 "},
-{id:"property-	2	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Het landschap wordt gekenmerkt door twee soorten wegen: de oudere, goed onderhouden wegen en de nieuwere, smallere wegen, waarop zich zelfrijdende voertuigen in kolonnes bewegen, gestuurd door sensoren in de wegkant. 	 ",textSprawlville:"	Het landschap wordt gekenmerkt door vele soorten wegen, van smal tot zeer breed, gericht op zelf bestuurde voertuigen die dagelijks vele uren in de file staan. Grote parkeertorens houden auto's zoveel mogelijk langs de rand van de stad. Alleen elektrisch verkeer komt nog in de binnenstad.	 ",textRenewabad:"	Het landschap wordt gekenmerkt door smalle, nieuwe wegen voor elektrische auto's en bovengrondse fietstunnels, waarin de fietser de wind altijd mee heeft. Drukte en files bestaan hier niet meer door slim rekening-rijden per tijdzone.	 ",textCommunicity:"	Het landschap wordt gekenmerkt door versmalde, oude wegen met kas-tuinbouw langs de wegrand waar eerst nog asfalt lag. Wegen worden bevolkt door een bonte stoet soorten voertuigen op biomassa of andere alternatieve brandstoffen. Files worden voorkomen door eigen on-board sensors. 	 "},
-{id:"property-	3	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk toegenomen. 	 ",textSprawlville:"	Het treinen-netwerk is intact gebleven, zonder veel wijzigingen.  	 ",textRenewabad:"	Het treinen-netwerk is sterk gegroeid. Er bestaan gedeelde rails systemen voor Ultra HSL, HSL, Intercity, boemel, metro en tram. 	 ",textCommunicity:"	Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk afgenomen. Veel verkeer tussen leefgebieden is niet meer nodig.	 "},
-{id:"property-	4	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	In de stad vinden we een fijnmazig netwerk van autobanen, fietspaden en wandelroutes. Vernieuwd en goed onderhouden. De zelfrijdende auto's zorgen ervoor dat er nauwelijks file ontstaat.	 ",textSprawlville:"	In de stad vinden we een grofmazig, maar uitgebreid netwerk van betonnen autobanen, fly-overs, particuliere tolroutes, fietspaden en stroken. Onderhoud daaraan maakt de files dagelijks nog erger dan anders. 	 ",textRenewabad:"	In de leefgebieden vinden we een fijnmazig netwerk van lanes en andere big data gestuurde, persoonlijke mobiliteits-voorzieningen:  smalle wegen (autorijden in de gemeenschap is not done), brede wandel- en fietspaden, e-bike tracees, lopende banden en airpods.	 ",textCommunicity:"	In de leefgebieden vinden we oudere betonnen straten en stroken. Het onderhoud daarvan is matig en verschilt per leefgebied. In de winter strooit niemand. 	 "},
-{id:"property-	5	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	De ringwegen zijn er nog wel, maar zijn thans ondertunneld, met een naadloze aansluiting op distributiecentra aan de rand van de stad.	 ",textSprawlville:"	De ringwegen zijn er nog en zijn breder en drukker dan ooit. Het verkeer de stad-in en het verkeer de stad-uit strijden om schaarse time/space slots.	 ",textRenewabad:"	De ringwegen zijn hier afgebroken en langzaam helemaal verdwenen.	 ",textCommunicity:"	De ringwegen zijn hier langzaam in onbruik geraakt en door andere activiteiten  - vaak voedsel- en handelsgerelateerd - overgenomen.	 "},
-{id:"property-	6	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	De havenfunctie is gegroeid en kent tal van distributiecentra aan de kade met veel bulkvaart (graan e.d.).	 ",textSprawlville:"	De havenfunctie is gegroeid en kent veel tankopslag voor de drukke tankvaart (vloeibaar, chemisch).	 ",textRenewabad:"	De havenfunctie is niet gegroeid en is ook veranderd. Tankopslag is verdwenen ten gunste van solar energy centres.	 ",textCommunicity:"	De havenfunctie is verkleind ten gunste van bewoning en recreatie op het water. Elke leefgemeenschap heeft aanlegsteigers voor handel via water.	 "},
-{id:"property-	7	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Fijnmazige distributie-centra bevoorraden de leefgebieden volgens het last mile principe. 	 ",textSprawlville:"	Vrachtwagens en bestelauto's kruisen door alle woongebieden. 	 ",textRenewabad:"	Fijnmazige distributie-regels, gegenereerd uit big data, verbinden kanalen en vaarten in de stad, via drones door de lucht en via buizen ondergronds of bots bovengronds.	 ",textCommunicity:"	Er is nauwelijks distributie nodig. Men is zelfvoorzienend.	 "},
-{id:"property-	8	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Het OV is sterk uitgebreid en rijdt hoogfrequent door de hele stad	 ",textSprawlville:"	Het OV is niet uitgebreid, terwijl de stad wel groeit, met achtergebleven gebieden als gevolg.	 ",textRenewabad:"	Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd.	 ",textCommunicity:"	Er is nauwelijks gebruik van het OV. Daarom is dit sterk ingekrompen.	 "},
-{id:"property-	9	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Er rijden standaard auto's, vaak klein, zelfrijdend en veel elektrisch.	 ",textSprawlville:"	Er rijden standaard auto's, groot en klein, elektrisch, hybride, status-auto's en werkauto's.	 ",textRenewabad:"	Er rijden weinig auto's en degene die er rijden zijn groen, gedeeld en intelligent.	 ",textCommunicity:"	Er rijden veel soorten gemotoriseerd vervoer op alternatieve, goedkope brandstoffen. Soms ook vliegend.	 "}
+            var e = [{id:"property-0",visible:"lost",textPlanopolis:"	Er is sprake van fossiele, dure brandstof en  een centraal bestuur",textSprawlville:"	Er is sprake van fossiele, goedkope brandstof en een decentraal bestuur",textRenewabad:"	Er is sprake van alternatieve dure brandstof en een centraal bestuur",textCommunicity:"	Er is sprake van alternatieve, goedkope brandstof en een decentraal bestuur"},
+{id:"property-1",visible:"lost",textPlanopolis:"	Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.",textSprawlville:"	Stadscentrum kent een normaal gebleven omvang. Daaromheen vindt men een keur aan grote, onderling verschillende leefgebieden, gescheiden door rommelige, vaak onafgemaakte tussengebieden.",textRenewabad:"	Hier bestaat nauwelijks een stadscentrum. Eerder vindt men er een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen (polycentrisch).  ",textCommunicity:"	Hier bestaat nauwelijks een stadscentrum, doch slechts rondtrekkende, mobiele centra (markten).  Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen voedselvoorziening, energie voorziening (soms kernenergie) en karakter.  "},
+{id:"property-2",visible:"lost",textPlanopolis:"	Het landschap wordt gekenmerkt door twee soorten wegen: de oudere, goed onderhouden wegen en de nieuwere, smallere wegen, waarop zich zelfrijdende voertuigen in kolonnes bewegen, gestuurd door sensoren in de wegkant. ",textSprawlville:"	Het landschap wordt gekenmerkt door vele soorten wegen, van smal tot zeer breed, gericht op zelf bestuurde voertuigen die dagelijks vele uren in de file staan. Grote parkeertorens houden auto's zoveel mogelijk langs de rand van de stad. Alleen elektrisch verkeer komt nog in de binnenstad.",textRenewabad:"	Het landschap wordt gekenmerkt door smalle, nieuwe wegen voor elektrische auto's en bovengrondse fietstunnels, waarin de fietser de wind altijd mee heeft. Drukte en files bestaan hier niet meer door slim rekening-rijden per tijdzone.",textCommunicity:"	Het landschap wordt gekenmerkt door versmalde, oude wegen met kas-tuinbouw langs de wegrand waar eerst nog asfalt lag. Wegen worden bevolkt door een bonte stoet soorten voertuigen op biomassa of andere alternatieve brandstoffen. Files worden voorkomen door eigen on-board sensors. "},
+{id:"property-3",visible:"lost",textPlanopolis:"	Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk toegenomen. ",textSprawlville:"	Het treinen-netwerk is intact gebleven, zonder veel wijzigingen.  ",textRenewabad:"	Het treinen-netwerk is sterk gegroeid. Er bestaan gedeelde rails systemen voor Ultra HSL, HSL, Intercity, boemel, metro en tram. ",textCommunicity:"	Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk afgenomen. Veel verkeer tussen leefgebieden is niet meer nodig."},
+{id:"property-4",visible:"lost",textPlanopolis:"	In de stad vinden we een fijnmazig netwerk van autobanen, fietspaden en wandelroutes. Vernieuwd en goed onderhouden. De zelfrijdende auto's zorgen ervoor dat er nauwelijks file ontstaat.",textSprawlville:"	In de stad vinden we een grofmazig, maar uitgebreid netwerk van betonnen autobanen, fly-overs, particuliere tolroutes, fietspaden en stroken. Onderhoud daaraan maakt de files dagelijks nog erger dan anders. ",textRenewabad:"	In de leefgebieden vinden we een fijnmazig netwerk van lanes en andere big data gestuurde, persoonlijke mobiliteits-voorzieningen:  smalle wegen (autorijden in de gemeenschap is not done), brede wandel- en fietspaden, e-bike tracees, lopende banden en airpods.",textCommunicity:"	In de leefgebieden vinden we oudere betonnen straten en stroken. Het onderhoud daarvan is matig en verschilt per leefgebied. In de winter strooit niemand. "},
+{id:"property-5",visible:"lost",textPlanopolis:"	De ringwegen zijn er nog wel, maar zijn thans ondertunneld, met een naadloze aansluiting op distributiecentra aan de rand van de stad.",textSprawlville:"	De ringwegen zijn er nog en zijn breder en drukker dan ooit. Het verkeer de stad-in en het verkeer de stad-uit strijden om schaarse time/space slots.",textRenewabad:"	De ringwegen zijn hier afgebroken en langzaam helemaal verdwenen.",textCommunicity:"	De ringwegen zijn hier langzaam in onbruik geraakt en door andere activiteiten  - vaak voedsel- en handelsgerelateerd - overgenomen."},
+{id:"property-6",visible:"lost",textPlanopolis:"	De havenfunctie is gegroeid en kent tal van distributiecentra aan de kade met veel bulkvaart (graan e.d.).",textSprawlville:"	De havenfunctie is gegroeid en kent veel tankopslag voor de drukke tankvaart (vloeibaar, chemisch).",textRenewabad:"	De havenfunctie is niet gegroeid en is ook veranderd. Tankopslag is verdwenen ten gunste van solar energy centres.",textCommunicity:"	De havenfunctie is verkleind ten gunste van bewoning en recreatie op het water. Elke leefgemeenschap heeft aanlegsteigers voor handel via water."},
+{id:"property-7",visible:"lost",textPlanopolis:"	Fijnmazige distributie-centra bevoorraden de leefgebieden volgens het last mile principe. ",textSprawlville:"	Vrachtwagens en bestelauto's kruisen door alle woongebieden. ",textRenewabad:"	Fijnmazige distributie-regels, gegenereerd uit big data, verbinden kanalen en vaarten in de stad, via drones door de lucht en via buizen ondergronds of bots bovengronds.",textCommunicity:"	Er is nauwelijks distributie nodig. Men is zelfvoorzienend."},
+{id:"property-8",visible:"lost",textPlanopolis:"	Het OV is sterk uitgebreid en rijdt hoogfrequent door de hele stad",textSprawlville:"	Het OV is niet uitgebreid, terwijl de stad wel groeit, met achtergebleven gebieden als gevolg.",textRenewabad:"	Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd.",textCommunicity:"	Er is nauwelijks gebruik van het OV. Daarom is dit sterk ingekrompen."},
+{id:"property-9",visible:"lost",textPlanopolis:"	Er rijden standaard auto's, vaak klein, zelfrijdend en veel elektrisch.",textSprawlville:"	Er rijden standaard auto's, groot en klein, elektrisch, hybride, status-auto's en werkauto's.",textRenewabad:"	Er rijden weinig auto's en degene die er rijden zijn groen, gedeeld en intelligent.",textCommunicity:"	Er rijden veel soorten gemotoriseerd vervoer op alternatieve, goedkope brandstoffen. Soms ook vliegend."}
 
 ]
             return e;
@@ -284,6 +293,20 @@ background: #625c5e;
     //Functie om een kaartje op het speelveld te leggen
     createID: function(i) {
         return 'event-'+i;
+    },
+    _kenmerkChanged: function(){
+        var id = this.kenmerk;   
+        if(id==-1) return false;
+        var classList = document.getElementById('property-'+id).classList;        
+        if(classList.contains('lost')){
+            classList.remove('lost');
+            classList.add('found');
+        }        
+        else {            
+            classList.remove('found');
+            classList.add('lost');
+        }
+
     },
     createClass: function(id) {
         var classe ="";
@@ -367,8 +390,7 @@ background: #625c5e;
         }
     },
     //Functie om een kaartje te selecteren
-    selectKaartje: function(e) {
-        console.log(this.verbindingen);
+    selectKaartje: function(e) {        
         //TODO: check de volgorde van de link en klap evt om
         var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
@@ -572,8 +594,12 @@ background: #625c5e;
         document.getElementById('puzzelscore').style.display = 'block';
        
     },
-    attached: function() {
+    _beginSpel: function() {
+
      var s = this.scenario.toLowerCase();
+      if(this.begin) {
+          this.beginSpel = true;
+        this.start = true;
         switch(s) {
             case 'sprawlville':
                 document.getElementById('soundsprawl').play()
@@ -590,6 +616,8 @@ background: #625c5e;
                 break;
 
         }
+        }
+        
               
       },
     
@@ -597,9 +625,9 @@ background: #625c5e;
    
         this.stamps = 0;
         this.text = "VERBINDEN"
-        this.beginSpel = true;  //boolean to make sure that we have started a new game
+        this.beginSpel = false;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
-        this.start = true;
+        this.start = false;
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
         this.verbindingen =[];
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
@@ -642,10 +670,10 @@ background: #625c5e;
                 // call this function on every dragmove event
                 onmove: dragMoveListener
             })
-            .on('down',function(e) {
+      /*      .on('down',function(e) {
               e.target.parentElement.style.zIndex = self.zindex++
               console.log(self.zindex);
-            })
+            })*/
             .on('up',function(e){
                 //truukje om te zorgen dat je zonder multitouch wel kan werken
                 

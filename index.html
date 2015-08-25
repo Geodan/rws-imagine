@@ -9,6 +9,7 @@
       <link rel="import" href="./bower_components/polymer/polymer.html">
     <link rel="import" href="./elements/imagine-puzzel.html">
     <link rel="import" href="./elements/imagine-score.html">
+    <link rel="import" href="./elements/imagine-3d.html">
       <link rel="import" href="./elements/gm-cow-core.html">
     <link href='./style/style.css' rel='stylesheet'>
 </head>
@@ -16,8 +17,8 @@
 <body oncontextmenu="return false">
 <template id="main" is="dom-bind">
     <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
-    <imagine-3d></imagine-3d>
-    <imagine-puzzel id="puzzelgame" core="{{cow}}" scenario="communicity" team="{{team}}"></imagine-puzzel>
+    <imagine-3d begin="{{begin}}"></imagine-3d>
+    <imagine-puzzel begin="{{begin}}" id="puzzelgame" core="{{cow}}" scenario="communicity" team="{{team}}"></imagine-puzzel>
     <imagine-score id="puzzelscore" core="{{cow}}" scenario="communicity" team="{{team}}" teams="{{teams}}"></imagine-score>
 </template>   
     <script>

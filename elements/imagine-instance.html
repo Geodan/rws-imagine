@@ -188,7 +188,7 @@ Polymer({
 				console.warn('No COW core ready');
 				return;
 			}
-			else if (this.team && this.scenario){
+			else if (this.team && this.scenario){              
 				var projects = this.core.projects().filter(function(d){
 					return !d.deleted() && d.data('team') == self.team && d.data('scenario') == self.scenario;
 				});
@@ -200,7 +200,7 @@ Polymer({
 					console.warn('No project having team ' + this.team + ' and scenario ' + this.scenario);
 					return;
 				}
-				else {
+				else {                
 					this._project = projects[0];
 					this.progress = this._project.data('progress');
 					this._project.itemStore().on('synced',function(){
