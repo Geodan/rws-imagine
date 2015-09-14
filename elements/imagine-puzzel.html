@@ -11,121 +11,98 @@
 <dom-module id="imagine-puzzel">
  <link rel='import' href='../style/theme.css' type='css'>
   <style>
-paper-dialog {
-  max-width: 50%;
-      
-}
-
-  *{ 
-  -webkit-touch-callout: none;
+*{ 
+    -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    }
-  .stamped {
-    background: url('../style/stamp.png') no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-  }
-  .kaartjeText {
-      position: inherit;
-    top: 10px;
-    left: 15px;
-    bottom: 10px;
-    right: 15px;
-        align-items: center;
-    display: flex;
-}
-  
-.background{
-float: left;
-padding: 10px;
 }
 imagine-puzzel, .imagine-puzzel {
     font-family: "Avenir LT W01 65 Medium", sans-serif;
-  }
-#speelveld {
-
-    position: absolute;
-    top: 0px;
-    left: 110px;
-    right: 0px;
-    bottom: 0px;
 }
-#bord {
-    
-    position: absolute;
-    top: 115px;
-    left: 150px;
-    right: 260px;
-    background-image: url('../style/background.png');
--moz-box-shadow:    2px 2px 5px 0px #3A3335;
-  -webkit-box-shadow: 2px 2px 5px 0px #3A3335;
-  box-shadow:         2px 2px 5px 0px #3A3335;
-    }
-.kaartje {
-    background: url('../style/nkaartje-neutraal.png') no-repeat;
-    width: 151px;
-    height: 120px;
-    z-index: 2;
-    position: absolute;
-    opacity: 0.8;
-    text-align: center;
-    valign: middle;
-    font-size: 10px;
-}
-
-
-
-.dropzone {
-  background: #b0adae;
-  border: dashed 4px transparent;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-
-
-.drop-target {
-  background-color: var(--imagine-puzzel-mild);
-  border-color: #fff;
-  border-style: solid;
-}
-
-
-.drag-drop.can-drop {
-background-image: var(--imagine-puzzel-kaartje);
-
-  opacity: 1;
-  color: #fcfcfc;
-  font-family: "Avenir LT W01 85 Heavy", sans-serif;
-}
-
-
-@-ms-keyframes wiggle{0%{-ms-transform:rotate3d(0, 0, 1, 3deg);}50%{-ms-transform:rotate3d(0, 0, 1, -3deg);}100%{-ms-transform:rotate3d(0, 0, 1, 3deg);}}
-@-moz-keyframes wiggle{0%{-moz-transform:rotate3d(0, 0, 1, 3deg));}50%{-moz-transform:rotate3d(0, 0, 1, -3deg);}100%{-moz-transform:rotate3d(0, 0, 1, 3deg);}}
-@-webkit-keyframes wiggle{0%{-webkit-transform:rotate3d(0, 0, 1, 3deg));}50%{-webkit-transform:rotate3d(0, 0, 1, -3deg);}100%{-webkit-transform:rotate3d(0, 0, 1, 3deg);}}
-@keyframes wiggle{0%{transform:rotate3d(0, 0, 1, 3deg));}50%{transform:rotate3d(0, 0, 1, -3deg);}100%{transform:rotate3d(0, 0, 1, 3deg);}}
-
-.wiggle{
--webkit-animation: wiggle .3s 100;
-animation:wiggle .3s 100;
-
+paper-dialog {
+    max-width: 50%;
+    z-index: 100000;    
 }
 imagine-time-slider-vertical {
     position: absolute;
     top: 115px;
     right: 210px;
     height: calc(100% - 240px);
+}
 
-  /*  -moz-box-shadow:    2px 4px 5px 0px #3A3335;
-  -webkit-box-shadow: 2px 4px 5px 0px #3A3335;
-  box-shadow:         2px 4px 5px 0px #3A3335;*/
+/*
+    Kleur van de slider afh van scenario
+*/
+:host[scenario=communicity] imagine-time-slider-vertical{
+    --paper-slider-knob-color:#FFD979;
+}
+:host[scenario=sprawlville] imagine-time-slider-vertical {
+    --paper-slider-knob-color:#E6215B;
+}
+:host[scenario=renewabad] imagine-time-slider-vertical {
+    --paper-slider-knob-color:#3ABBA0;
+}
+:host[scenario=planopolis] imagine-time-slider-vertical {
+    --paper-slider-knob-color:#4CC0D0;
+}
+#speelveld {
+    position: absolute;
+    top: 0px;
+    left: 110px;
+    right: 0px;
+    bottom: 0px;
+}
+#bord {    
+    position: absolute;
+    top: 115px;
+    left: 150px;
+    right: 260px;
+    background-image: url('../style/background.png');
+    -moz-box-shadow:    2px 2px 5px 0px #3A3335;
+    -webkit-box-shadow: 2px 2px 5px 0px #3A3335;
+    box-shadow:         2px 2px 5px 0px #3A3335;
+}
+   
+.dropzone {
+    background: #b0adae;
+    border: solid 4px transparent;
+    border-radius: 4px;
+    transition: background-color 0.1s;
+}
+.drop-target {
+    background-color: var(--imagine-puzzel-mild); 
+}
+
+@-ms-keyframes wiggle{
+    0%{-ms-transform:rotate3d(0, 0, 1, 3deg);}
+    50%{-ms-transform:rotate3d(0, 0, 1, -3deg);}
+    100%{-ms-transform:rotate3d(0, 0, 1, 3deg);}
+    }
+@-moz-keyframes wiggle{
+    0%{-moz-transform:rotate3d(0, 0, 1, 3deg));}
+    50%{-moz-transform:rotate3d(0, 0, 1, -3deg);}
+    100%{-moz-transform:rotate3d(0, 0, 1, 3deg);}
+    }
+@-webkit-keyframes wiggle{
+    0%{-webkit-transform:rotate3d(0, 0, 1, 3deg));}
+    50%{-webkit-transform:rotate3d(0, 0, 1, -3deg);}
+    100%{-webkit-transform:rotate3d(0, 0, 1, 3deg);}
+    }
+@keyframes wiggle{
+    0%{transform:rotate3d(0, 0, 1, 3deg));}
+    50%{transform:rotate3d(0, 0, 1, -3deg);}
+    100%{transform:rotate3d(0, 0, 1, 3deg);}
+    }
+
+.wiggle{
+    -webkit-animation: wiggle .3s 100;
+    animation:wiggle .3s 100;
 }
 .hide {
-display:none;
+    display:none;
 }
 #event-0{left:10%}
 #event-1{left:18%}
@@ -147,16 +124,16 @@ display:none;
 #event-17{right:0;top:70%}
 #event-18{right:0;top:80%}
 #event-19{right:0;top:90%}
-#event-20{left:10%;bottom:0}
-#event-21{left:18%;bottom:0}
-#event-22{left:26%;bottom:0}
-#event-23{left:34%;bottom:0}
-#event-24{left:42%;bottom:0}
-#event-25{left:50%;bottom:0}
-#event-26{left:58%;bottom:0}
-#event-27{left:66%;bottom:0}
-#event-28{left:74%;bottom:0}
-#event-29{left:82%;bottom:0}
+#event-29{left:10%;bottom:0}
+#event-28{left:18%;bottom:0}
+#event-27{left:26%;bottom:0}
+#event-26{left:34%;bottom:0}
+#event-25{left:42%;bottom:0}
+#event-24{left:50%;bottom:0}
+#event-23{left:58%;bottom:0}
+#event-22{left:66%;bottom:0}
+#event-21{left:74%;bottom:0}
+#event-20{left:82%;bottom:0}
 #event-30{left:0}
 #event-31{left:0;top:10%}
 #event-32{left:0;top:20%}
@@ -175,43 +152,80 @@ display:none;
     margin: 5.5px;
     border: solid 1px #3a3335;
 }
-
 #properties div.found {
-background: var(--imagine-puzzel-mild)
+    background: var(--imagine-puzzel-mild)
 }
 #properties div.lost {
-background: #625c5e;
+    background: #625c5e;
 }
-:host[scenario=communicity] imagine-time-slider-vertical{
---paper-slider-knob-color:#FFD979;
+.drag-drop.can-drop {
+    background-image: var(--imagine-puzzel-kaartje);
+    opacity: 1;
+    color: #fcfcfc;
+    font-family: "Avenir LT W01 85 Heavy", sans-serif;
 }
-:host[scenario=sprawlville] imagine-time-slider-vertical {
---paper-slider-knob-color:#E6215B;
+.stamped {
+    background: url('../style/stamp.png') no-repeat;
+    background-position-x: center;
+    background-position-y: center;
 }
-:host[scenario=renewabad] imagine-time-slider-vertical {
---paper-slider-knob-color:#3ABBA0;
+.kaartjeText {
+    position: inherit;
+    top: 10px;
+    left: 15px;
+    bottom: 10px;
+    right: 15px;
+    align-items: center;
+    display: flex;
 }
-:host[scenario=planopolis] imagine-time-slider-vertical {
---paper-slider-knob-color:#4CC0D0;
+.kaartje {
+    background: url('../style/nkaartje-neutraal.png') no-repeat;
+    width: 151px;
+    height: 116px;
+    z-index: 2;
+    position: absolute;
+    opacity: 0.8;
+    text-align: center;
+    valign: middle;
+    font-size: 10px;
 }
 
+/*
+    Kaartjes categorieen
+*/
+.bestuur {
+     background: url('../style/nkaartje-1.png') no-repeat;
+}
+.ict {
+     background: url('../style/nkaartje-2.png') no-repeat;
+     color: #183866;
+}
+.mobi {
+     background: url('../style/nkaartje-3.png') no-repeat;
+     color: #856c00;
+}
+.leefbaar{
+     background: url('../style/nkaartje-4.png') no-repeat;
+     color: #285102;
+}
   </style>
   <template>
-  
+    <audio id="soundcom" src="Communicity.mp3" loop></audio>
+    <audio id="soundplan" src="Plannedopolis.mp3" loop></audio>
+    <audio id="soundrenew" src="Renewabad.mp3" loop></audio>
+    <audio id="soundsprawl" src="Sprawlville.mp3" loop></audio>
     <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
-    
-    <!-- local DOM for your element -->
    <div id="properties" oncontextmenu="return false">
        <template  is="dom-repeat" items="{{eigenschappen}}">
-        <div id="{{item.id}}" class$="{{item.visible}}" on-down="eigenschapDown" on-up="eigenschapUp"></div>
+        <div id="{{item.id}}" class$="{{item.visible}}" on-down="_eigenschapDown" on-up="_eigenschapUp"></div>
        </template>
     </div>
    <div id="speelveld" oncontextmenu="return false">
   
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}" oncontextmenu="return false"></canvas>
     <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
-    <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}">
-        <div id="{{createID(item._data.id)}}" class="kaartje draggable drag-drop" ><span class="kaartjeText">{{item._data.name}}</span></div>
+    <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}" as="item">
+        <div id="{{createID(item._data.id)}}" class$="[[createClass(item._data.id)]]"><span  class="kaartjeText">{{item._data.name}}</span></div>
     </template>
     
    </div>
@@ -236,19 +250,28 @@ background: #625c5e;
         observer:  '_scenarioChanged',
         value: 'Sprawville'
     },
+    begin: {
+        type: Boolean,
+        value: false,
+        observer: '_beginSpel'
+    },
+    kenmerk: {
+        type: Number,
+        observer: '_kenmerkChanged'
+    },
     eigenschappen: {
         type: Array,
         value: function() {
-            var e = [{id:"property-	0	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Er is sprake van fossiele, dure brandstof en  een centraal bestuur	 ",textSprawlville:"	Er is sprake van fossiele, goedkope brandstof en een decentraal bestuur	 ",textRenewabad:"	Er is sprake van alternatieve dure brandstof en een centraal bestuur	 ",textCommunicity:"	Er is sprake van alternatieve, goedkope brandstof en een decentraal bestuur	 "},
-{id:"property-	1	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.	 ",textSprawlville:"	Stadscentrum kent een normaal gebleven omvang. Daaromheen vindt men een keur aan grote, onderling verschillende leefgebieden, gescheiden door rommelige, vaak onafgemaakte tussengebieden.	 ",textRenewabad:"	Hier bestaat nauwelijks een stadscentrum. Eerder vindt men er een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen (polycentrisch).  	 ",textCommunicity:"	Hier bestaat nauwelijks een stadscentrum, doch slechts rondtrekkende, mobiele centra (markten).  Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen voedselvoorziening, energie voorziening (soms kernenergie) en karakter.  	 "},
-{id:"property-	2	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Het landschap wordt gekenmerkt door twee soorten wegen: de oudere, goed onderhouden wegen en de nieuwere, smallere wegen, waarop zich zelfrijdende voertuigen in kolonnes bewegen, gestuurd door sensoren in de wegkant. 	 ",textSprawlville:"	Het landschap wordt gekenmerkt door vele soorten wegen, van smal tot zeer breed, gericht op zelf bestuurde voertuigen die dagelijks vele uren in de file staan. Grote parkeertorens houden auto's zoveel mogelijk langs de rand van de stad. Alleen elektrisch verkeer komt nog in de binnenstad.	 ",textRenewabad:"	Het landschap wordt gekenmerkt door smalle, nieuwe wegen voor elektrische auto's en bovengrondse fietstunnels, waarin de fietser de wind altijd mee heeft. Drukte en files bestaan hier niet meer door slim rekening-rijden per tijdzone.	 ",textCommunicity:"	Het landschap wordt gekenmerkt door versmalde, oude wegen met kas-tuinbouw langs de wegrand waar eerst nog asfalt lag. Wegen worden bevolkt door een bonte stoet soorten voertuigen op biomassa of andere alternatieve brandstoffen. Files worden voorkomen door eigen on-board sensors. 	 "},
-{id:"property-	3	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk toegenomen. 	 ",textSprawlville:"	Het treinen-netwerk is intact gebleven, zonder veel wijzigingen.  	 ",textRenewabad:"	Het treinen-netwerk is sterk gegroeid. Er bestaan gedeelde rails systemen voor Ultra HSL, HSL, Intercity, boemel, metro en tram. 	 ",textCommunicity:"	Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk afgenomen. Veel verkeer tussen leefgebieden is niet meer nodig.	 "},
-{id:"property-	4	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	In de stad vinden we een fijnmazig netwerk van autobanen, fietspaden en wandelroutes. Vernieuwd en goed onderhouden. De zelfrijdende auto's zorgen ervoor dat er nauwelijks file ontstaat.	 ",textSprawlville:"	In de stad vinden we een grofmazig, maar uitgebreid netwerk van betonnen autobanen, fly-overs, particuliere tolroutes, fietspaden en stroken. Onderhoud daaraan maakt de files dagelijks nog erger dan anders. 	 ",textRenewabad:"	In de leefgebieden vinden we een fijnmazig netwerk van lanes en andere big data gestuurde, persoonlijke mobiliteits-voorzieningen:  smalle wegen (autorijden in de gemeenschap is not done), brede wandel- en fietspaden, e-bike tracees, lopende banden en airpods.	 ",textCommunicity:"	In de leefgebieden vinden we oudere betonnen straten en stroken. Het onderhoud daarvan is matig en verschilt per leefgebied. In de winter strooit niemand. 	 "},
-{id:"property-	5	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	De ringwegen zijn er nog wel, maar zijn thans ondertunneld, met een naadloze aansluiting op distributiecentra aan de rand van de stad.	 ",textSprawlville:"	De ringwegen zijn er nog en zijn breder en drukker dan ooit. Het verkeer de stad-in en het verkeer de stad-uit strijden om schaarse time/space slots.	 ",textRenewabad:"	De ringwegen zijn hier afgebroken en langzaam helemaal verdwenen.	 ",textCommunicity:"	De ringwegen zijn hier langzaam in onbruik geraakt en door andere activiteiten  - vaak voedsel- en handelsgerelateerd - overgenomen.	 "},
-{id:"property-	6	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	De havenfunctie is gegroeid en kent tal van distributiecentra aan de kade met veel bulkvaart (graan e.d.).	 ",textSprawlville:"	De havenfunctie is gegroeid en kent veel tankopslag voor de drukke tankvaart (vloeibaar, chemisch).	 ",textRenewabad:"	De havenfunctie is niet gegroeid en is ook veranderd. Tankopslag is verdwenen ten gunste van solar energy centres.	 ",textCommunicity:"	De havenfunctie is verkleind ten gunste van bewoning en recreatie op het water. Elke leefgemeenschap heeft aanlegsteigers voor handel via water.	 "},
-{id:"property-	7	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Fijnmazige distributie-centra bevoorraden de leefgebieden volgens het last mile principe. 	 ",textSprawlville:"	Vrachtwagens en bestelauto's kruisen door alle woongebieden. 	 ",textRenewabad:"	Fijnmazige distributie-regels, gegenereerd uit big data, verbinden kanalen en vaarten in de stad, via drones door de lucht en via buizen ondergronds of bots bovengronds.	 ",textCommunicity:"	Er is nauwelijks distributie nodig. Men is zelfvoorzienend.	 "},
-{id:"property-	8	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Het OV is sterk uitgebreid en rijdt hoogfrequent door de hele stad	 ",textSprawlville:"	Het OV is niet uitgebreid, terwijl de stad wel groeit, met achtergebleven gebieden als gevolg.	 ",textRenewabad:"	Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd.	 ",textCommunicity:"	Er is nauwelijks gebruik van het OV. Daarom is dit sterk ingekrompen.	 "},
-{id:"property-	9	 ",visible:Math.round(Math.random())?"found":"lost",textPlanopolis:"	Er rijden standaard auto's, vaak klein, zelfrijdend en veel elektrisch.	 ",textSprawlville:"	Er rijden standaard auto's, groot en klein, elektrisch, hybride, status-auto's en werkauto's.	 ",textRenewabad:"	Er rijden weinig auto's en degene die er rijden zijn groen, gedeeld en intelligent.	 ",textCommunicity:"	Er rijden veel soorten gemotoriseerd vervoer op alternatieve, goedkope brandstoffen. Soms ook vliegend.	 "}
+            var e = [{id:"property-0",visible:"lost",textPlanopolis:"	Er is sprake van fossiele, dure brandstof en  een centraal bestuur",textSprawlville:"	Er is sprake van fossiele, goedkope brandstof en een decentraal bestuur",textRenewabad:"	Er is sprake van alternatieve dure brandstof en een centraal bestuur",textCommunicity:"	Er is sprake van alternatieve, goedkope brandstof en een decentraal bestuur"},
+{id:"property-1",visible:"lost",textPlanopolis:"	Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.",textSprawlville:"	Stadscentrum kent een normaal gebleven omvang. Daaromheen vindt men een keur aan grote, onderling verschillende leefgebieden, gescheiden door rommelige, vaak onafgemaakte tussengebieden.",textRenewabad:"	Hier bestaat nauwelijks een stadscentrum. Eerder vindt men er een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen (polycentrisch).  ",textCommunicity:"	Hier bestaat nauwelijks een stadscentrum, doch slechts rondtrekkende, mobiele centra (markten).  Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen voedselvoorziening, energie voorziening (soms kernenergie) en karakter.  "},
+{id:"property-2",visible:"lost",textPlanopolis:"	Het landschap wordt gekenmerkt door twee soorten wegen: de oudere, goed onderhouden wegen en de nieuwere, smallere wegen, waarop zich zelfrijdende voertuigen in kolonnes bewegen, gestuurd door sensoren in de wegkant. ",textSprawlville:"	Het landschap wordt gekenmerkt door vele soorten wegen, van smal tot zeer breed, gericht op zelf bestuurde voertuigen die dagelijks vele uren in de file staan. Grote parkeertorens houden auto's zoveel mogelijk langs de rand van de stad. Alleen elektrisch verkeer komt nog in de binnenstad.",textRenewabad:"	Het landschap wordt gekenmerkt door smalle, nieuwe wegen voor elektrische auto's en bovengrondse fietstunnels, waarin de fietser de wind altijd mee heeft. Drukte en files bestaan hier niet meer door slim rekening-rijden per tijdzone.",textCommunicity:"	Het landschap wordt gekenmerkt door versmalde, oude wegen met kas-tuinbouw langs de wegrand waar eerst nog asfalt lag. Wegen worden bevolkt door een bonte stoet soorten voertuigen op biomassa of andere alternatieve brandstoffen. Files worden voorkomen door eigen on-board sensors. "},
+{id:"property-3",visible:"lost",textPlanopolis:"	Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk toegenomen. ",textSprawlville:"	Het treinen-netwerk is intact gebleven, zonder veel wijzigingen.  ",textRenewabad:"	Het treinen-netwerk is sterk gegroeid. Er bestaan gedeelde rails systemen voor Ultra HSL, HSL, Intercity, boemel, metro en tram. ",textCommunicity:"	Het treinen-netwerk is intact gebleven, maar de intensiteit is sterk afgenomen. Veel verkeer tussen leefgebieden is niet meer nodig."},
+{id:"property-4",visible:"lost",textPlanopolis:"	In de stad vinden we een fijnmazig netwerk van autobanen, fietspaden en wandelroutes. Vernieuwd en goed onderhouden. De zelfrijdende auto's zorgen ervoor dat er nauwelijks file ontstaat.",textSprawlville:"	In de stad vinden we een grofmazig, maar uitgebreid netwerk van betonnen autobanen, fly-overs, particuliere tolroutes, fietspaden en stroken. Onderhoud daaraan maakt de files dagelijks nog erger dan anders. ",textRenewabad:"	In de leefgebieden vinden we een fijnmazig netwerk van lanes en andere big data gestuurde, persoonlijke mobiliteits-voorzieningen:  smalle wegen (autorijden in de gemeenschap is not done), brede wandel- en fietspaden, e-bike tracees, lopende banden en airpods.",textCommunicity:"	In de leefgebieden vinden we oudere betonnen straten en stroken. Het onderhoud daarvan is matig en verschilt per leefgebied. In de winter strooit niemand. "},
+{id:"property-5",visible:"lost",textPlanopolis:"	De ringwegen zijn er nog wel, maar zijn thans ondertunneld, met een naadloze aansluiting op distributiecentra aan de rand van de stad.",textSprawlville:"	De ringwegen zijn er nog en zijn breder en drukker dan ooit. Het verkeer de stad-in en het verkeer de stad-uit strijden om schaarse time/space slots.",textRenewabad:"	De ringwegen zijn hier afgebroken en langzaam helemaal verdwenen.",textCommunicity:"	De ringwegen zijn hier langzaam in onbruik geraakt en door andere activiteiten  - vaak voedsel- en handelsgerelateerd - overgenomen."},
+{id:"property-6",visible:"lost",textPlanopolis:"	De havenfunctie is gegroeid en kent tal van distributiecentra aan de kade met veel bulkvaart (graan e.d.).",textSprawlville:"	De havenfunctie is gegroeid en kent veel tankopslag voor de drukke tankvaart (vloeibaar, chemisch).",textRenewabad:"	De havenfunctie is niet gegroeid en is ook veranderd. Tankopslag is verdwenen ten gunste van solar energy centres.",textCommunicity:"	De havenfunctie is verkleind ten gunste van bewoning en recreatie op het water. Elke leefgemeenschap heeft aanlegsteigers voor handel via water."},
+{id:"property-7",visible:"lost",textPlanopolis:"	Fijnmazige distributie-centra bevoorraden de leefgebieden volgens het last mile principe. ",textSprawlville:"	Vrachtwagens en bestelauto's kruisen door alle woongebieden. ",textRenewabad:"	Fijnmazige distributie-regels, gegenereerd uit big data, verbinden kanalen en vaarten in de stad, via drones door de lucht en via buizen ondergronds of bots bovengronds.",textCommunicity:"	Er is nauwelijks distributie nodig. Men is zelfvoorzienend."},
+{id:"property-8",visible:"lost",textPlanopolis:"	Het OV is sterk uitgebreid en rijdt hoogfrequent door de hele stad",textSprawlville:"	Het OV is niet uitgebreid, terwijl de stad wel groeit, met achtergebleven gebieden als gevolg.",textRenewabad:"	Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd.",textCommunicity:"	Er is nauwelijks gebruik van het OV. Daarom is dit sterk ingekrompen."},
+{id:"property-9",visible:"lost",textPlanopolis:"	Er rijden standaard auto's, vaak klein, zelfrijdend en veel elektrisch.",textSprawlville:"	Er rijden standaard auto's, groot en klein, elektrisch, hybride, status-auto's en werkauto's.",textRenewabad:"	Er rijden weinig auto's en degene die er rijden zijn groen, gedeeld en intelligent.",textCommunicity:"	Er rijden veel soorten gemotoriseerd vervoer op alternatieve, goedkope brandstoffen. Soms ook vliegend."}
 
 ]
             return e;
@@ -256,8 +279,6 @@ background: #625c5e;
       }
 
     },
-    behaviors: [
-    ],
     observers: [
         '_doneChanged(done)',
         '_kaartjesChanged(kaartjes)'
@@ -266,35 +287,66 @@ background: #625c5e;
     createID: function(i) {
         return 'event-'+i;
     },
-    eigenschapDown: function(e) {
-        if(e.target.classList.contains('found')){
-        var text = '';
-        switch(this.scenario) {
-            case 'communicity':
-            text = e.model.item.textCommunicity;
-            break;
-            case 'sprawlville':
-            text = e.model.item.textSprawlville;
-            break;
-            case 'renewabad':
-            text = e.model.item.textRenewabad;
-            break;
-            case 'planopolis':
-            text = e.model.item.textPlanopolis;
-            break;
-            
+    //Toggle items in de kenmerkenlijst, wordt aangestuurd door de aapie
+    _kenmerkChanged: function(){
+        var id = this.kenmerk;   
+        if(id==-1) return false;
+        var classList = document.getElementById('property-'+id).classList;        
+        if(classList.contains('lost')){
+            classList.remove('lost');
+            classList.add('found');
+        }        
+        else {            
+            classList.remove('found');
+            classList.add('lost');
         }
-        
-        var el = document.getElementById('eigenschapScherm');
-        el.childNodes[1].innerHTML = text;
-        el.open();
+
+    },
+    //categorieen aanmaken voor kaartjes
+    createClass: function(id) {
+        var classe ="";
+        if(id <9) {
+            classe="bestuur"; //bestuur
+        }
+        else if (id <17) {
+            classe="ict";
+        }
+        else if (id <29) {
+            classe="leefbaar";
+        }
+        else {
+            classe="mobi";
+        }
+        return "kaartje draggable drag-drop " + classe;
+    
+    },
+    //
+    _eigenschapDown: function(e) {
+        if(e.target.classList.contains('found')){
+            var text = '';
+            switch(this.scenario) {
+                case 'communicity':
+                text = e.model.item.textCommunicity;
+                break;
+                case 'sprawlville':
+                text = e.model.item.textSprawlville;
+                break;
+                case 'renewabad':
+                text = e.model.item.textRenewabad;
+                break;
+                case 'planopolis':
+                text = e.model.item.textPlanopolis;
+                break;            
+            }
+            var el = document.getElementById('eigenschapScherm');
+            el.childNodes[1].innerHTML = text;
+            el.open();
         }
     },
-    eigenschapUp: function(e) {
+    _eigenschapUp: function(e) {
         var el = document.getElementById('eigenschapScherm');
         el.close();
     },
-    
     _scenarioChanged: function(){
         var s = this.scenario.toLowerCase();
         switch(s) {
@@ -326,27 +378,30 @@ background: #625c5e;
                 this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-plan.png')";
                 this.updateStyles();
                 break;
-
         }
     },
     //Functie om een kaartje te selecteren
-    selectKaartje: function(e) {
-        console.log(this.verbindingen);
+    selectKaartje: function(e) {        
         //TODO: check de volgorde van de link en klap evt om
         var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
+        console.log(this.setje);
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
+            console.log('begin');
             this.setje.begin = kaartje;
             var kaartjes = document.getElementsByClassName('can-drop');
+            console.log(kaartjes);
+            if(this.verbindingen.length < 10) {
             for(var i = 0; i< kaartjes.length;i++){
+            
                 kaartjes[i].classList.add('wiggle');
 
-
+            }
             }
             e.currentTarget.classList.remove('wiggle');
         }
         else if (this.setje.end === null) {   
             //SWAP!
-            
+            console.log('end');
             if(parseInt(kaartje.id) < parseInt(this.setje.begin.id)) {
                 this.setje.end = {id:this.setje.begin.id,x:this.setje.begin.x};
                 this.setje.begin = kaartje;
@@ -450,10 +505,6 @@ background: #625c5e;
             kaartjes[i].classList.remove('first')
         }
     },
-    //Functie om alles te resetten en naar het scorebord te gaan
-
-
-
     //hulpfunctie om de overige kaartjes te verwijderen
     _removeUnused: function() {
         this.verbinden =true; //Kaartjes-ronde is over, now we start verbinden
@@ -466,20 +517,19 @@ background: #625c5e;
             else this.speelkaarten.push(allekaartjes[i].id)
         }
     },
-
+    //Make sure that the kaartjes are all reset to their initial position
     _kaartjesChanged: function(){
-        //Make sure that the kaartjes are all reset to their initial position
+        
         if(this.beginSpel && this.kaartjes.length > 0) {
 
             this.beginSpel = false; //The game has started
         }
     },
+    //RWS logo op het kaartje zetten
     stampKaartje: function(e) {
-        
         if(this.stamps < 5) {
-        
-        e.target.classList.add('stamped');
-        this.stamps++
+            e.target.classList.add('stamped');
+            this.stamps++
         }
     },
     //Function called when the slider reaches the end
@@ -490,7 +540,6 @@ background: #625c5e;
             this.text = "INDIENEN";
             instance.setProgress(2);
             this._removeUnused();
-
             var self = this;
             interact('.draggable')
                 .draggable({enabled:false})
@@ -499,6 +548,8 @@ background: #625c5e;
                 //of een ander kaartje wordt aangeraakt
                 //TODO: firefox registreerd de on down pas bij up
                 .on('down',function(e){
+                    e.preventDefault();
+                    console.log(e.changedTouches);
                     if(e.ctrlKey) self.stampKaartje(e);
                     else self.selectKaartje(e);
 
@@ -507,6 +558,23 @@ background: #625c5e;
         }
         else if(this.done&&this.verbinden) { // scorebord
             //TODO: hier moet het scorebord komen
+             var s = this.scenario.toLowerCase();
+            switch(s) {
+                case 'sprawlville':
+                    document.getElementById('soundsprawl').pause()
+                   
+                    break;
+                case 'communicity':
+                   document.getElementById('soundcom').pause()
+                    break;
+                case 'renewabad':
+                   document.getElementById('soundrenew').pause()
+                    break;
+                case 'planopolis':
+                   document.getElementById('soundplan').pause()
+                    break;
+
+            }
             this.verbinden = false;
             instance.setProgress(3);
             this.showScore()
@@ -518,12 +586,40 @@ background: #625c5e;
         document.getElementById('puzzelscore').style.display = 'block';
        
     },
+    _beginSpel: function() {
+    
+     var s = this.scenario.toLowerCase();
+      if(this.begin) {
+          this.beginSpel = true;
+        this.start = true;
+        switch(s) {
+            case 'sprawlville':
+                document.getElementById('soundsprawl').play()
+               
+                break;
+            case 'communicity':
+               document.getElementById('soundcom').play()
+                break;
+            case 'renewabad':
+               document.getElementById('soundrenew').play()
+                break;
+            case 'planopolis':
+               document.getElementById('soundplan').play()
+                break;
+
+        }
+        }
+        
+              
+      },
+    
     ready: function() {    
+   
         this.stamps = 0;
         this.text = "VERBINDEN"
-        this.beginSpel = true;  //boolean to make sure that we have started a new game
+        this.beginSpel = false;  //boolean to make sure that we have started a new game
         this.verbinden = false; //boolean to state whether or not we're aan het verbinden
-        this.start = true;
+        this.start = false;
         this.speelkaarten = []; //Array with the chosen cards (empty at start)
         this.verbindingen =[];
         this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
@@ -566,12 +662,13 @@ background: #625c5e;
                 // call this function on every dragmove event
                 onmove: dragMoveListener
             })
-            .on('down',function(e) {
-              e.target.style.zIndex = self.zindex++
-            })
+      /*      .on('down',function(e) {
+              e.target.parentElement.style.zIndex = self.zindex++
+              console.log(self.zindex);
+            })*/
             .on('up',function(e){
                 //truukje om te zorgen dat je zonder multitouch wel kan werken
-                
+                self.selectKaartje(e);
                 if(e.shiftKey) return true;
                 else self.stopWiebelen();
 

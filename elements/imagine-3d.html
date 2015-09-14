@@ -1,0 +1,74 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer.html">
+  <script type='text/javascript' src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
+    <script type="text/javascript" src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js">
+		
+    </script>
+   
+
+<script>
+//Global functions to be called from within unity, so called aapie
+function SayHelloToBrowser()
+{
+    $('#firstScreen').slideUp();
+    
+    $('imagine-puzzel').css('top','0px');
+    setTimeout(function(){    
+        $('imagine-puzzel').attr('begin',true);
+    },1000);
+}
+function setKenmerk(id) {
+    $('imagine-puzzel').attr('kenmerk',id)
+    $('imagine-puzzel').attr('kenmerk',-1)
+}
+
+</script>
+ 
+<dom-module id="imagine-3d">
+  <style>
+ 
+  </style>
+  <template>
+ <div class="3DView" id="firstScreen">
+        <div id="unityPlayer">
+           
+        </div>        
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  // register a new element called proto-element
+  Polymer({
+    is: "imagine-3d",
+    attached: function(){
+    	var width = 1920, height = 1080;
+        width = window.innerWidth;
+        height = window.innerHeight;
+        var config = {
+            width: width,
+			height: height,
+			params: { enableDebugging:"0" }
+        }
+        window.onresize = function(e) {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            config.width  = width;
+            config.height  = height;
+            u = new UnityObject2(config);
+            u.initPlugin(jQuery("#unityPlayer")[0], "3d.unity3d");        
+        }
+        var u = new UnityObject2(config);
+        u.initPlugin(jQuery("#unityPlayer")[0], "3d.unity3d");
+        u.observeProgress(function (progress) {
+                switch(progress.pluginStatus) {
+                    case "unsupported":
+                        //No 3D support, just move on to 2D
+                        SayHelloToBrowser();
+                    break;
+                }
+        });
+    }
+    
+  });
+</script>
