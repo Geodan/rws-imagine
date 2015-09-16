@@ -231,6 +231,7 @@ Polymer({
 						self._calculateScore();
 					}
 					reload();
+
 					this._project.itemStore().on('datachange',function(){
 						reload();
 					});
@@ -347,6 +348,7 @@ Polymer({
 				var core = this.core;
 				core.projectStore().loaded.then(function(){
 					  console.log('projectstore loaded');
+					  self._projectChange(); //start selection of project
 				});
 				core.projectStore().on('synced', function(){
 					console.log('projectstore synced');
