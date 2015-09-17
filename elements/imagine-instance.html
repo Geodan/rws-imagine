@@ -173,8 +173,14 @@ Polymer({
 		},
 		setProgress: function(val){
 			var self = this;
+			this.progress = 2;
 			this.core.projectStore().loaded.then(function(){
 				if (self._project){
+					if (val > 2){ //Sync the score when puzzel is done
+						console.log('Score saved');
+						self._calculateScore();
+						self._project.data('score',self.score).sync();
+					}
 					self._project.data('progress',val).sync();
 				}
 				else {
@@ -250,7 +256,7 @@ Polymer({
 		_calculateScore: function(){
 			var self = this;
 			var time = this.time;
-			if (this._project && this.progress > 2){
+			if (this._project){
 				var totalscore = 0;
 				var totaleventscore = 0;
 				var totalxscore = 0;
@@ -336,8 +342,6 @@ Polymer({
 				this.yscore = totalyscore;
 				this.linkscore = totallinkscore;
 				this.score = Math.round(totalscore);
-				this._project.data('score',this.score);
-				console.log('score calculated');
 			}
 			else {
 				//console.warn('No project selected');
