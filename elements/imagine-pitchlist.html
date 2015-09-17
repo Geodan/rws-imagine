@@ -1,0 +1,65 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="imagine-pitchlist">
+<template>
+  <h2>Pitchlist</h2>
+  <template is='dom-repeat' items="{{pitchlist}}" as="pitch">
+  	<div>
+  		<span>{{pitch._data.team}}</span> -> 
+  		<span>{{pitch._data.scenario}}</span>
+  		<span>{{pitch._data.score}}</span>
+  	</div>
+  </template>
+
+</template>
+</dom-module>
+<script>
+
+Polymer({
+	is: 'imagine-pitchlist',
+	properties:{
+		pitchlist:{ 
+			type: Array,
+			value: function(){return [];}
+		},
+		core: {
+			type: Object,
+			observer: '_cowChanged'
+		}
+	},
+	ready: function(){
+	},
+	calcpitch: function(){
+		  var scenlist = cow.projects().filter(d=>!d.deleted());
+		  
+		  var first = scenlist.sort(function(a,b){return a._data.score | 0 > b._data.score | 0 })[scenlist.length -1];
+		  scenlist = scenlist.filter(d=>d.data('team')!=first.data('team') && d.data('scenario') != first.data('scenario'));
+		  
+		  var second = scenlist.sort(function(a,b){return a._data.score | 0 > b._data.score | 0 })[scenlist.length -1];
+		  scenlist = scenlist.filter(d=>d.data('team')!=second.data('team') && d.data('scenario') != second.data('scenario'));
+		  
+		  var third = scenlist.sort(function(a,b){return a._data.score | 0 > b._data.score | 0 })[scenlist.length -1];
+		  scenlist = scenlist.filter(d=>d.data('team')!=third.data('team') && d.data('scenario') != third.data('scenario'));
+		  
+		  var fourth = scenlist[0];
+		  
+		  this.pitchlist = [first, second, third, fourth];
+	},
+	_cowChanged: function(){
+		var self = this;
+		if (this.core){
+			var core = this.core;
+			core.projectStore().loaded.then(function(){
+				  console.log('projectstore loaded');
+				  self.calcpitch(); 
+			});
+			core.projectStore().on('synced', function(){
+				console.log('projectstore synced');
+				self.calcpitch(); 
+			});
+			this.core.projectStore().on('datachange',function(){
+				self.calcpitch(); 
+			});
+		}
+	},
+});
+</script>

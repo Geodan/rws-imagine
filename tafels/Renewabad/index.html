@@ -12,6 +12,7 @@
     <link rel="import" href="../../elements/imagine-3d.html">
     <link rel="import" href="../../elements/gm-cow-core.html">
     <link href='../../style/style.css' rel='stylesheet'>
+    <script src="../../cowconfigs.js"></script>
         <style>
     html, body, imagine-puzzel, imagine-score {
     background-color: rgba(170, 230, 196, 200);
@@ -38,13 +39,10 @@
      var main = document.querySelector('#main');
      main.team = teams[teamNr];
      main.teams = teams;
-     main.cowconfig ={
-            key: 'imagine',
-            protocol:'wss',
-            url:'websocket.geodan.nl', 
-            port:443,
-            dir: 'imagine'
-          };
+     /*
+     ! Remember to set the correct config in the configfile!
+     */
+     main.cowconfig = window.cowconfig;
     </script>
 </body>
 </html>
