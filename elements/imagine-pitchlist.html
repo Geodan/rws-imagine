@@ -3,7 +3,11 @@
 <template>
   <h2>Pitchlist</h2>
   <template is='dom-repeat' items="{{pitchlist}}" as="pitch">
-  	<div><span>{{pitch._data.team}}</span> -> <span>{{pitch._data.scenario}}</span></div>
+  	<div>
+  		<span>{{pitch._data.team}}</span> -> 
+  		<span>{{pitch._data.scenario}}</span>
+  		<span>{{pitch._data.score}}</span>
+  	</div>
   </template>
 
 </template>
