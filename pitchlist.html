@@ -9,7 +9,7 @@
   <link rel="import" href="./bower_components/polymer/polymer.html">
   <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-pitchlist.html">
-  
+  <script src="./cowconfigs.js"></script>
   </head>      
   <body>
   
@@ -20,13 +20,10 @@
   <script type="text/javascript">
   var main = document.querySelector('#main');
   
-  main.cowconfig ={
-  	key: 'imagine',
-  	protocol:'wss',
-	url:'websocket.geodan.nl', 
-	port:443,
-	dir: 'imagine'
-  };
+  /*
+     ! Remember to set the correct config in the configfile!
+  */
+  main.cowconfig = window.cowconfig;
 	  
   </script>
   </body>
