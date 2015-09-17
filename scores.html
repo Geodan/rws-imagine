@@ -15,7 +15,7 @@
   <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-instance.html">
   <link rel="import" href="./elements/imagine-score-thingy.html">
-  
+  <script src="./cowconfigs.js"></script>
   </head>      
   <body>
   
@@ -73,13 +73,10 @@
   	scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
   }];
   
-  main.cowconfig ={
-  	key: 'imagine',
-  	protocol:'wss',
-	url:'websocket.geodan.nl', 
-	port:443,
-	dir: 'imagine'
-  };
+  /*
+     ! Remember to set the correct config in the configfile!
+  */
+  main.cowconfig = window.cowconfig;
   // The dom-change event signifies when the template has stamped its DOM.
   main.addEventListener('dom-change', function() {
 	  

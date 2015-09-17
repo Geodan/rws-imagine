@@ -3,7 +3,7 @@
   <link rel="import" href="./imagine-instance.html">
   <link rel="import" href="./imagine-score-thingy.html">
   <link rel="import" href="./gm-cow-core.html">
-
+  <script src="../cowconfigs.js"></script>
  
 <dom-module id="imagine-grand-total">
   <style>
@@ -72,13 +72,7 @@
 		totalScore: 0,
 		scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
 	  }];
-	  this.cowconfig ={
-		key: 'imagine',
-		protocol:'wss',
-		url:'websocket.geodan.nl', 
-		port:443,
-		dir: 'imagine'
-	  };
+	  this.cowconfig = window.cowconfig;
 	  
     },
     attached: function(){
