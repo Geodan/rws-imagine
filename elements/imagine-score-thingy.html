@@ -595,10 +595,10 @@ display: none;
         return score + ' punten';
     },
     calcVotes: function(score){
-        return Math.max(Math.round(score*.75),0);
+        return Math.max(Math.round(score*.60),0);
     },
     calcRestVotes: function(score){
-        return Math.max(Math.round(score*.25),0);
+        return Math.max(Math.round(score*.40),0);
     },
     ready: function() {
     	var self = this;

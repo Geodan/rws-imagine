@@ -250,7 +250,7 @@ Polymer({
 		_calculateScore: function(){
 			var self = this;
 			var time = this.time;
-			if (this._project){
+			if (this._project && this.progress > 2){
 				var totalscore = 0;
 				var totaleventscore = 0;
 				var totalxscore = 0;
@@ -338,7 +338,7 @@ Polymer({
 				this.score = Math.round(totalscore);
 			}
 			else {
-				console.warn('No project selected');
+				//console.warn('No project selected');
 			}
 		},
 		_cowChanged: function(){
