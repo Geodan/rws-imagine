@@ -336,6 +336,7 @@ Polymer({
 				this.yscore = totalyscore;
 				this.linkscore = totallinkscore;
 				this.score = Math.round(totalscore);
+				this._project.data('score',this.score);
 			}
 			else {
 				//console.warn('No project selected');
