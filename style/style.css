@@ -7,13 +7,21 @@ html, body, imagine-puzzel, imagine-score {
     background-blend-mode: difference;
     
 }
-imagine-puzzel, imagine-score, body {
+
+imagine-startscherm, imagine-puzzel, imagine-score, body {
     top: 0px;
     bottom: 0px;
     left: 0px;
     right: 0px;
     position: absolute;
 }
+imagine-startscherm {
+	float: left;
+	z-index: 10000001;
+	background: white;
+	
+}
+
 imagine-score{
     display: none;
 }
