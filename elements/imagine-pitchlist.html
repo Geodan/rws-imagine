@@ -3,7 +3,20 @@
 <dom-module id="imagine-pitchlist">
 <template>
 
+  <h2>Scorelist</h2>
+  <p>Het aantal punten en het daaruit voortvloeiend aantal stemmen per team</p>
+  <template is='dom-repeat' items="{{scorelist}}" as="score">
+  <div>
+  	<span>{{score.team}}</span>
+  	<span>{{score.score}}</span>
+  	<span>{{score.votes1}}</span>
+  	<span>{{score.votes2}}</span>
+  </div>
+  </template>
+  
+
   <h2>Pitchlist</h2>
+  
   
   <template is='dom-repeat' items="{{pitchlist}}" as="pitch">
   	<div>
@@ -13,6 +26,9 @@
   	</div>
   </template>
 
+  <h2>Votelist</h2>
+  <p>Verdeel de stemmen</p>
+  
 </template>
 </dom-module>
 <script>
@@ -32,15 +48,36 @@ Polymer({
 	ready: function(){
 	},
 	calcpitch: function(){
+		var projects = this.core.projects().filter(d=>!d.deleted());
+		var calc= function(team){
+			var score = projects.filter(d=>d.data('team') == team).reduce(function(a,b){
+					return a + b.data('score')
+			},0);
+			var votes1 = Math.round(score * 0.4);
+			var votes2 = Math.round(score * 0.6);
+			return {
+				team: team,
+				score: score,
+				votes1: votes1,
+				votes2: votes2
+			};
+		}
+		this.scorelist = [
+		calc('Team A'),
+		calc('Team B'),
+		calc('Team C'),
+		calc('Team D')
+		];
+		
 		  var scenlist = cow.projects().filter(d=>!d.deleted());
 		  
-		  var first = scenlist.sort(function(a,b){return a._data.score | 0 > b._data.score | 0 })[scenlist.length -1];
+		  var first = scenlist.sort(function(a,b){return a._data.score - b._data.score })[scenlist.length -1];
 		  scenlist = scenlist.filter(d=>d.data('team')!=first.data('team') && d.data('scenario') != first.data('scenario'));
 		  
-		  var second = scenlist.sort(function(a,b){return a._data.score | 0 > b._data.score | 0 })[scenlist.length -1];
+		  var second = scenlist.sort(function(a,b){return a._data.score - b._data.score })[scenlist.length -1];
 		  scenlist = scenlist.filter(d=>d.data('team')!=second.data('team') && d.data('scenario') != second.data('scenario'));
 		  
-		  var third = scenlist.sort(function(a,b){return a._data.score | 0 > b._data.score | 0 })[scenlist.length -1];
+		  var third = scenlist.sort(function(a,b){return a._data.score - b._data.score })[scenlist.length -1];
 		  scenlist = scenlist.filter(d=>d.data('team')!=third.data('team') && d.data('scenario') != third.data('scenario'));
 		  
 		  var fourth = scenlist[0];
@@ -53,13 +90,16 @@ Polymer({
 			var core = this.core;
 			core.projectStore().loaded.then(function(){
 				  console.log('projectstore loaded');
+				  self.projects = core.projects().filter(d=>!d.deleted());
 				  self.calcpitch(); 
 			});
 			core.projectStore().on('synced', function(){
 				console.log('projectstore synced');
+				self.projects = core.projects().filter(d=>!d.deleted());
 				self.calcpitch(); 
 			});
 			this.core.projectStore().on('datachange',function(){
+				self.projects = core.projects().filter(d=>!d.deleted());
 				self.calcpitch(); 
 			});
 		}
