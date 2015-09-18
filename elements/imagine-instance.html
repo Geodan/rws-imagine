@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<!--d3 used to load tsv files -->
 <script src='../bower_components/d3/d3.min.js'></script>
 <dom-module id="imagine-instance">
 <template>
@@ -9,6 +10,9 @@
 Polymer({
 		is: 'imagine-instance',
 		properties:{
+			core: {
+				type: Object
+			},
 			progress: {
 				type: Number,
 				value: 0,
@@ -35,8 +39,14 @@ Polymer({
 				},
 				notify: true
 			},
-			team: String,
-			scenario:  String,
+			team: {
+				type: String,
+				//observer: '_setProject'
+			},
+			scenario: {
+				type: String,
+				//observer: '_setProject'
+			},
 			time: {
 				type: Number,
 				value: new Date().getTime(),
@@ -58,14 +68,11 @@ Polymer({
 				type: Number,
 				notify: true
 			},
-			reset: Boolean,
-			core: {
-				type: Object,
-				observer: '_cowChanged'
-			}
+			reset: Boolean
+			
 		},
 		observers: [
-			'_projectChange(team, scenario)'
+			'_setProject(core, team, scenario)'
 		],
 		_generateEvents: function(filename){
 			var self = this;
@@ -190,11 +197,7 @@ Polymer({
 		},
 		_projectChange: function(){
 			var self = this;
-			if (!this.core){
-				console.warn('No COW core ready');
-				return;
-			}
-			else if (this.team && this.scenario){              
+			if (this.team && this.scenario){              
 				var projects = this.core.projects().filter(function(d){
 					return !d.deleted() && d.data('team') == self.team && d.data('scenario') == self.scenario;
 				});
@@ -209,7 +212,9 @@ Polymer({
 				else {                
 					this._project = projects[0];
 					this.progress = this._project.data('progress');
-					this._project.itemStore().on('synced',function(){
+					//TT: changed to loaded, that should do
+					//this._project.itemStore().on('synced',function(){
+					this._project.itemStore().loaded.then(function(){
 						if (self.reset){
 							self._reset();
 							self.reset = false;
@@ -347,22 +352,19 @@ Polymer({
 				//console.warn('No project selected');
 			}
 		},
-		_cowChanged: function(){
+		_setProject: function(){
 			var self = this;
-			if (this.core){
-				window.core = this.core; //for debug
-				var core = this.core;
-				core.projectStore().loaded.then(function(){
-					  console.log('projectstore loaded');
-					  self._projectChange(); //start selection of project
-				});
-				core.projectStore().on('synced', function(){
-					console.log('projectstore synced');
-					self._projectChange(); //start selection of project
-				});
-			}
+			this.core.projectStore().loaded.then(function(){
+				console.log('projectstore loaded');
+				self._projectChange(); //start selection of project
+			});
+			this.core.projectStore().on('synced', function(){
+				console.log('projectstore synced');
+				self._projectChange(); //start selection of project
+			});
 		},
-		ready: function(){
+		attached: function(){
+			
 		}
 });
 </script>

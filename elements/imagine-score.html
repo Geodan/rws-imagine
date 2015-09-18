@@ -254,21 +254,14 @@ imagine-score-thingy:nth-last-child(2) {
     	
     ],
     ready: function() {
-    var monthNames = ["JANUARI", "FEBRUARI", "MAART", "APRIL", "MEI", "JUNI",
-  "JULI", "AUGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"
-];
+		var monthNames = [
+			"JANUARI", "FEBRUARI", "MAART", "APRIL", "MEI", "JUNI",
+			"JULI", "AUGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"
+		];
 
         var d =new Date();
         this.date = d.getDate() + ' '+monthNames[d.getMonth()];
-        /*TT: this shouldnt be here
-         this.cowconfig ={
-            key: 'imagine',
-            protocol:'wss',
-            url:'websocket.geodan.nl', 
-            port:443,
-            dir: 'imagine'
-          };
-          */
+        
         var hash = window.location.hash.split('#')[1];
         if(parseInt(hash)&&hash <3 && hash >= 0) {
             hash++
@@ -277,7 +270,7 @@ imagine-score-thingy:nth-last-child(2) {
         else hash = 1;
         this.hash = hash;
         this.nextTeam = this.teams[hash];
-         this.instances = [
+        this.instances = [
             {team:this.teams[0], scenario: this.scenario},
             {team:this.teams[1], scenario: this.scenario},
             {team:this.teams[2], scenario: this.scenario},
