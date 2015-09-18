@@ -244,7 +244,8 @@ imagine-time-slider-vertical {
     },
     team: {
         type: String,
-        value: 'Team A'
+        value: 'Team A',
+		observer: '_teamChanged'
     },
     scenario: {
         type: String,
@@ -288,6 +289,10 @@ imagine-time-slider-vertical {
     createID: function(i) {
         return 'event-'+i;
     },
+	_teamChanged: function() {
+		console.log('team changed here');
+		console.log(this.team);
+	},
     //Toggle items in de kenmerkenlijst, wordt aangestuurd door de aapie
     _kenmerkChanged: function(){
         var id = this.kenmerk;   
@@ -521,6 +526,10 @@ imagine-time-slider-vertical {
     //Make sure that the kaartjes are all reset to their initial position
     _kaartjesChanged: function(){
         console.log('kaartjes changed')
+		console.log(this.team)
+		console.log(this.scenario)
+		console.log(this.kaartjes)
+		
         if(this.beginSpel && this.kaartjes.length > 0) {
 
             this.beginSpel = false; //The game has started
