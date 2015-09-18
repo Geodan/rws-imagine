@@ -296,9 +296,20 @@ imagine-score-thingy:nth-last-child(2) {
     },
     
     nextPlayer: function() {
+		this.team = this.teams[this.hash];
+		console.log(this.team);
+		$('imagine-puzzel').attr('begin',false);
+		$('imagine-puzzel').css('top','1080px');
         var url = window.location.origin + window.location.pathname + '#'+this.hash;
         window.location.href = url;
-        window.location.reload();
+		document.getElementById('puzzelgame').style.display = 'block';
+        document.getElementById('puzzelscore').style.display = 'none';
+		$('#firstScreen').slideDown();
+    
+		
+		
+		
+     //   window.location.reload();
     }
     
   });
