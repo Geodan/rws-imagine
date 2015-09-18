@@ -1,0 +1,53 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../elements/imagine-puzzel.html">
+<link rel="import" href="../elements/imagine-score.html">
+<link rel="import" href="../elements/imagine-3d.html">
+<link rel="import" href="../elements/imagine-startscherm.html">
+<link rel="import" href="../elements/gm-cow-core.html">
+<link href='../style/style.css' rel='stylesheet'>
+<script src="../cowconfigs.js"></script>
+
+<dom-module id="imagine-thegame">
+<template>
+    <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
+	<imagine-startscherm id="startScherm" scenario="communicity" team="{{team}}" teams="{{teams}}"></imagine-startscherm>
+    <imagine-3d></imagine-3d>
+    <imagine-puzzel begin="{{begin}}" id="puzzelgame" core="{{cow}}" scenario="{{scenario}}" team="{{team}}"></imagine-puzzel>
+    <imagine-score id="puzzelscore" core="{{cow}}" scenario="communicity" team="{{team}}" teams="{{teams}}"></imagine-score>
+</template>
+</dom-module>
+<script>
+
+Polymer({
+	is: 'imagine-thegame',
+	properties:{
+		scenario: String,
+		teams: {
+			type: Array,
+			value: function(){
+				return ['Team A','Team D','Team C','Team B'];
+			}
+		},
+		cowconfig: {
+			type: Object,
+			value: function(){
+				/*
+				 ! Remember to set the correct config in the configfile!
+				*/
+				return window.cowconfig;
+			}
+		}
+	},
+	ready: function(){
+		var teamNr = 0;
+		if(window.location.hash) {
+			var hash = window.location.hash.split('#')[1];
+			if(parseInt(hash)&&hash <4 && hash > 0) {            
+				teamNr = hash;
+			}
+		}
+		this.team = this.teams[teamNr];
+	}
+		
+});
+</script>
