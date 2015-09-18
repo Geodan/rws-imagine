@@ -41,11 +41,11 @@ Polymer({
 			},
 			team: {
 				type: String,
-				observer: '_setProject'
+				//observer: '_setProject'
 			},
 			scenario: {
 				type: String,
-				observer: '_setProject'
+				//observer: '_setProject'
 			},
 			time: {
 				type: Number,
@@ -71,6 +71,9 @@ Polymer({
 			reset: Boolean
 			
 		},
+		observers: [
+			'_setProject(core, team, scenario)'
+		],
 		_generateEvents: function(filename){
 			var self = this;
 			//First remove all existing events
@@ -194,11 +197,7 @@ Polymer({
 		},
 		_projectChange: function(){
 			var self = this;
-			if (!this.core){
-				console.warn('No COW core ready');
-				return;
-			}
-			else if (this.team && this.scenario){              
+			if (this.team && this.scenario){              
 				var projects = this.core.projects().filter(function(d){
 					return !d.deleted() && d.data('team') == self.team && d.data('scenario') == self.scenario;
 				});
@@ -213,7 +212,9 @@ Polymer({
 				else {                
 					this._project = projects[0];
 					this.progress = this._project.data('progress');
-					this._project.itemStore().on('synced',function(){
+					//TT: changed to loaded, that should do
+					//this._project.itemStore().on('synced',function(){
+					this._project.itemStore().loaded.then(function(){
 						if (self.reset){
 							self._reset();
 							self.reset = false;
@@ -352,14 +353,6 @@ Polymer({
 			}
 		},
 		_setProject: function(){
-			if (!this.core){
-				console.warn('!! wait a sec, there/s no core yet');
-			}
-			else{
-				console.log('!! proj set');
-			}
-		},
-		attached: function(){
 			var self = this;
 			this.core.projectStore().loaded.then(function(){
 				console.log('projectstore loaded');
@@ -369,6 +362,9 @@ Polymer({
 				console.log('projectstore synced');
 				self._projectChange(); //start selection of project
 			});
+		},
+		attached: function(){
+			
 		}
 });
 </script>
