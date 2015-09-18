@@ -231,7 +231,8 @@ imagine-score-thingy:nth-last-child(2) {
     properties: {
         team: {
             type: String,
-			notify: true			
+			notify: true,
+			observer: '_teamChanged'
         },
         teams: {
             type: Array        
@@ -254,16 +255,8 @@ imagine-score-thingy:nth-last-child(2) {
     observers: [
     	
     ],
-    ready: function() {
-		var monthNames = [
-			"JANUARI", "FEBRUARI", "MAART", "APRIL", "MEI", "JUNI",
-			"JULI", "AUGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"
-		];
-
-        var d =new Date();
-        this.date = d.getDate() + ' '+monthNames[d.getMonth()];
-        
-        var hash = window.location.hash.split('#')[1];
+	update: function() {
+		var hash = window.location.hash.split('#')[1];
         if(parseInt(hash)&&hash <3 && hash >= 0) {
             hash++
         }
@@ -289,17 +282,21 @@ imagine-score-thingy:nth-last-child(2) {
               this.instances.splice(3,1)
               break;
         }
-        
-       
-    },
-    attached: function(){
-    	
-    },
-    
+	},
+    ready: function() {
+		var monthNames = [
+			"JANUARI", "FEBRUARI", "MAART", "APRIL", "MEI", "JUNI",
+			"JULI", "AUGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"
+		];
+
+        var d =new Date();
+        this.date = d.getDate() + ' '+monthNames[d.getMonth()];
+	},
+	
     nextPlayer: function() {
 		this.team = this.teams[this.hash];
 		console.log(this.team);
-		$('imagine-puzzel').attr('begin',false);
+		$('imagine-puzzel').attr('state','RESET');
 		$('imagine-puzzel').css('top','1080px');
         var url = window.location.origin + window.location.pathname + '#'+this.hash;
         window.location.href = url;

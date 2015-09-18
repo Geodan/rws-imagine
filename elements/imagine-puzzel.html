@@ -235,6 +235,8 @@ imagine-time-slider-vertical {
 </dom-module>
 
 <script>
+	//fases: RESET, BEGIN, VERBIND, SCORE
+
   // register a new element called proto-element
   Polymer({
     is: "imagine-puzzel",
@@ -244,8 +246,7 @@ imagine-time-slider-vertical {
     },
     team: {
         type: String,
-        value: 'Team A',
-		observer: '_teamChanged'
+        value: 'Team A'
     },
     scenario: {
         type: String,
@@ -257,6 +258,10 @@ imagine-time-slider-vertical {
         value: false,
         observer: '_beginSpel'
     },
+	state: {
+		type: String,
+		observer: '_stateChanged'
+	},
     kenmerk: {
         type: Number,
         observer: '_kenmerkChanged'
@@ -289,10 +294,6 @@ imagine-time-slider-vertical {
     createID: function(i) {
         return 'event-'+i;
     },
-	_teamChanged: function() {
-		console.log('team changed here');
-		console.log(this.team);
-	},
     //Toggle items in de kenmerkenlijst, wordt aangestuurd door de aapie
     _kenmerkChanged: function(){
         var id = this.kenmerk;   
@@ -525,15 +526,13 @@ imagine-time-slider-vertical {
     },
     //Make sure that the kaartjes are all reset to their initial position
     _kaartjesChanged: function(){
-        console.log('kaartjes changed')
-		console.log(this.team)
-		console.log(this.scenario)
-		console.log(this.kaartjes)
-		
-        if(this.beginSpel && this.kaartjes.length > 0) {
-
-            this.beginSpel = false; //The game has started
-        }
+        if(this.state == 'RESET') {
+			console.log('shit changed')
+			
+			
+			
+			
+		}
     },
     //RWS logo op het kaartje zetten
     stampKaartje: function(e) {
@@ -544,100 +543,130 @@ imagine-time-slider-vertical {
     },
     //Function called when the slider reaches the end
     _doneChanged: function(){
-        var instance = document.getElementById('instance');
-        //Als de tijd verstreken is gaan we over op:
-        if(this.done&& !this.verbinden) { // het verbinden van de kaartjes
-            this.text = "INDIENEN";
-            instance.setProgress(2);
-            this._removeUnused();
-            var self = this;
-            interact('.draggable')
-                .draggable({enabled:false})
-                //Als het eerste kaartje wordt aangeraakt, gaan ze allemaal wiebelen tot dat
-                //of hij weer wordt losgelaten
-                //of een ander kaartje wordt aangeraakt
-                //TODO: firefox registreerd de on down pas bij up
-                .on('down',function(e){
-                    e.preventDefault();
-                    console.log(e.changedTouches);
-                    if(e.ctrlKey) self.stampKaartje(e);
-                    else self.selectKaartje(e);
-
-                });
-            this.sliderValue = 0; //Set the slider to 0
-        }
-        else if(this.done&&this.verbinden) { // scorebord
-            //TODO: hier moet het scorebord komen
-             var s = this.scenario.toLowerCase();
-            switch(s) {
-                case 'sprawlville':
-                    document.getElementById('soundsprawl').pause()
-                   
-                    break;
-                case 'communicity':
-                   document.getElementById('soundcom').pause()
-                    break;
-                case 'renewabad':
-                   document.getElementById('soundrenew').pause()
-                    break;
-                case 'planopolis':
-                   document.getElementById('soundplan').pause()
-                    break;
-
-            }
-            this.verbinden = false;
-            instance.setProgress(3);
-            this.showScore()
-            
-        }
+        if(this.done) {
+			this.done = false;
+			console.log('changestate')
+			this._changeState();
+		}
+        
     },
-    showScore: function() {
-        document.getElementById('puzzelgame').style.display = 'none';
-        document.getElementById('puzzelscore').style.display = 'block';
-       
-    },
+    
     _beginSpel: function() {
-    
-     var s = this.scenario.toLowerCase();
-      if(this.begin) {
-          this.beginSpel = true;
-        this.start = true;
-        switch(s) {
-            case 'sprawlville':
-                document.getElementById('soundsprawl').play()
-               
-                break;
-            case 'communicity':
-               document.getElementById('soundcom').play()
-                break;
-            case 'renewabad':
-               document.getElementById('soundrenew').play()
-                break;
-            case 'planopolis':
-               document.getElementById('soundplan').play()
-                break;
-
-        }
-        }
-        
-              
+		if(this.begin) {			
+			console.warn('woops')
+		}  
       },
-    
+    _changeState: function(){
+		switch(this.state) {
+			case 'RESET':
+			//			this.state = 'BEGIN'
+			break;
+			case 'BEGIN': 
+			this.state = 'VERBIND'
+			break;
+			case 'VERBIND':
+			this.state = 'SCORE'
+			break;
+			default:
+			this.state = 'RESET'
+			break;
+		}
+	},
+	_stateChanged: function(){
+		console.log('state changed');
+		console.log(this.state);
+		var instance = document.getElementById('instance');
+		switch(this.state) {
+			case 'RESET':
+				if(instance)
+				instance.setProgress(0);
+				console.log('reset');
+				//reset everything to its initial position
+				this.stamps = 0;
+				this.text = "VERBINDEN"
+				this.start = false;
+				this.speelkaarten = []; //Array with the chosen cards (empty at start)
+				this.verbindingen =[];
+				this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
+				this.done= false; //boolean to alert that the slider reached the end of its run
+				this.counter = 0; //the number of active kaartjes
+				this.sliderValue=0;
+				this.zindex = 1;
+			break;
+			case 'BEGIN': 
+			console.log(instance.team);
+				instance.setProgress(1);
+				//set the game mode to selecting cards and start the timer
+				this.start =  true;
+				var s = this.scenario.toLowerCase();
+				switch(s) {
+					case 'sprawlville':
+						document.getElementById('soundsprawl').play()
+						break;
+					case 'communicity':
+					   document.getElementById('soundcom').play()
+						break;
+					case 'renewabad':
+					   document.getElementById('soundrenew').play()
+						break;
+					case 'planopolis':
+					   document.getElementById('soundplan').play()
+						break;
+				}	
+			break;
+			case 'VERBIND':
+			//set the game mode to connecting cards and start the timer
+				this.text = "INDIENEN";
+				instance.setProgress(2);
+				this._removeUnused();
+				var self = this;
+				interact('.draggable')
+					.draggable({enabled:false})
+					//Als het eerste kaartje wordt aangeraakt, gaan ze allemaal wiebelen tot dat
+					//of hij weer wordt losgelaten
+					//of een ander kaartje wordt aangeraakt
+					//TODO: firefox registreerd de on down pas bij up
+					.on('down',function(e){
+						e.preventDefault();
+						console.log(e.changedTouches);
+						if(e.ctrlKey) self.stampKaartje(e);
+						else self.selectKaartje(e);
+
+				});
+				this.sliderValue = 0; //Set the slider to 0
+			break;
+			case 'SCORE':
+				//stop everything and move to the score view
+				var s = this.scenario.toLowerCase();
+				switch(s) {
+					case 'sprawlville':
+						document.getElementById('soundsprawl').pause()
+					   
+						break;
+					case 'communicity':
+					   document.getElementById('soundcom').pause()
+						break;
+					case 'renewabad':
+					   document.getElementById('soundrenew').pause()
+						break;
+					case 'planopolis':
+					   document.getElementById('soundplan').pause()
+						break;
+
+				}
+				this.verbinden = false;
+				instance.setProgress(3);
+				document.getElementById('puzzelgame').style.display = 'none';
+				var score = document.getElementById('puzzelscore');
+				score.update();
+				score.style.display = 'block';
+				
+			break;
+		}
+	},
     ready: function() {    
-   
-        this.stamps = 0;
-        this.text = "VERBINDEN"
-        this.beginSpel = false;  //boolean to make sure that we have started a new game
-        this.verbinden = false; //boolean to state whether or not we're aan het verbinden
-        this.start = false;
-        this.speelkaarten = []; //Array with the chosen cards (empty at start)
-        this.verbindingen =[];
-        this.setje = {'begin':null,'end':null}; //Helper object to conenct kaartjes (empty at start)
-        this.done= false; //boolean to alert that the slider reached the end of its run
-        this.counter = 0; //the number of active kaartjes
-        this.sliderValue=0;
-        this.zindex = 1;
-        
+		this.state = 'RESET';
+
         var self = this;
         var w =  (window.innerWidth > 0) ? window.innerWidth : screen.width;
         this.width=w-550;

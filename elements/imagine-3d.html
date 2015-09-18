@@ -16,8 +16,9 @@ function SayHelloToBrowser()
     $('#firstScreen').slideUp();
     
     $('imagine-puzzel').css('top','0px');
+	
     setTimeout(function(){    
-        $('imagine-puzzel').attr('begin',true);
+       $('imagine-puzzel').attr('state','BEGIN');
     },1000);
 }
 function setKenmerk(id) {
