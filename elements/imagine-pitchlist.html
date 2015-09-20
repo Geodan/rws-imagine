@@ -1,9 +1,26 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/google-chart/google-chart.html">
 <link rel="import" href="./imagine-instance.html">
 <dom-module id="imagine-pitchlist">
+
 <template>
+<style>
+google-chart {
+      height: 300px;
+      width: 400px;
+    }
+</style>
 
   <h2>Scorelist</h2>
+     
+  <google-chart
+  	id='scorechart'
+    type='bar'
+    options='{"title": "Score"}'
+    cols='[{"label": "Team", "type": "string"},{"label": "Punten", "type": "number"}]'
+    rows='[["Team A", 0],["Team B", 28],["Team C", 31],["Team D", 30]]'>
+  </google-chart>
+  
   <p>Het aantal punten en het daaruit voortvloeiend aantal stemmen per team</p>
   <template is='dom-repeat' items="{{scorelist}}" as="score">
   <div>
@@ -46,6 +63,7 @@ Polymer({
 		}
 	},
 	ready: function(){
+		
 	},
 	calcpitch: function(){
 		var projects = this.core.projects().filter(d=>!d.deleted());
