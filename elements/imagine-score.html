@@ -279,23 +279,22 @@ imagine-score-thingy:nth-last-child(2) {
         else hash = 1;
         this.hash = hash;
         this.nextTeam = this.teams[hash];
-        this.instances = [
-            {team:this.teams[0], scenario: this.scenario},
-            {team:this.teams[1], scenario: this.scenario},
-            {team:this.teams[2], scenario: this.scenario},
-            {team:this.teams[3], scenario: this.scenario}
-        
-        ]
+		
+		
         switch(hash){
             case 1:
-              this.instances.splice(1,3)
+             
+			  this.instances = this.instanceTemplate.slice(0,1);
               break;
             case 2:
-              this.instances.splice(2,2)
+               this.instances = this.instanceTemplate.slice(0,2);
               break;
             case 3:
-              this.instances.splice(3,1)
+               this.instances = this.instanceTemplate.slice(0,3);
               break;
+			default:
+				 this.instances = this.instanceTemplate.slice(0,4);
+				break;
         }
 	},
     ready: function() {
@@ -306,6 +305,15 @@ imagine-score-thingy:nth-last-child(2) {
 
         var d =new Date();
         this.date = d.getDate() + ' '+monthNames[d.getMonth()];
+		this.instanceTemplate = 
+         [
+            {team:this.teams[0], scenario: this.scenario},
+            {team:this.teams[1], scenario: this.scenario},
+            {team:this.teams[2], scenario: this.scenario},
+            {team:this.teams[3], scenario: this.scenario}
+        
+        ];
+		this.update();
 	},
 	
     nextPlayer: function() {
