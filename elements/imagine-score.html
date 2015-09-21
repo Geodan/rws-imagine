@@ -263,12 +263,6 @@ imagine-score-thingy:nth-last-child(2) {
         }
         
     },    
-    behaviors: [
-     
-    ],
-    observers: [
-    	
-    ],
 	update: function() {
 		var hash = window.location.hash.split('#')[1];
         if(parseInt(hash)&&hash <3 && hash >= 0) {
@@ -313,6 +307,7 @@ imagine-score-thingy:nth-last-child(2) {
         
         ];
 		this.update();
+		$('#firstScreen').slideDown();
 	},
 	
     nextPlayer: function() {
@@ -324,7 +319,7 @@ imagine-score-thingy:nth-last-child(2) {
         window.location.href = url;
 		document.getElementById('puzzelgame').style.display = 'block';
         document.getElementById('puzzelscore').style.display = 'none';
-		$('#firstScreen').slideDown();
+		
     
 		
 		
