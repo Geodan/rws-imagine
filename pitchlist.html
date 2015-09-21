@@ -10,8 +10,16 @@
   <link rel="import" href="./elements/gm-cow-core.html">
   <link rel="import" href="./elements/imagine-pitchlist.html">
   <script src="./cowconfigs.js"></script>
-  </head>      
-  <body>
+  </head>
+  <style>
+  body,html {
+  	  height: 100%;
+  }
+  imagine-pitchlist {
+  	  height: 100%;
+  }
+  </style>
+  <body class="fullbleed layout vertical">
   
   <template id="main" is="dom-bind">
   	<imagine-pitchlist id="pitchlist" core="{{cow}}"></imagine-pitchlist>
