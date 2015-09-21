@@ -226,7 +226,7 @@ imagine-time-slider-vertical {
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}" oncontextmenu="return false"></canvas>
     <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}" as="item">
-        <div id="{{createID(item._data.id)}}" class$="[[createClass(item._data.id)]]"><span  class="kaartjeText">{{item._data.name}}</span></div>
+        <div id="{{createID(item._data.id)}}" team$="[[team]]" class$="[[createClass(item._data.id)]]"><span  class="kaartjeText">{{item._data.name}}</span></div>
     </template>
     
    </div>
@@ -239,6 +239,7 @@ imagine-time-slider-vertical {
 
   // register a new element called proto-element
   Polymer({
+	
     is: "imagine-puzzel",
     properties: { 
     core: {
@@ -391,18 +392,17 @@ imagine-time-slider-vertical {
     selectKaartje: function(e) {        
         //TODO: check de volgorde van de link en klap evt om
         var kaartje = {id:e.currentTarget.id.split('-')[1],x:e.currentTarget.attributes['data-x'].value}
-        console.log(this.setje);
         if(this.setje.begin === null || this.setje.begin.id === kaartje.id) {
             console.log('begin');
             this.setje.begin = kaartje;
             var kaartjes = document.getElementsByClassName('can-drop');
             console.log(kaartjes);
-            if(this.verbindingen.length < 10) {
-            for(var i = 0; i< kaartjes.length;i++){
-            
-                kaartjes[i].classList.add('wiggle');
+            if(this.verbindingen.length < 10 && this.state == 'VERBIND') {
+				for(var i = 0; i< kaartjes.length;i++){
+				
+					kaartjes[i].classList.add('wiggle');
 
-            }
+				}
             }
             e.currentTarget.classList.remove('wiggle');
         }
@@ -513,8 +513,7 @@ imagine-time-slider-vertical {
         }
     },
     //hulpfunctie om de overige kaartjes te verwijderen
-    _removeUnused: function() {
-        this.verbinden =true; //Kaartjes-ronde is over, now we start verbinden
+    _removeUnused: function() {      
         this.speelkaarten = [];
         var allekaartjes  = document.getElementsByClassName('kaartje');
         //verwijder de kaartjes die niet op het speelbord liggen
@@ -527,7 +526,6 @@ imagine-time-slider-vertical {
     //Make sure that the kaartjes are all reset to their initial position
     _kaartjesChanged: function(){
         if(this.state == 'RESET') {
-			console.log('shit changed')
 			
 			
 			
@@ -572,16 +570,36 @@ imagine-time-slider-vertical {
 			break;
 		}
 	},
-	_stateChanged: function(){
-		console.log('state changed');
-		console.log(this.state);
+	_kaartjeUp: function(e) {
+		//truukje om te zorgen dat je zonder multitouch wel kan werken
+			e.preventDefault();
+			var that = document.getElementById('puzzelgame');
+			that.selectKaartje(e);
+			if(e.shiftKey) return true;
+			else that.stopWiebelen();
+		},
+	_kaartjeDown :function(e) {
+			e.preventDefault();
+			var that = document.getElementById('puzzelgame');
+			if(e.ctrlKey) that.stampKaartje(e);
+			else that.selectKaartje(e);			
+		},
+	_stateChanged: function(){		
 		var instance = document.getElementById('instance');
+		
 		switch(this.state) {
 			case 'RESET':
-				if(instance)
-				instance.setProgress(0);
+				if(instance){
+					instance.setProgress(0);					
+				}
 				console.log('reset');
 				//reset everything to its initial position
+				var canvas = document.getElementById('bord');
+				if(canvas) {
+					var context = canvas.getContext('2d');
+					context.clearRect(0, 0, canvas.width, canvas.height);
+				}
+				$('.stamped').removeClass('stamped');
 				this.stamps = 0;
 				this.text = "VERBINDEN"
 				this.start = false;
@@ -591,13 +609,29 @@ imagine-time-slider-vertical {
 				this.done= false; //boolean to alert that the slider reached the end of its run
 				this.counter = 0; //the number of active kaartjes
 				this.sliderValue=0;
-				this.zindex = 1;
+				this.zindex = 1;	
+				var k = document.getElementsByClassName('kaartje');
+				for(var i=0;i<k.length;i++) {
+					if(k[i].attributes.style) {
+						k[i].style.left = null;
+						k[i].style.top = null;
+						k[i].removeAttribute('data-x');
+						k[i].removeAttribute('data-y');
+					}
+				}
+				
 			break;
 			case 'BEGIN': 
-			console.log(instance.team);
+				console.log('begin')
 				instance.setProgress(1);
 				//set the game mode to selecting cards and start the timer
 				this.start =  true;
+				var self = this;
+				interact('.draggable')
+					.draggable({enabled:true})
+					.off('down',this._kaartjeDown)
+					.off('up',this._kaartjeUp);
+					
 				var s = this.scenario.toLowerCase();
 				switch(s) {
 					case 'sprawlville':
@@ -626,13 +660,8 @@ imagine-time-slider-vertical {
 					//of hij weer wordt losgelaten
 					//of een ander kaartje wordt aangeraakt
 					//TODO: firefox registreerd de on down pas bij up
-					.on('down',function(e){
-						e.preventDefault();
-						console.log(e.changedTouches);
-						if(e.ctrlKey) self.stampKaartje(e);
-						else self.selectKaartje(e);
-
-				});
+					.on('down',this._kaartjeDown)
+					.on('up',this._kaartjeUp);
 				this.sliderValue = 0; //Set the slider to 0
 			break;
 			case 'SCORE':
@@ -653,17 +682,17 @@ imagine-time-slider-vertical {
 					   document.getElementById('soundplan').pause()
 						break;
 
-				}
-				this.verbinden = false;
+				}				
 				instance.setProgress(3);
 				document.getElementById('puzzelgame').style.display = 'none';
 				var score = document.getElementById('puzzelscore');
 				score.update();
 				score.style.display = 'block';
-				
 			break;
+		
 		}
 	},
+	
     ready: function() {    
 		this.state = 'RESET';
 
@@ -672,7 +701,7 @@ imagine-time-slider-vertical {
         this.width=w-550;
         var h =  (window.innerHeight > 0) ? window.innerHeight : screen.height;
         this.height=h-245;
-
+		
         function dragMoveListener (event) {
             var target = event.target,
                 // keep the dragged position in the data-x/data-y attributes
@@ -688,30 +717,19 @@ imagine-time-slider-vertical {
         window.dragMoveListener = dragMoveListener;
 
         // target elements with the "draggable" class
-        interact('.draggable')
-            .draggable({
-                // enable inertial throwing
-                inertia: true,
-                // keep the element within the area of it's parent
-                restrict: {
-                    restriction: "parent",
-                    endOnly: true,
-                    elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-                },
-                // call this function on every dragmove event
-                onmove: dragMoveListener
-            })
-      /*      .on('down',function(e) {
-              e.target.parentElement.style.zIndex = self.zindex++
-              console.log(self.zindex);
-            })*/
-            .on('up',function(e){
-                //truukje om te zorgen dat je zonder multitouch wel kan werken
-                self.selectKaartje(e);
-                if(e.shiftKey) return true;
-                else self.stopWiebelen();
-
-            });
+       interact('.draggable')
+					.draggable({
+						// enable inertial throwing
+						inertia: true,
+						// keep the element within the area of it's parent
+						restrict: {
+							restriction: "parent",
+							endOnly: true,
+							elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+						},
+						// call this function on every dragmove event
+						onmove: dragMoveListener
+					})
         // Magic foobar to handle the dropping of kaartjes
         interact('.dropzone').dropzone({
             // only accept elements matching this CSS selector
