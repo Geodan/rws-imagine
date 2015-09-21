@@ -14,13 +14,15 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#1.0.0",
-    "iron-elements": "PolymerElements/iron-elements#~1.0.0",
-    "paper-elements": "PolymerElements/paper-elements#~1.0.1",
+    "polymer": "Polymer/polymer#1.1.0",
     "interact.js": "~1.2.4",
     "cow": "~2.2.0",
     "underscore": "~1.8.3",
     "d3": "~3.5.6",
-    "paper-dialog": "PolymerElements/paper-dialog#~1.0.1"
+    "iron-elements": "PolymerElements/iron-elements#~1.0.3",
+    "prism": "~1.0.1",
+    "marked": "~0.3.5",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.5",
+    "google-chart": "~1.0.2"
   }
 }

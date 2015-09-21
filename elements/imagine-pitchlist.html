@@ -1,34 +1,149 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="./imagine-instance.html">
+<link rel="import" href="./imagine-reviewboard.html">
+<script src="../bower_components/d3/d3.js"></script>
+ 
 <dom-module id="imagine-pitchlist">
+
 <template>
+<style> 
 
-  <h2>Scorelist</h2>
-  <p>Het aantal punten en het daaruit voortvloeiend aantal stemmen per team</p>
-  <template is='dom-repeat' items="{{scorelist}}" as="score">
-  <div>
-  	<span>{{score.team}}</span>
-  	<span>{{score.score}}</span>
-  	<span>{{score.votes1}}</span>
-  	<span>{{score.votes2}}</span>
-  </div>
-  </template>
-  
+:host {
+	font-family: arial;
+	
+}
+.bar{
+	margin-top: 20px;
+	font-size: 26pt;
+}
+.score{
+	background-color: grey;
+	height: 100px;
+	display: inline-block;
+	text-align: center;
+	
+}
 
-  <h2>Pitchlist</h2>
-  
-  
-  <template is='dom-repeat' items="{{pitchlist}}" as="pitch">
-  	<div>
-  		<span>{{pitch._data.team}}</span> -> 
-  		<span>{{pitch._data.scenario}}</span>
-  		<span>{{pitch._data.score}}</span>
-  	</div>
-  </template>
+.votes {
+	background-color: lightgrey;
+	height: 100px;
+	display: inline-block;
+	text-align: center;
+	
+}
+paper-toolbar {
+	background: #3A3335 url("http://research.geodan.nl/sites/imagine/style/logo.png") no-repeat scroll 50% 0%;
+}
 
-  <h2>Votelist</h2>
-  <p>Verdeel de stemmen</p>
-  
+.content {
+	padding: 50px;
+}
+
+#page1 {
+      @apply(--layout-vertical);
+      
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+}
+paper-card {
+	margin: 20px;
+}
+
+.final {
+	@apply(--layout-vertical);
+	font-size: 30pt;
+	text-align: center;
+}
+
+#review {
+	width: 100%;
+	height: 100%;
+}
+</style>
+<paper-dialog modal id='review'>
+		<imagine-reviewboard
+			kaartjes="{{kaartjes}}"
+			verbindingen="[]"
+		></imagine-reviewboard>			
+	</paper-dialog>
+<paper-header-panel class="flex">
+	<paper-toolbar class="tall" on-click="rotatePage">
+	  <h2>Scorelist</h2>
+	</paper-toolbar>
+	
+	<div class="content fit">
+		<iron-pages id="pages" selected="0">
+		<div id="page0">
+		  <div id='teama'class='bar'>A <span class='score'>{{scorelist.0.votes2}}</span><span class='votes'>{{scorelist.0.votes1}}</span></div>
+		  <div id='teamb'class='bar'>B <span class='score'>{{scorelist.1.votes2}}</span><span class='votes'>{{scorelist.1.votes1}}</span></div>
+		  <div id='teamc'class='bar'>C <span class='score'>{{scorelist.2.votes2}}</span><span class='votes'>{{scorelist.2.votes1}}</span></div>
+		  <div id='teamd'class='bar'>D <span class='score'>{{scorelist.3.votes2}}</span><span class='votes'>{{scorelist.3.votes1}}</span></div>
+		</div>
+		<div id="page1">
+		  <h2>Pitchlist</h2>
+		  <template is='dom-repeat' items="{{pitchlist}}" as="pitch">
+			<paper-card heading="{{pitch._data.team}}">
+				<div class="card-content">{{pitch._data.scenario}}</div>
+				<div class="card-actions">
+					<paper-button on-click="_startPitch">Pitch</paper-button>
+				</div>
+				<!--<span>{{pitch._data.score}}</span>-->
+			</paper-card>
+			
+		  </template>
+		</div>
+		<div id="page2">
+			<h2>Votelist</h2>
+			<p>Verdeel de stemmen</p>
+			<div>
+				<paper-card heading="Team A">
+					<div class="card-content">
+						<paper-input label='Team B' type=number preventInvalidInput value="{{scorelist.0.score1::input}}"></paper-input>
+						<paper-input label='Team C' type=number preventInvalidInput value="{{scorelist.0.score2::input}}"></paper-input>
+						<paper-input label='Team D' type=number preventInvalidInput value="{{scorelist.0.score3::input}}"></paper-input>
+					</div>
+				</paper-card>
+				<paper-card heading="Team B">
+					<div class="card-content">
+						<paper-input label='Team A' type=number preventInvalidInput value="{{scorelist.1.score1::input}}"></paper-input>
+						<paper-input label='Team C' type=number preventInvalidInput value="{{scorelist.1.score2::input}}"></paper-input>
+						<paper-input label='Team D' type=number preventInvalidInput value="{{scorelist.1.score3::input}}"></paper-input>
+					</div>
+				</paper-card>
+				<paper-card heading="Team C">
+					<div class="card-content">
+						<paper-input label='Team A' type=number preventInvalidInput value="{{scorelist.2.score1::input}}"></paper-input>
+						<paper-input label='Team B' type=number preventInvalidInput value="{{scorelist.2.score2::input}}"></paper-input>
+						<paper-input label='Team D' type=number preventInvalidInput value="{{scorelist.2.score3::input}}"></paper-input>
+					</div>
+				</paper-card>
+				<paper-card heading="Team D">
+					<div class="card-content">
+						<paper-input label='Team A' type=number preventInvalidInput value="{{scorelist.3.score1::input}}"></paper-input>
+						<paper-input label='Team B' type=number preventInvalidInput value="{{scorelist.3.score2::input}}"></paper-input>
+						<paper-input label='Team C' type=number preventInvalidInput value="{{scorelist.3.score3::input}}"></paper-input>
+					</div>
+				</paper-card>
+			</div>
+			<paper-button on-click='totalScore'>Bereken</paper-button>
+		</div>
+		<div id="page3">
+		  <div id='teamax'class='bar'>A <span class='score'>{{scorelist.0.votes2}}</span><span class='votes'>{{votesreceived0}}</span></div>
+		  <div id='teambx'class='bar'>B <span class='score'>{{scorelist.1.votes2}}</span><span class='votes'>{{votesreceived1}}</span></div>
+		  <div id='teamcx'class='bar'>C <span class='score'>{{scorelist.2.votes2}}</span><span class='votes'>{{votesreceived2}}</span></div>
+		  <div id='teamdx'class='bar'>D <span class='score'>{{scorelist.3.votes2}}</span><span class='votes'>{{votesreceived3}}</span></div>
+		</div>
+		</iron-pages>
+	</div>
+</paper-header-panel>  
 </template>
 </dom-module>
 <script>
@@ -43,9 +158,65 @@ Polymer({
 		core: {
 			type: Object,
 			observer: '_cowChanged'
+		},
+		kaartjes: {
+			type: Array,
+			value: function(){return [];}
 		}
 	},
+	observers: [
+		'_graphChange(scorelist.*)'
+	],
 	ready: function(){
+		 
+	},
+	rotatePage: function(){
+		this.$.pages.selectNext();
+		this._graphChange();
+	},
+	totalScore: function(){
+		this.votesreceived0 = window.parseInt(this.scorelist[0].score1) 
+			+ window.parseInt(this.scorelist[0].score2) 
+			+ window.parseInt(this.scorelist[0].score3);
+			
+		this.votesreceived1 = window.parseInt(this.scorelist[1].score1) 
+			+ window.parseInt(this.scorelist[1].score2) 
+			+ window.parseInt(this.scorelist[1].score3);
+			
+		this.votesreceived2 = window.parseInt(this.scorelist[2].score1) 
+			+ window.parseInt(this.scorelist[2].score2) 
+			+ window.parseInt(this.scorelist[2].score3);
+			
+		this.votesreceived3 = window.parseInt(this.scorelist[3].score1) 
+			+ window.parseInt(this.scorelist[3].score2) 
+			+ window.parseInt(this.scorelist[3].score3);
+			
+	},
+	_startPitch: function(a,b,c){
+		//Dit zijn de kaartjes: maar wat is de nette methode?
+		this.kaartjes = a.model.__data__.pitch.items().filter(d=>!d.deleted());
+		this.$.review.toggle();
+	},
+	_graphChange: function(){
+		console.log('!! graph changed');
+		d3.select(this.$.teama).select('.score').transition().style('width',this.scorelist[0].score * 6 + 'px');
+		d3.select(this.$.teamb).select('.score').transition().style('width',this.scorelist[1].score * 6 + 'px');
+		d3.select(this.$.teamc).select('.score').transition().style('width',this.scorelist[2].score * 6 + 'px');
+		d3.select(this.$.teamd).select('.score').transition().style('width',this.scorelist[3].score * 6 + 'px');
+		d3.select(this.$.teama).select('.votes').transition().style('width',this.scorelist[0].score * 4 + 'px');
+		d3.select(this.$.teamb).select('.votes').transition().style('width',this.scorelist[1].score * 4 + 'px');
+		d3.select(this.$.teamc).select('.votes').transition().style('width',this.scorelist[2].score * 4 + 'px');
+		d3.select(this.$.teamd).select('.votes').transition().style('width',this.scorelist[3].score * 4 + 'px');
+		
+		d3.select(this.$.teamax).select('.score').transition().style('width',this.scorelist[0].score * 6 + 'px');
+		d3.select(this.$.teambx).select('.score').transition().style('width',this.scorelist[1].score * 6 + 'px');
+		d3.select(this.$.teamcx).select('.score').transition().style('width',this.scorelist[2].score * 6 + 'px');
+		d3.select(this.$.teamdx).select('.score').transition().style('width',this.scorelist[3].score * 6 + 'px');
+		d3.select(this.$.teamax).select('.votes').transition().style('width',this.votesreceived0 * 10 + 'px');
+		d3.select(this.$.teambx).select('.votes').transition().style('width',this.votesreceived1 * 10 + 'px');
+		d3.select(this.$.teamcx).select('.votes').transition().style('width',this.votesreceived2 * 10 + 'px');
+		d3.select(this.$.teamdx).select('.votes').transition().style('width',this.votesreceived3 * 10 + 'px');
+
 	},
 	calcpitch: function(){
 		var projects = this.core.projects().filter(d=>!d.deleted());
@@ -59,14 +230,17 @@ Polymer({
 				team: team,
 				score: score,
 				votes1: votes1,
-				votes2: votes2
+				votes2: votes2,
+				score1: 0,
+				score2: 0,
+				score3: 0
 			};
 		}
 		this.scorelist = [
-		calc('Team A'),
-		calc('Team B'),
-		calc('Team C'),
-		calc('Team D')
+			calc('Team A'),
+			calc('Team B'),
+			calc('Team C'),
+			calc('Team D')
 		];
 		
 		  var scenlist = cow.projects().filter(d=>!d.deleted());
