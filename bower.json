@@ -23,6 +23,7 @@
     "prism": "~1.0.1",
     "marked": "~0.3.5",
     "paper-elements": "PolymerElements/paper-elements#~1.0.5",
-    "google-chart": "~1.0.2"
+    "google-chart": "~1.0.2",
+    "font-roboto-local": "PolymerElements/font-roboto-local#~1.0.1"
   }
 }

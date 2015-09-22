@@ -57,10 +57,10 @@
   	  	  	  d.deleted(true).sync()
   	  	  );
   	  	  main.teams.forEach(function(team){
-  	  	  	team.scenarios.forEach(function(scenario){
+  	  	  	team.scenarios.forEach(function(scenario,i){
   	  	  		var time=new Date().getTime();
   	  	  		var newproject = main.cow.projects({
-  	  	  		_id:time+scenario.name+team.name
+  	  	  				_id:time+'#' + i
   	  	  		});
   	  	  		newproject.data({
   	  	  			team:team.name,

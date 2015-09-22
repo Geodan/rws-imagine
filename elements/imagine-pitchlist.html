@@ -224,19 +224,19 @@ Polymer({
 		this.$.review.toggle();
 	},
 	_graphChange: function(){
-		d3.select(this.$.teama).select('.score').transition().style('width',this.scorelist[0].score * 6 + 'px');
-		d3.select(this.$.teamb).select('.score').transition().style('width',this.scorelist[1].score * 6 + 'px');
-		d3.select(this.$.teamc).select('.score').transition().style('width',this.scorelist[2].score * 6 + 'px');
-		d3.select(this.$.teamd).select('.score').transition().style('width',this.scorelist[3].score * 6 + 'px');
-		d3.select(this.$.teama).select('.votes').transition().style('width',this.scorelist[0].score * 4 + 'px');
-		d3.select(this.$.teamb).select('.votes').transition().style('width',this.scorelist[1].score * 4 + 'px');
-		d3.select(this.$.teamc).select('.votes').transition().style('width',this.scorelist[2].score * 4 + 'px');
-		d3.select(this.$.teamd).select('.votes').transition().style('width',this.scorelist[3].score * 4 + 'px');
+		d3.select(this.$.teama).select('.score').transition().style('width',this.scorelist[0].score * 4 + 'px');
+		d3.select(this.$.teamb).select('.score').transition().style('width',this.scorelist[1].score * 4 + 'px');
+		d3.select(this.$.teamc).select('.score').transition().style('width',this.scorelist[2].score * 4 + 'px');
+		d3.select(this.$.teamd).select('.score').transition().style('width',this.scorelist[3].score * 4 + 'px');
+		d3.select(this.$.teama).select('.votes').transition().style('width',this.scorelist[0].score * 6 + 'px');
+		d3.select(this.$.teamb).select('.votes').transition().style('width',this.scorelist[1].score * 6 + 'px');
+		d3.select(this.$.teamc).select('.votes').transition().style('width',this.scorelist[2].score * 6 + 'px');
+		d3.select(this.$.teamd).select('.votes').transition().style('width',this.scorelist[3].score * 6 + 'px');
 		
-		d3.select(this.$.teamax).select('.score').transition().style('width',this.scorelist[0].score * 6 + 'px');
-		d3.select(this.$.teambx).select('.score').transition().style('width',this.scorelist[1].score * 6 + 'px');
-		d3.select(this.$.teamcx).select('.score').transition().style('width',this.scorelist[2].score * 6 + 'px');
-		d3.select(this.$.teamdx).select('.score').transition().style('width',this.scorelist[3].score * 6 + 'px');
+		d3.select(this.$.teamax).select('.score').transition().style('width',this.scorelist[0].score * 4 + 'px');
+		d3.select(this.$.teambx).select('.score').transition().style('width',this.scorelist[1].score * 4 + 'px');
+		d3.select(this.$.teamcx).select('.score').transition().style('width',this.scorelist[2].score * 4 + 'px');
+		d3.select(this.$.teamdx).select('.score').transition().style('width',this.scorelist[3].score * 4 + 'px');
 		d3.select(this.$.teamax).select('.votes').transition().style('width',this.votesreceived0 * 10 + 'px');
 		d3.select(this.$.teambx).select('.votes').transition().style('width',this.votesreceived1 * 10 + 'px');
 		d3.select(this.$.teamcx).select('.votes').transition().style('width',this.votesreceived2 * 10 + 'px');
@@ -249,8 +249,8 @@ Polymer({
 			var score = projects.filter(d=>d.data('team') == team).reduce(function(a,b){
 					return a + b.data('score')
 			},0);
-			var votes1 = Math.round(score * 0.4);
-			var votes2 = Math.round(score * 0.6);
+			var votes1 = Math.round(score * 0.6);
+			var votes2 = Math.round(score * 0.4);
 			return {
 				team: team,
 				score: score,

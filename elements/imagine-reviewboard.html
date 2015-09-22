@@ -4,52 +4,6 @@
 
 <script src="../bower_components/d3/d3.js"></script>
 <style>
-/* Putting the d3 styling as a global outside the element, otherwise it's not picked up */
-.axis {
-  shape-rendering: crispEdges;
-}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: none;
-}
-.x.axis .minor {
-  stroke-opacity: .5;
-}
-.event{
-	fill: lightgreen;
-	cursor: pointer;
-}
-
-#series1 {
-	opacity: 0;
-	fill: lightgray;
-	stroke: lightgray;
-	stroke-width: 1px;
-}
-#series1 text {
-	stroke: white;
-	fill:white;
-	dominant-baseline: central;
-	text-anchor: middle;
-}
-#series1 .link {
-	stroke-width: 2px;
-}
-#series2 {
-	fill: lightgreen;
-	stroke: lightgreen;
-	stroke-width: 1px;
-}
-#series2 text {
-	stroke: none;
-	fill:white;
-	dominant-baseline: central;
-	text-anchor: middle;
-}
-#series2 line {
-	stroke-width: 2px;
-}
 
 .hidden {
 	display: none;
@@ -59,7 +13,17 @@
 	fill: orange;
 	stroke: orange;
 }
+.event {
+	position: absolute;
+	width: 200px;
+	border: 1px gray solid;
+	padding: 2px;
+}
 
+.event_org {
+	position: absolute;
+	width: 200px;
+}
 </style>
 <dom-module id="imagine-reviewboard">
 
@@ -76,12 +40,20 @@
 .line span {
 	margin-left: 24px;
 }
+#chart {
+	
+}
+
+
 
 </style>
 
 <template>
 	<div class='line'><paper-toggle-button id="toggleAnswer" on-change="redraw"></paper-toggle-button><span>Antwoorden</span></div>
-	<div id="chart"></div>
+	<div id="drawboard">
+		<div id="series1"></div>
+		<div id="series2"></div>
+	</div>
 </template>
 </dom-module>
 <script>
@@ -89,64 +61,46 @@
 var margin = {top: 20, right: 180, bottom: 180, left: 100},
 	width = window.innerWidth  - margin.left - margin.right,
 	height = window.innerHeight - margin.top - margin.bottom;
-var radius = 20;
-var x = d3.scale.linear().range([0, width]),
-	y = d3.scale.linear().range([height, 0]),
-	xAxis = d3.svg.axis().scale(x).ticks(10).tickSize(-height).tickSubdivide(true),
-	yAxis = d3.svg.axis().scale(y).ticks(10).tickSize(-width).orient("left");
-
 
 Polymer({
 		is: 'imagine-reviewboard',
 		properties:{
 			verbindingen: {
-				type: Array,
-				observer: 'itemsChanged'
+				type: Array
 			},
 			verbindingen_org: {
 				value: function(){return [];},
 				type: Array,
 			},
 			kaartjes: {
-				type: Array,
-				observer: 'itemsChanged'
+				type: Array
 			}
 		},
 		observers:[
+			'itemsChanged(kaartjes,verbindingen)'
 		],
-
 		itemsChanged: function(){
 			this.redraw();
 		},
 		redraw: function(){
 			var self = this;
-			if (this.graph){
-			var svg = this.svg;
-			var graph = this.graph;
-			
+			var drawboard = d3.select(this.$.drawboard);
 			
 			/* Org events */
 			var opacity = this.$.toggleAnswer.checked ? 1 : 0;
-			graph.select('#series1').transition().style('opacity',opacity);
+			drawboard.select('#series1').transition().style('opacity',opacity);
 			
 			var activeitems_org = this.kaartjes.filter(function(d){return d.data('y_org') > 50;});
-			var entities_org = graph.select('#series1').selectAll('.event_org')
+			var entities_org = drawboard.select('#series1').selectAll('.event_org')
 				.data(activeitems_org, function(d){return d.id()});
-			var events_org = entities_org.enter().append('g').classed('event_org', true);
-			events_org.append('circle')
-				.attr('r',radius);
-			events_org.append('text')
-				.text(function(d){return d.data('id');});
-			events_org.append('line');
+			var events_org = entities_org.enter().append('div')
+				.classed('event_org', true)
+				.style('left',function(d){return d.data('x_org') + '%';})
+				.style('top',function(d){return 100 - (d.data('y') - 50) *2 + '%';})
+				.html(function(d){return d.data('name');});
 			
-			entities_org.select('circle')
-				.attr('cx',function(d){return x(d.data('x_org'));})
-				.attr('cy',function(d){return y(d.data('y_org'));});
-			entities_org.select('text')
-				.attr('x',function(d){return x(d.data('x_org'));})
-				.attr('y',function(d){return y(d.data('y_org'));})
 			entities_org.exit().remove();
-			
+			/*
 			//Draw orig active links
 			function getEvent(id){
 				return self.kaartjes.filter(function(d){
@@ -173,8 +127,8 @@ Polymer({
 					return y(getEvent( d.data('naarid') ).data('y_org') );
 				});
 			links_org.exit().remove();
-			
-			
+			*/
+			/*
 			//Draw active links
 			var active_links = this.verbindingen.filter(function(d){
 					return d.data()	;
@@ -196,76 +150,21 @@ Polymer({
 					return y(getEvent( d.data('naarid') ).data('y') );
 				});
 			links.exit().remove();	
-			
+			*/
 			//Draw active items
 			var activeitems = this.kaartjes.filter(function(d){return d.data() && d.data().y > 50;});
-			var entities = graph.select('#series2').selectAll('.event')
+			var entities = drawboard.select('#series2').selectAll('.event')
 				.data(activeitems, function(d){return d.id()});
-			var events = entities.enter().append('g').classed('event', true)
-				.attr("transform", function(d){
-					return "translate(" + x(d.data().x) + "," + y(d.data().y) + ")";
-				});
-		
-			events.append('circle')
-				.attr('r',radius);
-			events.append('text')
-				.text(function(d){return d.data('id');});
-			
-			entities.transition().duration(500).attr("transform", function(d){
-					return "translate(" + x(d.data().x) + "," + y(d.data().y) + ")";
-			});
+			var events = entities.enter().append('div')
+				.classed('event', true)
+				.style('left',function(d){return d.data('x') + '%';})
+				.style('top',function(d){return 100 - (d.data('y') - 50) *2 + '%';})
+				.html(function(d){return '<small>' + d.data('x') + ' ' + d.data('y') + '</small><br>' + d.data('name');});
 			entities.exit().remove();
-			
-			
-			
-			}
 		},
 		projectChanged: function(){
-			
-		},
-		resize: function(){ //Work in progress
-			this.svg
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom);
-			this.graph
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 		},
 		attached: function(){
-			var svg = d3.select(this.$.chart).append("svg")
-			  .attr("width", width + margin.left + margin.right)
-			  .attr("height", height + margin.top + margin.bottom);
-			var graph = svg.append("g")
-			  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-			// Compute the minimum and maximum date, and the maximum price.
-			var xmax = 100; //1+ d3.max(items, function(d){return Math.max(d.data('x_org'), d.data('x'));});
-			var xmin = 0;
-			var ymin = 0;
-			var ymax = 100; //1+ d3.max(items, function(d){return Math.max(d.data('y_org'),d.data('y'));});
-			x.domain([xmin,xmax]);
-			y.domain([50,ymax]).nice();
-			graph.select('.y').call(yAxis);
-			graph.select('.x').call(xAxis);
-			
-				  
-			// Add the x-axis.
-			graph.append("g")
-				  .attr("class", "x axis")
-				  .attr("transform", "translate(0," + height + ")")
-				  .call(xAxis);
-			// Add the y-axis.
-			graph.append("g")
-				  .attr("class", "y axis")
-				  //.attr("transform", "translate(" + width + ",0)")
-				  .call(yAxis);
-			graph.append("g")
-				  .attr("id", "series1");
-			graph.append("g")
-				  .attr("id", "series2");
-			this.svg = svg;
-			this.graph = graph;
-			
-			this.projectChanged();
 		}
 });
 })();//closure
