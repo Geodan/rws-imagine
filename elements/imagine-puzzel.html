@@ -37,16 +37,16 @@ imagine-time-slider-vertical {
     Kleur van de slider afh van scenario
 */
 :host[scenario=communicity] imagine-time-slider-vertical{
-    --paper-slider-knob-color: #ECAA22; /*#FFD979;*/
+    --paper-slider-knob-color: #ECAA22; /*#FFD979; COM_MAIN*/ 
 }
 :host[scenario=sprawlville] imagine-time-slider-vertical {
-    --paper-slider-knob-color: #D1118A; /*#E6215B;*/
+    --paper-slider-knob-color: #D1118A; /*#E6215B; SPR_MAIN*/
 }
 :host[scenario=renewabad] imagine-time-slider-vertical {
-    --paper-slider-knob-color:#81A62E; /*3ABBA0;*/
+    --paper-slider-knob-color:#81A62E; /*3ABBA0; REN_MAIN*/
 }
 :host[scenario=planopolis] imagine-time-slider-vertical {
-    --paper-slider-knob-color:#5ABBD1; /*#4CC0D0;*/
+    --paper-slider-knob-color:#5ABBD1; /*#4CC0D0; PLA_MAIN*/
 }
 #speelveld {
     position: absolute;
@@ -358,31 +358,31 @@ imagine-time-slider-vertical {
     _scenarioChanged: function(){
         var s = this.scenario.toLowerCase();
         switch(s) {
-            case 'sprawlville':
-                this.customStyle['--imagine-puzzel-main'] = '#E6215B';
-                this.customStyle['--paper-slider-knob-color'] = '#E6215B';
-                this.customStyle['--imagine-puzzel-mild'] = '#f599a3';
+            case 'sprawlville': 
+                this.customStyle['--imagine-puzzel-main'] = '#D1118A'; //SPR_MAIN
+                this.customStyle['--paper-slider-knob-color'] = '#D1118A';//SPR_MAIN
+                this.customStyle['--imagine-puzzel-mild'] = '#f599a3';//SPR_MILD
                 this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-sprawl.png')";
                 this.updateStyles();
                 break;
             case 'communicity':
-                this.customStyle['--imagine-puzzel-main'] = '#FFD979';
-                this.customStyle['--paper-slider-knob-color'] = '#FFD979';
-                this.customStyle['--imagine-puzzel-mild'] = '#FFF1C9';
+                this.customStyle['--imagine-puzzel-main'] = '#ECAA22';//COM_MAIN
+                this.customStyle['--paper-slider-knob-color'] = '#ECAA22';//COM_MAIN
+                this.customStyle['--imagine-puzzel-mild'] = '#FFF1C9';//COM_MILD
                 this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-communi.png')";
                 this.updateStyles();
                 break;
             case 'renewabad':
-                this.customStyle['--imagine-puzzel-main'] = "#3ABBA0";
-                this.customStyle['--paper-slider-knob-color'] = '#3ABBA0';
-                this.customStyle['--imagine-puzzel-mild'] = "#AEDAC0";
+                this.customStyle['--imagine-puzzel-main'] = "#81A62E";//REN_MAIN
+                this.customStyle['--paper-slider-knob-color'] = '#81A62E';//REN_MAIN
+                this.customStyle['--imagine-puzzel-mild'] = "#AEDAC0";//REN_MILD
                 this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-renew.png')";
                 this.updateStyles();
                 break;
             case 'planopolis':
-                this.customStyle['--imagine-puzzel-main'] = "#4CC0D0";
-                this.customStyle['--paper-slider-knob-color'] = '#4CC0D0';
-                this.customStyle['--imagine-puzzel-mild'] = "#BAE3EA";
+                this.customStyle['--imagine-puzzel-main'] = "#5ABBD1";//PLA_MAIN
+                this.customStyle['--paper-slider-knob-color'] = '#5ABBD1';//PLA_MAIN
+                this.customStyle['--imagine-puzzel-mild'] = "#BAE3EA";//PLA_MILD
                 this.customStyle['--imagine-puzzel-kaartje']= "url('./style/nkaartje-plan.png')";
                 this.updateStyles();
                 break;
