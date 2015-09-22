@@ -51,6 +51,43 @@
   	scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
   }];
   
+  main.bigreset = function(){
+  	  if (confirm('Alle projecten worden verwijderd en opnieuw aangemaakt.')) {
+  	  	  main.cow.projects().forEach(d=>
+  	  	  	  d.deleted(true).sync()
+  	  	  );
+  	  	  main.teams.forEach(function(team){
+  	  	  	team.scenarios.forEach(function(scenario){
+  	  	  		var time=new Date().getTime();
+  	  	  		var newproject = main.cow.projects({
+  	  	  		_id:time+scenario.name+team.name
+  	  	  		});
+  	  	  		newproject.data({
+  	  	  			team:team.name,
+  	  	  			scenario:scenario.name,
+  	  	  			progress: 0,
+  	  	  			score: 0
+  	  	  		}).sync();
+  	  	  		d3.tsv('./data/'+scenario.name + '.tsv?'+ new Date().getTime(), function(events){
+					events.forEach(function(d){
+						var id = new Date().getTime().toString() + d.id;
+						var item = newproject.items({_id: id});
+						item.data({
+							id: d.id,
+							type: 'kaartje',
+							name: d.name,
+							x_org: d.x,
+							y_org: d.y,
+							x: null,
+							y: null,
+						}).sync();
+					});
+				});
+  	  	  	});
+  	  	  });
+  	  }
+  }
+  
   /*
   ! Remember to set the correct config in the configfile!
   */
