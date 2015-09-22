@@ -119,7 +119,7 @@ paper-card {
 		  <h2>Pitchlist</h2>
 		  <template is='dom-repeat' items="{{pitchlist}}" as="pitch">
 			<paper-card heading="{{pitch._data.team}}">
-				<div class="card-content">{{pitch._data.scenario}}</div>
+				<div class="card-content">{{pitch._data.scenarioName}}</div>
 				<div class="card-actions">
 					<paper-button on-click="_startPitch">Pitch</paper-button>
 				</div>

@@ -39,16 +39,16 @@
   var main = document.querySelector('#main');
   main.teams = [{
   	name:'Team A',
-    scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+    scenarios: [{name:'sprawlville',displayName: 'Magenta-stad'},{name:'communicity', displayName: 'Gele stad'},{name:'renewabad', displayName: 'Groene stad'},{name:'planopolis', displayName: 'Cyaanstad'}]
   },{
   	name: 'Team B',
-  	scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+  	scenarios: [{name:'sprawlville',displayName: 'Magenta-stad'},{name:'communicity', displayName: 'Gele stad'},{name:'renewabad', displayName: 'Groene stad'},{name:'planopolis', displayName: 'Cyaanstad'}]
   },{
     name:'Team C',
-  	scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+  	scenarios: [{name:'sprawlville',displayName: 'Magenta-stad'},{name:'communicity', displayName: 'Gele stad'},{name:'renewabad', displayName: 'Groene stad'},{name:'planopolis', displayName: 'Cyaanstad'}]
   },{
   	name:'Team D',
-  	scenarios: [{name:'sprawlville'},{name:'communicity'},{name:'renewabad'},{name:'planopolis'}]
+  	scenarios: [{name:'sprawlville',displayName: 'Magenta-stad'},{name:'communicity', displayName: 'Gele stad'},{name:'renewabad', displayName: 'Groene stad'},{name:'planopolis', displayName: 'Cyaanstad'}]
   }];
   
   main.bigreset = function(){
@@ -65,6 +65,7 @@
   	  	  		newproject.data({
   	  	  			team:team.name,
   	  	  			scenario:scenario.name,
+  	  	  			scenarioName: scenario.displayName,
   	  	  			progress: 0,
   	  	  			score: 0
   	  	  		}).sync();
