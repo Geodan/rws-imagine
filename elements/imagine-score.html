@@ -263,6 +263,7 @@ imagine-score-thingy:nth-last-child(2) {
 				 this.instances = this.instanceTemplate.slice(0,4);
 				break;
         }
+		 $('#firstScreen').slideDown(); 
 	},
     ready: function() {
 		var monthNames = [
@@ -281,12 +282,11 @@ imagine-score-thingy:nth-last-child(2) {
         
         ];
 		this.update();
-		$('#firstScreen').slideDown();
+		
 	},
 	
     nextPlayer: function() {
 		this.team = this.teams[this.hash];
-		console.log(this.team);
 		$('imagine-puzzel').attr('state','RESET');
 		$('imagine-puzzel').css('top','1080px');
         var url = window.location.origin + window.location.pathname + '#'+this.hash;
