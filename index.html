@@ -1,24 +1,55 @@
 <!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>   
-    <link rel="import" href="./bower_components/polymer/polymer.html">
-    <link rel="import" href="./elements/imagine-thegame.html">
-	 <link href='./style/style.css' rel='stylesheet'>
-</head>
-<style>
 
+<html>
+  <head>
+  <title>Score board</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="./bower_components/polymer/polymer.html">
+  <link rel="import" href="./bower_components/paper-header-panel/paper-header-panel.html">
+  <link rel="import" href="./bower_components/paper-toolbar/paper-toolbar.html">
+  <link rel="import" href="./bower_components/paper-card/paper-card.html">
+  </head>
+  <style>
+  body,html {
+  	  height: 100%;
+  	  	font-family: arial;
 
-    </style>
-<body oncontextmenu="return false">
-
-	<imagine-thegame 
-		scenario='communicity'>
-	</imagine-thegame>
-
-</body>
-</html>
+  }
+  #bar {
+	background: #3A3335 url("http://research.geodan.nl/sites/imagine/style/logo.png") no-repeat scroll 50% 0%;
+  }
+  </style>
+  <body class="fullbleed layout vertical">
+  
+  <template id="main" is="dom-bind">
+  
+  <paper-header-panel class="flex">
+	<paper-toolbar id="bar" class="tall">
+	  <h2>RWS IMAGINE!</h2>
+	</paper-toolbar>
+	<a href="./tafels/Communicity">
+		<paper-card heading="Gele stad">
+		</paper-card>
+	</a>
+	<a href="./tafels/Planopolis">
+		<paper-card heading="Cyaanstad">
+		</paper-card>
+	</a>
+	<a href="./tafels/Sprawlville">
+		<paper-card heading="Magenta-stad">
+		</paper-card>
+	</a>
+	<a href="./tafels/Renewabad">
+		<paper-card heading="Groene stad">
+		</paper-card>
+	</a>
+  </paper-header-panel>	
+  </template>
+  <script type="text/javascript">
+  var main = document.querySelector('#main');
+    
+  </script>
+  </body>
+  </html>
