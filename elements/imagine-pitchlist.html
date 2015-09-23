@@ -83,19 +83,22 @@ paper-card {
 	text-align: center;
 }
 
-#review {
+#dialog {
 	width: 100%;
 	height: 100%;
 }
 
-
 </style>
-<paper-dialog modal id='review'>
-		<imagine-reviewboard
+<paper-dialog modal entry-animation="scale-up-animation" exit-animation="fade-out-animation" id='dialog' with-backdrop>
+	<h2><span>{{pitchname}}</span> door <span>{{teamname}}</span></h2>
+		<imagine-reviewboard id='review'
 			kaartjes="{{kaartjes}}"
 			verbindingen="[]"
-		></imagine-reviewboard>			
-	</paper-dialog>
+		></imagine-reviewboard>
+	 <div class="buttons">
+        <paper-button dialog-confirm autofocus>Sluit</paper-button>
+      </div>
+</paper-dialog>
 <paper-header-panel class="flex">
 	<paper-toolbar class="tall" on-click="rotatePage">
 	  <h2>RWS IMAGINE!</h2>
@@ -110,10 +113,10 @@ paper-card {
 		entry-animation="fade-in-animation" 
 		exit-animation="fade-out-animation">
 		<neon-animatable>
-		  <div id='teama'class='bar'>A <span class='score'>{{scorelist.0.votes2}}</span><span class='votes'>{{scorelist.0.votes1}}</span></div>
-		  <div id='teamb'class='bar'>B <span class='score'>{{scorelist.1.votes2}}</span><span class='votes'>{{scorelist.1.votes1}}</span></div>
-		  <div id='teamc'class='bar'>C <span class='score'>{{scorelist.2.votes2}}</span><span class='votes'>{{scorelist.2.votes1}}</span></div>
-		  <div id='teamd'class='bar'>D <span class='score'>{{scorelist.3.votes2}}</span><span class='votes'>{{scorelist.3.votes1}}</span></div>
+		  <div id='teama'class='bar'>Team A &nbsp;<paper-material elevation='5' class='score'>{{scorelist.0.votes2}}</paper-material><paper-material elevation='4' class='votes'>{{scorelist.0.votes1}}</paper-material></div>
+		  <div id='teamb'class='bar'>Team B &nbsp;<paper-material elevation='5' class='score'>{{scorelist.1.votes2}}</paper-material><paper-material elevation='4' class='votes'>{{scorelist.1.votes1}}</paper-material></div>
+		  <div id='teamc'class='bar'>Team C &nbsp;<paper-material elevation='5' class='score'>{{scorelist.2.votes2}}</paper-material><paper-material elevation='4' class='votes'>{{scorelist.2.votes1}}</paper-material></div>
+		  <div id='teamd'class='bar'>Team D &nbsp;<paper-material elevation='5' class='score'>{{scorelist.3.votes2}}</paper-material><paper-material elevation='4' class='votes'>{{scorelist.3.votes1}}</paper-material></div>
 		</neon-animatable>
 		<neon-animatable id="page1">
 		  <h2>Pitchlist</h2>
@@ -121,7 +124,7 @@ paper-card {
 			<paper-card heading="{{pitch._data.team}}">
 				<div class="card-content">{{pitch._data.scenarioName}}</div>
 				<div class="card-actions">
-					<paper-button on-click="_startPitch">Pitch</paper-button>
+					<paper-button data-dialog="dialog" on-click="_startPitch">Pitch</paper-button>
 				</div>
 				<!--<span>{{pitch._data.score}}</span>-->
 			</paper-card>
@@ -163,10 +166,10 @@ paper-card {
 			<paper-button on-click='totalScore'>Bereken</paper-button>
 		</neon-animatable>
 		<neon-animatable>
-		  <div id='teamax'class='bar'>A <span class='score'>{{scorelist.0.votes2}}</span><span class='votes'>{{votesreceived0}}</span></div>
-		  <div id='teambx'class='bar'>B <span class='score'>{{scorelist.1.votes2}}</span><span class='votes'>{{votesreceived1}}</span></div>
-		  <div id='teamcx'class='bar'>C <span class='score'>{{scorelist.2.votes2}}</span><span class='votes'>{{votesreceived2}}</span></div>
-		  <div id='teamdx'class='bar'>D <span class='score'>{{scorelist.3.votes2}}</span><span class='votes'>{{votesreceived3}}</span></div>
+		  <div id='teamax'class='bar'>Team A &nbsp;<paper-material elevation='5' class='score'>{{scorelist.0.votes2}}</paper-material><paper-material elevation='4' class='votes'>{{votesreceived0}}</paper-material></div>
+		  <div id='teambx'class='bar'>Team B &nbsp;<paper-material elevation='5' class='score'>{{scorelist.1.votes2}}</paper-material><paper-material elevation='4' class='votes'>{{votesreceived1}}</paper-material></div>
+		  <div id='teamcx'class='bar'>Team C &nbsp;<paper-material elevation='5' class='score'>{{scorelist.2.votes2}}</paper-material><paper-material elevation='4' class='votes'>{{votesreceived2}}</paper-material></div>
+		  <div id='teamdx'class='bar'>Team D &nbsp;<paper-material elevation='5' class='score'>{{scorelist.3.votes2}}</paper-material><paper-material elevation='4' class='votes'>{{votesreceived3}}</paper-material></div>
 		</neon-animatable>
 	</neon-animated-pages>
 </paper-header-panel>  
@@ -221,7 +224,9 @@ Polymer({
 	_startPitch: function(a,b,c){
 		//Dit zijn de kaartjes: maar wat is de nette methode?
 		this.kaartjes = a.model.__data__.pitch.items().filter(d=>!d.deleted());
-		this.$.review.toggle();
+		this.teamname = a.model.__data__.pitch.data('team');
+		this.pitchname = a.model.__data__.pitch.data('scenarioName');
+		this.$.dialog.toggle();
 	},
 	_graphChange: function(){
 		d3.select(this.$.teama).select('.score').transition().style('width',this.scorelist[0].score * 4 + 'px');
@@ -251,6 +256,9 @@ Polymer({
 			},0);
 			var votes1 = Math.round(score * 0.6);
 			var votes2 = Math.round(score * 0.4);
+			if (votes1<0) votes1 = 0;
+			if (votes2<0) votes2 = 0;
+			
 			return {
 				team: team,
 				score: score,

@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 
@@ -16,13 +17,17 @@
 .event {
 	position: absolute;
 	width: 200px;
-	border: 1px gray solid;
+	color: black;
 	padding: 2px;
+	background: white;
 }
 
 .event_org {
 	position: absolute;
 	width: 200px;
+	color: black;
+	padding: 2px;
+	background: #ccffcc;
 }
 </style>
 <dom-module id="imagine-reviewboard">
@@ -49,7 +54,10 @@
 </style>
 
 <template>
-	<div class='line'><paper-toggle-button id="toggleAnswer" on-change="redraw"></paper-toggle-button><span>Antwoorden</span></div>
+	<div class='line'>
+		<paper-toggle-button id="toggleAnswer" on-change="redraw"></paper-toggle-button>
+		<span>Antwoorden</span>
+	</div>
 	<div id="drawboard">
 		<div id="series1"></div>
 		<div id="series2"></div>
@@ -93,10 +101,14 @@ Polymer({
 			var activeitems_org = this.kaartjes.filter(function(d){return d.data('y_org') > 50;});
 			var entities_org = drawboard.select('#series1').selectAll('.event_org')
 				.data(activeitems_org, function(d){return d.id()});
-			var events_org = entities_org.enter().append('div')
+			var events_org = entities_org.enter().append('paper-material')
 				.classed('event_org', true)
+				.on('click',function(){
+						drawboard.selectAll('.event').style('z-index',1).attr('elevation',1);
+						d3.select(this).style('z-index',10).attr('elevation',5);
+				})
 				.style('left',function(d){return d.data('x_org') + '%';})
-				.style('top',function(d){return 100 - (d.data('y') - 50) *2 + '%';})
+				.style('top',function(d){return 100 - (d.data('y_org') - 50) *2 + '%';})
 				.html(function(d){return d.data('name');});
 			
 			entities_org.exit().remove();
@@ -155,11 +167,18 @@ Polymer({
 			var activeitems = this.kaartjes.filter(function(d){return d.data() && d.data().y > 50;});
 			var entities = drawboard.select('#series2').selectAll('.event')
 				.data(activeitems, function(d){return d.id()});
-			var events = entities.enter().append('div')
+			var events = entities.enter().append('paper-material')
 				.classed('event', true)
+				.on('click',function(){
+						drawboard.selectAll('.event')
+							.style('z-index',1).attr('elevation',1);
+						drawboard.selectAll('.event_org').style('z-index',1).attr('elevation',1);
+						d3.select(this).style('z-index',10)
+							.attr('elevation',5);
+				})
 				.style('left',function(d){return d.data('x') + '%';})
 				.style('top',function(d){return 100 - (d.data('y') - 50) *2 + '%';})
-				.html(function(d){return '<small>' + d.data('x') + ' ' + d.data('y') + '</small><br>' + d.data('name');});
+				.html(function(d){return d.data('name');});
 			entities.exit().remove();
 		},
 		projectChanged: function(){
