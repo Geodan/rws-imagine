@@ -578,6 +578,11 @@ imagine-time-slider-vertical {
 			if(e.shiftKey) return true;
 			else that.stopWiebelen();
 		},
+	_kaartjeGoUp: function(e) {
+			e.preventDefault();
+			var that = document.getElementById('puzzelgame');
+			e.target.parentElement.style.zIndex = that.zindex++;
+		},
 	_kaartjeDown :function(e) {
 			e.preventDefault();
 			var that = document.getElementById('puzzelgame');
@@ -630,7 +635,8 @@ imagine-time-slider-vertical {
 				interact('.draggable')
 					.draggable({enabled:true})
 					.off('down',this._kaartjeDown)
-					.off('up',this._kaartjeUp);
+					.off('up',this._kaartjeUp)
+					.on('down', this._kaartjeGoUp);
 					
 				var s = this.scenario.toLowerCase();
 				switch(s) {
@@ -661,7 +667,8 @@ imagine-time-slider-vertical {
 					//of een ander kaartje wordt aangeraakt
 					//TODO: firefox registreerd de on down pas bij up
 					.on('down',this._kaartjeDown)
-					.on('up',this._kaartjeUp);
+					.on('up',this._kaartjeUp)
+					.off('down', this._kaartjeGoUp);
 				this.sliderValue = 0; //Set the slider to 0
 			break;
 			case 'SCORE':
