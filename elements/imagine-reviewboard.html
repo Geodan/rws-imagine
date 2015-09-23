@@ -50,7 +50,6 @@
 }
 
 
-
 </style>
 
 <template>
@@ -60,7 +59,10 @@
 	</div>
 	<div id="drawboard">
 		<div id="series1"></div>
+		<div id="links1"></div>
+		<div id="links2"></div>
 		<div id="series2"></div>
+		
 	</div>
 </template>
 </dom-module>
@@ -93,6 +95,46 @@ Polymer({
 		redraw: function(){
 			var self = this;
 			var drawboard = d3.select(this.$.drawboard);
+			drawboard.selectAll('.diagline').remove();
+			/*Starting weird lining functs*/
+			function getOffset( el ) {
+				var rect = el.getBoundingClientRect();
+				return {
+					left: rect.left + window.pageXOffset,
+					top: rect.top + window.pageYOffset,
+					width: rect.width || el.offsetWidth,
+					height: rect.height || el.offsetHeight
+				};
+			}
+			
+			function connect(div1, div2, color, thickness) { // draw a line connecting elements
+				var off1 = getOffset(div1);
+				var off2 = getOffset(div2);
+				// bottom right
+				var x1 = off1.left + off1.width;
+				var y1 = off1.top + off1.height;
+				// top right
+				var x2 = off2.left + off2.width;
+				var y2 = off2.top;
+				// distance
+				var length = Math.sqrt(((x2-x1) * (x2-x1)) + ((y2-y1) * (y2-y1)));
+				// center
+				var cx = ((x1 + x2) / 2) - (length / 2) - 40; //added 40-24 diff
+				var cy = ((y1 + y2) / 2) - (thickness / 2) -24;
+				// angle
+				var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
+				// make hr
+				var htmlLine = "<div class='diagline' style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
+				drawboard.select('#links2').append('div')
+					.html(htmlLine);
+				//
+				// alert(htmlLine);
+				//document.body.innerHTML += htmlLine;
+			}
+			/*end weird line functs */
+			
+			
+			
 			
 			/* Org events */
 			var opacity = this.$.toggleAnswer.checked ? 1 : 0;
@@ -112,13 +154,15 @@ Polymer({
 				.html(function(d){return d.data('name');});
 			
 			entities_org.exit().remove();
-			/*
-			//Draw orig active links
+			
 			function getEvent(id){
 				return self.kaartjes.filter(function(d){
 					return d.data('id') == id;
 				})[0];
 			}
+			/*
+			//Draw orig active links
+			
 			
 			var links_org = graph.select('#series1').selectAll('.link')
 				.data(this.verbindingen_org, function(d){return d.id()});
@@ -141,10 +185,45 @@ Polymer({
 			links_org.exit().remove();
 			*/
 			/*
+			
+			*/
+			//Draw active items
+			var activeitems = this.kaartjes.filter(function(d){return d.data() && d.data().y > 50;});
+			var entities = drawboard.select('#series2').selectAll('.event')
+				.data(activeitems, function(d){return d.id()});
+			var events = entities.enter().append('paper-material')
+				.classed('event', true)
+				.attr('id',function(d){return 'event'+d.id();})
+				.on('click',function(){
+						drawboard.selectAll('.event')
+							.style('z-index',1).attr('elevation',1);
+						drawboard.selectAll('.event_org').style('z-index',1).attr('elevation',1);
+						d3.select(this).style('z-index',10)
+							.attr('elevation',5);
+				})
+				.style('background',function(d){
+					return d.data('stamp')?'#F1D8D8':'white';
+				})
+				.style('left',function(d){return d.data('x') + '%';})
+				.style('top',function(d){return 100 - (d.data('y') - 50) *2 + '%';})
+				.html(function(d){return d.data('name');});
+			entities.exit().remove();
+			
 			//Draw active links
 			var active_links = this.verbindingen.filter(function(d){
 					return d.data()	;
 			});
+			active_links.forEach(function(d){
+				//find divs
+				var vanid = getEvent(d.data('vanid')).id();
+				var div1 = document.getElementById('event'+vanid);
+				var naarid = getEvent(d.data('naarid')).id();
+				var div2 = document.getElementById('event'+naarid);
+				if (div1 && div2){
+					connect(div1,div2,'lightGrey',3);
+				}
+			});
+			/*
 			var links = graph.select('#series2').selectAll('.link')
 				.data(active_links, function(d){return d.id()});
 			links.enter().append('line').classed('link',true);
@@ -163,30 +242,26 @@ Polymer({
 				});
 			links.exit().remove();	
 			*/
-			//Draw active items
-			var activeitems = this.kaartjes.filter(function(d){return d.data() && d.data().y > 50;});
-			var entities = drawboard.select('#series2').selectAll('.event')
-				.data(activeitems, function(d){return d.id()});
-			var events = entities.enter().append('paper-material')
-				.classed('event', true)
-				.on('click',function(){
-						drawboard.selectAll('.event')
-							.style('z-index',1).attr('elevation',1);
-						drawboard.selectAll('.event_org').style('z-index',1).attr('elevation',1);
-						d3.select(this).style('z-index',10)
-							.attr('elevation',5);
-				})
-				.style('background',function(d){
-					return d.data('stamp')?'#F1D8D8':'white';
-				})
-				.style('left',function(d){return d.data('x') + '%';})
-				.style('top',function(d){return 100 - (d.data('y') - 50) *2 + '%';})
-				.html(function(d){return d.data('name');});
-			entities.exit().remove();
+			
 		},
 		projectChanged: function(){
 		},
 		attached: function(){
+			var drawboard = d3.select(this.$.drawboard);
+			//todo: get height of drawboard
+			var d = document.querySelector('paper-dialog');
+			var r = d.getBoundingClientRect();
+			var width = r.width;
+			var height = r.height;
+			
+			
+			this.svg = d3.select(d).append('svg')
+				.attr('width',width + 'px')
+				.attr('height', height + 'px')
+				.style('position','absolute');
+			this.svg.append('line').attr('x0',100).attr('x1',200).attr('y0',100).attr('y1',200)
+				.style('stroke','red').style('stroke-width','2px');
+			
 		}
 });
 })();//closure

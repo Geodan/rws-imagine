@@ -173,7 +173,7 @@ Polymer({
 					return !d.deleted() && d.data('type')=='kaartje';
 				}).forEach(function(d){
 					if (d.data('y') >0 || d.data('x') >0){
-						d.data('x','').data('y','').sync();
+						d.data('x','').data('y','').data('stamp','false').sync();
 					}
 				});
 				this._calculateScore();

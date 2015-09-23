@@ -101,7 +101,7 @@ paper-card {
 	<h2><span>{{pitchname}}</span> door <span>{{teamname}}</span></h2>
 		<imagine-reviewboard id='review'
 			kaartjes="{{kaartjes}}"
-			verbindingen="[]"
+			verbindingen="{{verbindingen}}"
 		></imagine-reviewboard>
 	 <div class="buttons">
         <paper-button dialog-confirm autofocus>Sluit</paper-button>
@@ -236,9 +236,14 @@ Polymer({
 	_startPitch: function(a,b,c){
 		//Dit zijn de kaartjes: maar wat is de nette methode?
 		this.kaartjes = a.model.__data__.pitch.items().filter(d=>!d.deleted());
+		this.verbindingen = a.model.__data__.pitch.items().filter(d=>!d.deleted() && d.data('vanid'));
 		this.teamname = a.model.__data__.pitch.data('team');
 		this.pitchname = a.model.__data__.pitch.data('scenarioName');
 		this.$.dialog.toggle();
+		var self = this;//FIXME: ouch...
+		window.setTimeout(function(){
+			self.$.review.redraw();
+		},1000);
 	},
 	_graphChange: function(){
 		d3.select(this.$.teama).select('.score').transition().style('width',this.scorelist[0].score * 2 + 'px');
