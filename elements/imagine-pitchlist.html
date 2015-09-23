@@ -212,6 +212,7 @@ Polymer({
 		this._graphChange();
 	},
 	totalScore: function(){
+		this.selectedpage = 3;
 		this.votesreceived0 = window.parseInt(this.scorelist[0].score1) 
 			+ window.parseInt(this.scorelist[0].score2) 
 			+ window.parseInt(this.scorelist[0].score3);
@@ -278,6 +279,7 @@ Polymer({
 				score2: 0,
 				score3: 0
 			};
+			
 		}
 		this.scorelist = [
 			calc('Team A'),

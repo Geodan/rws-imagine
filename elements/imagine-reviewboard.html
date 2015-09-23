@@ -176,6 +176,9 @@ Polymer({
 						d3.select(this).style('z-index',10)
 							.attr('elevation',5);
 				})
+				.style('background',function(d){
+					return d.data('stamp')?'#F1D8D8':'white';
+				})
 				.style('left',function(d){return d.data('x') + '%';})
 				.style('top',function(d){return 100 - (d.data('y') - 50) *2 + '%';})
 				.html(function(d){return d.data('name');});
