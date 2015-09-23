@@ -576,6 +576,7 @@ imagine-time-slider-vertical {
 		//truukje om te zorgen dat je zonder multitouch wel kan werken
 			e.preventDefault();
 			var that = document.getElementById('puzzelgame');
+			e.target.parentElement.style.zIndex = that.zindex++;
 			that.selectKaartje(e);
 			if(e.shiftKey) return true;
 			else that.stopWiebelen();
