@@ -536,6 +536,8 @@ imagine-time-slider-vertical {
     stampKaartje: function(e) {
         if(this.stamps < 5) {
             e.target.classList.add('stamped');
+			 var item = this.kaartjes[e.target.parentElement.id.split('-')[1]];
+             item.data('stamp','true').sync();
             this.stamps++
         }
     },
