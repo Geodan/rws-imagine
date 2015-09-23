@@ -90,6 +90,11 @@ imagine-score-thingy:nth-last-child(2) {
     font-size: 200%;
     text-align: right;
 }
+#nextPlayerButton {
+	display: none;
+    opacity: 0;
+	transition: opacity 2s ease-in-out;
+}
   </style>
   <template>
   <div id="scoreHeader"><div class="content">{{date}}<span class="right">RWS IMAGINE!</span></div></div>
@@ -238,17 +243,26 @@ imagine-score-thingy:nth-last-child(2) {
         
     },    
 	update: function() {
+		
 		var hash = window.location.hash.split('#')[1];
         if(parseInt(hash)&&hash <3 && hash >= 0) {
             hash++
         }
         else if(hash == 3) {
-			hash = 0;
-			document.getElementById('nextPlayerButton').style.display = 'none';
+			hash = 0;			
 		}
         else hash = 1;
         this.hash = hash;
         this.nextTeam = this.teams[hash];
+		if(hash !=0) {
+			window.setTimeout(function(){
+			document.getElementById('nextPlayerButton').style.display = 'block';
+			
+			},2000)
+			window.setTimeout(function(){
+			document.getElementById('nextPlayerButton').style.opacity = 1;
+			},2100)
+		}
 		
 		
         switch(hash){
@@ -269,6 +283,7 @@ imagine-score-thingy:nth-last-child(2) {
 		 $('#firstScreen').slideDown(); 
 	},
     ready: function() {
+		//document.getElementById('nextPlayerButton').style.opacity = 0;
 		var monthNames = [
 			"JANUARI", "FEBRUARI", "MAART", "APRIL", "MEI", "JUNI",
 			"JULI", "AUGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"
@@ -284,11 +299,13 @@ imagine-score-thingy:nth-last-child(2) {
             {team:this.teams[3], scenario: this.scenario}
         
         ];
-		this.update();
+		//this.update();
 		
 	},
 	
     nextPlayer: function() {
+		document.getElementById('nextPlayerButton').style.display = 'none';
+		document.getElementById('nextPlayerButton').style.opacity = 0;
 		this.team = this.teams[this.hash];
 		$('imagine-puzzel').attr('state','RESET');
 		$('imagine-puzzel').css('top','1080px');
