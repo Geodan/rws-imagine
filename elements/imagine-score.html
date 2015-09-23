@@ -101,7 +101,7 @@ imagine-score-thingy:nth-last-child(2) {
 
   </template>
   </div>
-  <div class="nextplayer" on-click="nextPlayer"><svg
+  <div id="nextPlayerButton" class="nextplayer" on-click="nextPlayer"><svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -242,7 +242,10 @@ imagine-score-thingy:nth-last-child(2) {
         if(parseInt(hash)&&hash <3 && hash >= 0) {
             hash++
         }
-        else if(hash == 3) hash = 0;
+        else if(hash == 3) {
+			hash = 0;
+			document.getElementById('nextPlayerButton').style.display = 'none';
+		}
         else hash = 1;
         this.hash = hash;
         this.nextTeam = this.teams[hash];
