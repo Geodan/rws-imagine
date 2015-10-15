@@ -1,8 +1,11 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../elements/gm-cow-core.html">
+<link rel="import" href="./imagine-instance.html">
 
 <link href='../style/style.css' rel='stylesheet'>
+<script src="../bower_components/d3/d3.js"></script>
 <script src="../cowconfigs.js"></script>
 
 <dom-module id="imagine-tweedescherm">
@@ -23,60 +26,83 @@
     margin: 50px;
 }
 
-.kaartje {
+paper-card {
+	position: absolute;
+	font-family: "Avenir LT W01 65 Medium", sans-serif;
+	font-size: 8pt;
 	background-image: url('../style/logo.png');
 	background-repeat: no-repeat;
 	background-position: center top;
-	width: 200px; 
+	width: 160px;
+	padding-top: 60px;
+	
+	--paper-card-content: {
+         @apply(--layout-horizontal);
+         @apply(--layout-center-justified);
+    };
 }
+
+.kaartje .img {
+	padding-left: 20px;
+}
+
+.Amsterdam1 {top:  0%;	left: 5%;}
+.Amsterdam2 {top: 30%;	left: 5%;}
+.Amsterdam3 {top: 60%;	left: 5%;}
+.Amsterdam4 {top:  0%;	left: 15%;}
+.Amsterdam5 {top: 30%;	left: 15%;}
+.Amsterdam6 {top: 60%;	left: 15%;}
+
+.Tussengebied1 {top: 15%;	left: 25%;}
+.Tussengebied2 {top: 45%;	left: 25%;}
+
+.Almere1 {top:  0%; left: 35%;}
+.Almere2 {top: 30%;	left: 35%;}
+.Almere3 {top: 60%;	left: 35%;}
+.Almere4 {top:  0%; left: 45%;}
+.Almere5 {top: 30%;	left: 45%;}
+.Almere6 {top: 60%;	left: 45%;}
+
+.Tussengebied3 {top: 15%;	left: 55%;}
+
+.Utrecht1 {top:  0%;	left: 65%;}
+.Utrecht2 {top: 30%;	left: 65%;}
+.Utrecht3 {top: 60%;	left: 65%;}
+.Utrecht4 {top:  0%;	left: 75%;}
+.Utrecht5 {top: 30%;	left: 75%;}
+.Utrecht6 {top: 60%;	left: 75%;}
 
 </style>
 <template>
     <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
+    <imagine-instance id="instance"  core="{{cow}}" team="{{team}}"></imagine-instance>
     <div id="scoreScherm">
     	<img id="videotag" class='bg-video' src="../style/background.jpg">
     	<!--<video id="videotag" class='bg-video' loop="true" autoplay="true" src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg"></video>-->
     </div>
     <div id="kaartjesOverlay">
-    	<template is='dom-repeat'  items="{{kaartjes}}">
-    		<paper-card class='kaartje' heading="[[item._data.title]]">
+    	<template is='dom-repeat' items="[[kaartjes]]">
+    		<paper-card class$='[[item._data.id]]'>
     			<div class="card-content">
-    			<div>[[item._data.stad]]</div>
-				<img width=100 height=100 src='[[item._data.img]]' />
-				<div secondary>
-					<span>[[item._data.text]]</span>
+    			<center>
+    				<b>[[item._data.stad]]</b>
+    			</center>
+    			</div>
+    			<center>
+					<img width=60 height=60 src='[[item._data.img]]' />
+				</center>
+				<div class="card-content">
+					<div><b>[[item._data.title]]</b></div>
+					<div secondary>
+						<span>[[item._data.text]]</span>
+					</div>
 				</div>
-			  </div>
     		</paper-card>
     	</template>
     </div>
-    <!--
-	<imagine-startscherm id="startScherm" scenario="{{scenario}}" team="{{team}}" teams="{{teams}}"></imagine-startscherm>
-    <imagine-3d></imagine-3d>
-    <imagine-puzzel begin="{{begin}}" id="puzzelgame" core="{{cow}}" scenario="{{scenario}}" team="{{team}}"></imagine-puzzel>
-    <imagine-score id="puzzelscore" core="{{cow}}" scenario="{{scenario}}" team="{{team}}" teams="{{teams}}"></imagine-score>
-    -->
 </template>
 </dom-module>
 <script>
-
-var kaartjes = [
-	{
-		_data:{
-			stad: "Amsterdam",
-			title: "Basis-assen",
-			img: '../../data/images/image00.png',
-			text: "Er is sprake van een sterke, centraal sturende overheid."
-		}
-	},{
-		_data:{
-			stad: "Amsterdam",
-			title: "Kaartje2",
-			img: '',
-			text: "Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd."
-		}
-	}
-];
 
 Polymer({
 	is: 'imagine-tweedescherm',
@@ -97,9 +123,8 @@ Polymer({
 		},
 		kaartjes: {
 			type: Array,
-			value: function(){
-				return kaartjes;
-			}
+			value: function(){return [];},
+			notify: true
 		}
 	},
 	ready: function(){
@@ -112,6 +137,24 @@ Polymer({
 			}
 		}
 		this.team = this.teams[teamNr];
+		var self = this;
+		d3.json('../../data/properties.json',function(e,result){
+			if (e){
+				throw e.message;
+			}
+			result.forEach(function(d){
+				self.push('kaartjes',
+				{
+					_data: {
+						id: d.id,
+						stad: d.place,
+						title: d.title,
+						img: d.img,
+						text: d.text[2]
+					}
+				});
+			});
+		});
 	},
 	attached: function(){
 		this.$.videotag.height = this.$.scoreScherm.clientHeight;
