@@ -42,36 +42,95 @@ paper-card {
     };
 }
 
-.kaartje .img {
+paper-cardje .img {
 	padding-left: 20px;
 }
 
-.Amsterdam1 {top:  0%;	left: 0%;}
-.Amsterdam2 {top: 30%;	left: 0%;}
-.Amsterdam3 {top: 60%;	left: 0%;}
-.Amsterdam4 {top:  0%;	left: 12%;}
-.Amsterdam5 {top: 30%;	left: 12%;}
-.Amsterdam6 {top: 60%;	left: 12%;}
+#Amsterdam1 {top:  0%;	left: 0%;}
+#Amsterdam2 {top: 33%;	left: 0%;}
+#Amsterdam3 {top: 67%;	left: 0%;}
+#Amsterdam4 {top:  0%;	left: 12%;}
+#Amsterdam5 {top: 33%;	left: 12%;}
+#Amsterdam6 {top: 67%;	left: 12%;}
 
-.Tussengebied1 {top: 15%;	left: 25%;}
-.Tussengebied2 {top: 45%;	left: 25%;}
+#Tussengebied1 {top: 15%;	left: 25%;}
+#Tussengebied2 {top: 45%;	left: 25%;}
 
-.Almere1 {top:  0%; left: 37%;}
-.Almere2 {top: 30%;	left: 37%;}
-.Almere3 {top: 60%;	left: 37%;}
-.Almere4 {top:  0%; left: 50%;}
-.Almere5 {top: 30%;	left: 50%;}
-.Almere6 {top: 60%;	left: 50%;}
+#Almere1 {top:  0%; left: 37%;}
+#Almere2 {top: 33%;	left: 37%;}
+#Almere3 {top: 67%;	left: 37%;}
+#Almere4 {top:  0%; left: 50%;}
+#Almere5 {top: 33%;	left: 50%;}
+#Almere6 {top: 67%;	left: 50%;}
 
-.Tussengebied3 {top: 15%;	left: 62%;}
+#Tussengebied3 {top: 15%;	left: 62%;}
 
-.Utrecht1 {top:  0%;	left: 75%;}
-.Utrecht2 {top: 30%;	left: 75%;}
-.Utrecht3 {top: 60%;	left: 75%;}
-.Utrecht4 {top:  0%;	left: 87%;}
-.Utrecht5 {top: 30%;	left: 87%;}
-.Utrecht6 {top: 60%;	left: 87%;}
+#Utrecht1 {top:  0%;	left: 75%;}
+#Utrecht2 {top: 33%;	left: 75%;}
+#Utrecht3 {top: 67%;	left: 75%;}
+#Utrecht4 {top:  0%;	left: 87%;}
+#Utrecht5 {top: 33%;	left: 87%;}
+#Utrecht6 {top: 67%;	left: 87%;}
 
+
+/* entire container, keeps perspective */
+.kaart {
+position: absolute;
+	perspective: 1000;
+}
+	/* flip the pane when hovered */
+	.kaart.hover .flipper{
+		transform: rotateY(180deg);
+	}
+
+.kaart , .front, .back {	
+	width: 180px;
+	min-height: 240px;
+}
+.front {
+	background-image: url('../style/logo.png');
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-color: #154273;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+#kaartjesOverlay {
+	/*display: flex;
+	justify-content:  space-around ;
+	align-items: stretch;	
+	top: 10px;
+	bottom: 10px;
+	left: 30px;
+	right: 30px;
+	position: absolute;*/
+}
 </style>
 <template>
     <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
@@ -87,23 +146,32 @@ paper-card {
     </div>
     <div id="kaartjesOverlay">
     	<template is='dom-repeat' items="{{eigenschappen}}" observe="_data">
-    		<paper-card class$='[[item._data.id]]'>
-    			<div class="card-content">
-    			<center>
-    				<b>[[item._data.stad]]</b>
-    			</center>
-    			</div>
-    			<center>
-					<img width=60 height=60 src='[[item._data.img]]' />
-				</center>
-				<div class="card-content">
-					<div><b>[[item._data.title]]</b></div>
-					<div secondary>
-						<span>[[item._data.text]]</span>
+			<div id$='[[item._data.id]]' class="kaart">
+				<div class="flipper">
+					<div class="front">	
+						<div style="width:100%;height:100%">&nbsp;</div>				
+					</div>
+					<div class="back">			
+						<paper-card >
+							<div class="card-content">
+							<center>
+								<b>[[item._data.stad]]</b>
+							</center>
+							</div>
+							<center>
+								<img width=60 height=60 src='[[item._data.img]]' />
+							</center>
+							<div class="card-content">
+								<div><b>[[item._data.title]]</b></div>
+								<div secondary>
+									<span>[[item._data.text]]</span>
+								</div>				
+							</div>
+						</paper-card>
 					</div>
 				</div>
-    		</paper-card>
-    	</template>
+			</div>
+		</template>
     </div>
 </template>
 </dom-module>
@@ -142,10 +210,15 @@ Polymer({
 			}
 		}
 		this.team = this.teams[teamNr];
+		
 	},
 	attached: function(){
 		this.$.videotag.height = this.$.scoreScherm.clientHeight;
-		this.$.videotag.width = this.$.scoreScherm.clientWidth;
+		this.$.videotag.width = this.$.scoreScherm.clientWidth;		
+	},
+	flip: function(id) {
+		var kaart = document.getElementById(id);
+		kaart.classList.toggle('hover');
 	}
 		
 });
