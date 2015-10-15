@@ -219,6 +219,12 @@ Polymer({
 	flip: function(id) {
 		var kaart = document.getElementById(id);
 		kaart.classList.toggle('hover');
+	},
+	reset: function() {
+		var kaarten = document.getElementsByClassName('hover');
+		for (var i = kaarten.length-1;i>=0;i--){
+			kaarten[i].classList.remove('hover')
+		}		
 	}
 		
 });
