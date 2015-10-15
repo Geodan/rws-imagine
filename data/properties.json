@@ -3,231 +3,231 @@
 	"img": "../../data/images/image10.png",
 	"place":"Utrecht",
 	"id": "Utrecht1",
-	"text": [
-		"Er is sprake van een sterke, centraal sturende overheid.", 	
-		"Er is sprake van een gedecentraliseerde, financierende overheid.",	
-		"Er is sprake van een sterke, centraal besturende overheid.",
-		"Er is sprake van een gedecentraliseerde, faciliterende overheid."
-	]
+	"text": {
+		"planopolis":	"Er is sprake van een sterke, centraal sturende overheid.", 	
+		"sprawlville":	"Er is sprake van een gedecentraliseerde, financierende overheid.",	
+		"renewabad":	"Er is sprake van een sterke, centraal besturende overheid.",
+		"communicity":	"Er is sprake van een gedecentraliseerde, faciliterende overheid."
+	}
 },{
 
 	"title":"Stadsopbouw",
 	"img": "../../data/images/image12.png",
 	"place":"Almere",
 	"id":"Almere1",
-	"text": [
-		"Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.",	
-		"Het stadscentrum kent een zelfde omvang als enkele decennia terug met veel kantoorbouw. Daaromheen vindt men onderling verschillende leefgebieden, gescheiden door rommelige, vaak onafgemaakte tussengebieden.",
-		"Hier bestaat nauwelijks een stadscentrum. Eerder ziet men een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen.",
-		"Hier bestaat nauwelijks een stadscentrum, doch slechts rondtrekkende, mobiele centra (markten). Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen karakter."
-	]
+	"text": {
+		"planopolis":	"Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.",	
+		"sprawlville":	"Het stadscentrum kent een zelfde omvang als enkele decennia terug met veel kantoorbouw. Daaromheen vindt men onderling verschillende leefgebieden, gescheiden door rommelige, vaak onafgemaakte tussengebieden.",
+		"renewabad":	"Hier bestaat nauwelijks een stadscentrum. Eerder ziet men een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen.",
+		"communicity":	"Hier bestaat nauwelijks een stadscentrum, doch slechts rondtrekkende, mobiele centra (markten). Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen karakter."
+	}
 },{
 	"title":"Soorten wegen tussen de steden",
 	"img": "../../data/images/image15.png",
 	"place":"Tussengebied",
 	"id":"Tussengebied1",
-	"text": [
-		"Het landschap wordt gekenmerkt door twee soorten wegen: de oudere, goed onderhouden wegen en de nieuwere, smallere wegen voor zelfrijdende voertuigen.",
-		"Het landschap wordt gekenmerkt door vele soorten wegen voor gemotoriseerd vervoer, van smal tot zeer breed, gericht op zelf bestuurde voertuigen die dagelijks vele uren in de file staan.",
-		"Het landschap wordt gekenmerkt door smalle, nieuwe wegen voor elektrische auto's. Drukte en files bestaan hier niet door slim rekeningrijden per tijdzone.", 	
-		"Het landschap wordt gekenmerkt door versmalde, oude wegen met kas-tuinbouw langs de wegranden, waar eerst nog asfalt lag." 
-	]
+	"text": {
+		"planopolis":	"Het landschap wordt gekenmerkt door twee soorten wegen: de oudere, goed onderhouden wegen en de nieuwere, smallere wegen voor zelfrijdende voertuigen.",
+		"sprawlville":	"Het landschap wordt gekenmerkt door vele soorten wegen voor gemotoriseerd vervoer, van smal tot zeer breed, gericht op zelf bestuurde voertuigen die dagelijks vele uren in de file staan.",
+		"renewabad":	"Het landschap wordt gekenmerkt door smalle, nieuwe wegen voor elektrische auto's. Drukte en files bestaan hier niet door slim rekeningrijden per tijdzone.", 	
+		"communicity":	"Het landschap wordt gekenmerkt door versmalde, oude wegen met kas-tuinbouw langs de wegranden, waar eerst nog asfalt lag." 
+	}
 },{
 	"title":"Karakter en gebruik spoorlijnen tussen steden",
 	"img": "../../data/images/image14.png",
 	"place":"Tussengebied",
 	"id":"Tussengebied2",
-	"text": [
-		"Het treinen-netwerk is al enkele decennia intact gebleven. De intensiteit is echter sterk toegenomen.", 	
-		"Het treinen-netwerk is ten opzichte van de vorige decennia intact gebleven, zonder veel verdichting of uitbreiding.",
-		"Het treinen-netwerk is sterk gegroeid. Er bestaan brede, gediversifieerde rail systemen voor HSL, Intercity en sneltram.", 	
-		"Het treinen-netwerk is intact gebleven. De intensiteit is echter sterk afgenomen. Veel verkeer tussen leefgebieden is niet meer nodig."
-	]
+	"text": {
+		"planopolis":	"Het treinen-netwerk is al enkele decennia intact gebleven. De intensiteit is echter sterk toegenomen.", 	
+		"sprawlville":	"Het treinen-netwerk is ten opzichte van de vorige decennia intact gebleven, zonder veel verdichting of uitbreiding.",
+		"renewabad":	"Het treinen-netwerk is sterk gegroeid. Er bestaan brede, gediversifieerde rail systemen voor HSL, Intercity en sneltram.", 	
+		"communicity":	"Het treinen-netwerk is intact gebleven. De intensiteit is echter sterk afgenomen. Veel verkeer tussen leefgebieden is niet meer nodig."
+	}
 },{
 	"title":"Watersysteem",
 	"img": "../../data/images/image18.png",
 	"place":"Amsterdam",
 	"id":"Amsterdam1",
-	"text": [
-		"Een floating city is gebouwd in het IJmeer, tussen Amsterdam en Almere.",
-		"Veel gebied loopt onder water wegens aanleg van overloopgebieden.",		
-		"Veel drijvende tuinen (algen) en drijvende zonnepanelen.",	
-		"Veel leefgebieden wordt opgehoogd met terpen en wierden wegens achterstand in het onderhoud van dijken."
-	]
+	"text": {
+		"planopolis":	"Een floating city is gebouwd in het IJmeer, tussen Amsterdam en Almere.",
+		"sprawlville":	"Veel gebied loopt onder water wegens aanleg van overloopgebieden.",		
+		"renewabad":	"Veel drijvende tuinen (algen) en drijvende zonnepanelen.",	
+		"communicity":	"Veel leefgebieden wordt opgehoogd met terpen en wierden wegens achterstand in het onderhoud van dijken."
+	}
 },{
 	"title":"Ringwegen rondom steden",
 	"img": "../../data/images/image19.png",
 	"place":"Utrecht",
 	"id":"Utrecht2",
-	"text": [
-		"De ringwegen zijn er nog wel, maar zijn thans ondertunneld, met een naadloze aansluiting op distributiecentra aan de rand van de stad.",	
-		"Automobilisten strijden met alle middelen om schaarse time/space slots in het verkeer.",
-		"De ringwegen zijn afgebroken en langzaam helemaal verdwenen.",	
-		"De ringwegen zijn in onbruik geraakt en overgenomen door andere activiteiten - vaak voedsel- en handelsgerelateerd."
-	]
+	"text": {
+		"planopolis":	"De ringwegen zijn er nog wel, maar zijn thans ondertunneld, met een naadloze aansluiting op distributiecentra aan de rand van de stad.",	
+		"sprawlville":	"Automobilisten strijden met alle middelen om schaarse time/space slots in het verkeer.",
+		"renewabad":	"De ringwegen zijn afgebroken en langzaam helemaal verdwenen.",	
+		"communicity":	"De ringwegen zijn in onbruik geraakt en overgenomen door andere activiteiten - vaak voedsel- en handelsgerelateerd."
+	}
 },{
 	"title":"Soorten wegen in de steden",
 	"img": "../../data/images/image13.png",
 	"place":"Almere",
 	"id":"Almere2",
-	"text": [
-		"In de stad vinden we een fijnmazig netwerk van autobanen, fietspaden en wandelroutes, vernieuwd en goed onderhouden. De zelfrijdende auto's zorgen ervoor dat er nauwelijks file ontstaat.",	
-		"In de stad vinden we een grofmazig, uitgebreid netwerk van betonnen autobanen, drukke ringwegen, fly-overs, particuliere tolroutes, fietspaden en stroken. Onderhoud daaraan maakt de files dagelijks nog erger dan anders.", 		
-		"In de leefgebieden vinden we een fijnmazig netwerk van lanes, smalle wegen (autorijden in de gemeenschap is not done), brede wandel- en fietspaden, e-bike tracés, lopende banden en airpods.",	
-		"In de leefgebieden vinden we oudere betonnen straten en stroken. Het onderhoud daarvan is matig en verschilt per leefgebied. In de winter strooit niemand."
-	]
+	"text": {
+		"planopolis":	"In de stad vinden we een fijnmazig netwerk van autobanen, fietspaden en wandelroutes, vernieuwd en goed onderhouden. De zelfrijdende auto's zorgen ervoor dat er nauwelijks file ontstaat.",	
+		"sprawlville":	"In de stad vinden we een grofmazig, uitgebreid netwerk van betonnen autobanen, drukke ringwegen, fly-overs, particuliere tolroutes, fietspaden en stroken. Onderhoud daaraan maakt de files dagelijks nog erger dan anders.", 		
+		"renewabad":	"In de leefgebieden vinden we een fijnmazig netwerk van lanes, smalle wegen (autorijden in de gemeenschap is not done), brede wandel- en fietspaden, e-bike tracés, lopende banden en airpods.",	
+		"communicity":	"In de leefgebieden vinden we oudere betonnen straten en stroken. Het onderhoud daarvan is matig en verschilt per leefgebied. In de winter strooit niemand."
+	}
 },{
 	"title":"Karakter en gebruik van de grote havens",
 	"img": "../../data/images/image21.png",
 	"place":"Amsterdam",
 	"id":"Amsterdam2",
-	"text": [
-		"De havenfunctie is gegroeid en kent tal van distributiecentra aan de kade met veel bulkvaart (graan e.d.).",	
-		"De havenfunctie is gegroeid, wordt slim gereguleerd en kent veel tankopslag voor de drukke tankvaart (vloeibaar, chemisch).",
-		"De havenfunctie is niet gegroeid en is ook veranderd. Tankopslag is verdwenen ten gunste van solar energy centres.", 	
-		"De havenfunctie is verkleind ten gunste van bewoning en recreatie op het water. Elke leefgemeenschap heeft aanlegsteigers voor handel via water."
-	]
+	"text": {
+		"planopolis":	"De havenfunctie is gegroeid en kent tal van distributiecentra aan de kade met veel bulkvaart (graan e.d.).",	
+		"sprawlville":	"De havenfunctie is gegroeid, wordt slim gereguleerd en kent veel tankopslag voor de drukke tankvaart (vloeibaar, chemisch).",
+		"renewabad":	"De havenfunctie is niet gegroeid en is ook veranderd. Tankopslag is verdwenen ten gunste van solar energy centres.", 	
+		"communicity":	"De havenfunctie is verkleind ten gunste van bewoning en recreatie op het water. Elke leefgemeenschap heeft aanlegsteigers voor handel via water."
+	}
 },{
 	"title":"Technologie in wegen",
 	"img": "../../data/images/image23.png",
 	"place":"Amsterdam",
 	"id":"Amsterdam3",
-	"text": [
-		"Zelfrijdende voertuigen worden in kolonnes gestuurd door sensoren in de wegkant.", 	
-		"Grote parkeertorens houden auto's zoveel mogelijk langs de rand van de stad. Alleen elektrisch verkeer mag nog in de binnenstad.",
-		"Het hele wegennet is een zonnecel met oplaadpunten en er zijn bovengrondse fietstunnels, waarin de e-biker de wind altijd mee heeft.",
-		"Wegen worden bevolkt door een bonte stoet soorten voertuigen op biomassa of andere alternatieve brandstoffen. Files worden voorkomen door eigen on-board sensors en leds."
-	]
+	"text": {
+		"planopolis":	"Zelfrijdende voertuigen worden in kolonnes gestuurd door sensoren in de wegkant.", 	
+		"sprawlville":	"Grote parkeertorens houden auto's zoveel mogelijk langs de rand van de stad. Alleen elektrisch verkeer mag nog in de binnenstad.",
+		"renewabad":	"Het hele wegennet is een zonnecel met oplaadpunten en er zijn bovengrondse fietstunnels, waarin de e-biker de wind altijd mee heeft.",
+		"communicity":	"Wegen worden bevolkt door een bonte stoet soorten voertuigen op biomassa of andere alternatieve brandstoffen. Files worden voorkomen door eigen on-board sensors en leds."
+	}
 },{
 	"title":"Distributie in de stad",
 	"img": "../../data/images/image24.png",
 	"place":"Amsterdam",
 	"id":"Amsterdam4",
-	"text": [
-		"Fijnmazige distributiecentra bevoorraden de leefgebieden volgens het last mile principe.", 	
-		"Vrachtwagens en bestelauto's kruisen ongeremd door alle woongebieden.", 		
-		"Fijnmazige distributie-regels, gegenereerd uit big data, verbinden kanalen en vaarten in de stad, via drones door de lucht en via buizen ondergronds of auto-bots bovengronds.", 	
-		"Er is nauwelijks distributie nodig. Men is zelfvoorzienend."
-	]
+	"text": {
+		"planopolis":	"Fijnmazige distributiecentra bevoorraden de leefgebieden volgens het last mile principe.", 	
+		"sprawlville":	"Vrachtwagens en bestelauto's kruisen ongeremd door alle woongebieden.", 		
+		"renewabad":	"Fijnmazige distributie-regels, gegenereerd uit big data, verbinden kanalen en vaarten in de stad, via drones door de lucht en via buizen ondergronds of auto-bots bovengronds.", 	
+		"communicity":	"Er is nauwelijks distributie nodig. Men is zelfvoorzienend."
+	}
 },{
 	"title":"Karakter en gebruik openbaar vervoer in de stad",
 	"img": "../../data/images/image25.png",
 	"place":"Almere",
 	"id":"Almere3",
-	"text": [
-		"Het OV is sterk uitgebreid ten opzichte van eerdere decennia en rijdt hoogfrequent door de hele stad.",
-		"Veel buitengebieden zijn verstoken van OV.", 		
-		"Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd.",	
-		"Er is nauwelijks gebruik van het OV. Daarom is dit sterk ingekrompen."
-	]
+	"text": {
+		"planopolis":	"Het OV is sterk uitgebreid ten opzichte van eerdere decennia en rijdt hoogfrequent door de hele stad.",
+		"sprawlville":	"Veel buitengebieden zijn verstoken van OV.", 		
+		"renewabad":	"Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd.",	
+		"communicity":	"Er is nauwelijks gebruik van het OV. Daarom is dit sterk ingekrompen."
+	}
 },{
 	"title":"Motorvoertuigen",
 	"img": "../../data/images/image26.png",
 	"place":"Tussengebied",
 	"id":"Tussengebied3",
-	"text": [
-		"Er rijden standaard auto's, vaak klein, zelfrijdend en vaak elektrisch. Fossiele brandstof is er wel, maar wordt duur verkocht.",	
-		"Er rijden veel standaard auto's (groot en klein) en werkauto's. Veel rijden op benzine, diesel en in hybride vorm. Fossiele brandstof is goedkoop. De auto levert de lokale overheden en bedrijven veel geld op.",
-		"Er rijden weinig auto's en degene die er rijden gebruiken elektriciteit, waterstof of zonne-energie. De termen groen, gedeeld en intelligent zijn leidend bij autogebruik.", 	
-		"Er rijden veel soorten gemotoriseerd vervoer op alternatieve, goedkope brandstoffen. Soms ook vliegend."
-	]
+	"text": {
+		"planopolis":	"Er rijden standaard auto's, vaak klein, zelfrijdend en vaak elektrisch. Fossiele brandstof is er wel, maar wordt duur verkocht.",	
+		"sprawlville":	"Er rijden veel standaard auto's (groot en klein) en werkauto's. Veel rijden op benzine, diesel en in hybride vorm. Fossiele brandstof is goedkoop. De auto levert de lokale overheden en bedrijven veel geld op.",
+		"renewabad":	"Er rijden weinig auto's en degene die er rijden gebruiken elektriciteit, waterstof of zonne-energie. De termen groen, gedeeld en intelligent zijn leidend bij autogebruik.", 	
+		"communicity":	"Er rijden veel soorten gemotoriseerd vervoer op alternatieve, goedkope brandstoffen. Soms ook vliegend."
+	}
 },{
 	"title":"Groen",
 	"img": "../../data/images/image00.png",
 	"place":"Amsterdam",
 	"id":"Amsterdam5",
-	"text": [
-		"Veel tuinen en parkjes, klein van schaal.",	
-		"Weinig groen, veel steen en monocultuur.",
-		"Veel groen, centraal aangelegd, op grote schaal.", 
-		"Weinig groen door stadslandbouw. Veel steen. Monocultuur van biogewassen in landelijk gebied, als basis voor biodiesel."
-	]
+	"text": {
+		"planopolis":	"Veel tuinen en parkjes, klein van schaal.",	
+		"sprawlville":	"Weinig groen, veel steen en monocultuur.",
+		"renewabad":	"Veel groen, centraal aangelegd, op grote schaal.", 
+		"communicity":	"Weinig groen door stadslandbouw. Veel steen. Monocultuur van biogewassen in landelijk gebied, als basis voor biodiesel."
+	}
 },{
 	"title":"Energiesysteem",	
 	"img": "../../data/images/image01.png",
 	"place":"Utrecht",
 	"id":"Utrecht3",
-	"text": [
-		"Kolen en gascentrales met CO2 opslag.",	
-		"Sterke inzet van efficiënte kolen- en gascentrales zonder CO2 opslag + grote kerncentrales.",	
-		"De stad zelf functioneert met al haar zonnedaken en -oppervlakken als schone energiecentrale.", 	
-		"Energieopwekking in de woonomgeving vanuit voedselafval."
-	]
+	"text": {
+		"planopolis":	"Kolen en gascentrales met CO2 opslag.",	
+		"sprawlville":	"Sterke inzet van efficiënte kolen- en gascentrales zonder CO2 opslag + grote kerncentrales.",	
+		"renewabad":	"De stad zelf functioneert met al haar zonnedaken en -oppervlakken als schone energiecentrale.", 	
+		"communicity":	"Energieopwekking in de woonomgeving vanuit voedselafval."
+	}
 },{
 	"title":"Karakter woninggebied",
 	"img": "../../data/images/image27.png",
 	"place":"Amsterdam",
 	"id":"Amsterdam6",	
-	"text": [
-		"Burgers werken typisch voor meerdere werkgevers in de buurt van hun woning.",	
-		"Grote hoeveelheid buitenwijken en losse stadsdelen voor forenzen en werkelozen, met veel leegstand.", 	
-		"Woninggebieden zijn actieve actoren van waardecreatie, ecologisch, sociaal en financieel.",	
-		"Veel campussen, kleine laboratoria en kunstacademies waar research through design wordt bedreven."
-	]
+	"text": {
+		"planopolis":	"Burgers werken typisch voor meerdere werkgevers in de buurt van hun woning.",	
+		"sprawlville":	"Grote hoeveelheid buitenwijken en losse stadsdelen voor forenzen en werkelozen, met veel leegstand.", 	
+		"renewabad":	"Woninggebieden zijn actieve actoren van waardecreatie, ecologisch, sociaal en financieel.",	
+		"communicity":	"Veel campussen, kleine laboratoria en kunstacademies waar research through design wordt bedreven."
+	}
 },{
 	"title":"Typische technologie op straat",
 	"img": "../../data/images/image02.png",
 	"place":"Utrecht",
 	"id":"Utrecht4",
-	"text": [
-		"Informatie over stad via smartphone (geen borden).",	
-		"Veel virtuele stadsruimten.",	
-		"Veel drone distributie drop zones.", 	
-		"De straatverlichting is tevens het (gratis) draadloos internetnetwerk."
-	]
+	"text": {
+		"planopolis":	"Informatie over stad via smartphone (geen borden).",	
+		"sprawlville":	"Veel virtuele stadsruimten.",	
+		"renewabad":	"Veel drone distributie drop zones.", 	
+		"communicity":	"De straatverlichting is tevens het (gratis) draadloos internetnetwerk."
+	}
 },{
 	"title":"Lucht",
 	"img": "../../data/images/image04.png",
 	"place":"Almere",
 	"id":"Almere4",
-	"text": [
-		"Luchtverontreiniging is gemiddeld. CO2 gaat de grond in, maar er is nog steeds veel verontreiniging door fijnstof.",	
-		"Luchtverontreiniging is groot. Er wordt grote hoeveelheden fossiele, goedkope brandstof verbruikt met veel smog en mondkapjes als gevolg.",
-		"Luchtverontreiniging is klein. Zeer schone lucht door brede, daarop toegesneden overheidsprogramma's.",	
-		"Luchtverontreiniging is gemiddeld. Lokaal verschilt de verontreiniging sterk."
-	]
+	"text":{ 
+		"planopolis":	"Luchtverontreiniging is gemiddeld. CO2 gaat de grond in, maar er is nog steeds veel verontreiniging door fijnstof.",	
+		"sprawlville":	"Luchtverontreiniging is groot. Er wordt grote hoeveelheden fossiele, goedkope brandstof verbruikt met veel smog en mondkapjes als gevolg.",
+		"renewabad":	"Luchtverontreiniging is klein. Zeer schone lucht door brede, daarop toegesneden overheidsprogramma's.",	
+		"communicity":	"Luchtverontreiniging is gemiddeld. Lokaal verschilt de verontreiniging sterk."
+	}
 },{
 	"title":"ICT en lokaal bestuur",
 	"img": "../../data/images/image05.png",
 	"place":"Utrecht",
 	"id":"Utrecht5",
-	"text": [
-		"De centrale overheid heeft stevig greep op de infrastructuur van grote ICT bedrijven teneinde het inzicht in het gedrag van de burger optimaal te kunnen volgen.",	
-		"De centrale overheid is links en rechts ingehaald door de invloed van grote ICT bedrijven en lokale bestuurders.",
-		"De centrale overheid heeft stevig greep op de infrastructuur van grote ICT bedrijven teneinde privacy te waarborgen en misbruik tegen te gaan.",
-		"De centrale overheid is links en rechts ingehaald door de invloed van lokale, crowd funded ICT initiatieven."
-	]
+	"text": {
+		"planopolis":	"De centrale overheid heeft stevig greep op de infrastructuur van grote ICT bedrijven teneinde het inzicht in het gedrag van de burger optimaal te kunnen volgen.",	
+		"sprawlville":	"De centrale overheid is links en rechts ingehaald door de invloed van grote ICT bedrijven en lokale bestuurders.",
+		"renewabad":	"De centrale overheid heeft stevig greep op de infrastructuur van grote ICT bedrijven teneinde privacy te waarborgen en misbruik tegen te gaan.",
+		"communicity":	"De centrale overheid is links en rechts ingehaald door de invloed van lokale, crowd funded ICT initiatieven."
+	}
 },{
 	"title":"Productie en deel-economie",
 	"img": "../../data/images/image06.png",
 	"place":"Almere",
 	"id":"Almere5",
-	"text": [
-		"Consumptie van producten en diensten onder coördinatie en toezicht van de overheid.", 	
-		"Individuele consumptie van met name geïmporteerde producten en diensten.",  		
-		"Gedeelde consumptie, gekocht van duurzame bedrijven.", 	
-		"Individuele consumptie van met name zelf gemaakte en verbouwde producten en diensten."  
-	]
+	"text": {
+		"planopolis":	"Consumptie van producten en diensten onder coördinatie en toezicht van de overheid.", 	
+		"sprawlville":	"Individuele consumptie van met name geïmporteerde producten en diensten.",  		
+		"renewabad":	"Gedeelde consumptie, gekocht van duurzame bedrijven.", 	
+		"communicity":	"Individuele consumptie van met name zelf gemaakte en verbouwde producten en diensten."  
+	}
 },{
 	"title":"Verkeersregulering | technologie",
 	"img": "../../data/images/image07.png",
 	"place":"Utrecht",
 	"id":"Utrecht6",
-	"text": [
-		"Veel experimenten met technieken voor verkeersregulering. Traffic drones en informatie via smartphones vervangen verkeersborden.",	
-		"Veel experimenten met technieken voor verkeersregulering, veelal in betaalde samenwerking met grote ICT bedrijven.",
-		"Veel experimenten met technieken voor verkeersregulering, met name gericht op minimale mileubelasting.",	
-		"Nauwelijks experimenten met technieken voor verkeersregulering. Burgers proberen veel zaken zelf uit."
-	]
+	"text": {
+		"planopolis":	"Veel experimenten met technieken voor verkeersregulering. Traffic drones en informatie via smartphones vervangen verkeersborden.",	
+		"sprawlville":	"Veel experimenten met technieken voor verkeersregulering, veelal in betaalde samenwerking met grote ICT bedrijven.",
+		"renewabad":	"Veel experimenten met technieken voor verkeersregulering, met name gericht op minimale mileubelasting.",	
+		"communicity":	"Nauwelijks experimenten met technieken voor verkeersregulering. Burgers proberen veel zaken zelf uit."
+	}
 },{
 	"title":"Smart Cities",
 	"img": "../../data/images/image08.png",
 	"place":"Almere",
 	"id":"Almere6",
-	"text": [
-		"Technologische mogelijkheden van smart cities worden intensief door de overheid ingezet om mobiliteit te optimaliseren.",
-		"Technologische mogelijkheden van smart cities worden als gevolg van de kennisachterstand bij de overheid in beperkte mate gebruikt.",
-		"Technologische mogelijkheden van smart cities worden intensief door de overheid ingezet om de omgeving groen te houden.",	
-		"Technologische mogelijkheden van smart cities worden nauwelijks ingezet. Eerder vindt men hier smart citizens."
-	]
+	"text": {
+		"planopolis":	"Technologische mogelijkheden van smart cities worden intensief door de overheid ingezet om mobiliteit te optimaliseren.",
+		"sprawlville":	"Technologische mogelijkheden van smart cities worden als gevolg van de kennisachterstand bij de overheid in beperkte mate gebruikt.",
+		"renewabad":	"Technologische mogelijkheden van smart cities worden intensief door de overheid ingezet om de omgeving groen te houden.",	
+		"communicity":	"Technologische mogelijkheden van smart cities worden nauwelijks ingezet. Eerder vindt men hier smart citizens."
+	}
 }]

@@ -39,6 +39,13 @@ Polymer({
 				},
 				notify: true
 			},
+			eigenschappen: {
+				type: Array,
+				value: function(){
+					return [];
+				},
+				notify: true
+			},
 			team: {
 				type: String,
 				//observer: '_setProject'
@@ -113,6 +120,27 @@ Polymer({
 				});
 			});
 		},
+		_generateEigenschappen: function(){
+			var self = this;
+			d3.json('../../data/properties.json',function(e,result){
+				if (e){
+					throw e.message;
+				}
+				result.forEach(function(d,i){
+					var id = new Date().getTime().toString() + i;
+					var item = self._project.items({_id: id});
+					item.data({
+						type: 'eigenschap',
+						found: false,
+						id: d.id,
+						stad: d.place,
+						title: d.title,
+						img: d.img,
+						text: d.text[self.scenario]
+					}).sync();
+				});
+			});
+		},
 		/*
 		createProject() - Create a new project based on the already given team and scenario
 		*/
@@ -124,6 +152,7 @@ Polymer({
 				this._project = newproject;
 				this._generateEvents();
 				this._generateLinks();
+				this._generateEigenschappen();
 			}
 			else {
 				console.warn('No team or scenario specified');
@@ -221,9 +250,13 @@ Polymer({
 						}
 					});
 					function reload(){
+						self.eigenschappen = self._project.items().filter(function(d){
+							return !d.deleted() && d.data('type')=='eigenschap';
+						});
+						//TODO: maybe set the 'found' to false for every eigenschap
 						self.kaartjes = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='kaartje';
-						})
+						});
 						self.kaartjes.forEach(function(d,i){
 							self.set('kaartjes.'+i+'._data.x',d.data('x'));
 							self.set('kaartjes.'+i+'._data.y',d.data('y'));
@@ -234,7 +267,7 @@ Polymer({
 					
 						self.verbindingen = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='verbinding';
-						})
+						});
 						self.verbindingen.forEach(function(d,i){
 							self.set('verbindingen.'+i+'._data.vanid',d.data('vanid'));
 							self.set('verbindingen.'+i+'._data.naarid',d.data('naarid'));
