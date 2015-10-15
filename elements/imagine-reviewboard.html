@@ -96,7 +96,9 @@ Polymer({
 			var self = this;
 			var drawboard = d3.select(this.$.drawboard);
 			drawboard.selectAll('.diagline').remove();
-			/*Starting weird lining functs*/
+			/*Starting weird lining functs
+			got it from here: http://stackoverflow.com/questions/8672369/how-to-draw-a-line-between-two-divs
+			*/
 			function getOffset( el ) {
 				var rect = el.getBoundingClientRect();
 				return {

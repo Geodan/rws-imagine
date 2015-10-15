@@ -1,0 +1,122 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../elements/gm-cow-core.html">
+
+<link href='../style/style.css' rel='stylesheet'>
+<script src="../cowconfigs.js"></script>
+
+<dom-module id="imagine-tweedescherm">
+<style>
+#scoreScherm {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+#kaartjesOverlay {
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 50px;
+}
+
+.kaartje {
+	background-image: url('../style/logo.png');
+	background-repeat: no-repeat;
+	background-position: center top;
+	width: 200px; 
+}
+
+</style>
+<template>
+    <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
+    <div id="scoreScherm">
+    	<img id="videotag" class='bg-video' src="../style/background.jpg">
+    	<!--<video id="videotag" class='bg-video' loop="true" autoplay="true" src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg"></video>-->
+    </div>
+    <div id="kaartjesOverlay">
+    	<template is='dom-repeat'  items="{{kaartjes}}">
+    		<paper-card class='kaartje' heading="[[item._data.title]]">
+    			<div class="card-content">
+    			<div>[[item._data.stad]]</div>
+				<img width=100 height=100 src='[[item._data.img]]' />
+				<div secondary>
+					<span>[[item._data.text]]</span>
+				</div>
+			  </div>
+    		</paper-card>
+    	</template>
+    </div>
+    <!--
+	<imagine-startscherm id="startScherm" scenario="{{scenario}}" team="{{team}}" teams="{{teams}}"></imagine-startscherm>
+    <imagine-3d></imagine-3d>
+    <imagine-puzzel begin="{{begin}}" id="puzzelgame" core="{{cow}}" scenario="{{scenario}}" team="{{team}}"></imagine-puzzel>
+    <imagine-score id="puzzelscore" core="{{cow}}" scenario="{{scenario}}" team="{{team}}" teams="{{teams}}"></imagine-score>
+    -->
+</template>
+</dom-module>
+<script>
+
+var kaartjes = [
+	{
+		_data:{
+			stad: "Amsterdam",
+			title: "Basis-assen",
+			img: '../../data/images/image00.png',
+			text: "Er is sprake van een sterke, centraal sturende overheid."
+		}
+	},{
+		_data:{
+			stad: "Amsterdam",
+			title: "Kaartje2",
+			img: '',
+			text: "Stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote leefgebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd."
+		}
+	}
+];
+
+Polymer({
+	is: 'imagine-tweedescherm',
+	properties:{
+		scenario: String,
+		teams: {
+			type: Array,
+			value: function(){
+				return ['Team A','Team D','Team C','Team B'];
+			}
+		},
+		cowconfig: {
+			type: Object,
+			value: function(){
+				/*! Remember to set the correct config in the configfile!*/
+				return window.cowconfig;
+			}
+		},
+		kaartjes: {
+			type: Array,
+			value: function(){
+				return kaartjes;
+			}
+		}
+	},
+	ready: function(){
+		this.scenario;
+		var teamNr = 0;
+		if(window.location.hash) {
+			var hash = window.location.hash.split('#')[1];
+			if(parseInt(hash)&&hash <4 && hash > 0) {            
+				teamNr = hash;
+			}
+		}
+		this.team = this.teams[teamNr];
+	},
+	attached: function(){
+		this.$.videotag.height = this.$.scoreScherm.clientHeight;
+		this.$.videotag.width = this.$.scoreScherm.clientWidth;
+	}
+		
+});
+</script>
