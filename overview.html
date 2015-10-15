@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <style>
+/* entire container, keeps perspective */
+.kaart {
+	perspective: 1000;
+}
+	/* flip the pane when hovered */
+	.kaart.hover .flipper, .kaart .flipper:hover,.kaart.hover .flipper:hover{
+		transform: rotateY(180deg);
+	}
+
+.kaart, .front, .back {	
+	width: 170px;
+	height: 240px;
+}
+.front {
+	border: solid 1px darkgrey;
+	background: #eeeeec;
+}
+.back {
+	border: solid 1px black;	
+	background: darkblue;
+	color: white;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+#cardboard {
+	display: flex;
+	justify-content:  space-around ;
+	align-items: stretch;	
+	top: 10px;
+	bottom: 10px;
+	left: 30px;
+	right: 30px;
+	position: absolute;
+}
+.column {
+	display: flex;
+	flex-direction: column ;
+	justify-content:  space-around ;
+}
+
+    </style>
+</head>
+
+<body >
+<div id="cardboard">
+	<div class="column">
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="column">
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="column">		
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="column">
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="column">
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="column">
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="column">
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="column">
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+		<div class="kaart" ontouchstart="this.classList.toggle('hover');" >
+			<div class="flipper">
+				<div class="front">		
+					geen plaatje
+				</div>
+				<div class="back">
+					wel plaatje
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<!--div class="flip-container" ontouchstart="this.classList.toggle('hover');" >
+	<div class="flipper">
+		<div class="front">
+		
+			bla
+		</div>
+		<div class="back">
+		
+			dus
+		</div>
+	</div>
+</div-->	
+</body>
+</html>
