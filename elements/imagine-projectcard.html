@@ -111,6 +111,7 @@
     regenerate: function(){
 		var instance = this.$.instance;
 		if (confirm('Alle kaartjes voor ' + this.team.name + ' ' + this.scenario.name + ' worden opnieuw gemaakt. Zeker weten?')) {
+			instance._generateEigenschappen();
 			instance._generateEvents('./data/' + this.scenario.name + '.tsv');
 			instance._generateLinks('./data/' + this.scenario.name + '_links.tsv');
 		} else {

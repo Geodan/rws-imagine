@@ -253,6 +253,9 @@ Polymer({
 						self.eigenschappen = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='eigenschap';
 						});
+						self.eigenschappen.forEach(function(d,i){
+							self.set('eigenschappen.'+i+'._data.found',d.data('found'));
+						});
 						//TODO: maybe set the 'found' to false for every eigenschap
 						self.kaartjes = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='kaartje';

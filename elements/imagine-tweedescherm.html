@@ -2,7 +2,7 @@
 <link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../elements/gm-cow-core.html">
-<link rel="import" href="./imagine-instance.html?time=2">
+<link rel="import" href="./imagine-instance.html?time=3">
 
 <link href='../style/style.css' rel='stylesheet'>
 <script src="../bower_components/d3/d3.js"></script>
@@ -75,13 +75,13 @@ paper-cardje .img {
 
 /* entire container, keeps perspective */
 .kaart {
-position: absolute;
+	position: absolute;
 	perspective: 1000;
 }
-	/* flip the pane when hovered */
-	.kaart.hover .flipper{
-		transform: rotateY(180deg);
-	}
+/* flip the pane when hovered */
+.kaart.hover .flipper{
+	transform: rotateY(180deg);
+}
 
 .kaart , .front, .back {	
 	width: 180px;
@@ -145,8 +145,8 @@ position: absolute;
     	<!--<video id="videotag" class='bg-video' loop="true" autoplay="true" src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg"></video>-->
     </div>
     <div id="kaartjesOverlay">
-    	<template is='dom-repeat' items="{{eigenschappen}}" observe="_data">
-			<div id$='[[item._data.id]]' class="kaart">
+    	<template id="kaartlist" is='dom-repeat' items="{{eigenschappen}}" observe="_data">
+			<div id$='[[item._data.id]]' class$="[[getHover(item._data.found)]]">
 				<div class="flipper">
 					<div class="front">	
 						<div style="width:100%;height:100%">&nbsp;</div>				
@@ -200,6 +200,9 @@ Polymer({
 			notify: true
 		}
 	},
+	observers:[
+			//'refreshFilter(eigenschappen.*._data.found)'
+	],
 	ready: function(){
 		this.scenario;
 		var teamNr = 0;
@@ -216,6 +219,18 @@ Polymer({
 		this.$.videotag.height = this.$.scoreScherm.clientHeight;
 		this.$.videotag.width = this.$.scoreScherm.clientWidth;		
 	},
+	getHover: function(found){
+		if (found){
+			return 'kaart hover';
+		}
+		else {
+			return 'kaart';
+		}
+	},
+	refreshFilter: function(){
+		console.log('!!');
+	},
+	
 	flip: function(id) {
 		var kaart = document.getElementById(id);
 		kaart.classList.toggle('hover');
