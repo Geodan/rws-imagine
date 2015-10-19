@@ -23,7 +23,11 @@ function SayHelloToBrowser()
 }
 function setKenmerk(id) {
 	var instance = document.querySelector('imagine-instance');
-	instance.eigenschappen.filter(d=>!d.deleted() && d.data('id') == id).forEach(d=>d.data('found',true).sync());
+	var eigenschappen = instance.eigenschappen.filter(d=>!d.deleted() && d.data('id') == id);
+	if (eigenschappen.length < 1){
+		throw 'Geen eigenschappen in dit scenario'
+	}
+	eigenschappen.forEach(d=>d.data('found',true).sync());
 	
     //$('imagine-puzzel').attr('kenmerk',id)
     //$('imagine-puzzel').attr('kenmerk',-1)
