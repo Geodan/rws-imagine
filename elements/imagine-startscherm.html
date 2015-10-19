@@ -1,15 +1,8 @@
 <link rel="import"
       href="../bower_components/polymer/polymer.html">
-
-   
-
-
  
 <dom-module id="imagine-startscherm">
     <style>
-  
-
-
 
 #scoreHeader {
     height: 30%;
@@ -79,10 +72,6 @@ transform: scale(1.5,1.5)
   <template>
 	<div id="scoreHeader"><div class="content">{{date}}<span class="right">RWS IMAGINE!</span></div></div>
 	<div id="scoreScherm">
-		<img id="videotag" class='bg-video' src="../style/background.jpg">
-		<!--
-		<video id="videotag" loop="true" autoplay="true" width="1920" height="1080" src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg"></video>
-		-->
 	</div>
   <div class="start" on-click="startGame"><svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -233,10 +222,6 @@ transform: scale(1.5,1.5)
 
 	},
 	attached: function() {
-		
-		this.$.videotag.height = this.$.scoreScherm.clientHeight;
-		this.$.videotag.width = this.$.scoreScherm.clientWidth;
-		
         this.width = window.innerWidth;
 		var hash = window.location.hash.split('#')[1];
         if(parseInt(hash)) {

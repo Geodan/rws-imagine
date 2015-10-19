@@ -7,13 +7,7 @@ imagine-startscherm, imagine-puzzel, imagine-score, body {
     right: 0px;
     position: absolute;
 }
-imagine-startscherm {
-	float: left;
-	z-index: 10000001;
-	background: url('background.jpg');    
-	background-size: cover;
-	
-}
+
 
 imagine-score{
     display: none;
