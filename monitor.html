@@ -56,11 +56,11 @@
   	  	  main.cow.projects().forEach(d=>
   	  	  	  d.deleted(true).sync()
   	  	  );
-  	  	  main.teams.forEach(function(team){
+  	  	  main.teams.forEach(function(team,j){
   	  	  	team.scenarios.forEach(function(scenario,i){
   	  	  		var time=new Date().getTime();
   	  	  		var newproject = main.cow.projects({
-  	  	  				_id:time+'#' + i
+  	  	  				_id: time+'#' + i + '#' + j
   	  	  		});
   	  	  		newproject.data({
   	  	  			team:team.name,
@@ -81,6 +81,25 @@
 							y_org: d.y,
 							x: null,
 							y: null,
+						}).sync();
+					});
+				});
+				d3.json('./data/properties.json',function(e,result){
+					
+					if (e){
+						throw e.message;
+					}
+					result.forEach(function(d,i){
+						var id = new Date().getTime().toString() + i;
+						var item = newproject.items({_id: id});
+						item.data({
+							type: 'eigenschap',
+							found: false,
+							id: d.id,
+							stad: d.place,
+							title: d.title,
+							img: d.img,
+							text: d.text[scenario.name]
 						}).sync();
 					});
 				});

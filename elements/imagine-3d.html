@@ -22,8 +22,11 @@ function SayHelloToBrowser()
     },1000);
 }
 function setKenmerk(id) {
-    $('imagine-puzzel').attr('kenmerk',id)
-    $('imagine-puzzel').attr('kenmerk',-1)
+	var instance = document.querySelector('imagine-instance');
+	instance.eigenschappen.filter(d=>!d.deleted() && d.data('id') == id).forEach(d=>d.data('found',true).sync());
+	
+    //$('imagine-puzzel').attr('kenmerk',id)
+    //$('imagine-puzzel').attr('kenmerk',-1)
 }
 
 </script>
