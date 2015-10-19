@@ -72,6 +72,8 @@ transform: scale(1.5,1.5)
   <template>
 	<div id="scoreHeader"><div class="content">{{date}}<span class="right">RWS IMAGINE!</span></div></div>
 	<div id="scoreScherm">
+		<div>FLUPS!</div>
+		<img id="videotag" class='bg-video' src="../style/RenewabadZoom1Bg.png"/>
 	</div>
   <div class="start" on-click="startGame"><svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -222,6 +224,8 @@ transform: scale(1.5,1.5)
 
 	},
 	attached: function() {
+		this.$.videotag.height = this.$.scoreScherm.clientHeight;
+		this.$.videotag.width = this.$.scoreScherm.clientWidth;
         this.width = window.innerWidth;
 		var hash = window.location.hash.split('#')[1];
         if(parseInt(hash)) {

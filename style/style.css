@@ -1,4 +1,16 @@
+html, body, imagine-puzzel, imagine-score {
+	background-color: black;
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+	background-size: cover;
+}
 
+imagine-startscherm {
+	float: left;
+	z-index: 10000001;
+	background-size: cover;
+}
 
 imagine-startscherm, imagine-puzzel, imagine-score, body {
     top: 0px;
