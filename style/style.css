@@ -18,7 +18,8 @@ imagine-startscherm, imagine-puzzel, imagine-score, body {
 imagine-startscherm {
 	float: left;
 	z-index: 10000001;
-	background: white;
+	background: url('background.jpg');    
+	background-size: cover;
 	
 }
 
