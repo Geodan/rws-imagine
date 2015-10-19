@@ -34,7 +34,34 @@ Polymer({
 				/*! Remember to set the correct config in the configfile!*/
 				return window.cowconfig;
 			}
-		}
+		},
+	},
+	observers: [
+		'_teamChanged(cow,team, scenario)'
+	],
+	_teamChanged: function(){
+		var self = this;
+		var usersLoaded = this.cow.userStore().loaded;
+		var projectsLoaded = this.cow.projectStore().loaded;
+		Promise.all([projectsLoaded, usersLoaded]).then(function(){
+			var peer = self.cow.peer();
+			if (peer){
+				peer.data('scenario',self.scenario).data('team',self.team).sync();
+			}
+				
+			console.log('Team: ',self.team,'Scenario: ',self.scenario);
+			if (!self.cow.user('Team A')){
+				throw 'User not set';
+			}
+			var projects = self.cow.projects().filter(
+				d=>!d.deleted() && d.data('team') == 'Team A' && d.data('scenario') == 'renewabad'
+			);
+			if (projects.length < 1){
+				throw 'No project with team ',self.team,' and/or scenario ', self.scenario;
+			}
+			var project = projects[0];
+			self.cow.project(project.id());
+		});
 	},
 	ready: function(){
 		this.scenario;
