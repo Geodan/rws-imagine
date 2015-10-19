@@ -4,8 +4,8 @@ html, body, imagine-puzzel, imagine-score {
   overflow: hidden;
   background: url('background.jpg');    
   background-size: cover;
-    background-blend-mode: difference;
-    
+ /*background-blend-mode: difference;*/
+ 
 }
 
 imagine-startscherm, imagine-puzzel, imagine-score, body {
