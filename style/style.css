@@ -1,12 +1,4 @@
-html, body, imagine-puzzel, imagine-score {
-  margin: 0px;
-  padding: 0px;
-  overflow: hidden;
-  background: url('background.jpg');    
-  background-size: cover;
- /*background-blend-mode: difference;*/
- 
-}
+
 
 imagine-startscherm, imagine-puzzel, imagine-score, body {
     top: 0px;
