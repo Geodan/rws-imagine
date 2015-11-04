@@ -222,7 +222,7 @@ imagine-time-slider-vertical {
        </template>
     </div>
    <div id="speelveld" oncontextmenu="return false">
-  
+
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}" oncontextmenu="return false"></canvas>
     <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}" as="item">
@@ -647,7 +647,70 @@ imagine-time-slider-vertical {
 		
 		}
 	},
+	writeText: function(){
+	var canvas = document.getElementById("bord");
+	var ctx = canvas.getContext("2d");
+
+	var grd=ctx.createLinearGradient(0,0,canvas.width,0);
+	var grdv=ctx.createLinearGradient(0,0,0,canvas.height);
+	var s = this.scenario.toLowerCase();
+        switch(s) {
+            case 'sprawlville': 
+                ctx.fillStyle= '#D1118A'; //SPR_MAIN
+                grd.addColorStop(1,"#D1118A");
+                grdv.addColorStop(0,"#D1118A");
+                break;
+            case 'communicity':
+                ctx.fillStyle = '#ECAA22';//COM_MAIN
+				grd.addColorStop(1,"#ECAA22");
+				grdv.addColorStop(0,"#ECAA22");
+                break;
+            case 'renewabad':
+                ctx.fillStyle= "#81A62E";//REN_MAIN
+				grd.addColorStop(1,"#81A62E");
+				grdv.addColorStop(0,"#81A62E");
+                break;
+            case 'planopolis':
+                ctx.fillStyle= "#5ABBD1";//PLA_MAIN
+				grd.addColorStop(1,"#5ABBD1");
+				grdv.addColorStop(0,"#5ABBD1");
+                break;
+        }
+	grd.addColorStop(0,"white");
+	grdv.addColorStop(1,"white");
 	
+	ctx.lineWidth = 2;
+	ctx.strokeStyle = grd;
+	ctx.lineCap = 'round';
+	ctx.beginPath();
+	ctx.moveTo(canvas.width*0.1,canvas.height-7);
+	ctx.lineTo(canvas.width*0.9,canvas.height-7);
+
+	ctx.stroke();
+	ctx.beginPath();
+	ctx.strokeStyle = grdv;
+	ctx.moveTo(7,canvas.height*0.1);
+	ctx.lineTo(7,canvas.height*0.9);
+	ctx.stroke();
+
+	ctx.font = "30px Arial";
+	
+ctx.imageSmoothingEnabled = true;
+ctx.strokeStyle='rgba(255,255,255,0.5)';
+ctx.textAlign = "center";
+ctx.strokeText("tijd", canvas.width/2, canvas.height-10); 
+ctx.fillText("tijd", canvas.width/2, canvas.height-10); 
+ctx.fillText("+",canvas.width*0.9,canvas.height-10);
+ctx.fillText("-",canvas.width*0.1,canvas.height-10);
+ctx.save()
+ctx.rotate(Math.PI/2);
+ctx.strokeText("impact", canvas.height/2,-10); 
+ctx.fillText("impact", canvas.height/2,-10); 
+ctx.fillText("+",canvas.height*0.1,-10);
+
+ctx.restore();
+ctx.fillText("-",20,canvas.height*0.9+10);
+	},
     ready: function() {    
 		this.state = 'RESET';
 
@@ -668,7 +731,7 @@ imagine-time-slider-vertical {
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
         }
-
+		
         window.dragMoveListener = dragMoveListener;
 
         // target elements with the "draggable" class
@@ -745,6 +808,9 @@ imagine-time-slider-vertical {
                 event.target.classList.remove('drop-target');
             }
         });
-    }
+    },
+	attached: function(){
+	this.writeText();
+	}
   });
 </script>
