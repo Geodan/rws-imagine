@@ -39,16 +39,16 @@
   var main = document.querySelector('#main');
   main.teams = [{
   	name:'Team A',
-    scenarios: [{name:'sprawlville',displayName: 'Magenta-stad'},{name:'communicity', displayName: 'Gele stad'},{name:'renewabad', displayName: 'Groene stad'},{name:'planopolis', displayName: 'Cyaanstad'}]
+    scenarios: [{name:'sprawlville',displayName: 'De onbegrensde stad'},{name:'communicity', displayName: 'De zelfvoorzienende stad'},{name:'renewabad', displayName: 'De cyclische stad'},{name:'planopolis', displayName: 'De geplande stad'}]
   },{
   	name: 'Team B',
-  	scenarios: [{name:'sprawlville',displayName: 'Magenta-stad'},{name:'communicity', displayName: 'Gele stad'},{name:'renewabad', displayName: 'Groene stad'},{name:'planopolis', displayName: 'Cyaanstad'}]
+  	scenarios: [{name:'sprawlville',displayName: 'De onbegrensde stad'},{name:'communicity', displayName: 'De zelfvoorzienende stad'},{name:'renewabad', displayName: 'De cyclische stad'},{name:'planopolis', displayName: 'De geplande stad'}]
   },{
     name:'Team C',
-  	scenarios: [{name:'sprawlville',displayName: 'Magenta-stad'},{name:'communicity', displayName: 'Gele stad'},{name:'renewabad', displayName: 'Groene stad'},{name:'planopolis', displayName: 'Cyaanstad'}]
+  	scenarios: [{name:'sprawlville',displayName: 'De onbegrensde stad'},{name:'communicity', displayName: 'De zelfvoorzienende stad'},{name:'renewabad', displayName: 'De cyclische stad'},{name:'planopolis', displayName: 'De geplande stad'}]
   },{
   	name:'Team D',
-  	scenarios: [{name:'sprawlville',displayName: 'Magenta-stad'},{name:'communicity', displayName: 'Gele stad'},{name:'renewabad', displayName: 'Groene stad'},{name:'planopolis', displayName: 'Cyaanstad'}]
+  	scenarios: [{name:'sprawlville',displayName: 'De onbegrensde stad'},{name:'communicity', displayName: 'De zelfvoorzienende stad'},{name:'renewabad', displayName: 'De cyclische stad'},{name:'planopolis', displayName: 'De geplande stad'}]
   }];
   
   main.bigreset = function(){
@@ -71,7 +71,7 @@
   	  	  		}).sync();
   	  	  		d3.tsv('./data/'+scenario.name + '.tsv?'+ new Date().getTime(), function(events){
 					events.forEach(function(d){
-						var id = new Date().getTime().toString() + d.id;
+						var id = new Date().getTime().toString() + j + i + d.id;
 						var item = newproject.items({_id: id});
 						item.data({
 							id: d.id,
@@ -90,7 +90,7 @@
 						throw e.message;
 					}
 					result.forEach(function(d,i){
-						var id = new Date().getTime().toString() + i;
+						var id = new Date().getTime().toString() + j + i;
 						var item = newproject.items({_id: id});
 						item.data({
 							type: 'eigenschap',

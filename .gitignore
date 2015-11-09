@@ -3,3 +3,4 @@ node_modules
 components
 video
 *.unity3d
+StreamingAssets
