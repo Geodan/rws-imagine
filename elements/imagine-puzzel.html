@@ -5,7 +5,7 @@
 <link rel="import" href="./imagine-instance.html">
 
   
-<script type="text/javascript" src="../bower_components/interact.js/interact.min.js"></script>
+<script type="text/javascript" src="../bower_components/interact.js/dist/interact.min.js"></script>
 <link rel='stylesheet' id='fonts.com-css' href='https://fast.fonts.com/cssapi/fdd23a19-e66b-4f7a-b13d-626056555134.css?ver=165b296345e0a16cbf7f4ea4e41d8f2ff1aedcac' type='text/css' media='all' />
 
 <dom-module id="imagine-puzzel">
@@ -643,6 +643,14 @@ imagine-time-slider-vertical {
 				var score = document.getElementById('puzzelscore');
 				score.update();
 				score.style.display = 'block';
+				
+				//Reset all eigenschappen to found = false
+				var eigenschappen = instance.eigenschappen.filter(d=>!d.deleted());
+				if (eigenschappen.length < 1){
+					throw 'Geen eigenschappen in dit scenario'
+				}
+				eigenschappen.forEach(d=>d.data('found',false).sync());
+				
 			break;
 		
 		}
