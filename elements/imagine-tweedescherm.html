@@ -133,6 +133,15 @@ paper-cardje .img {
 	right: 30px;
 	position: absolute;*/
 }
+
+#title {
+	position: absolute;
+	top: -30px;
+	color: white;
+	font-size: 20pt;
+	font-family: Arial;
+}
+
 #debug {
 	position: absolute;
 	bottom: 100px;
@@ -156,6 +165,7 @@ paper-cardje .img {
     	<video id="videotag" class='bg-video' loop="true" autoplay="true" src="../video/renewabad-cut-converted.mp4" type="video/mp4"></video>
     </div>
     <div id="kaartjesOverlay">
+    	<div id="title">{{scenarioName}}</div>
 		<div id="debug">
 			<span>{{team}}</span> | <span>{{scenario}}</span>
 		</div>
@@ -231,6 +241,11 @@ Polymer({
 		}
 		this.team = this.teams[teamNr];
 		
+		var project = this.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
+		if (project[0]){
+			self.scenarioName = project[0].data('scenarioName');
+		}
+		
 		this.cow.peerStore().on('datachange',function(){
 			/* Something in peerstore changed. Check to see which scenario we need now */
 			//first get the correct peer
@@ -238,6 +253,10 @@ Polymer({
 			//now see which team is connected to that peer
 			if (peer[0]){
 				self.team = peer[0].data('team');
+				var project = self.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
+				if (project[0]){
+					self.scenarioName = project[0].data('scenarioName');
+				}
 			}
 		});
 		
