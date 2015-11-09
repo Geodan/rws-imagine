@@ -534,7 +534,10 @@ imagine-time-slider-vertical {
 	_kaartjeDown :function(e) {
 			e.preventDefault();
 			var that = document.getElementById('puzzelgame');
-			if(e.ctrlKey) that.stampKaartje(e);
+			if(window.qpressed) {
+				that.stampKaartje(e);
+				window.qpressed = false;
+			}
 			else that.selectKaartje(e);			
 		},
 	_stateChanged: function(){		
@@ -721,8 +724,13 @@ ctx.fillText("-",20,canvas.height*0.9+10);
 	},
     ready: function() {    
 		this.state = 'RESET';
-
-        var self = this;
+		var self = this;
+		window.onkeypress = function(e){
+			if (e.keyIdentifier == "F2"){
+				window.qpressed = true;
+			}
+		}
+        
         var w =  (window.innerWidth > 0) ? window.innerWidth : screen.width;
         this.width=w-450;
         var h =  (window.innerHeight > 0) ? window.innerHeight : screen.height;
