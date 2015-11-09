@@ -726,7 +726,7 @@ ctx.fillText("-",20,canvas.height*0.9+10);
 		this.state = 'RESET';
 		var self = this;
 		var keypress = function(e){
-			if (e.keyIdentifier == "F2"){
+			if (e.keyIdentifier == "F2" || e.key == 'q'){
 				window.qpressed = true;
 			}
 		}
