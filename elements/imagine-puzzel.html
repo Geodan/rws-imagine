@@ -725,11 +725,13 @@ ctx.fillText("-",20,canvas.height*0.9+10);
     ready: function() {    
 		this.state = 'RESET';
 		var self = this;
-		window.onkeypress = function(e){
+		var keypress = function(e){
 			if (e.keyIdentifier == "F2"){
 				window.qpressed = true;
 			}
 		}
+		window.onkeypress = keypress;
+		document.onkeypress = keypress;
         
         var w =  (window.innerWidth > 0) ? window.innerWidth : screen.width;
         this.width=w-450;
