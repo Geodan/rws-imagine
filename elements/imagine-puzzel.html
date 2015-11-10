@@ -401,7 +401,7 @@ imagine-time-slider-vertical {
         var context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
         var cityMain = this.style.main;
-        
+        this.writeText();
         this.verbindingen.forEach(function(e,i) {
 			//TODO: volgorde kaartjes bepalen
 			var b = document.getElementById('event-'+e.begin);
