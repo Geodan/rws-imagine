@@ -554,6 +554,7 @@ imagine-time-slider-vertical {
 				if(canvas) {
 					var context = canvas.getContext('2d');
 					context.clearRect(0, 0, canvas.width, canvas.height);
+					this.writeText();
 				}
 				$('.stamped').removeClass('stamped');
 				this.stamps = 0;
