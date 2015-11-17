@@ -14,7 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#1",
+    "polymer": "Polymer/polymer#~1",
     "interact.js": "~1.2.4",
     "cow": "~2.2.0",
     "underscore": "~1.8.3",
