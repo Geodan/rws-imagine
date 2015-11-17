@@ -73,7 +73,7 @@ transform: scale(1.5,1.5)
   <template>
 	<div id="scoreHeader"><div class="content">{{date}}<span class="right">RWS IMAGINE!</span></div></div>
 	<div id="scoreScherm">		
-		<img id="videotag" class='bg-video' src="../style/RenewabadZoom1Bg.png"/>
+		<img id="videotag" class='bg-video' src="{{_getBackground(scenario)}}"/>
 	</div>
   <div class="start" on-click="startGame"><svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -204,6 +204,9 @@ transform: scale(1.5,1.5)
         
         
     }, 
+    _getBackground: function(scenario){
+    	return "../../style/"+scenario+"_sunset.png";
+    },
 	startGame: function() {
 		var el = document.getElementById('startScherm');
 		el.style.display = 'none';

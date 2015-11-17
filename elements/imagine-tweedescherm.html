@@ -159,10 +159,10 @@ paper-cardje .img {
     	eigenschappen="{{eigenschappen}}">
     </imagine-instance>
     <div id="scoreScherm">
+    	<img id="videotag" class='bg-video' src="[[_getBackground(scenario)]]">
     	<!--
-    	<img id="videotag" class='bg-video' src="../style/background.jpg">
-    	-->
     	<video id="videotag" class='bg-video' loop="true" autoplay="true" src="../video/renewabad-cut-converted.mp4" type="video/mp4"></video>
+    	-->
     </div>
     <div id="kaartjesOverlay">
     	<div id="title">{{scenarioName}}</div>
@@ -264,6 +264,9 @@ Polymer({
 	attached: function(){
 		this.$.videotag.height = this.$.scoreScherm.clientHeight;
 		this.$.videotag.width = this.$.scoreScherm.clientWidth;		
+	},
+	_getBackground: function(scenario){
+		return '../../style/'+scenario+'_sunset.png';
 	},
 	getHover: function(found){
 		if (found){
