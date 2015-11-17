@@ -144,13 +144,20 @@ paper-card {
 			<div>
 				<paper-card heading="Team A">
 					<div class="card-content">
-						<paper-input label='Team B' type=number preventInvalidInput value="{{scorelist.0.score1::input}}"></paper-input>
-						<paper-input label='Team C' type=number preventInvalidInput value="{{scorelist.0.score2::input}}"></paper-input>
-						<paper-input label='Team D' type=number preventInvalidInput value="{{scorelist.0.score3::input}}"></paper-input>
+						<paper-material><paper-item>Geeft weg: {{scorelist.0.votes1}}</paper-item></paper-material>
+						<br>
+						<div>Ontvangt van:</div>
+							<paper-input label='Team B' type=number preventInvalidInput value="{{scorelist.0.score1::input}}"></paper-input>
+							<paper-input label='Team C' type=number preventInvalidInput value="{{scorelist.0.score2::input}}"></paper-input>
+							<paper-input label='Team D' type=number preventInvalidInput value="{{scorelist.0.score3::input}}"></paper-input>
+						
 					</div>
 				</paper-card>
 				<paper-card heading="Team B">
 					<div class="card-content">
+						<paper-material><paper-item>Geeft weg: {{scorelist.1.votes1}}</paper-item></paper-material>
+						<br>
+						<div>Ontvangt van:</div>
 						<paper-input label='Team A' type=number preventInvalidInput value="{{scorelist.1.score1::input}}"></paper-input>
 						<paper-input label='Team C' type=number preventInvalidInput value="{{scorelist.1.score2::input}}"></paper-input>
 						<paper-input label='Team D' type=number preventInvalidInput value="{{scorelist.1.score3::input}}"></paper-input>
@@ -158,6 +165,9 @@ paper-card {
 				</paper-card>
 				<paper-card heading="Team C">
 					<div class="card-content">
+						<paper-material><paper-item>Geeft weg: {{scorelist.2.votes1}}</paper-item></paper-material>
+						<br>
+						<div>Ontvangt van:</div>
 						<paper-input label='Team A' type=number preventInvalidInput value="{{scorelist.2.score1::input}}"></paper-input>
 						<paper-input label='Team B' type=number preventInvalidInput value="{{scorelist.2.score2::input}}"></paper-input>
 						<paper-input label='Team D' type=number preventInvalidInput value="{{scorelist.2.score3::input}}"></paper-input>
@@ -165,6 +175,9 @@ paper-card {
 				</paper-card>
 				<paper-card heading="Team D">
 					<div class="card-content">
+						<paper-material><paper-item>Geeft weg: {{scorelist.3.votes1}}</paper-item></paper-material>
+						<br>
+						<div>Ontvangt van:</div>
 						<paper-input label='Team A' type=number preventInvalidInput value="{{scorelist.3.score1::input}}"></paper-input>
 						<paper-input label='Team B' type=number preventInvalidInput value="{{scorelist.3.score2::input}}"></paper-input>
 						<paper-input label='Team C' type=number preventInvalidInput value="{{scorelist.3.score3::input}}"></paper-input>
