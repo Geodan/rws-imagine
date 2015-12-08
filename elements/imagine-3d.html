@@ -52,6 +52,7 @@ var SetKenmerk = setKenmerk;
 </dom-module>
 
 <script>
+var u;
   // register a new element called proto-element
   Polymer({
     is: "imagine-3d",
@@ -72,7 +73,7 @@ var SetKenmerk = setKenmerk;
             u = new UnityObject2(config);
             u.initPlugin(jQuery("#unityPlayer")[0], "3d.unity3d");        
         }
-        var u = new UnityObject2(config);
+        u = new UnityObject2(config);
         u.initPlugin(jQuery("#unityPlayer")[0], "3d.unity3d");
         u.observeProgress(function (progress) {
                 switch(progress.pluginStatus) {
