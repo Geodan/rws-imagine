@@ -10,7 +10,7 @@ function show3D()
 function show2D()
 {
     if($('imagine-puzzel').length == 0) $('#secondScreen').after('<imagine-puzzel></imagine-puzzel>');
-    $('#firstScreen').slideUp();
+    //$('#firstScreen').slideUp();
     $('#secondScreen').show();
     $('imagine-puzzel').attr('start',true);
     //$('imagine-time-slider-vertical')
