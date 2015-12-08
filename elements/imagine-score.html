@@ -304,6 +304,9 @@ imagine-score-thingy:nth-last-child(2) {
 	},
 	
     nextPlayer: function() {
+    	//RESET unity time
+    	u.getUnity().SendMessage("Virtual Time System", "ResetTime", "");
+    	
 		document.getElementById('nextPlayerButton').style.display = 'none';
 		document.getElementById('nextPlayerButton').style.opacity = 0;
 		this.team = this.teams[this.hash];
