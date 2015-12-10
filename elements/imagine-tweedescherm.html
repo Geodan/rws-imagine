@@ -115,6 +115,7 @@ paper-cardje .img {
 /* front pane, placed above back */
 .front {
 	z-index: 2;
+	opacity: 0.2;
 	/* for firefox 31 */
 	transform: rotateY(0deg);
 }
@@ -183,7 +184,7 @@ paper-cardje .img {
 							</center>-->
 							</div>
 							<center>
-								<img width=60 height=60 src='[[item._data.img]]' />
+								<img width=60 height=60 src='[[_getImgUrl(item)]]' />
 							</center>
 							<div class="card-content">
 								<div><b>[[item._data.title]]</b></div>
@@ -225,6 +226,9 @@ Polymer({
 			value: function(){return [];},
 			notify: true
 		}
+	},
+	_getImgUrl: function(item){
+		return "../../data/images/"+this.scenario+"/"+item._data.id.toLowerCase()+".png";
 	},
 	observers:[
 			//'refreshFilter(eigenschappen.*._data.found)'

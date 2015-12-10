@@ -207,26 +207,4 @@
         "renewabad":    "Duurzame bedrijven stemmen de productieketen, logistiek en retourlogistiek op elkaar af; consumenten kunnen goederen (individueel of met meerdere personen) leasen.",
         "communicity":    "Individuele consumptie van (met name) in de eigen omgeving geproduceerd voedsel, goederen en diensten."
     }
-},{
-    "title":"Verkeersregulering | technologie",
-    "img": "../../data/images/image07.png",
-    "place":"Utrecht",
-    "id":"Utrecht6",
-    "text": {
-        "planopolis":    "Veel experimenten met technieken voor verkeersregulering. Traffic drones en informatie via smartphones vervangen verkeersborden.",
-        "sprawlville":    "Veel experimenten met technieken voor verkeersregulering, veelal in betaalde samenwerking met grote ICT bedrijven.",
-        "renewabad":    "Veel experimenten met technieken voor verkeersregulering, met name gericht op minimale mileubelasting.",
-        "communicity":    "Nauwelijks experimenten met technieken voor verkeersregulering. Burgers proberen veel zaken zelf uit."
-    }
-},{
-    "title":"Smart Cities",
-    "img": "../../data/images/image08.png",
-    "place":"Almere",
-    "id":"Almere6",
-    "text": {
-        "planopolis":    "Technologische mogelijkheden van smart cities worden intensief door de overheid ingezet om mobiliteit te optimaliseren.",
-        "sprawlville":    "Technologische mogelijkheden van smart cities worden als gevolg van de kennisachterstand bij de overheid in beperkte mate gebruikt.",
-        "renewabad":    "Technologische mogelijkheden van smart cities worden intensief door de overheid ingezet om de omgeving groen te houden.",
-        "communicity":    "Technologische mogelijkheden van smart cities worden nauwelijks ingezet. Eerder vindt men hier smart citizens."
-    }
 }]
