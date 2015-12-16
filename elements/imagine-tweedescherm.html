@@ -156,13 +156,13 @@ paper-cardje .img {
 }
 
 #dialog {
-	min-height: 600px;
-	height: 100%;
-	width: 100%;
-	min-width: 600px;
+	min-height: 300px;
+	height: 60%;
+	width: 50%;
+	min-width: 300px;
 }
 .bigtext {
-	font-size: 40pt;
+	font-size: 20pt;
 	line-height: 1.5;
 }
 </style>
@@ -185,7 +185,12 @@ paper-cardje .img {
     			entry-animation="scale-up-animation"
     			exit-animation="fade-out-animation">
     		  <h2 class='bigtext'><b>{{kaarttitle}}</b></h2>
-    	      <div class='bigtext'>{{kaartcontent}}</div>   
+    	      <div class='bigtext'>
+    	      	<center>
+					<img width=160 height=160 src='[[kaartimg]]' />
+				</center>
+    	      	{{kaartcontent}}
+    	      </div>   
     	</paper-dialog>
     	<div id="title">{{scenarioName}}</div>
 		<div id="debug">
@@ -245,7 +250,8 @@ Polymer({
 		eigenschappen: {
 			type: Array,
 			value: function(){return [];},
-			notify: true
+			notify: true,
+			observer: 'flip'
 		}
 	},
 	_getImgUrl: function(item){
@@ -307,18 +313,39 @@ Polymer({
 	refreshFilter: function(){
 		console.log('!!');
 	},
-	
-	flip: function(id) {
-		var kaart = document.getElementById(id);
-		kaart.classList.toggle('hover');
-		var eigenschap = this.eigenschappen.filter(d=>d.data('id') == id)[0];
-		this.kaarttitle = eigenschap.data('title');
-		this.kaartcontent = eigenschap.data('text');
+	/* FLIP IS NOT USED! */
+	flip: function(eigenschappen) {
 		var self = this;
-		this.$.dialog.open();
-		this.timeout = window.setTimeout(function(){
-			self.$.dialog.close();
-		},5000);
+		if (eigenschappen.length > 0){
+			if (!this.eigenschappenold){
+				this.eigenschappenold = this.eigenschappen.map(function(d){
+						return d.data('found');
+				});
+			}
+			this.eigenschappen.forEach(function(d,i){
+				if (self.eigenschappenold[i] != d.data('found') && d.data('found') == true){
+					var id = d.data('id');
+					var kaart = document.getElementById(id);
+					kaart.classList.toggle('hover');
+					var eigenschap = self.eigenschappen.filter(function(d){
+						return d.data('id') == id;
+					})[0];
+					self.kaarttitle = eigenschap.data('title');
+					self.kaartcontent = eigenschap.data('text');
+					self.kaartimg = self._getImgUrl(eigenschap);
+					self.$.dialog.open();
+					self.timeout = window.setTimeout(function(){
+						self.$.dialog.close();
+					},5000);
+					self.eigenschappenold = self.eigenschappen.map(function(d){
+						return d.data('found');
+					});
+				}
+			});
+			
+			
+			
+		}
 	},
 	reset: function() {
 		var kaarten = document.getElementsByClassName('hover');

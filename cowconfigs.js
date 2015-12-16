@@ -14,4 +14,4 @@ var cowconfig_local ={
   };
 
 //Set the correct config here
-window.cowconfig = cowconfig_local;
+window.cowconfig = cowconfig_geodan;
