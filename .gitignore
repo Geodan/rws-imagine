@@ -5,3 +5,5 @@ video
 StreamingAssets
 tafels/Renewabad/Web5.unity3d
 3d.unity3d
+*.unity3d
+tafels/Renewabad/3d.unity3d
