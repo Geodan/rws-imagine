@@ -3,5 +3,7 @@ node_modules
 components
 video
 StreamingAssets
-tafels/Renewabad/Web5.unity3d
-3d.unity3d
+*.ogg
+*.mp4
+*.unity3d
+cowconfigs.js
