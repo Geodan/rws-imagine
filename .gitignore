@@ -4,3 +4,5 @@ components
 video
 StreamingAssets
 3d.unity3d
+*.ogg
+*.mp4
