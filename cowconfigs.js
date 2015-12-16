@@ -9,7 +9,7 @@ var cowconfig_geodan ={
 var cowconfig_local ={
 	key: 'imagine',
 	protocol:'ws',
-	url:'192.168.25.134', 
+	url:'192.168.1.131', 
 	port:8081
   };
 
