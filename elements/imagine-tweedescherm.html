@@ -181,9 +181,9 @@ paper-cardje .img {
     	
     </div>
     <div id="kaartjesOverlay">
-    	<paper-dialog id='dialog' autoFitOnAttach
-    			entry-animation="scale-up-animation"
-    			exit-animation="fade-out-animation">
+    	<paper-dialog id='dialog' autoFitOnAttach>
+    			<!--entry-animation="scale-up-animation"
+    			exit-animation="fade-out-animation">-->
     		  <h2 class='bigtext'><b>{{kaarttitle}}</b></h2>
     	      <div class='bigtext'>
     	      	<center>
@@ -288,6 +288,9 @@ Polymer({
 				if (project[0]){
 					self.scenarioName = project[0].data('scenarioName');
 				}
+				self.eigenschappenold = self.eigenschappen.map(function(d){
+					return 'false';
+				});
 			}
 		});
 		
@@ -313,7 +316,6 @@ Polymer({
 	refreshFilter: function(){
 		console.log('!!');
 	},
-	/* FLIP IS NOT USED! */
 	flip: function(eigenschappen) {
 		var self = this;
 		if (eigenschappen.length > 0){
@@ -333,9 +335,13 @@ Polymer({
 					self.kaarttitle = eigenschap.data('title');
 					self.kaartcontent = eigenschap.data('text');
 					self.kaartimg = self._getImgUrl(eigenschap);
-					self.$.dialog.open();
+					if (!self.$.dialog.opened){
+						self.$.dialog.open();
+					}
 					self.timeout = window.setTimeout(function(){
-						self.$.dialog.close();
+						if (self.$.dialog.opened){
+							self.$.dialog.close();
+						}
 					},5000);
 					self.eigenschappenold = self.eigenschappen.map(function(d){
 						return d.data('found');
@@ -347,11 +353,13 @@ Polymer({
 			
 		}
 	},
+	/* Not used */
 	reset: function() {
 		var kaarten = document.getElementsByClassName('hover');
 		for (var i = kaarten.length-1;i>=0;i--){
 			kaarten[i].classList.remove('hover')
-		}		
+		};
+		
 	}
 		
 });

@@ -304,27 +304,22 @@ imagine-score-thingy:nth-last-child(2) {
 	},
 	
     nextPlayer: function() {
-	var self = this;
-    	//RESET unity time
-    	u.getUnity().SendMessage("Virtual Time System", "ResetTime", "");
-	window.setTimeout(function(){
-    		u.getUnity().SendMessage("Virtual Time System", "ResetTime", "");
-    	
-		document.getElementById('nextPlayerButton').style.display = 'none';
-		document.getElementById('nextPlayerButton').style.opacity = 0;
-		self.team = self.teams[self.hash];
-		$('imagine-puzzel').attr('state','RESET');
-		$('imagine-puzzel').css('top','1080px');
-        	var url = window.location.origin + window.location.pathname + '#'+self.hash;
-        	window.location.href = url;
-		document.getElementById('puzzelgame').style.display = 'block';
-        	document.getElementById('puzzelscore').style.display = 'none';
-	},1000);
-    
-		
-		
-		
-     //   window.location.reload();
+		var self = this;
+		//RESET unity time
+		u.getUnity().SendMessage("Virtual Time System", "ResetTime", "");
+		window.setTimeout(function(){
+			u.getUnity().SendMessage("Virtual Time System", "ResetTime", "");
+			
+			document.getElementById('nextPlayerButton').style.display = 'none';
+			document.getElementById('nextPlayerButton').style.opacity = 0;
+			self.team = self.teams[self.hash];
+			$('imagine-puzzel').attr('state','RESET');
+			$('imagine-puzzel').css('top','1080px');
+				var url = window.location.origin + window.location.pathname + '#'+self.hash;
+				window.location.href = url;
+			document.getElementById('puzzelgame').style.display = 'block';
+				document.getElementById('puzzelscore').style.display = 'none';
+		},1000);
     }
     
   });

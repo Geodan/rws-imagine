@@ -4,9 +4,9 @@
     "place":"Utrecht",
     "id": "Utrecht1",
     "text": {
-        "planopolis":    "Er is brede maatschappelijke consensus op de onderwerpen die er toe doen, zoals klimaatverandering. De centrale instituties zijn sterk en werken goed gecoördineerd samen.",
+        "planopolis":    "Er is brede maatschappelijke consensus op de onderwerpen die er toe doen, zoals klimaatverandering. De centrale instituties zijn sterk en werken goed gecoÃ¶rdineerd samen.",
         "sprawlville":    "De centrale instituties zijn zwak; oplossingen komen decentraal tot stand en zijn traditioneel.",
-        "renewabad":    "Er is brede maatschappelijke consensus op de onderwerpen die er toe doen, zoals klimaatverandering. De centrale instituties zijn sterk en werken goed gecoördineerd samen.",
+        "renewabad":    "Er is brede maatschappelijke consensus op de onderwerpen die er toe doen, zoals klimaatverandering. De centrale instituties zijn sterk en werken goed gecoÃ¶rdineerd samen.",
         "communicity":    "De centrale instituties zijn zwak; oplossingen komen decentraal tot stand en zijn vernieuwend."
     }
 },{
@@ -16,7 +16,7 @@
     "id":"Almere1",
     "text": {
         "planopolis":    "Het stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote woongebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.",
-        "sprawlville":    "Het stadscentrum laat een 24-uurs-economie zien met  veel kantoorbouw én gettowijken.  Daaromheen vindt men onderling verschillende woongebieden, gescheiden door rommelige, vaak onafgemaakte tussengebieden.",
+        "sprawlville":    "Het stadscentrum laat een 24-uurs-economie zien met  veel kantoorbouw Ã©n gettowijken.  Daaromheen vindt men onderling verschillende woongebieden, gescheiden door rommelige, vaak onafgemaakte tussengebieden.",
         "renewabad":    "Er bestaat nauwelijks een stadscentrum. Eerder vindt men er een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen (poly- centrisch).",
         "communicity":    "Er bestaat nauwelijks een stadscentrum. Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen karakter. Daarnaast zijn er rondtrekkende, mobiele centra (vergelijkbaar met markten)"
     }
@@ -26,7 +26,7 @@
     "place":"Tussengebied",
     "id":"Tussengebied1",
     "text": {
-        "planopolis":    "Het traditionele brede hoofdwegennet wordt geleidelijk vervangen door een smal efficiënt wegennet voor energiezuinige zelfrijdende voertuigen ",
+        "planopolis":    "Het traditionele brede hoofdwegennet wordt geleidelijk vervangen door een smal efficiÃ«nt wegennet voor energiezuinige zelfrijdende voertuigen ",
         "sprawlville":    "Het landschap wordt gekenmerkt door vele soorten wegen voor gemotoriseerd vervoer, van smal tot zeer breed, gericht op zelf bestuurde voertuigen die vaak vele uren in de file staan. ",
         "renewabad":    "Het landschap wordt gekenmerkt door smalle, nieuwe wegen voor elektrische auto's. Drukte en files bestaan hier niet door slim rekeningrijden per tijdzone. ",
         "communicity":    "Het landschap wordt gekenmerkt door versmalde, oude wegen met kas-tuinbouw langs de wegranden, waar eerst nog asfalt lag. "
@@ -37,7 +37,7 @@
     "place":"Tussengebied",
     "id":"Tussengebied2",
     "text": {
-        "planopolis":    "Het railnetwerk is gemoderniseerd, de dienstregeling geïntensiveerd en het gebruik is sterk toegenomen.",
+        "planopolis":    "Het railnetwerk is gemoderniseerd, de dienstregeling geÃ¯ntensiveerd en het gebruik is sterk toegenomen.",
         "sprawlville":    "Het railnetwerk is ten opzichte van de vorige decennia intact gebleven, zonder veel verdichting of uitbreiding.",
         "renewabad":    "Het railnetwerk is sterk gegroeid. Er bestaan brede, gediversifieerde rail- systemen voor Ultra HSL, HSL, Intercity, sprinter, metro en tram.",
         "communicity":    "Het railnetwerk is intact gebleven. De ritfrequentie is echter sterk afgenomen. Veel verkeer tussen woon- en werkgebieden is niet meer nodig."
@@ -51,7 +51,7 @@
         "planopolis":    "Als adaptatiemaatregel aan klimaatverandering worden dijken verhoogd.",
         "sprawlville":    "Veel gebieden lopen regelmatig onder water wegens het ontbreken van centrale keuzes.",
         "renewabad":    "Extra ruimte voor water als adaptatiemaatregel, met hierop drijvende tuinen (met aandacht voor productie van voedsel en grondstoffen, bv.  in de vorm van algen) en drijvende zonnepanelen.",
-        "communicity":    "Veel woongebieden kiezen eigen lokale oplossingen voor het omgaan met overstromingsrisico’s; van wonen op terpen tot een extra dijk of verticale evacuatie."
+        "communicity":    "Veel woongebieden kiezen eigen lokale oplossingen voor het omgaan met overstromingsrisicoâ€™s; van wonen op terpen tot een extra dijk of verticale evacuatie."
     }
 },{
     "title":"Ringwegen rondom steden",
@@ -72,7 +72,7 @@
     "text": {
         "planopolis":    "In de stad vinden we een fijnmazig netwerk van rail, fietspaden en wandelroutes, vernieuwd en goed onderhouden.",
         "sprawlville":    "In de stad vinden we een grofmazig, uitgebreid netwerk van betonnen autobanen, drukke ringwegen, fly-overs, particuliere tolroutes, fietspaden en stroken. Onderhoud daaraan verergert regelmatig de files.",
-        "renewabad":    "In de woongebieden vinden we een fijnmazig netwerk van smalle wegen (autorijden in de gemeenschap is not done), schone railverbindingen,  airpods,  brede wandel- en fietspaden, en e-bike tracés.",
+        "renewabad":    "In de woongebieden vinden we een fijnmazig netwerk van smalle wegen (autorijden in de gemeenschap is not done), schone railverbindingen,  airpods,  brede wandel- en fietspaden, en e-bike tracÃ©s.",
         "communicity":    "In de woongebieden vinden we oudere betonnen straten en stroken. Het onderhoud daarvan is matig en verschilt per gebied. In de winter strooit niemand."
     }
 },{
@@ -83,7 +83,7 @@
     "text": {
         "planopolis":    "De havenfunctie is gegroeid en kent tal van distributiecentra in het achterland",
         "sprawlville":    "De havenfunctie is gegroeid, wordt slim gereguleerd en kent veel tankopslag voor de drukke tankvaart (vloeibaar, chemisch).",
-        "renewabad":    "De havenfunctie is niet gegroeid en is ook veranderd. Tankopslag is verdwenen ten gunste van ‘solar energy centres’.",
+        "renewabad":    "De havenfunctie is niet gegroeid en is ook veranderd. Tankopslag is verdwenen ten gunste van â€˜solar energy centresâ€™.",
         "communicity":    "De havenfunctie is verkleind ten gunste van bewoning en recreatie op en aan het water. Elke leefgemeenschap heeft aanlegsteigers voor transport via water."
     }
 },{
@@ -103,9 +103,9 @@
     "place":"Amsterdam",
     "id":"Amsterdam4",
     "text": {
-        "planopolis":    "Fijnmazige distributiecentra bevoorraden de leefgebieden volgens het ‘last mile principe’.",
+        "planopolis":    "Fijnmazige distributiecentra bevoorraden de leefgebieden volgens het â€˜last mile principeâ€™.",
         "sprawlville":    "Vrachtwagens en bestelauto's kruisen ongeremd door alle woongebieden.",
-        "renewabad":    "Fijnmazige distributie op basis van ‘big data analytics’:  op ieder moment een afgewogen inzet van kanalen en vaarten in de stad, drones door de lucht en buizen ondergronds of auto-robots bovengronds.",
+        "renewabad":    "Fijnmazige distributie op basis van â€˜big data analyticsâ€™:  op ieder moment een afgewogen inzet van kanalen en vaarten in de stad, drones door de lucht en buizen ondergronds of auto-robots bovengronds.",
         "communicity":    "Er is weinig distributie door bedrijven nodig. Men is zelfvoorzienend en regelt als community zelf de overblijvende aan- en afvoer."
     }
 },{
@@ -116,7 +116,7 @@
     "text": {
         "planopolis":    "Het OV is fijnmazig uitgebreid en rijdt hoogfrequent door de stad, met goede onderlinge aansluiting van modaliteiten.",
         "sprawlville":    "Veel buitenwijken zijn verstoken van OV.",
-        "renewabad":    "Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd met andere ‘schone’ vormen van mobiliteit.",
+        "renewabad":    "Het OV is de standaard manier van vervoer. Het bestaat dan ook in vele soorten, die op maat kunnen worden gecombineerd met andere â€˜schoneâ€™ vormen van mobiliteit.",
         "communicity":    "Er is nauwelijks gebruik van het OV. Daarom is dit sterk ingekrompen."
     }
 },{
@@ -148,7 +148,7 @@
     "id":"Utrecht3",
     "text": {
         "planopolis":    "In de energiemix is fossiel dominant (maar wel steeds schaarser en dus duur) Kolen en gascentrales voor elektriciteitsproductie, in combinatie met CO2-opslag.",
-        "sprawlville":    "In de energiemix is fossiel dominant (maar wel steeds schaarser en dus duur) Sterke inzet van efficiënte kolen- en gascentrales zonder CO2 opslag + grote kerncentrales.",
+        "sprawlville":    "In de energiemix is fossiel dominant (maar wel steeds schaarser en dus duur) Sterke inzet van efficiÃ«nte kolen- en gascentrales zonder CO2 opslag + grote kerncentrales.",
         "renewabad":    "In de energiemix is alternatieve energie dominant. De stad zelf functioneert volop als schone energiecentrale, met al haar zonnedaken en -oppervlakken via smart grids.",
         "communicity":    "In de energiemix is alternatieve energie dominant. Energieopwekking in de woonomgeving door zonnepanelen, biogas uit voedselresten e.d."
     }
@@ -158,10 +158,10 @@
     "place":"Amsterdam",
     "id":"Amsterdam6",
     "text": {
-        "planopolis":    "Burgers werken vanuit huis via digitale netwerken of forenzen met het OV naar ‘de city’.",
-        "sprawlville":    "Veel buitenwijken en losse stadsdelen voor forenzen; daarnaast stedelijke getto’s waar lage inkomens en werklozen verblijven; veel leegstand. ",
+        "planopolis":    "Burgers werken vanuit huis via digitale netwerken of forenzen met het OV naar â€˜de cityâ€™.",
+        "sprawlville":    "Veel buitenwijken en losse stadsdelen voor forenzen; daarnaast stedelijke gettoâ€™s waar lage inkomens en werklozen verblijven; veel leegstand. ",
         "renewabad":    "Woongebieden zijn tevens gebieden van waardecreatie: ecologisch, sociaal en financieel.",
-        "communicity":    "Veel campussen, kleine laboratoria en kunstacademies waar ‘research through design’ wordt bedreven."
+        "communicity":    "Veel campussen, kleine laboratoria en kunstacademies waar â€˜research through designâ€™ wordt bedreven."
     }
 },{
     "title":"Typische technologie op straat",
@@ -171,8 +171,8 @@
     "text": {
         "planopolis":    "Informatie over stad en allerlei lokale diensten via smartphone (geen borden).",
         "sprawlville":    "Minibusjes die vervoersdiensten aanbieden. Weinig innovatieve technologie.",
-        "renewabad":    "Veel ‘drone distributie drop zones’. Volop laadpunten in de openbare ruimte om energie aan toe te voegen of af te nemen.",
-        "communicity":    "Innovatieve persoonlijke vervoermiddelen, en overal internet-hubs (kleine Seats2meet-achtige cafés)."
+        "renewabad":    "Veel â€˜drone distributie drop zonesâ€™. Volop laadpunten in de openbare ruimte om energie aan toe te voegen of af te nemen.",
+        "communicity":    "Innovatieve persoonlijke vervoermiddelen, en overal internet-hubs (kleine Seats2meet-achtige cafÃ©s)."
     }
 },{
     "title":"Lucht",
@@ -194,7 +194,7 @@
         "planopolis":    "De centrale overheid werkt intensief samen met grote ICT bedrijven teneinde inzichten in het gedrag van de burger optimaal te kunnen benutten.",
         "sprawlville":    "De centrale overheid is links en rechts ingehaald door grote en kleine ICT bedrijven en lokale bestuurders, die eigen oplossingen aanbieden aan specifieke doelgroepen.",
         "renewabad":    "De centrale overheid stimuleert big data toepassingen die de ecologische footprint verkleinen (hergebruik, delen, onderhoud) en waakt streng over de privacy van haar inwoners bij inwinnen en hergebruiken van data.",
-        "communicity":    "De centrale overheid is links en rechts ingehaald door lokale, ‘crowdfunded’  ICT-initiatieven."
+        "communicity":    "De centrale overheid is links en rechts ingehaald door lokale, â€˜crowdfundedâ€™  ICT-initiatieven."
     }
 },{
     "title":"Productie en deel-economie",
