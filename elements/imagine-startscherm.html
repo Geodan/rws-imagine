@@ -212,7 +212,9 @@ transform: scale(1.5,1.5)
 		el.style.display = 'none';
 		
 		//reset the player when opening a new 3D screen
-        u.getUnity().SendMessage("Virtual Time System", "ResetTime", "");
+		if (u){
+			u.getUnity().SendMessage("Virtual Time System", "ResetTime", "");
+		}
 	},
 	ready: function() {
 		this.width = 1920;

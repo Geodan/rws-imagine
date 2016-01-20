@@ -256,18 +256,16 @@ imagine-score-thingy:nth-last-child(2) {
         this.nextTeam = this.teams[hash];
 		if(hash !=0) {
 			window.setTimeout(function(){
-			document.getElementById('nextPlayerButton').style.display = 'block';
-			
+					document.getElementById('nextPlayerButton').style.display = 'block';
 			},2000)
 			window.setTimeout(function(){
-			document.getElementById('nextPlayerButton').style.opacity = 1;
+					document.getElementById('nextPlayerButton').style.opacity = 1;
 			},2100)
 		}
 		
 		
         switch(hash){
             case 1:
-             
 			  this.instances = this.instanceTemplate.slice(0,1);
               break;
             case 2:
@@ -315,10 +313,10 @@ imagine-score-thingy:nth-last-child(2) {
 			self.team = self.teams[self.hash];
 			$('imagine-puzzel').attr('state','RESET');
 			$('imagine-puzzel').css('top','1080px');
-				var url = window.location.origin + window.location.pathname + '#'+self.hash;
-				window.location.href = url;
+			var url = window.location.origin + window.location.pathname + '#'+self.hash;
+			window.location.href = url;
 			document.getElementById('puzzelgame').style.display = 'block';
-				document.getElementById('puzzelscore').style.display = 'none';
+			document.getElementById('puzzelscore').style.display = 'none';
 		},1000);
     }
     
