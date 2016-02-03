@@ -338,6 +338,7 @@ Polymer({
 					if (!self.$.dialog.opened){
 						self.$.dialog.open();
 					}
+					window.clearTimeout(self.timeout);
 					self.timeout = window.setTimeout(function(){
 						if (self.$.dialog.opened){
 							self.$.dialog.close();

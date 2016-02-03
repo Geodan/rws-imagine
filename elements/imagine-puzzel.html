@@ -208,6 +208,12 @@ imagine-time-slider-vertical {
      background: url('../style/nkaartje-4.png') no-repeat;
      color: #285102;
 }
+
+#hotspot {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+}
   </style>
   <template>
   <team style="display:none">{{team}}</team> <scenario style="display:none">{{scenario}}</scenario>
@@ -222,7 +228,7 @@ imagine-time-slider-vertical {
        </template>
     </div>
    <div id="speelveld" oncontextmenu="return false">
-
+   <div id='hotspot' on-click="openwindow"> TEST</div>
     <canvas id="bord" class="dropzone" width="{{width}}" height="{{height}}" oncontextmenu="return false"></canvas>
     <imagine-time-slider-vertical text="{{text}}" max="300" value="{{sliderValue}}" done="{{done}}" start="{{start}}" > </imagine-time-slider-vertical>
     <template id="kaartjesTemplate"  is="dom-repeat" items="{{kaartjes}}" as="item">
@@ -274,6 +280,9 @@ imagine-time-slider-vertical {
         '_doneChanged(done)',
         '_kaartjesChanged(kaartjes)'
     ],
+    openwindow: function(){
+    	var myWindow = window.open("", "_blank", "width=200, height=100");
+    },
     //Functie om een kaartje op het speelveld te leggen
     createID: function(i) {
         return 'event-'+i;

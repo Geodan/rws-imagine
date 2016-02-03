@@ -51,58 +51,68 @@
   	scenarios: [{name:'sprawlville',displayName: 'De onbegrensde stad'},{name:'communicity', displayName: 'De zelfvoorzienende stad'},{name:'renewabad', displayName: 'De cyclische stad'},{name:'planopolis', displayName: 'De geplande stad'}]
   }];
   
+  main.properties = [];
+  //preload properties file
+  d3.json('./data/properties.json',function(e,result){
+		if (e){
+			throw e.message;
+		}
+		main.properties = result;
+	});
+  
+  
+  function fillproject(newproject) {
+  		var scenario = newproject.data('scenario');
+  		var team = newproject.data('team');
+		d3.tsv('./data/'+scenario + '.tsv?'+ new Date().getTime(), function(events){
+			events.forEach(function(d){
+				var id = new Date().getTime().toString() + team + scenario + d.id;
+				var item = newproject.items({_id: id});
+				item.data({
+					id: d.id,
+					type: 'kaartje',
+					name: d.name,
+					x_org: d.x,
+					y_org: d.y,
+					x: null,
+					y: null,
+				}).sync();
+			});
+		});
+		main.properties.forEach(function(d,i){
+			var id = new Date().getTime().toString() + team + scenario + i;
+			var item = newproject.items({_id: id});
+			item.data({
+				type: 'eigenschap',
+				found: false,
+				id: d.id,
+				stad: d.place,
+				title: d.title,
+				img: d.img,
+				text: d.text[scenario]
+			}).sync();
+		});
+  };
+  
   main.bigreset = function(){
   	  if (confirm('Alle projecten worden verwijderd en opnieuw aangemaakt.')) {
-  	  	  main.cow.projects().forEach(d=>
+  	  	  main.cow.projects().filter(d=>!d.deleted()).forEach(d=>
   	  	  	  d.deleted(true).sync()
   	  	  );
   	  	  main.teams.forEach(function(team,j){
   	  	  	team.scenarios.forEach(function(scenario,i){
   	  	  		var time=new Date().getTime();
-  	  	  		var newproject = main.cow.projects({
-  	  	  				_id: time+'#' + i + '#' + j
-  	  	  		});
-  	  	  		newproject.data({
-  	  	  			team:team.name,
-  	  	  			scenario:scenario.name,
-  	  	  			scenarioName: scenario.displayName,
-  	  	  			progress: 0,
-  	  	  			score: 0
-  	  	  		}).sync();
-  	  	  		d3.tsv('./data/'+scenario.name + '.tsv?'+ new Date().getTime(), function(events){
-					events.forEach(function(d){
-						var id = new Date().getTime().toString() + j + i + d.id;
-						var item = newproject.items({_id: id});
-						item.data({
-							id: d.id,
-							type: 'kaartje',
-							name: d.name,
-							x_org: d.x,
-							y_org: d.y,
-							x: null,
-							y: null,
-						}).sync();
-					});
+				var newproject = main.cow.projects({
+						_id: time+'#' + team.name + '#' + scenario.name
 				});
-				d3.json('./data/properties.json',function(e,result){
-					
-					if (e){
-						throw e.message;
-					}
-					result.forEach(function(d,i){
-						var id = new Date().getTime().toString() + j + i;
-						var item = newproject.items({_id: id});
-						item.data({
-							type: 'eigenschap',
-							found: false,
-							id: d.id,
-							stad: d.place,
-							title: d.title,
-							img: d.img,
-							text: d.text[scenario.name]
-						}).sync();
-					});
-				});
+				newproject.data({
+					team:team.name,
+					scenario:scenario.name,
+					scenarioName: scenario.displayName,
+					progress: 0,
+					score: 0
+				}).sync();
+  	  	  		fillproject(newproject);
   	  	  	});
   	  	  });
   	  }
