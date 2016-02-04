@@ -36,7 +36,8 @@
   			xscore="{{scenario.xscore}}"
   			yscore="{{scenario.yscore}}"
   			progress="{{scenario.progress}}"
-  			kaartjes="{{kaartjes}}" 
+  			kaartjes="{{kaartjes}}"
+  			eigenschappen="{{eigenschappen}}"
   			verbindingen="{{verbindingen}}"
   			verbindingen_org="{{verbindingen_org}}"
   			></imagine-instance>
@@ -73,10 +74,12 @@
   			
     <paper-card class='scencard' heading='{{scenario.displayName}}' >
 		<div class="card-content">
+			Eigenschappen: [[eigenschappen_found(eigenschappen)]] / [[eigenschappen_total(eigenschappen)]]<br>
 			Juiste event: <span>[[scenario.eventscore]]</span><br>
 			Juiste tijd: <span>[[scenario.xscore]]</span><br>
 			Juiste kans:<span>[[scenario.yscore]]</span><br>
-			Juiste links:<span>[[scenario.linkscore]]</span><br>
+			
+			<!--Juiste links:<span>[[scenario.linkscore]]</span><br>-->
 			Totaalscore: <span>[[scenario.score]]</span>
 			<paper-progress value="[[scenario.progress]]" min=0 max=3 step=1></paper-progress>
 		</div>
@@ -117,6 +120,12 @@
 		} else {
 		  //cancelled
 		}
+	},
+	eigenschappen_total: function(eigenschappen){
+		return eigenschappen.length;
+	},
+	eigenschappen_found: function(eigenschappen){
+		return eigenschappen.filter(d=>d.data('found')).length;
 	},
 	viewCards: function(){
 		this.$.dial1.open();

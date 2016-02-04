@@ -283,14 +283,22 @@ Polymer({
 			var peer = self.cow.peers().filter(d=> !d.deleted() && d.data('scenario') == self.scenario);
 			//now see which team is connected to that peer
 			if (peer[0]){
-				self.team = peer[0].data('team');
-				var project = self.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
-				if (project[0]){
-					self.scenarioName = project[0].data('scenarioName');
+				if (self.team != peer[0].data('team')){ //we have a team change. Populate eigenschappen
+					self.team = peer[0].data('team');
+					var project = self.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
+					if (project[0]){
+						self.scenarioName = project[0].data('scenarioName');
+						self.eigenschappen = project[0].items().filter(function(d){
+								return d.data('type') == 'eigenschap';
+						});
+						self.eigenschappenold = self.eigenschappen.map(function(d){
+							return {id: d.id(), found: false};
+						});
+					}
+					else {
+						console.warn('No project found for scenario ',self.scenario);
+					}
 				}
-				self.eigenschappenold = self.eigenschappen.map(function(d){
-					return 'false';
-				});
 			}
 		});
 		
@@ -317,37 +325,51 @@ Polymer({
 		console.log('!!');
 	},
 	flip: function(eigenschappen) {
+		//Something in eigenschappen changed, make sure we flip a card if needed
+		var idsort = function(a,b){
+			if ( a.id() < b.id() )
+				return -1;
+			if ( a.id() > b.id() )
+				return 1;
+			return 0;
+		};
+		
 		var self = this;
 		if (eigenschappen.length > 0){
-			if (!this.eigenschappenold){
-				this.eigenschappenold = this.eigenschappen.map(function(d){
-						return d.data('found');
+			if (this.eigenschappenold.length < 1){
+				//populate eigenschappenold if we didn't have yet
+				this.eigenschappenold = eigenschappen.map(function(d){
+						return {id: d.id(),found: d.data('found')};
 				});
 			}
-			this.eigenschappen.forEach(function(d,i){
-				if (self.eigenschappenold[i] != d.data('found') && d.data('found') == true){
-					var id = d.data('id');
-					var kaart = document.getElementById(id);
-					kaart.classList.toggle('hover');
-					var eigenschap = self.eigenschappen.filter(function(d){
-						return d.data('id') == id;
-					})[0];
-					self.kaarttitle = eigenschap.data('title');
-					self.kaartcontent = eigenschap.data('text');
-					self.kaartimg = self._getImgUrl(eigenschap);
-					if (!self.$.dialog.opened){
-						self.$.dialog.open();
-					}
-					window.clearTimeout(self.timeout);
-					self.timeout = window.setTimeout(function(){
-						if (self.$.dialog.opened){
-							self.$.dialog.close();
+			//Ergens is de found status van een eigenschap verandert
+			//Zoek nu uit waar die verandering zit.
+			eigenschappen.forEach(function(d,i){
+				self.eigenschappenold.forEach(function(o,j){
+					if (o.id == d.id()){ 
+						if (o.found == false && d.data('found') == true){
+							o.found = true;
+							var id = d.data('id');
+							var kaart = document.getElementById(id);
+							kaart.classList.toggle('hover');
+							var eigenschap = eigenschappen.filter(function(d){
+								return d.data('id') == id;
+							})[0];
+							self.kaarttitle = eigenschap.data('title');
+							self.kaartcontent = eigenschap.data('text');
+							self.kaartimg = self._getImgUrl(eigenschap);
+							if (!self.$.dialog.opened){
+								self.$.dialog.open();
+							}
+							window.clearTimeout(self.timeout);
+							self.timeout = window.setTimeout(function(){
+								if (self.$.dialog.opened){
+									self.$.dialog.close();
+								}
+							},10000);
 						}
-					},10000);
-					self.eigenschappenold = self.eigenschappen.map(function(d){
-						return d.data('found');
-					});
-				}
+					}
+				});
 			});
 			
 			
