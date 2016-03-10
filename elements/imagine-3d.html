@@ -5,9 +5,13 @@
       <script type="text/javascript" src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js">
 		-->
 	<script type='text/javascript' src='./jquery.min.js'></script>
-    <script type="text/javascript" src="./UnityObject2.js">
+  <!--Obsolete by webgl unity
+  	<script type="text/javascript" src="./UnityObject2.js">
     </script>
-   
+   -->
+   <script type="text/javascript" src="./UnityLoader.js">
+    </script>
+    
 
 <script>
 //Global functions to be called from within unity, so called aapie
@@ -44,9 +48,12 @@ var SetKenmerk = setKenmerk;
   </style>
   <template>
   	<div class="3DView" id="firstScreen">
+  		<canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="1080px" width="1920px"></canvas>
+  		<!--Obsolete by webgl player
         <div id="unityPlayer">
            
-        </div>        
+        </div>
+      -->
     </div>
   </template>
 </dom-module>
@@ -70,9 +77,12 @@ var u;
             height = window.innerHeight;
             config.width  = width;
             config.height  = height;
+            /*Obsolete by webgl
             u = new UnityObject2(config);
-            u.initPlugin(jQuery("#unityPlayer")[0], "3d.unity3d");        
+            u.initPlugin(jQuery("#unityPlayer")[0], "3d.unity3d");
+            */
         }
+        /*Obsolete by webgl
         u = new UnityObject2(config);
         u.initPlugin(jQuery("#unityPlayer")[0], "3d.unity3d");
         u.observeProgress(function (progress) {
@@ -83,6 +93,7 @@ var u;
                     break;
                 }
         });
+        */
     }
     
   });
