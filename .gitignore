@@ -8,3 +8,6 @@ StreamingAssets
 *.unity3d
 3d.unity3d
 cowconfigs.js
+*.datagz
+*.jsgz
+*.memgz
