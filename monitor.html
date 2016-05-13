@@ -99,7 +99,6 @@
 					x: null,
 					y: null,
 				}).sync();
-				console.log(item.id());
 			});
 		});
 		main.properties.forEach(function(d,i){
@@ -125,16 +124,16 @@
   	  	  main.teams.forEach(function(team,j){
   	  	  	team.scenarios.forEach(function(scenario,i){
   	  	  		var time=new Date().getTime();
-				var newproject = main.cow.projects({
-						_id: time+'#' + team.name + '#' + scenario.name
-				});
-				newproject.data({
-					team:team.name,
-					scenario:scenario.name,
-					scenarioName: scenario.displayName,
-					progress: 0,
-					score: 0
-				}).sync();
+							var newproject = main.cow.projects({
+									_id: time+'#' + team.name + '#' + scenario.name
+							});
+							newproject.data({
+								team:team.name,
+								scenario:scenario.name,
+								scenarioName: scenario.displayName,
+								progress: 0,
+								score: 0
+							}).sync();
   	  	  		fillproject(newproject);
   	  	  	});
   	  	  });

@@ -11,7 +11,7 @@
   <style>
    .card-content {
   	  background: lightGray;
-  	  width: 200px;
+  	  width: 250px;
   }
    paper-icon-button.orange {
         color: var(--paper-orange-500);
@@ -30,7 +30,8 @@
     <imagine-instance id="instance" 
   			core="[[cow]]" 
   			team="[[team.name]]" 
-  			scenario="[[scenario.name]]" 
+  			scenario="[[scenario.name]]"
+  			projectid="{{projectid}}"
   			score="{{scenario.score}}" 
   			eventscore="{{scenario.eventscore}}"
   			xscore="{{scenario.xscore}}"
@@ -46,11 +47,11 @@
   	  <h2>Kaartjes</h2>
 	  <paper-dialog-scrollable class="flex paper-font-body1">
 		<imagine-cardslist
-			team="{{team.name}}"
-			scenario="{{scenario.name}}"
-			score="{{score}}"
-			kaartjes="{{kaartjes}}" 
-  			verbindingen="{{verbindingen}}"
+			team="[[team.name]]"
+			scenario="[[scenario.name]]"
+			score="[[score]]"
+			kaartjes="[[kaartjes]]" 
+  		verbindingen="[[verbindingen]]"
 		></imagine-cardslist>
 	  </paper-dialog-scrollable>
 	  <div class="buttons">
@@ -74,6 +75,7 @@
   			
     <paper-card class='scencard' heading='{{scenario.displayName}}' >
 		<div class="card-content">
+			<small>[[projectid]]</small>
 			Eigenschappen: [[eigenschappen_found(eigenschappen)]] / [[eigenschappen_total(eigenschappen)]]<br>
 			Juiste event: <span>[[scenario.eventscore]]</span><br>
 			Juiste tijd: <span>[[scenario.xscore]]</span><br>
@@ -135,6 +137,12 @@
 		},
 		ready: function() {
 				var self = this;
+				function _checkPeers(){
+					self.cow.peers();
+				}
+				
+				this.cow.projectStore().on('datachange',_checkPeers);
+				this.cow.peerStore().on('datachange',_checkPeers);
 		}
 	});
 </script>

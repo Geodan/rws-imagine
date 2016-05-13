@@ -13,6 +13,10 @@ Polymer({
 			core: {
 				type: Object
 			},
+			projectid: {
+				type: Number,
+				notify: true
+			},
 			progress: {
 				type: Number,
 				value: 0,
@@ -238,8 +242,9 @@ Polymer({
 					console.warn('No project having team ' + this.team + ' and scenario ' + this.scenario);
 					return;
 				}
-				else {                
+				else if (projects[0].id() != this.projectid) {                
 					this._project = projects[0];
+					this.projectid = this._project.id();
 					this.progress = this._project.data('progress');
 					//TT: changed to loaded, that should do
 					//this._project.itemStore().on('synced',function(){
@@ -390,6 +395,7 @@ Polymer({
 		},
 		_setProject: function(){
 			var self = this;
+			/*
 			this.core.projectStore().loaded.then(function(){
 				console.log('projectstore loaded');
 				self._projectChange(); //start selection of project
@@ -397,6 +403,9 @@ Polymer({
 			this.core.projectStore().on('synced', function(){
 				console.log('projectstore synced');
 				self._projectChange(); //start selection of project
+			});*/
+			this.core.projectStore().on('datachange',function(){
+					self._projectChange(); //start selection of project
 			});
 		},
 		attached: function(){
