@@ -112,29 +112,29 @@
     	
     ],
     regenerate: function(){
-		var instance = this.$.instance;
-		if (confirm('Alle kaartjes voor ' + this.team.name + ' ' + this.scenario.name + ' worden opnieuw gemaakt. Zeker weten?')) {
-			instance._generateEigenschappen();
-			instance._generateEvents('./data/' + this.scenario.name + '.tsv');
-			instance._generateLinks('./data/' + this.scenario.name + '_links.tsv');
-		} else {
-		  //cancelled
+			var instance = this.$.instance;
+			if (confirm('Alle kaartjes voor ' + this.team.name + ' ' + this.scenario.name + ' worden opnieuw gemaakt. Zeker weten?')) {
+				instance._generateEigenschappen();
+				instance._generateEvents('./data/' + this.scenario.name + '.tsv');
+				instance._generateLinks('./data/' + this.scenario.name + '_links.tsv');
+			} else {
+				//cancelled
+			}
+		},
+		eigenschappen_total: function(eigenschappen){
+			return eigenschappen.length;
+		},
+		eigenschappen_found: function(eigenschappen){
+			return eigenschappen.filter(d=>d.data('found')).length;
+		},
+		viewCards: function(){
+			this.$.dial1.open();
+		},
+		viewHistory: function(){
+			this.$.dial2.open();
+		},
+		ready: function() {
+				var self = this;
 		}
-	},
-	eigenschappen_total: function(eigenschappen){
-		return eigenschappen.length;
-	},
-	eigenschappen_found: function(eigenschappen){
-		return eigenschappen.filter(d=>d.data('found')).length;
-	},
-	viewCards: function(){
-		this.$.dial1.open();
-	},
-	viewHistory: function(){
-		this.$.dial2.open();
-	},
-    ready: function() {
-    	var self = this;
-    }
-  });
+	});
 </script>

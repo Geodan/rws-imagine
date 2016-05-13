@@ -278,7 +278,7 @@ imagine-time-slider-vertical {
 	},
     observers: [
         '_doneChanged(done)',
-        '_kaartjesChanged(kaartjes)'
+        //'_kaartjesChanged(kaartjes)'
     ],
     openwindow: function(){
     	var myWindow = window.open("", "_blank", "width=200, height=100");
@@ -478,14 +478,11 @@ imagine-time-slider-vertical {
         }
     },
     //Make sure that the kaartjes are all reset to their initial position
+    /*OBS?
     _kaartjesChanged: function(){
         if(this.state == 'RESET') {
-			
-			
-			
-			
-		}
-    },
+        }
+    },*/
     //RWS logo op het kaartje zetten
     stampKaartje: function(e) {
         if(this.stamps < 5) {
