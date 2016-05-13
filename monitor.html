@@ -52,26 +52,44 @@
   },{
   	name: 'Team B',
   	scenarios: [
+  		{name:'communicity', displayName: 'De zelfvoorzienende stad'},
+    {name:'planopolis', displayName: 'De geplande stad'},
+    {name:'renewabad', displayName: 'De cyclische stad'},
+    {name:'sprawlville',displayName: 'De onbegrensde stad'}
+    /*
   		{name:'planopolis', displayName: 'De geplande stad'},
   		{name:'renewabad', displayName: 'De cyclische stad'},
   		{name:'sprawlville',displayName: 'De onbegrensde stad'},
   		{name:'communicity', displayName: 'De zelfvoorzienende stad'},
+  		*/
   	]
   },{
     name:'Team C',
   	scenarios: [
+  		{name:'communicity', displayName: 'De zelfvoorzienende stad'},
+    {name:'planopolis', displayName: 'De geplande stad'},
+    {name:'renewabad', displayName: 'De cyclische stad'},
+    {name:'sprawlville',displayName: 'De onbegrensde stad'}
+    /*
   		{name:'renewabad', displayName: 'De cyclische stad'},
   		{name:'sprawlville',displayName: 'De onbegrensde stad'},
   		{name:'communicity', displayName: 'De zelfvoorzienende stad'},
   		{name:'planopolis', displayName: 'De geplande stad'}
+  		*/
   	]
   },{
   	name:'Team D',
   	scenarios: [
+  		{name:'communicity', displayName: 'De zelfvoorzienende stad'},
+    {name:'planopolis', displayName: 'De geplande stad'},
+    {name:'renewabad', displayName: 'De cyclische stad'},
+    {name:'sprawlville',displayName: 'De onbegrensde stad'}
+    /*
   		{name:'sprawlville',displayName: 'De onbegrensde stad'},
   		{name:'communicity', displayName: 'De zelfvoorzienende stad'},
   		{name:'planopolis', displayName: 'De geplande stad'},
   		{name:'renewabad', displayName: 'De cyclische stad'},
+  		*/
   	]
   }];
   
@@ -100,7 +118,7 @@
 					y_org: d.y,
 					x: null,
 					y: null,
-				}).sync();
+				});
 			});
 		});
 		main.properties.forEach(function(d,i){
@@ -114,7 +132,7 @@
 				title: d.title,
 				img: d.img,
 				text: d.text[scenario]
-			}).sync();
+			});
 		});
   };
   
@@ -136,9 +154,17 @@
 								progress: 0,
 								score: 0
 							}).sync();
-  	  	  		fillproject(newproject);
+							
+							fillproject(newproject);
+							
   	  	  	});
   	  	  });
+  	  	  window.setTimeout(function(){
+  	  	  		var projects = this.cow.projects().filter(function(d){return !d.deleted()})
+  	  	  		.forEach(function(d){
+  	  	  				d.items().forEach(function(i){i.sync();});
+  	  	  		});
+  	  		},3000);
   	  }
   }
   
