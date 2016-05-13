@@ -169,11 +169,11 @@ paper-cardje .img {
 <template>
     <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
     <imagine-instance id="instance"  
-    	core="{{cow}}" 
-    	scenario="{{scenario}}" 
-    	team="{{team}}"
+    	core="[[cow]]" 
+    	scenario="[[scenario]]" 
+    	team="[[team]]"
     	eigenschappen="{{eigenschappen}}"
-		projectid="{{projectid}}">
+    	projectid="{{projectid}}">
     </imagine-instance>
     <div id="scoreScherm">
     	<!--<img id="videotag" class='bg-video' src="[[_getBackground(scenario)]]">
@@ -185,17 +185,18 @@ paper-cardje .img {
     	<paper-dialog id='dialog' autoFitOnAttach>
     			<!--entry-animation="scale-up-animation"
     			exit-animation="fade-out-animation">-->
-    		  <h2 class='bigtext'><b>{{kaarttitle}}</b></h2>
+    		  <h2 class='bigtext'><b>[[kaarttitle]]</b></h2>
     	      <div class='bigtext'>
     	      	<center>
 					<img width=160 height=160 src='[[kaartimg]]' />
 				</center>
-    	      	{{kaartcontent}}
+    	      	[[kaartcontent]]
     	      </div>   
     	</paper-dialog>
-    	<div id="title">{{scenarioName}}</div>
+    	<div id="title">[[scenarioName]]</div>
 		<div id="debug">
-			<span>{{team}}</span> | <span>{{scenario}}</span>
+			<span>[[team]]</span> | <span>[[scenario]]</span><br>
+			<span>[[projectid]]</span>
 		</div>
     	<template id="kaartlist" is='dom-repeat' items="{{eigenschappen}}" observe="_data">
 			<div id$='[[item._data.id]]' class$="[[getHover(item._data.found)]]">
@@ -281,13 +282,16 @@ Polymer({
 		}
 		this.team = this.teams[teamNr];
 		
+		//TT: This is likely redundant since we are listening to projectchange as well
+		/*
 		var projects = this.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
 		if (projects[0]){
 			var project = projects[0];
 			self.scenarioName = project[0].data('scenarioName');
-			self.cow.peer().data('currentProject', project.id()).sync();
+			self.cow.peer().data('currentProject', project.id());
 		}
 		
+		*/
 		this.cow.peerStore().on('datachange',function(){
 			/* Something in peerstore changed. Check to see which team is playing. */
 			//first get the correct peer
@@ -297,9 +301,6 @@ Polymer({
 				if (self.team != peer[0].data('team'))
 					//we have a team change. The project will be updated through the _projectChanged observer.
 					self.team = peer[0].data('team');
-			}
-			else {
-				console.warn('No peer found for scenario ',self.scenario);
 			}
 		});
 	},
@@ -322,7 +323,8 @@ Polymer({
 		this.eigenschappenold = this.eigenschappen.map(function(d){
 			return {id: d.id(), found: false};
 		});
-		this.cow.peer().data('currentProject', project.id()).sync();
+		
+		this.cow.peer().data('type','tweedescherm').data('currentProject', this.projectid).sync();
 	},
 	getHover: function(found){
 		if (found){

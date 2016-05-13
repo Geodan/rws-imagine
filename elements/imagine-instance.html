@@ -230,10 +230,12 @@ Polymer({
 		},
 		_projectChange: function(){
 			var self = this;
-			if (this.team && this.scenario){              
+			if (this.team && this.scenario){
+				
 				var projects = this.core.projects().filter(function(d){
 					return !d.deleted() && d.data('team') == self.team && d.data('scenario') == self.scenario;
 				});
+				
 				if (projects.length > 1){
 					console.warn('More than one project having team ' + this.team + ' and scenario ' + this.scenario);
 					return;
@@ -395,7 +397,7 @@ Polymer({
 		},
 		_setProject: function(){
 			var self = this;
-			/*
+			
 			this.core.projectStore().loaded.then(function(){
 				console.log('projectstore loaded');
 				self._projectChange(); //start selection of project
@@ -403,7 +405,7 @@ Polymer({
 			this.core.projectStore().on('synced', function(){
 				console.log('projectstore synced');
 				self._projectChange(); //start selection of project
-			});*/
+			});
 			this.core.projectStore().on('datachange',function(){
 					self._projectChange(); //start selection of project
 			});
