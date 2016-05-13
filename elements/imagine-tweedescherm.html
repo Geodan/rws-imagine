@@ -172,7 +172,8 @@ paper-cardje .img {
     	core="{{cow}}" 
     	scenario="{{scenario}}" 
     	team="{{team}}"
-    	eigenschappen="{{eigenschappen}}">
+    	eigenschappen="{{eigenschappen}}"
+		projectid="{{projectid}}">
     </imagine-instance>
     <div id="scoreScherm">
     	<!--<img id="videotag" class='bg-video' src="[[_getBackground(scenario)]]">
@@ -256,6 +257,10 @@ Polymer({
 		eigenschappenold: {
 			type: Array,
 			value: function(){return [];}
+		},
+		projectid: {
+			type: String,
+			observer: '_projectChanged'
 		}
 	},
 	_getImgUrl: function(item){
@@ -276,36 +281,27 @@ Polymer({
 		}
 		this.team = this.teams[teamNr];
 		
-		var project = this.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
-		if (project[0]){
+		var projects = this.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
+		if (projects[0]){
+			self.project = projects[0];
 			self.scenarioName = project[0].data('scenarioName');
+			self.cow.peer().data('currentProject', self.project.id());
 		}
 		
 		this.cow.peerStore().on('datachange',function(){
-			/* Something in peerstore changed. Check to see which scenario we need now */
+			/* Something in peerstore changed. Check to see which team is playing. */
 			//first get the correct peer
 			var peer = self.cow.peers().filter(d=> !d.deleted() && d.data('scenario') == self.scenario);
 			//now see which team is connected to that peer
 			if (peer[0]){
-				if (self.team != peer[0].data('team')){ //we have a team change. Populate eigenschappen
+				if (self.team != peer[0].data('team'))
+					//we have a team change. The project will be updated through the _projectChanged observer.
 					self.team = peer[0].data('team');
-					var project = self.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
-					if (project[0]){
-						self.scenarioName = project[0].data('scenarioName');
-						self.eigenschappen = project[0].items().filter(function(d){
-								return d.data('type') == 'eigenschap';
-						});
-						self.eigenschappenold = self.eigenschappen.map(function(d){
-							return {id: d.id(), found: false};
-						});
-					}
-					else {
-						console.warn('No project found for scenario ',self.scenario);
-					}
-				}
+			}
+			else {
+				console.warn('No peer found for scenario ',self.scenario);
 			}
 		});
-		
 	},
 	attached: function(){
 		this.$.videotag.height = this.$.scoreScherm.clientHeight;
@@ -316,6 +312,17 @@ Polymer({
 	},
 	_getVideo: function(scenario){
 		return '../../video/'+scenario+'.mp4';
+	},
+	_projectChanged: function() {
+		var project = this.cow.projects(this.projectid);
+		this.scenarioName = project.data('scenarioName');
+		this.eigenschappen = project.items().filter(function(d){
+			return d.data('type') == 'eigenschap';
+		});
+		this.eigenschappenold = this.eigenschappen.map(function(d){
+			return {id: d.id(), found: false};
+		});
+		this.cow.peer().data('currentProject', self.project.id());
 	},
 	getHover: function(found){
 		if (found){
@@ -346,7 +353,7 @@ Polymer({
 						return {id: d.id(),found: d.data('found')};
 				});
 			}
-			//Ergens is de found status van een eigenschap verandert
+			//Ergens is de found status van een eigenschap veranderd
 			//Zoek nu uit waar die verandering zit.
 			eigenschappen.forEach(function(d,i){
 				self.eigenschappenold.forEach(function(o,j){
