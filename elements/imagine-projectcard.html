@@ -3,6 +3,8 @@
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-styles/typography.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/image-icons.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="./imagine-instance.html">
 <link rel="import" href="./imagine-reviewboard.html">
@@ -86,9 +88,17 @@
 			<paper-progress value="[[scenario.progress]]" min=0 max=3 step=1></paper-progress>
 		</div>
 		<div class="card-actions">
+		<template is='dom-if' if='[[isactive]]'>
+			<iron-icon icon='image:looks-one'></iron-icon>
+		</template>
+		<template is='dom-if' if='[[hasscreen]]'>
+			<iron-icon icon='image:looks-two'></iron-icon>
+		</template>
+		<!--
 			<paper-icon-button icon="refresh" class='orange' on-click='regenerate'></paper-icon-button>
 			<paper-icon-button icon="view-module" on-click='viewCards'></paper-icon-button>
 			<paper-icon-button icon="history" on-click='viewHistory'></paper-icon-button>
+		-->
 		</div>
 	</paper-card>
   </template>
@@ -105,6 +115,14 @@
     	},
         scenario: {
             type: Object
+        },
+        isactive: {
+        	type: Boolean,
+        	value: false
+        },
+        hasscreen: {
+        	type: Boolean,
+        	value: false
         }
     },    
     behaviors: [
@@ -137,8 +155,14 @@
 		},
 		ready: function() {
 				var self = this;
+				
 				function _checkPeers(){
-					self.cow.peers();
+					var peers = self.cow.peers().filter(function(d){
+						return !d.deleted() 
+							&& d.data('scenario') == self.scenario.name 
+							&& d.data('team') == self.team.name;
+					});
+					self.isactive = peers[0]?true:false;
 				}
 				
 				this.cow.projectStore().on('datachange',_checkPeers);
