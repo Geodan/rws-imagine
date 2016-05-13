@@ -283,9 +283,9 @@ Polymer({
 		
 		var projects = this.cow.projects().filter(d=> !d.deleted() && d.data('scenario') == self.scenario && d.data('team') == self.team);
 		if (projects[0]){
-			self.project = projects[0];
+			var project = projects[0];
 			self.scenarioName = project[0].data('scenarioName');
-			self.cow.peer().data('currentProject', self.project.id());
+			self.cow.peer().data('currentProject', project.id()).sync();
 		}
 		
 		this.cow.peerStore().on('datachange',function(){
@@ -322,7 +322,7 @@ Polymer({
 		this.eigenschappenold = this.eigenschappen.map(function(d){
 			return {id: d.id(), found: false};
 		});
-		this.cow.peer().data('currentProject', self.project.id());
+		this.cow.peer().data('currentProject', project.id()).sync();
 	},
 	getHover: function(found){
 		if (found){

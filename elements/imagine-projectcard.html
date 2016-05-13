@@ -163,6 +163,12 @@
 							&& d.data('team') == self.team.name;
 					});
 					self.isactive = peers[0]?true:false;
+					var peers = self.cow.peers().filter(function(d){
+							return !d.deleted()
+								&& d.data('currentProject') ==  self.projectid
+								&& !d.data('scenario') //silly, but this is the only way to see that its a secondscreen
+					});
+					self.hasscreen = peers[0]?true:false;
 				}
 				
 				this.cow.projectStore().on('datachange',_checkPeers);
