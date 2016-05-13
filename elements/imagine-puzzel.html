@@ -221,7 +221,16 @@ imagine-time-slider-vertical {
     <audio id="soundplan" src="Plannedopolis.mp3" loop></audio>
     <audio id="soundrenew" src="Renewabad.mp3" loop></audio>
     <audio id="soundsprawl" src="Sprawlville.mp3" loop></audio>
-    <imagine-instance id="instance"  core="{{core}}" team="{{team}}" scenario="{{scenario}}" score="[[score]]" kaartjes="{{kaartjes}}" reset=true ></imagine-instance>
+    <imagine-instance 
+		id="instance"  
+		core="{{core}}" 
+		team="{{team}}" 
+		scenario="{{scenario}}" 
+		score="[[score]]" 
+		kaartjes="{{kaartjes}}" 
+		projectid="{{projectid}}"
+		reset=true 
+		></imagine-instance>
    <div id="properties" oncontextmenu="return false">
        <template  is="dom-repeat" items="{{eigenschappen}}">
         <div id="{{item.id}}" class$="{{item.visible}}" on-down="_eigenschapDown" on-up="_eigenschapUp"></div>
@@ -248,33 +257,38 @@ imagine-time-slider-vertical {
 	
     is: "imagine-puzzel",
     properties: { 
-    core: {
-        type: Object,
-    },
-    team: {
-        type: String,
-        value: 'Team A'
-    },
-    scenario: {
-        type: String,
-        observer:  '_scenarioChanged',
-        value: 'Sprawville'
-    },
-    begin: {
-        type: Boolean,
-        value: false,
-        observer: '_beginSpel'
-    },
-	state: {
-		type: String,
-		observer: '_stateChanged'
-	},
-    kenmerk: {
-        type: Number,
-        observer: '_kenmerkChanged'
-    
-
-    }
+		core: {
+			type: Object,
+		},
+		team: {
+			type: String,
+			value: 'Team A'
+		},
+		scenario: {
+			type: String,
+			observer:  '_scenarioChanged',
+			value: 'Sprawville'
+		},
+		begin: {
+			type: Boolean,
+			value: false,
+			observer: '_beginSpel'
+		},
+		state: {
+			type: String,
+			observer: '_stateChanged'
+		},
+		kenmerk: {
+			type: Number,
+			observer: '_kenmerkChanged'
+		},
+		projectid: {
+			type: String,
+			observer: '_projectChanged'
+		},
+		_oldProjectID: {
+			type: String
+		}
 	},
     observers: [
         '_doneChanged(done)',
@@ -308,7 +322,17 @@ imagine-time-slider-vertical {
     
     },
     //
-   
+	_projectChanged: function() {
+		console.log('_projectChanged');
+		// The project changed: check if old project was deleted due to a bigreset
+		if (this._oldProjectID && this.core.projects(this._oldProjectID).deleted()) {
+			// bigreset occured: send user back to scenario selection
+			window.location.assign('../../');
+		} else {
+			this._oldProjectID = this.projectid;
+			this.core.peer().data('currentProject', this.projectid).sync();
+		}
+	},
     _scenarioChanged: function(){
         var s = this.scenario.toLowerCase();
         switch(s) {
