@@ -95,7 +95,7 @@
         "planopolis":    "Self-propelled vehicles drive in convoys and communicate via sensors and with roadside systems.",
         "sprawlville":     "Technology in roads is aimed at facilitating the paying car driver.",
         "renewabad":    "The road network partly serves as solar cell (solar roads) and offers the opportunity to charge your verhicle.",
-        "communicity":    "Roads are populated by a colorful parade of (partly self-developed) vehicles powered by solar energy, biomass or other alternative/sustainable fuel. Traffic jams are prevented by own sensors and information shared through apps."
+        "communicity":    "Roads are populated by a colorful parade of (partly self-developed) vehicles powered by solar energy or other alternative fuel. Traffic jams are prevented by own sensors and information shared through apps."
     }
 },{
     "title":"Distribution in the city",
@@ -114,7 +114,7 @@
     "place":"Almere",
     "id":"Almere3",
     "text": {
-        "planopolis":    "The public transport network has been expanded in a fine-grained way and is characterized by highly frequent services, with good connections between different modalities.",
+        "planopolis":    "The public transport network has been expanded and is characterized by highly frequent services, with good connections between different modalities.",
         "sprawlville":    "Many suburbs lack public transport services.",
         "renewabad":    "Public transport is the standard way of traveling. Therefore, it exists in a variety of types, which can be combined with other 'clean' types of mobility.",
         "communicity":    "Public transport is hardly used. As a result, it has been strongly reduced."
