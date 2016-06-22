@@ -349,19 +349,12 @@ Polymer({
 		
 		var self = this;
 		if (eigenschappen.length > 0){
-			if (this.eigenschappenold.length < 1){
-				//populate eigenschappenold if we didn't have yet
-				this.eigenschappenold = eigenschappen.map(function(d){
-						return {id: d.id(),found: d.data('found')};
-				});
-			}
 			//Ergens is de found status van een eigenschap veranderd
 			//Zoek nu uit waar die verandering zit.
 			eigenschappen.forEach(function(d,i){
 				self.eigenschappenold.forEach(function(o,j){
 					if (o.id == d.id()){ 
 						if (o.found == false && d.data('found') == true){
-							o.found = true;
 							var id = d.data('id');
 							var kaart = document.getElementById(id);
 							kaart.classList.toggle('hover');
@@ -384,9 +377,10 @@ Polymer({
 					}
 				});
 			});
-			
-			
-			
+
+			this.eigenschappenold = eigenschappen.map(function(d){
+					return {id: d.id(),found: d.data('found')};
+			});
 		}
 	},
 	/* Not used */

@@ -48,7 +48,14 @@ imagine-startscherm, .imagine-startscherm {
 transform: scale(1.5,1.5)
 }
 
-
+#debug {
+	position: absolute;
+	bottom: 50px;
+	left: 50px;
+	color: white;
+	font-size: 10pt;
+	font-family: Arial;
+}
 
 .communicity {
 	fill:#ECAA22; /*COM_MAIN*/
@@ -183,7 +190,12 @@ transform: scale(1.5,1.5)
        id="text27-1"
        style="font-size:18px;fill:#eeeeec">{{team}}</text>
   </g>
-</svg></div>
+</svg>
+</div>
+<div id="debug">
+	<span>[[team]]</span> | <span>[[scenario]]</span><br>
+	<span>[[projectid]]</span>
+</div>
   </template>
 </dom-module>
 
@@ -200,7 +212,10 @@ transform: scale(1.5,1.5)
         },
         scenario: {
             type: String
-        }
+        },
+		projectid: {
+			type: String
+		}
         
         
     }, 

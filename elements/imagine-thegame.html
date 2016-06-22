@@ -10,7 +10,7 @@
 <dom-module id="imagine-thegame">
 <template>
     <gm-cow-core id="cowcore" config="{{cowconfig}}" core="{{cow}}"></gm-cow-core>
-	<imagine-startscherm id="startScherm" scenario="{{scenario}}" team="{{team}}" teams="{{teams}}"></imagine-startscherm>
+	<imagine-startscherm id="startScherm" scenario="{{scenario}}" team="{{team}}" teams="{{teams}}" projectid=[[projectid]]></imagine-startscherm>
     <imagine-3d></imagine-3d>
     <imagine-puzzel begin="{{begin}}" id="puzzelgame" core="{{cow}}" scenario="{{scenario}}" team="{{team}}"></imagine-puzzel>
     <imagine-score id="puzzelscore" core="{{cow}}" scenario="{{scenario}}" team="{{team}}" teams="{{teams}}"></imagine-score>

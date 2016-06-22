@@ -25,5 +25,8 @@
     "paper-elements": "PolymerElements/paper-elements#~1",
     "google-chart": "~1.0.2",
     "font-roboto-local": "PolymerElements/font-roboto-local#~1"
+  },
+  "resolutions": {
+    "underscore": "~1.8.3"
   }
 }

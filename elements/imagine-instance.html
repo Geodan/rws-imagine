@@ -260,6 +260,7 @@ Polymer({
 						self.eigenschappen = self._project.items().filter(function(d){
 							return !d.deleted() && d.data('type')=='eigenschap';
 						});
+						// make sure Polymer listeners are triggered
 						self.eigenschappen.forEach(function(d,i){
 							self.set('eigenschappen.'+i+'._data.found',d.data('found'));
 						});
