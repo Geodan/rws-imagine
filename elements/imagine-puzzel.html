@@ -284,7 +284,8 @@ imagine-time-slider-vertical {
 		},
 		projectid: {
 			type: String,
-			observer: '_projectChanged'
+			observer: '_projectChanged',
+			notify: true
 		},
 		_oldProjectID: {
 			type: String
