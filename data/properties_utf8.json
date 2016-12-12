@@ -1,0 +1,29 @@
+[{
+    "title": "Basis-as (sturing)",
+    "img": "../../data/images/image10.png",
+    "place":"Utrecht",
+    "id": "Utrecht1",
+    "text": {
+        "planopolis":    "Er is brede maatschappelijke consensus op de onderwerpen die er toe doen, zoals klimaatverandering. De centrale instituties zijn sterk.",
+        "sprawlville":    "De centrale instituties zijn zwak; oplossingen komen decentraal tot stand. Grotere bedrijven vervullen maatschappelijke functies.",
+        "renewabad":    "Er is brede maatschappelijke consensus op de onderwerpen die er toe doen, zoals klimaatverandering. De centrale instituties zijn sterk.",
+        "communicity":    "De centrale instituties zijn zwak; oplossingen komen decentraal tot stand door particuliere initiatieven en kleine bedrijven."
+    }
+},{
+    "title":"Stadsopbouw",
+    "img": "../../data/images/image12.png",
+    "place":"Almere",
+    "id":"Almere1",
+    "text": {
+        "planopolis":    "Het stadscentrum is groot, autovrij en kent veel hoogbouw. Daaromheen liggen grote woongebieden die ten opzichte van elkaar uniform zijn gepland en opgebouwd.",
+        "sprawlville":    "Het stadscentrum laat een 24-uurs-economie zien met  veel kantoorbouw. Daaromheen vindt men kwalitatief  sterk verschillende woongebieden. Veel projecten zijn niet afgerond.",
+        "renewabad":    "Er bestaat nauwelijks een stadscentrum. Eerder vindt men er een geordende verzameling van kleinere, door veel groen gescheiden, uniforme woongebieden met elk een vast eigen centrum en voorzieningen (poly- centrisch).",
+        "communicity":    "Er bestaat nauwelijks een stadscentrum. Kenmerkend is een bonte verzameling van kleinere woongebieden met elk een eigen karakter. Daarnaast zijn er rondtrekkende, mobiele wijkcentra (vergelijkbaar met markten)."
+    }
+},{
+    "title":"Soorten wegen tussen de steden",
+    "img": "../../data/images/image15.png",
+    "place":"Tussengebied",
+    "id":"Tussengebied1",
+    "text": {
+        "planopolis":    "Het traditionele brede hoofdwegennet wordt geleidelijk vervangen door een smal effici
